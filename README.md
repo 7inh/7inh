@@ -7,5 +7,5 @@ Hello! I'm Linh, a passionate frontend engineer with a love for crafting beautif
 ## 🔗 Other GitHub Accounts
 
 You might also find my work on my alternative GitHub account:
+- **[Alternative GitHub Account](https://github.com/tql247)**
 
-- **[Alternative GitHub Account]([https://github.com/tql247])**
