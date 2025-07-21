@@ -9,4 +9,4 @@ Hello! I'm Linh, a passionate frontend engineer with a love for crafting beautif
 You might also find my work on my alternative GitHub account:
 - **[Alternative GitHub Account](https://github.com/tql247)**
 
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=7inh)](https://github.com/anuraghazra/github-readme-stats)
