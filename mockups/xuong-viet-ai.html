@@ -8,941 +8,999 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap&subset=vietnamese" rel="stylesheet">
 <style>
-/* ============ TOKENS ============ */
+/* ================= TOKENS ================= */
 :root{
-  --bg:#f5f0e6; --surface:#fffdf8; --surface-2:#f0e9db; --surface-3:#e8dfcd;
-  --ink:#2a231d; --ink-2:#4a4037; --muted:#776b5d; --line:#e1d6c2; --line-2:#cfc1a8;
-  --accent:#a8322a; --accent-hover:#8f2820; --accent-ink:#fff; --accent-soft:#f6e0d9;
-  --ok:#2f7247; --ok-soft:#dcefe1; --warn:#9a6210; --warn-soft:#f8ead0;
-  --err:#b0212b; --err-soft:#f9dcdc; --info:#2c5b84; --info-soft:#dde9f4;
-  --author:#7a6b55; --author-soft:#ece4d4;
-  --shadow:0 1px 2px rgba(60,40,20,.06),0 6px 24px rgba(60,40,20,.07);
-  --radius:14px; --radius-sm:9px;
-  --sans:"Be Vietnam Pro",system-ui,sans-serif; --serif:"Literata",Georgia,serif;
+  --bg:#f4f5f7; --surface:#ffffff; --surface-2:#f7f8fa; --surface-3:#eef0f3; --hover:#f1f2f5;
+  --ink:#16181d; --ink-2:#3b3f48; --muted:#6b7280; --faint:#9aa1ad;
+  --line:#e5e7eb; --line-2:#d5d9e0;
+  --accent:#4553d6; --accent-hover:#3a47c2; --accent-ink:#fff; --accent-soft:#eef0ff; --accent-line:#c9cef8;
+  --ok:#14804a; --ok-soft:#e7f6ee; --warn:#a65f00; --warn-soft:#fff4e0;
+  --err:#c62f3c; --err-soft:#fdecee; --info:#1f6fb2; --info-soft:#e8f2fb;
+  --r-dieu:#7c5ce6; --r-kien:#1a8fc9; --r-chap:#4553d6; --r-bien:#d08a1e;
+  --paper:#fffefb;
+  --shadow-sm:0 1px 2px rgba(16,24,40,.05);
+  --shadow-lg:0 24px 64px rgba(16,24,40,.18),0 2px 6px rgba(16,24,40,.08);
+  --sans:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Literata",Georgia,serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#15120e; --surface:#1e1a15; --surface-2:#27221b; --surface-3:#312a21;
-    --ink:#efe6d7; --ink-2:#d3c8b6; --muted:#a2957f; --line:#352e24; --line-2:#4a4133;
-    --accent:#e2735f; --accent-hover:#ec8a78; --accent-ink:#1b110d; --accent-soft:#3a221c;
-    --ok:#7cc493; --ok-soft:#1e3326; --warn:#e3ad55; --warn-soft:#3a2c14;
-    --err:#f0797d; --err-soft:#3d1c1e; --info:#86b6e2; --info-soft:#1b2b3b;
-    --author:#b5a68c; --author-soft:#2c271f;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.35);
+    --bg:#0d0f13; --surface:#15181e; --surface-2:#1a1e25; --surface-3:#222731; --hover:#1f232b;
+    --ink:#eceef2; --ink-2:#c9cdd5; --muted:#949baa; --faint:#6c7383;
+    --line:#262b35; --line-2:#323845;
+    --accent:#8f99ff; --accent-hover:#a5adff; --accent-ink:#0d1030; --accent-soft:#1d2142; --accent-line:#3a4180;
+    --ok:#4cc38a; --ok-soft:#12291e; --warn:#f0b44c; --warn-soft:#2e2312;
+    --err:#f27782; --err-soft:#331a1e; --info:#6cb3f0; --info-soft:#14273a;
+    --r-dieu:#a48cff; --r-kien:#4cb6ec; --r-chap:#8f99ff; --r-bien:#f0b44c;
+    --paper:#171a20;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+    --shadow-lg:0 24px 64px rgba(0,0,0,.55);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#15120e; --surface:#1e1a15; --surface-2:#27221b; --surface-3:#312a21;
-  --ink:#efe6d7; --ink-2:#d3c8b6; --muted:#a2957f; --line:#352e24; --line-2:#4a4133;
-  --accent:#e2735f; --accent-hover:#ec8a78; --accent-ink:#1b110d; --accent-soft:#3a221c;
-  --ok:#7cc493; --ok-soft:#1e3326; --warn:#e3ad55; --warn-soft:#3a2c14;
-  --err:#f0797d; --err-soft:#3d1c1e; --info:#86b6e2; --info-soft:#1b2b3b;
-  --author:#b5a68c; --author-soft:#2c271f;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.35);
+  --bg:#0d0f13; --surface:#15181e; --surface-2:#1a1e25; --surface-3:#222731; --hover:#1f232b;
+  --ink:#eceef2; --ink-2:#c9cdd5; --muted:#949baa; --faint:#6c7383;
+  --line:#262b35; --line-2:#323845;
+  --accent:#8f99ff; --accent-hover:#a5adff; --accent-ink:#0d1030; --accent-soft:#1d2142; --accent-line:#3a4180;
+  --ok:#4cc38a; --ok-soft:#12291e; --warn:#f0b44c; --warn-soft:#2e2312;
+  --err:#f27782; --err-soft:#331a1e; --info:#6cb3f0; --info-soft:#14273a;
+  --r-dieu:#a48cff; --r-kien:#4cb6ec; --r-chap:#8f99ff; --r-bien:#f0b44c;
+  --paper:#171a20;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  --shadow-lg:0 24px 64px rgba(0,0,0,.55);
   color-scheme:dark;
 }
 
-/* ============ BASE ============ */
+/* ================= BASE ================= */
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.45;margin:0;letter-spacing:-.005em}
-h1{font-size:clamp(24px,3vw,32px)} h2{font-size:clamp(20px,2.2vw,24px)} h3{font-size:17px} h4{font-size:15px}
+body{background:var(--bg);color:var(--ink);font:14px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{margin:0;font-weight:600;line-height:1.45;letter-spacing:-.01em}
+h1{font-size:20px} h2{font-size:18px} h3{font-size:15px} h4{font-size:13.5px}
 p{margin:0}
 button,input,textarea,select{font:inherit;color:inherit}
 a{color:var(--accent)}
-.muted{color:var(--muted)} .small{font-size:13px} .tiny{font-size:12px}
-.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.stack{display:flex;flex-direction:column;gap:12px}
-.grow{flex:1 1 auto;min-width:0}
-.hidden{display:none!important}
+.muted{color:var(--muted)} .faint{color:var(--faint)} .small{font-size:13px} .tiny{font-size:12px}
 .num{font-variant-numeric:tabular-nums}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hidden{display:none!important}
+.row{display:flex;align-items:center;gap:8px}
+.wrap{flex-wrap:wrap}
+.grow{flex:1 1 auto;min-width:0}
+.spacer{margin-left:auto}
+.i{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px}
+.i.sm{width:14px;height:14px}.i.lg{width:20px;height:20px}
+.lbl{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 
-/* ============ BUTTONS ============ */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 16px;font-weight:500;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s,transform .05s;white-space:nowrap;line-height:1.3}
-.btn:hover{background:var(--surface-2)}
-.btn:active{transform:translateY(1px)}
-.btn:focus-visible,.chip:focus-visible,.tab:focus-visible,.mode:focus-within{outline:2px solid var(--accent);outline-offset:2px}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;padding:11px 22px}
-.btn.primary:hover{background:var(--accent-hover)}
-.btn.primary[disabled]{opacity:.45;cursor:not-allowed}
-.btn.ghost{background:transparent;border-color:transparent}
-.btn.ghost:hover{background:var(--surface-2)}
-.btn.danger{color:var(--err);border-color:color-mix(in srgb,var(--err) 40%,transparent)}
-.btn.danger:hover{background:var(--err-soft)}
+/* ================= CONTROLS ================= */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:500;font-size:13.5px;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s,color .12s;box-shadow:var(--shadow-sm)}
+.btn:hover{background:var(--hover)}
+.btn:focus-visible,.seg button:focus-visible,.chip:focus-visible,.mode:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;border-color:transparent;box-shadow:none}
+.btn.ghost:hover{background:var(--hover)}
+.btn.danger{color:var(--err)}
+.btn.danger:hover{background:var(--err-soft);border-color:color-mix(in srgb,var(--err) 35%,transparent)}
 .btn.danger-solid{background:var(--err);border-color:var(--err);color:#fff;font-weight:600}
-.btn.sm{padding:6px 12px;font-size:13px}
-.btn.icon{padding:9px;width:40px;height:40px}
-.linkbtn{background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font-weight:500;text-decoration:underline;text-underline-offset:3px}
+.btn.lg{height:40px;padding:0 18px;font-size:14px}
+.btn.icon{width:36px;padding:0}
+.btn.sm{height:30px;padding:0 10px;font-size:12.5px}
 
-.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;line-height:1.35}
-.chip:hover{border-color:var(--line-2);background:var(--surface-2)}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
-.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:500;line-height:1.5;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border:1px solid var(--line);background:var(--surface);border-radius:999px;font-size:12.5px;cursor:pointer;white-space:nowrap;color:var(--ink-2)}
+.chip:hover{border-color:var(--line-2);background:var(--hover)}
+.seg{display:inline-flex;background:var(--surface-3);border-radius:9px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;height:30px;padding:0 12px;border-radius:7px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(16,24,40,.08),0 0 0 1px var(--line)}
+
+.badge{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap;line-height:1}
 .b-ok{background:var(--ok-soft);color:var(--ok)} .b-warn{background:var(--warn-soft);color:var(--warn)}
 .b-err{background:var(--err-soft);color:var(--err)} .b-info{background:var(--info-soft);color:var(--info)}
-.b-acc{background:var(--accent-soft);color:var(--accent)} .b-author{background:var(--author-soft);color:var(--author)}
-.b-plain{background:var(--surface-2);color:var(--muted)}
+.b-acc{background:var(--accent-soft);color:var(--accent)} .b-plain{background:var(--surface-3);color:var(--muted)}
 
-/* ============ FORM ============ */
-label.f{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--ink-2)}
-.input,textarea.input,select.input{width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;line-height:1.55}
-textarea.input{resize:vertical;min-height:80px}
+.field{display:grid;gap:6px}
+.field>label{font-size:13px;font-weight:600;color:var(--ink-2)}
+.field .hint{font-size:12px;color:var(--muted)}
+.input{width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:8px 11px;font-size:13.5px;line-height:1.55;transition:border-color .12s,box-shadow .12s}
+textarea.input{resize:vertical;min-height:72px;display:block}
 .input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-select.input{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:30px}
+select.input{appearance:none;height:36px;padding:0 30px 0 10px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 15px) 52%,calc(100% - 10px) 52%;background-size:5px 5px;background-repeat:no-repeat}
 input[type=range]{width:100%;accent-color:var(--accent)}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);cursor:pointer;user-select:none}
+.switch input{appearance:none;width:30px;height:18px;margin:0;border-radius:99px;background:var(--line-2);position:relative;cursor:pointer;transition:background .15s;flex:none}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:left .15s}
+.switch input:checked{background:var(--accent)} .switch input:checked::after{left:14px}
 
-/* ============ CHROME ============ */
-.topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.topbar-in{max-width:1440px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:16px}
-.brand{display:flex;align-items:center;gap:10px;min-width:0}
-.seal{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:17px;flex:none}
-.brand-txt{min-width:0}
-.brand-txt b{display:block;font-size:14px;line-height:1.35;white-space:nowrap}
-.brand-txt span{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.credit-pill{margin-left:auto;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 6px 6px 14px;font-size:13px;flex:none}
-.credit-pill b{font-size:14px}
-.credit-pill .delta{color:var(--err);font-size:12px;opacity:0;transition:opacity .3s}
-.credit-pill .delta.show{opacity:1}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:8px;font-size:13px;line-height:1.5;border:1px solid transparent}
+.alert .i{margin-top:2px}
+.alert b{display:block;font-weight:600}
+.alert.err{background:var(--err-soft);color:var(--err);border-color:color-mix(in srgb,var(--err) 25%,transparent)}
+.alert.warn{background:var(--warn-soft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 25%,transparent)}
+.alert.info{background:var(--info-soft);color:var(--info);border-color:color-mix(in srgb,var(--info) 22%,transparent)}
+.alert .txt{color:var(--ink-2)}
 
-.demo{max-width:1440px;margin:0 auto;padding:10px 24px 0;display:flex;align-items:center;gap:10px}
-.demo-lab{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex:none}
-.demo-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
-.demo-scroll::-webkit-scrollbar{display:none}
-.demo .chip{flex:none;border-style:dashed}
-.demo .chip[aria-pressed="true"]{border-style:solid}
-
-main{max-width:1440px;margin:0 auto;padding:18px 24px 48px}
-.screen-head{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
-.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.card-pad{padding:20px}
-.sect-title{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-bottom:12px}
-.sect-title h3{font-size:16px}
-.divider{height:1px;background:var(--line);margin:16px 0;border:0}
-
-/* mobile tabs */
-.mtabs{display:none;gap:4px;background:var(--surface-2);border-radius:12px;padding:4px;margin-bottom:12px}
-.mtabs button{flex:1;border:0;background:transparent;border-radius:9px;padding:8px 6px;font-size:13px;font-weight:500;cursor:pointer;color:var(--muted)}
-.mtabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
-
-/* ============ START ============ */
-.start-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
-.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.mode{position:relative;border:1.5px solid var(--line);border-radius:var(--radius);padding:16px;background:var(--surface);cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:border-color .15s,background .15s}
-.mode:hover{border-color:var(--line-2)}
-.mode input{position:absolute;opacity:0;pointer-events:none}
-.mode .ico{width:36px;height:36px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:18px;margin-bottom:4px}
-.mode b{font-family:var(--serif);font-size:16px;line-height:1.45}
-.mode p{font-size:13px;color:var(--muted);line-height:1.5}
-.mode.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 45%,var(--surface))}
-.mode.sel .ico{background:var(--accent);color:var(--accent-ink)}
-.mode .tick{position:absolute;top:12px;right:12px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line-2)}
-.mode.sel .tick{border-color:var(--accent);background:radial-gradient(circle,var(--accent) 45%,transparent 50%)}
-.ctx-box{border:1px dashed var(--line-2);border-radius:var(--radius);padding:16px;background:var(--surface-2)}
-.chap-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.chap-strip span{font-size:12px;padding:4px 10px;border-radius:7px;background:var(--author-soft);color:var(--author);display:inline-flex;gap:5px;align-items:center}
-.chap-strip span.next{background:var(--accent-soft);color:var(--accent);border:1px dashed var(--accent)}
-
-details.adv{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
-details.adv>summary{list-style:none;cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:10px;font-weight:600}
-details.adv>summary::-webkit-details-marker{display:none}
-details.adv>summary .chev{margin-left:auto;transition:transform .2s;color:var(--muted)}
-details.adv[open]>summary .chev{transform:rotate(180deg)}
-.adv-body{padding:4px 18px 20px;display:grid;gap:18px}
-.role-table{display:grid;gap:8px}
-.role-row{display:grid;grid-template-columns:150px minmax(0,1fr) 150px;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
-.role-row:first-child{border-top:0}
-.role-name{display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px}
-.dot{width:9px;height:9px;border-radius:50%;flex:none}
-.r-dieu{background:#7b5ea7} .r-kien{background:#2c7a8c} .r-chap{background:var(--accent)} .r-bien{background:#a37b1c}
-.range-row{display:flex;align-items:center;gap:14px}
-.range-out{min-width:76px;text-align:center;font-weight:700;font-family:var(--serif);font-size:20px}
-
-.credit-card .big{font-family:var(--serif);font-size:34px;font-weight:600;line-height:1.3}
-.meter{height:8px;background:var(--surface-3);border-radius:99px;overflow:hidden;position:relative}
-.meter i{display:block;height:100%;background:var(--ok);border-radius:99px;transition:width .3s}
-.meter .mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
-.kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line)}
-.kv:last-child{border-bottom:0}
-.alert{border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;line-height:1.55;display:flex;gap:10px;align-items:flex-start}
-.alert.err{background:var(--err-soft);color:var(--err)}
-.alert.warn{background:var(--warn-soft);color:var(--warn)}
-.alert.info{background:var(--info-soft);color:var(--info)}
-.alert b{display:block}
-.switch{display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer;user-select:none}
-.switch input{appearance:none;width:34px;height:20px;border-radius:99px;background:var(--surface-3);position:relative;cursor:pointer;transition:background .2s;flex:none;margin:0}
-.switch input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.25);transition:left .2s}
-.switch input:checked{background:var(--accent)} .switch input:checked::after{left:16px}
-
-.sessions{display:grid;gap:2px}
-.sess{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 4px;border-top:1px solid var(--line)}
-.sess:first-child{border-top:0}
-.sess .date{font-size:12px;color:var(--muted);text-align:center;line-height:1.3;width:38px}
-.sess .date b{display:block;font-family:var(--serif);font-size:17px;color:var(--ink)}
-.sess .t{font-size:14px;font-weight:500;line-height:1.4}
-.sess .s{font-size:12px;color:var(--muted)}
-.start-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
-
-/* ============ CHAT ============ */
-.co-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;align-items:start}
-.chat{display:flex;flex-direction:column;height:clamp(480px,calc(100vh - 220px),820px)}
-.chat-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.chat-log{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth}
-.msg{display:flex;gap:10px;max-width:86%}
-.msg .av{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:12px;font-weight:700}
-.msg.ai .av{background:var(--accent);color:var(--accent-ink);font-family:var(--serif)}
-.msg.me{align-self:flex-end;flex-direction:row-reverse}
-.msg.me .av{background:var(--surface-3);color:var(--ink-2)}
-.bubble{padding:11px 14px;border-radius:14px;font-size:14.5px;line-height:1.65}
-.msg.ai .bubble{background:var(--surface-2);border-top-left-radius:4px}
-.msg.me .bubble{background:var(--ink);color:var(--surface);border-top-right-radius:4px}
-.msg .meta{font-size:11.5px;color:var(--muted);margin-top:4px;display:flex;gap:8px}
-.msg.me .meta{justify-content:flex-end}
-.caret::after{content:"";display:inline-block;width:2px;height:1.05em;background:currentColor;vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.typing-dots{display:inline-flex;gap:4px;padding:4px 0}
-.typing-dots i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bob 1.2s infinite}
-.typing-dots i:nth-child(2){animation-delay:.15s}.typing-dots i:nth-child(3){animation-delay:.3s}
-@keyframes bob{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
-.chat-foot{border-top:1px solid var(--line);padding:12px 14px;display:grid;gap:10px}
-.suggests{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-.suggests::-webkit-scrollbar{display:none}
-.suggests .chip{flex:none}
-.composer{display:flex;gap:8px;align-items:flex-end}
-.composer textarea{flex:1;min-height:44px;max-height:140px;resize:none}
-.ready{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius-sm);background:var(--surface-2);font-size:13px}
-.ready .meter{flex:1}
-.ready.ok{background:var(--ok-soft);color:var(--ok)}
-.ready.ok .meter i{background:var(--ok)}
-.directive{display:flex;flex-direction:column;max-height:clamp(480px,calc(100vh - 220px),820px)}
-.directive .body{overflow-y:auto;padding:4px 18px 18px;display:grid;gap:14px}
-.dfield{display:grid;gap:4px}
-.dfield .lab{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:flex;align-items:center;gap:6px}
-.dfield textarea{border:1px solid transparent;background:transparent;padding:6px 8px;margin:0 -8px;border-radius:8px;resize:vertical;font-size:14px;line-height:1.6;min-height:48px;width:calc(100% + 16px)}
-.dfield textarea:hover{border-color:var(--line)}
-.dfield textarea:focus{outline:none;border-color:var(--accent);background:var(--surface)}
-.flash{animation:flash 1.6s ease}
-@keyframes flash{0%{background:var(--warn-soft)}100%{background:transparent}}
-.foot-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--line)}
-.ctx-note{margin:0 0 4px;padding:12px 14px;border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 10px 10px 0;font-size:13px;line-height:1.6}
-
-/* ============ WRITING ============ */
-.status{display:grid;grid-template-columns:1.5fr repeat(4,minmax(0,1fr));gap:0;align-items:stretch;padding:0;overflow:hidden;margin-bottom:16px}
-.st{padding:12px 18px;border-left:1px solid var(--line);min-width:0}
-.st:first-child{border-left:0}
-.st .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600;white-space:nowrap}
-.st .v{font-size:16px;font-weight:600;line-height:1.45;white-space:nowrap}
-.st .v small{font-weight:400;color:var(--muted);font-size:13px}
-.st.phase .v{display:flex;align-items:center;gap:8px}
-.pulse{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:pulse 1.6s infinite;flex:none}
-.pulse.wait{background:var(--warn);animation:none}
-@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent)}100%{box-shadow:0 0 0 9px transparent}}
-.tick-up{animation:tick .5s ease}
-@keyframes tick{0%{color:var(--accent)}100%{color:inherit}}
-
-.w-grid{display:grid;grid-template-columns:310px minmax(0,1fr) 350px;grid-template-areas:"act ms side";gap:16px;align-items:start}
-.p-act{grid-area:act}.p-ms{grid-area:ms}.p-side{grid-area:side}
-.agents{display:grid;gap:2px}
-.agent{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
-.agent:first-child{border-top:0}
-.agent .n{font-size:13.5px;font-weight:600;line-height:1.35}
-.agent .d{font-size:12.5px;color:var(--muted);line-height:1.45}
-.agent.on .d{color:var(--ink)}
-.agent .d b{font-weight:600;color:var(--accent)}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;display:inline-block}
+.d-dieu{background:var(--r-dieu)}.d-kien{background:var(--r-kien)}.d-chap{background:var(--r-chap)}.d-bien{background:var(--r-bien)}
 .spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--accent);animation:spin .8s linear infinite;flex:none;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
-.idle{font-size:11px;color:var(--muted)}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none;animation:pulse 1.6s infinite}
+.pulse.wait{background:var(--warn);animation:none}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 55%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;padding:8px 0;border-bottom:1px solid var(--line)}
+.kv:last-child{border-bottom:0}
+.kv>span:first-child{color:var(--muted)}
+.meter{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden;position:relative}
+.meter>i{display:block;height:100%;border-radius:99px;background:var(--ok);transition:width .3s}
 
-.timeline{list-style:none;margin:0;padding:0;display:grid;gap:0;max-height:440px;overflow-y:auto}
-.ev{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;padding:8px 0;position:relative;font-size:13px;line-height:1.5}
-.ev::before{content:"";position:absolute;left:9px;top:28px;bottom:-8px;width:1.5px;background:var(--line)}
-.ev:last-child::before{display:none}
-.ev .ic{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--surface-2);color:var(--muted);margin-top:1px;z-index:1}
+/* ================= APP SHELL ================= */
+.app{display:flex;flex-direction:column;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:40;height:56px;flex:none;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;white-space:nowrap}
+.logo-mark{width:28px;height:28px;border-radius:7px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+.crumbs{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);min-width:0;white-space:nowrap}
+.crumbs .sep{color:var(--faint)}
+.crumbs b{color:var(--ink);font-weight:600}
+.crumbs .story{overflow:hidden;text-overflow:ellipsis}
+.vr{width:1px;height:22px;background:var(--line);flex:none}
+.credit{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;white-space:nowrap;position:relative}
+.credit b{font-weight:600}
+.credit .delta{position:absolute;right:8px;top:-10px;background:var(--err);color:#fff;font-size:11px;font-weight:600;padding:1px 6px;border-radius:5px;opacity:0;transform:translateY(4px);transition:all .2s}
+.credit .delta.show{opacity:1;transform:none}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6f7cf0,#a48cff);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600;flex:none}
+
+/* demo menu */
+.demo-wrap{position:relative;display:flex;align-items:center;gap:2px;border:1px dashed var(--line-2);border-radius:9px;padding:2px}
+.demo-btn{display:flex;align-items:center;gap:8px;height:30px;border:0;background:transparent;padding:0 10px;border-radius:7px;cursor:pointer;font-size:13px;white-space:nowrap}
+.demo-btn:hover,.demo-step:hover{background:var(--hover)}
+.demo-btn .tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);background:var(--accent-soft);padding:2px 6px;border-radius:4px}
+.demo-step{width:28px;height:30px;border:0;background:transparent;border-radius:7px;cursor:pointer;color:var(--muted);display:grid;place-items:center}
+.demo-menu{position:absolute;top:calc(100% + 8px);left:0;width:300px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;z-index:60}
+.demo-menu .grp{padding:8px 10px 4px}
+.demo-item{display:grid;grid-template-columns:28px 1fr;gap:6px;width:100%;text-align:left;border:0;background:transparent;padding:7px 10px;border-radius:7px;cursor:pointer;font-size:13px;align-items:baseline}
+.demo-item:hover{background:var(--hover)}
+.demo-item[aria-current="true"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.demo-item .n{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
+
+main{flex:1;padding:16px 20px;width:100%;max-width:1680px;margin:0 auto}
+.screen{display:grid;gap:16px;min-height:0;min-width:0}
+.col{display:flex;flex-direction:column;gap:16px;min-height:0;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;min-height:0;min-width:0;box-shadow:var(--shadow-sm)}
+.panel-h{flex:none;display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);min-height:52px}
+.panel-h h2,.panel-h h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.panel-b{flex:1;min-height:0;overflow:auto;padding:16px}
+.panel-f{flex:none;display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
+.flat{padding:0}
+
+/* Desktop & tablet landscape: app shell, no page scroll */
+@media (min-width:1024px) and (min-height:600px){
+  .app{height:100vh;height:100dvh;overflow:hidden}
+  main{min-height:0;overflow:hidden;display:flex;flex-direction:column}
+  .screen{flex:1;height:100%}
+}
+.mtabs{display:none}
+
+/* ================= START ================= */
+.s-start{grid-template-columns:minmax(0,1fr) 340px}
+.hero-h{flex:none;padding:20px 24px 16px;border-bottom:1px solid var(--line)}
+.hero-h h1{font-size:21px}
+.hero-h .meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:2px}
+.hero-h .meta span{display:inline-flex;align-items:center;gap:5px}
+.step{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.step .n{width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mode{position:relative;display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 12px;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer;transition:border-color .12s,box-shadow .12s,background .12s;text-align:left;align-content:start}
+.mode:hover{border-color:var(--line-2)}
+.mode .mi{grid-row:span 2;width:36px;height:36px;border-radius:9px;background:var(--surface-3);color:var(--ink-2);display:grid;place-items:center}
+.mode b{font-size:14px;font-weight:600;line-height:1.45;padding-right:20px}
+.mode p{font-size:12.5px;color:var(--muted);line-height:1.5}
+.mode .rb{position:absolute;top:14px;right:14px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-2)}
+.mode[aria-checked="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:color-mix(in srgb,var(--accent-soft) 35%,var(--surface))}
+.mode[aria-checked="true"] .mi{background:var(--accent);color:var(--accent-ink)}
+.mode[aria-checked="true"] .rb{border:5px solid var(--accent)}
+.ctx{margin-top:12px;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:14px 16px;display:grid;gap:12px}
+.chaps{display:flex;gap:6px;flex-wrap:wrap}
+.chaps span{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px;border-radius:6px;background:var(--surface);border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.chaps span.next{border:1px dashed var(--accent);color:var(--accent);background:var(--accent-soft)}
+.sect{margin-top:24px}
+.adv-col{display:grid;gap:18px;align-content:start}
+.roles{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.roles-h,.role{display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,1.3fr) minmax(0,.9fr);gap:8px;align-items:center;padding:8px 12px}
+.roles-h{background:var(--surface-2);font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+.role{border-top:1px solid var(--line)}
+.roles-h+.role{border-top:0}
+.role .nm{display:flex;align-items:center;gap:8px;font-weight:500;font-size:13px}
+.role select{height:32px;font-size:13px}
+.range-row{display:flex;align-items:center;gap:14px}
+.range-val{min-width:44px;height:32px;display:grid;place-items:center;border:1px solid var(--line-2);border-radius:7px;font-weight:600;font-variant-numeric:tabular-nums}
+.foot-est{display:flex;flex-direction:column;line-height:1.35}
+.foot-est b{font-size:14px}
+.bal{font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.bal-meter{position:relative;margin:10px 0 4px}
+.bal-meter .mk{position:absolute;top:-4px;width:2px;height:14px;background:var(--ink);border-radius:1px}
+.bal-scale{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint)}
+.cfg-sum{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.cfg-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;align-items:baseline}
+.cfg-row .k{color:var(--muted)}
+.cfg-row .v{color:var(--ink);font-weight:500;min-width:0}
+.cfg-row .v .dot{margin-right:4px}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cfg-act{padding:10px 14px;background:var(--surface-2);display:flex;justify-content:flex-end}
+.dialog.xl{width:min(860px,100%)}
+.cfg-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px}
+.cfg-est{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;padding:10px 12px;border-radius:8px;background:var(--accent-soft);font-size:13px}
+.cfg-est b{color:var(--accent)}
+.sess{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}
+.sess:last-child{border-bottom:0}
+.sess .t{font-size:13px;font-weight:500;line-height:1.45}
+.sess .s{grid-column:1/-1;font-size:12px;color:var(--muted)}
+
+/* ================= CHAT ================= */
+.s-chat{grid-template-columns:minmax(0,1fr) 400px}
+.chat-log{display:flex;flex-direction:column;gap:18px;padding:20px 24px}
+.msg{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;max-width:760px}
+.msg .av{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:11px;font-weight:700}
+.msg.ai .av{background:var(--accent);color:var(--accent-ink)}
+.msg.me .av{background:var(--surface-3);color:var(--ink-2)}
+.msg .who{font-size:12.5px;font-weight:600;display:flex;gap:8px;align-items:center;margin-bottom:2px}
+.msg .who .c{font-weight:400;color:var(--faint);font-size:12px}
+.msg .txt{font-size:14px;line-height:1.7;color:var(--ink-2)}
+.msg.me .txt{background:var(--surface-2);border:1px solid var(--line);padding:9px 13px;border-radius:10px;display:inline-block;color:var(--ink)}
+.caret::after{content:"";display:inline-block;width:2px;height:1.05em;background:var(--accent);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.dots{display:inline-flex;gap:4px;padding:6px 0}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--faint);animation:bob 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,60%,100%{opacity:.4}30%{opacity:1;transform:translateY(-3px)}}
+.composer-wrap{flex:none;padding:12px 16px 14px;border-top:1px solid var(--line);display:grid;gap:10px}
+.suggests{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.suggests::-webkit-scrollbar{display:none}
+.composer{display:flex;align-items:flex-end;gap:8px;border:1px solid var(--line-2);border-radius:10px;padding:5px 5px 5px 12px;background:var(--surface);transition:border-color .12s,box-shadow .12s}
+.composer:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.composer textarea{flex:1;border:0;outline:0;background:transparent;resize:none;min-height:24px;max-height:120px;padding:5px 0;font-size:14px;line-height:1.55}
+.composer .btn{height:32px}
+.composer .btn.icon{width:32px}
+.dfield{display:grid;gap:4px;padding:12px 0;border-bottom:1px solid var(--line)}
+.dfield:first-of-type{padding-top:0}
+.dfield:last-child{border-bottom:0}
+.dfield textarea{border:1px solid transparent;background:transparent;border-radius:7px;padding:5px 8px;margin:0 -8px;width:calc(100% + 16px);resize:vertical;font-size:13.5px;line-height:1.6;min-height:44px;color:var(--ink)}
+.dfield textarea:hover{background:var(--surface-2)}
+.dfield textarea:focus{outline:none;border-color:var(--accent);background:var(--surface)}
+.flash{animation:flash 1.8s ease}
+@keyframes flash{0%,30%{background:var(--warn-soft)}100%{background:transparent}}
+.ready{display:grid;gap:6px;width:100%}
+.ready .row{font-size:12.5px}
+.ready.ok .meter>i{background:var(--ok)}
+.ready:not(.ok) .meter>i{background:var(--accent)}
+.ctx-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface-2);font-size:13px;line-height:1.6;display:grid;gap:6px;margin-bottom:12px}
+
+/* ================= WRITING ================= */
+.s-write{grid-template-rows:auto minmax(0,1fr)}
+.statusbar{display:flex;flex-direction:row;align-items:stretch;overflow:hidden}
+.sb{padding:10px 18px;display:flex;flex-direction:column;justify-content:center;gap:2px;border-left:1px solid var(--line);min-width:0;flex:1}
+.sb:first-child{border-left:0}
+.sb .v{font-size:15px;font-weight:600;white-space:nowrap;line-height:1.4}
+.sb .v small{font-size:12.5px;font-weight:400;color:var(--muted)}
+.sb.phase{flex:1.5}
+.sb.phase .v{display:flex;align-items:center;gap:8px}
+.sb.prog{flex:1.4}
+.chapbar{display:flex;gap:3px;margin-top:5px}
+.chapbar i{flex:1;height:6px;border-radius:2px;background:var(--surface-3)}
+.chapbar i.a{background:var(--line-2)}
+.chapbar i.d{background:var(--accent)}
+.chapbar i.w{background:repeating-linear-gradient(-45deg,var(--accent) 0 4px,color-mix(in srgb,var(--accent) 35%,transparent) 4px 8px);background-size:11px 11px;animation:stripe 1s linear infinite}
+@keyframes stripe{to{background-position:11px 0}}
+.sb.cost .v{display:flex;align-items:baseline;gap:6px}
+.tick-up{animation:tickc .6s ease}
+@keyframes tickc{0%{color:var(--accent)}100%{color:inherit}}
+.w-wrap{min-height:0;display:flex;flex-direction:column}
+.w-main{flex:1;display:grid;grid-template-columns:300px minmax(0,1fr) 360px;gap:16px;min-height:0}
+#actSlotWide{padding:0}
+.agents{padding:4px 16px}
+.agent{display:grid;grid-template-columns:8px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.agent:last-child{border-bottom:0}
+.agent .n{font-size:13px;font-weight:600;line-height:1.4}
+.agent .d{font-size:12.5px;color:var(--muted);line-height:1.4}
+.agent.on .d{color:var(--ink-2)}
+.agent .d b{color:var(--accent);font-weight:600}
+.agent .st{font-size:11.5px;color:var(--faint)}
+.tl-h{display:flex;align-items:center;gap:8px;padding:12px 16px 6px;border-top:1px solid var(--line)}
+.timeline{list-style:none;margin:0;padding:4px 16px 16px}
+.ev{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;padding:7px 0;position:relative;font-size:13px;line-height:1.45}
+.ev::before{content:"";position:absolute;left:9.5px;top:29px;bottom:-7px;width:1px;background:var(--line)}
+.timeline>.ev:last-child::before{display:none}
+.ev .ic{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--surface-3);color:var(--muted);z-index:1}
+.ev .ic .i{width:12px;height:12px;stroke-width:2.4}
 .ev.done .ic{background:var(--ok-soft);color:var(--ok)}
 .ev.run .ic{background:var(--surface)}
 .ev.err .ic{background:var(--err);color:#fff}
-.ev .tt{font-weight:500}
-.ev .ts{font-size:11.5px;color:var(--muted)}
-.ev.err .box{background:var(--err-soft);border:1px solid color-mix(in srgb,var(--err) 35%,transparent);border-radius:10px;padding:8px 10px;color:var(--err)}
-.ev.err .box .ts{color:inherit;opacity:.8}
+.ev.you .ic{background:var(--accent-soft);color:var(--accent)}
+.ev .tt{font-weight:500;color:var(--ink)}
+.ev .ts{font-size:12px;color:var(--muted)}
+.ev.err .box{background:var(--err-soft);border:1px solid color-mix(in srgb,var(--err) 30%,transparent);border-radius:8px;padding:7px 10px}
+.ev.err .tt{color:var(--err)}
 .ev .prog{height:4px;background:var(--surface-3);border-radius:99px;margin-top:6px;overflow:hidden}
 .ev .prog i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .4s}
-.ev.sub{padding:3px 0}
-.ev.sub .ic{width:20px;height:14px;background:transparent;font-size:9px}
-.ev.sub .tt{font-weight:400;color:var(--muted);font-size:12.5px}
 details.grp>summary{list-style:none;cursor:pointer}
 details.grp>summary::-webkit-details-marker{display:none}
-details.grp .more{font-size:11.5px;color:var(--accent)}
+details.grp>summary::before{display:none}
+details.grp .more{color:var(--accent);font-size:12px;font-weight:500}
+.subev{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;padding:2px 0;font-size:12.5px;color:var(--muted)}
+.subev .i{width:12px;height:12px;color:var(--ok);justify-self:center;margin-top:3px}
 
-.ms{padding:0;overflow:hidden}
-.ms-head{padding:16px 24px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.paper{padding:28px clamp(18px,4vw,48px) 30px;font-family:var(--serif);font-size:17.5px;line-height:1.9;max-height:560px;overflow-y:auto;background:linear-gradient(var(--surface),var(--surface)) padding-box}
-.paper h2{font-size:24px;margin-bottom:4px;line-height:1.5}
-.paper .ch-sub{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:22px}
-.paper p{margin:0 0 1em;text-indent:1.6em}
-.paper p.live{color:var(--ink)}
-.toolline{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;color:var(--info);background:var(--info-soft);border-radius:10px;padding:8px 12px;margin:4px 0 14px}
-.ms-foot{border-top:1px solid var(--line);padding:14px 18px;display:grid;gap:12px}
-.fb{display:flex;gap:8px;align-items:flex-end}
-.fb textarea{flex:1;min-height:44px;resize:none}
+.ms-h .ttl{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.ms-h .ttl b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ms-h .ttl span{font-size:12px;color:var(--muted)}
+.paper{background:var(--paper)}
+.paper-in{max-width:680px;margin:0 auto;padding:28px 28px 40px;font-family:var(--serif);font-size:17px;line-height:1.85;color:var(--ink)}
+.paper-in h2{font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.5;margin-bottom:2px}
+.paper-in .sub{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:24px;display:flex;gap:8px;align-items:center}
+.paper-in p{margin:0 0 1em;text-indent:1.5em}
+.toolline{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:12.5px;color:var(--info);background:var(--info-soft);border:1px solid color-mix(in srgb,var(--info) 20%,transparent);border-radius:8px;padding:7px 12px;margin:2px 0 16px}
+.toolline .spin{border-top-color:var(--info);width:12px;height:12px}
 .fb-sent{display:flex;gap:6px;flex-wrap:wrap}
-.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.fb-sent:empty{display:none}
+.fb-sent .badge{height:auto;padding:4px 8px;line-height:1.4;white-space:normal}
 
-.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);padding:0 10px;overflow-x:auto;scrollbar-width:none}
-.tab{border:0;background:none;padding:12px 10px;font-size:13.5px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
-.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
-.tabp{padding:16px 18px;max-height:640px;overflow-y:auto}
-.outline{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.oc{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:9px 10px;border-radius:10px;align-items:start}
-.oc .no{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:14px;background:var(--surface-2)}
-.oc .tt{font-size:13.5px;font-weight:600;line-height:1.45}
-.oc .ds{font-size:12.5px;color:var(--muted);line-height:1.5}
-.oc.author .no{background:var(--author-soft);color:var(--author)}
+.side-tabs{flex:none;padding:10px 12px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.side-tabs::-webkit-scrollbar{display:none}
+.side-tabs .seg{display:flex;width:max-content;min-width:100%}
+.side-tabs .seg button{flex:1}
+.side-tabs button[data-t="act"]{display:none}
+.outline{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.oc{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;padding:8px;border-radius:8px;align-items:start}
+.oc .no{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:12px;font-weight:600;background:var(--surface-3);color:var(--muted)}
+.oc .tt{font-size:13px;font-weight:500;line-height:1.45;padding-top:3px}
+.oc .ds{font-size:12px;color:var(--muted);line-height:1.5;margin-top:1px}
+.oc.author .tt{color:var(--muted)}
 .oc.done .no{background:var(--ok-soft);color:var(--ok)}
 .oc.now{background:var(--accent-soft)}
 .oc.now .no{background:var(--accent);color:var(--accent-ink)}
-.oc.todo .no{border:1.5px dashed var(--line-2);background:transparent;color:var(--muted)}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:10px}
-.legend span{display:inline-flex;align-items:center;gap:5px}
-.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.fs{display:grid;gap:8px}
-.fs-i{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
-.fs-i .tt{font-size:13.5px;font-weight:500;line-height:1.45}
+.oc.todo .no{background:transparent;border:1.5px dashed var(--line-2)}
+.oc .ic-r{color:var(--faint);margin-top:6px}
+.oc .badge{margin-top:2px}
+.group-l{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);padding:10px 8px 4px}
+.group-l:first-child{padding-top:0}
+.side-sec+.side-sec{margin-top:22px}
+.side-sec .hd{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.fs{display:grid;gap:6px}
+.fs-i{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px 11px;border:1px solid var(--line);border-radius:8px}
+.fs-i .tt{font-size:13px;font-weight:500;line-height:1.45}
 .fs-i .ds{font-size:12px;color:var(--muted)}
 .chart{width:100%;height:auto;display:block}
-.chart .bar-a{fill:var(--author)} .chart .bar-d{fill:var(--accent)} .chart .bar-n{fill:var(--accent);opacity:.55}
-.chart .bar-p{fill:none;stroke:var(--line-2);stroke-dasharray:3 3}
-.chart text{fill:var(--muted);font:11px var(--sans)}
-.chart .grid{stroke:var(--line)}
-.chars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.cc{border:1px solid var(--line);border-radius:10px;padding:9px 11px}
-.cc b{font-size:13.5px;display:block;line-height:1.4}
-.cc span{font-size:12px;color:var(--muted)}
-.ledger{display:grid;gap:12px}
-.lg{border:1px solid var(--line);border-radius:12px;padding:14px}
-.lg .hd{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:6px}
-.score{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.2}
-.score small{font-size:13px;color:var(--muted);font-weight:400}
-.subs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.subs div{background:var(--surface-2);border-radius:8px;padding:6px 8px;font-size:11.5px;color:var(--muted);line-height:1.4}
-.subs b{display:block;color:var(--ink);font-size:14px}
+.chart .ba{fill:var(--line-2)} .chart .bd{fill:var(--accent)} .chart .bw{fill:var(--accent);opacity:.5}
+.chart .bp{fill:none;stroke:var(--accent);stroke-dasharray:3 3;opacity:.7}
+.chart .gl{stroke:var(--line)} .chart text{fill:var(--faint);font:10.5px var(--sans)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:6px}
+.legend span{display:inline-flex;gap:5px;align-items:center}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.chars{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cc{border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:flex;gap:9px;align-items:center;min-width:0}
+.cc .av2{width:26px;height:26px;border-radius:50%;background:var(--surface-3);display:grid;place-items:center;font-size:11px;font-weight:600;flex:none;color:var(--ink-2)}
+.cc b{font-size:12.5px;display:block;line-height:1.35;font-weight:600}
+.cc span{font-size:11.5px;color:var(--muted);line-height:1.35;display:block}
+.ledg{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.ledg+.ledg{margin-top:10px}
+.ledg .hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ledg .score{font-size:20px;font-weight:600;line-height:1.2}
+.ledg .score small{font-size:12px;color:var(--muted);font-weight:400}
+.subs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.subs div{background:var(--surface-2);border-radius:6px;padding:6px 8px;font-size:11.5px;color:var(--muted)}
+.subs b{display:block;color:var(--ink);font-size:13.5px}
 
-/* ============ MODAL ============ */
-.scrim{position:fixed;inset:0;background:rgba(20,14,8,.5);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
-.dialog{background:var(--surface);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.3);width:min(560px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;border:1px solid var(--line)}
-.dialog.wide{width:min(640px,100%)}
-.dialog .dh{padding:20px 22px 8px}
+/* ================= ERROR / DONE ================= */
+.s-side{grid-template-columns:minmax(0,1fr) 340px}
+.notice{max-width:640px;margin:0 auto;padding:28px 8px;display:grid;gap:18px}
+.notice .ic-big{width:44px;height:44px;border-radius:11px;display:grid;place-items:center}
+.notice.t-err .ic-big{background:var(--err-soft);color:var(--err)}
+.notice.t-warn .ic-big{background:var(--warn-soft);color:var(--warn)}
+.notice.t-info .ic-big{background:var(--info-soft);color:var(--info)}
+.notice h1{font-size:22px}
+.why{border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13.5px;line-height:1.65;color:var(--ink-2);background:var(--surface-2)}
+.why .lbl{margin-bottom:4px}
+.ls{display:flex;gap:10px;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid var(--line)}
+.ls:last-child{border-bottom:0}
+.ls .c{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--surface-3);color:var(--faint);flex:none}
+.ls .c .i{width:12px;height:12px;stroke-width:2.4}
+.ls.ok .c{background:var(--ok-soft);color:var(--ok)}
+.ls.bad{color:var(--err);font-weight:500}.ls.bad .c{background:var(--err);color:#fff}
+.retry{display:flex;gap:5px}
+.retry i{flex:1;height:6px;border-radius:99px;background:var(--surface-3)}
+.retry i.f{background:var(--err)} .retry i.a{background:var(--warn);animation:fadea 1s infinite alternate}
+@keyframes fadea{to{opacity:.35}}
+.done-head{display:flex;gap:14px;align-items:center}
+.done-ic{width:44px;height:44px;border-radius:11px;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;flex:none}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stat{padding:14px 16px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat .v{font-size:22px;font-weight:600;line-height:1.35;letter-spacing:-.01em}
+.stat .l{font-size:12px;color:var(--muted)}
+.drafts{display:grid;gap:8px}
+.draft{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:inherit;transition:border-color .12s,background .12s}
+.draft:hover{border-color:var(--accent-line);background:var(--surface-2)}
+.draft .no{width:40px;height:46px;border-radius:6px;border:1px solid var(--line);background:var(--surface-2);display:grid;place-items:center;color:var(--muted)}
+.draft .tt{font-family:var(--serif);font-size:15.5px;font-weight:600;line-height:1.5}
+.draft .ds{font-size:12.5px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.draft .go{display:flex;align-items:center;gap:6px;color:var(--accent);font-size:13px;font-weight:600;white-space:nowrap}
+
+/* ================= MODALS ================= */
+.scrim{position:fixed;inset:0;background:rgba(10,12,18,.48);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+.dialog{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);width:min(520px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column}
+.dialog.wide{width:min(620px,100%)}
+.dialog .dh{padding:20px 22px 6px}
 .dialog .db{padding:8px 22px 18px;overflow-y:auto;display:grid;gap:14px}
-.dialog .df{padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.dialog .df{padding:12px 22px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;background:var(--surface-2);border-radius:0 0 14px 14px}
+body.asking .topbar{z-index:110}
+body.asking #askScrim{padding-top:72px}
+body.asking #askDlg{max-height:calc(100vh - 88px)}
 .shake{animation:shake .4s}
 @keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 .opts{display:grid;gap:8px}
-.opt{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;align-items:start}
+.opt{display:grid;grid-template-columns:18px minmax(0,1fr);gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer;align-items:start;transition:border-color .12s,background .12s}
 .opt:hover{border-color:var(--line-2)}
-.opt input{margin:3px 0 0;accent-color:var(--accent);width:16px;height:16px}
-.opt b{font-size:14px;display:block;line-height:1.45}
+.opt input[type=radio],.opt input[type=checkbox]{margin:2px 0 0;accent-color:var(--accent);width:16px;height:16px}
+.opt b{font-size:13.5px;font-weight:600;display:block;line-height:1.45}
 .opt span{font-size:12.5px;color:var(--muted);line-height:1.5}
-.opt:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 50%,var(--surface))}
+.opt:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 45%,var(--surface))}
 .opt .input{margin-top:8px}
-.lock-hint{font-size:12px;color:var(--warn);display:flex;gap:6px;align-items:center}
 
-/* demo bar stays usable above the blocking question dialog */
-body.asking .topbar{z-index:95}
-body.asking #askScrim{z-index:90;padding-top:calc(var(--hdr,110px) + 12px)}
-body.asking #askDlg{max-height:calc(100vh - var(--hdr,110px) - 28px)}
-
-/* ============ ERROR / DONE ============ */
-.err-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
-.notice{padding:26px;display:grid;gap:16px}
-.notice .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:22px}
-.notice.t-err .ic{background:var(--err-soft);color:var(--err)}
-.notice.t-warn .ic{background:var(--warn-soft);color:var(--warn)}
-.notice.t-info .ic{background:var(--info-soft);color:var(--info)}
-.why{background:var(--surface-2);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.65}
-.why .lab{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:var(--muted);margin-bottom:4px}
-.loadsteps{display:grid;gap:6px}
-.ls{display:flex;gap:10px;align-items:center;font-size:13.5px}
-.ls .ic2{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--surface-2);color:var(--muted);flex:none}
-.ls.ok .ic2{background:var(--ok-soft);color:var(--ok)}
-.ls.bad{color:var(--err);font-weight:500}.ls.bad .ic2{background:var(--err);color:#fff}
-.retry-dots{display:flex;gap:6px}
-.retry-dots i{flex:1;height:8px;border-radius:99px;background:var(--surface-3)}
-.retry-dots i.f{background:var(--err)} .retry-dots i.a{background:var(--warn);animation:fade 1s infinite alternate}
-@keyframes fade{to{opacity:.4}}
-.done-hero{padding:30px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--accent-soft) 70%,var(--surface)),var(--surface))}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.stat .v{font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.35}
-.stat .l{font-size:12px;color:var(--muted)}
-.drafts{display:grid;gap:10px}
-.draft{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);text-decoration:none;color:inherit;transition:border-color .15s}
-.draft:hover{border-color:var(--accent)}
-.draft .no{width:52px;height:60px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--serif);font-size:20px;font-weight:600;position:relative}
-.draft .no::after{content:"NHÁP";position:absolute;bottom:-7px;font:600 9px var(--sans);letter-spacing:.06em;background:var(--warn-soft);color:var(--warn);padding:1px 5px;border-radius:4px}
-.draft .tt{font-family:var(--serif);font-weight:600;font-size:16px;line-height:1.45}
-.draft .ds{font-size:13px;color:var(--muted)}
-.draft .go{color:var(--accent);font-weight:600;font-size:13px;white-space:nowrap}
-
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--surface);padding:10px 18px;border-radius:999px;font-size:13.5px;z-index:120;opacity:0;transition:all .25s;pointer-events:none;max-width:calc(100vw - 32px);text-align:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:var(--surface);padding:9px 16px;border-radius:8px;font-size:13px;z-index:130;opacity:0;transition:all .2s;pointer-events:none;max-width:calc(100vw - 32px);box-shadow:var(--shadow-lg)}
 .toast.show{opacity:1;transform:translateX(-50%)}
 
-/* ============ RESPONSIVE ============ */
+/* ================= RESPONSIVE ================= */
+@media (max-width:1439px){ .s-chat{grid-template-columns:minmax(0,1fr) 360px} }
 @media (max-width:1279px){
-  .w-grid{grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"ms side" "act side"}
-  .status{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .status .st:nth-child(4){border-left:0}
-  .status .st:nth-child(n+4){border-top:1px solid var(--line)}
-  .status .st.phase{grid-column:auto}
-  .co-grid{grid-template-columns:minmax(0,1fr) 340px}
+  .w-main{grid-template-columns:minmax(0,1fr) 340px}
+  #actPane{display:none}
+  .side-tabs button[data-t="act"]{display:block}
+  .s-start,.s-side{grid-template-columns:minmax(0,1fr) 300px}
+  .sb{padding:10px 14px}
+  .crumbs .hide-md{display:none}
+  .side-tabs .seg button{padding:0 8px;font-size:12.5px}
 }
-@media (max-width:1023px){
-  .start-grid,.err-grid{grid-template-columns:minmax(0,1fr)}
-  .modes{grid-template-columns:minmax(0,1fr)}
-  .mode{flex-direction:row;flex-wrap:wrap;align-items:center;padding-right:40px}
-  .mode .ico{margin:0}
-  .mode p{flex-basis:100%}
-  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:1023px), (max-height:599px){
+  .cfg-grid{gap:20px}
+  main{padding:12px 16px 32px}
+  .topbar{padding:0 16px;gap:10px}
+  .s-start,.s-side,.s-chat,.w-main{grid-template-columns:minmax(0,1fr)}
+  .panel-b{overflow:visible}
+  .chat-log{max-height:62vh;overflow:auto}
+  .mtabs{display:flex;margin-bottom:12px}
+  .mtabs .seg{display:flex;width:100%}
+  .mtabs .seg button{flex:1}
+  .panes>.pane{display:none}
+  .panes>.pane.on{display:flex}
+  .statusbar{flex-wrap:wrap}
+  .sb{flex:1 1 30%;border-top:1px solid var(--line)}
+  .sb.phase{flex-basis:100%;border-top:0;border-left:0}
+  .sb.prog{border-left:0}
 }
 @media (max-width:759px){
-  .topbar-in,.demo,main{padding-left:16px;padding-right:16px}
-  .brand-txt span{max-width:150px}
-  .credit-pill .lbl,.credit-pill .unit{display:none}
-  .st .v{white-space:normal}
-  .brand-txt span{display:none}
-  .mtabs{display:flex}
-  .panes>.pane{display:none}
-  .panes>.pane.on{display:block}
-  .co-grid,.w-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:none}
-  .w-grid>.pane{grid-area:auto}
-  .chat,.directive{height:auto;max-height:none}
-  .chat-log{min-height:340px;max-height:calc(100vh - 360px)}
-  .status{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .status .st{border-left:0;border-top:1px solid var(--line)}
-  .status .st.phase{grid-column:1/-1;border-top:0}
-  .status .st:nth-child(3),.status .st:nth-child(5){border-left:1px solid var(--line)}
-  .st{padding:10px 14px}
-  .role-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .role-row .role-name{grid-column:1/-1}
-  .paper{font-size:16.5px;max-height:none}
-  .done-hero{grid-template-columns:minmax(0,1fr);padding:22px}
-  .draft{grid-template-columns:44px minmax(0,1fr)}
-  .draft .no{width:44px;height:52px}
+  .crumbs,.vr.v1{display:none}
+  .demo-btn .cur{display:none}
+  .credit .unit{display:none}
+  .avatar,.logo-txt{display:none}
+  .topbar{gap:8px;padding:0 12px}
+  .credit{padding:0 8px}
+  .modes{grid-template-columns:minmax(0,1fr)}
+  .cfg-grid{grid-template-columns:minmax(0,1fr)}
+  .cfg-row{grid-template-columns:minmax(0,1fr);gap:2px}
+  #cfgScrim{padding:0;align-items:stretch}
+  #cfgScrim .dialog{border-radius:0;max-height:none;height:100%}
+  #cfgScrim .df{border-radius:0;flex-direction:row;flex-wrap:wrap}
+  #cfgScrim .df .btn{width:auto;flex:1}
+  #cfgReset{flex-basis:100%!important;order:3}
+  #styleSeg{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .panel-h{flex-wrap:wrap}
+  .panel-h .badge{white-space:normal;height:auto;padding:4px 8px;line-height:1.35}
+  .hero-h{padding:16px}
+  .panel-b{padding:14px}
+  .chat-log{padding:16px}
+  .roles-h{display:none}
+  .role{grid-template-columns:1fr 1fr;padding:10px 12px}
+  .role .nm{grid-column:1/-1}
+  .sb{flex-basis:40%}
+  .sb.prog{flex-basis:100%;border-left:0}
+  .sb:nth-child(3){border-left:0}
+  .sb.time{display:none}
+  .paper-in{padding:20px 18px 28px;font-size:16.5px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .draft{grid-template-columns:40px minmax(0,1fr)}
   .draft .go{grid-column:2}
-  .msg{max-width:94%}
   .dialog .df{flex-direction:column-reverse}
   .dialog .df .btn{width:100%}
-  .start-cta .btn.primary{width:100%}
-  .chars{grid-template-columns:minmax(0,1fr)}
-  .notice{padding:20px}
-  .card-pad{padding:16px}
+  .panel-f .btn.primary{flex:1}
+  .chars{grid-template-columns:1fr}
+  .notice{padding:12px 0}
+  .demo-menu{position:fixed;left:16px;right:16px;top:60px;width:auto}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-feather" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><path d="M16 8 2 22M17.5 15H9"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.2A2.6 2.6 0 0 0 12 7.8c-1.4 0-2.5.8-2.5 2s1.1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2a2.6 2.6 0 0 1-2.5-1.4M12 6v1.8M12 16.2V18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M20 7H5a2 2 0 0 1 0-4h13v4M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 12.6a10 10 0 0 1 14 0M8.5 16.1a5 5 0 0 1 7 0M12 20h.01M2 8.8a15 15 0 0 1 20 0"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+</svg>
 
+<div class="app">
 <header class="topbar">
-  <div class="topbar-in">
-    <div class="brand">
-      <div class="seal" aria-hidden="true">筆</div>
-      <div class="brand-txt">
-        <b>Xưởng viết AI</b>
-        <span>Cầu Truyện · Tuyết Lạc Vọng Nguyệt Lâu</span>
-      </div>
-    </div>
-    <div class="credit-pill" title="Số dư credit">
-      <span class="lbl muted">Số dư</span>
-      <b class="num" id="hdrCredit">1.240</b><span class="muted unit">credit</span>
-      <span class="delta num" id="hdrDelta">−3</span>
-      <button class="btn ghost icon" id="themeBtn" aria-label="Đổi giao diện sáng/tối" style="width:32px;height:32px;padding:0">◐</button>
-    </div>
-  </div>
-  <nav class="demo" aria-label="Chuyển trạng thái demo">
-    <span class="demo-lab">Demo</span>
-    <div class="demo-scroll" id="demoNav">
-      <button class="chip" data-go="start" aria-pressed="true">1 · Bắt đầu phiên</button>
-      <button class="chip" data-go="cocreate">2 · Đồng sáng tạo</button>
-      <button class="chip" data-go="writing">3–4 · Đang viết</button>
-      <button class="chip" data-go="ask">5 · AI hỏi lại</button>
-      <button class="chip" data-go="pause">6 · Tạm dừng để bàn</button>
-      <button class="chip" data-go="error" data-sub="credit">7a · Hết credit</button>
-      <button class="chip" data-go="error" data-sub="load">7b · Lỗi nạp chương</button>
-      <button class="chip" data-go="error" data-sub="engine">7c · Engine dừng</button>
-      <button class="chip" data-go="error" data-sub="retry">7d · Đang thử lại</button>
-      <button class="chip" data-go="done">8 · Hoàn tất</button>
-    </div>
+  <div class="logo"><span class="logo-mark"><svg class="i"><use href="#i-feather"/></svg></span><span class="logo-txt">Cầu Truyện</span></div>
+  <span class="vr v1"></span>
+  <nav class="crumbs" aria-label="Vị trí">
+    <span class="hide-md">Truyện của tôi</span><span class="sep hide-md">/</span>
+    <span class="story">Tuyết Lạc Vọng Nguyệt Lâu</span><span class="sep">/</span>
+    <b>Xưởng viết AI</b>
   </nav>
+  <div class="spacer"></div>
+  <div class="demo-wrap">
+    <button class="demo-step" id="demoPrev" aria-label="Trạng thái trước"><svg class="i"><use href="#i-left"/></svg></button>
+    <button class="demo-btn" id="demoBtn" aria-haspopup="true" aria-expanded="false"><span class="tag">DEMO</span><span class="cur" id="demoCur">Bắt đầu phiên</span><svg class="i sm"><use href="#i-down"/></svg></button>
+    <button class="demo-step" id="demoNext" aria-label="Trạng thái sau"><svg class="i"><use href="#i-right"/></svg></button>
+    <div class="demo-menu hidden" id="demoMenu" role="menu"></div>
+  </div>
+  <div class="credit" title="Số dư credit"><svg class="i" style="color:var(--warn)"><use href="#i-coin"/></svg><b class="num" id="hdrCredit">1.240</b><span class="muted unit">credit</span><span class="delta num" id="hdrDelta">−3</span></div>
+  <button class="btn ghost icon" id="themeBtn" aria-label="Đổi giao diện sáng/tối"><svg class="i"><use href="#i-moon"/></svg></button>
+  <span class="avatar" aria-hidden="true">L</span>
 </header>
 
 <main>
 
 <!-- ================= 1. START ================= -->
-<section data-screen="start">
-  <div class="screen-head">
-    <div class="grow">
-      <div class="eyebrow">Phiên mới</div>
+<section class="screen s-start" data-screen="start">
+  <div class="panel">
+    <div class="hero-h">
       <h1>Viết tiếp «Tuyết Lạc Vọng Nguyệt Lâu»</h1>
-      <p class="muted">Đồng nhân «Thanh Vân Kiếm Phổ» · 6 chương · 14.820 chữ · cập nhật 28/09</p>
+      <div class="meta"><span><svg class="i sm"><use href="#i-book"/></svg>Đồng nhân «Thanh Vân Kiếm Phổ»</span><span>6 chương · 14.820 chữ</span><span>Cập nhật 28/09</span></div>
+    </div>
+    <div class="panel-b" style="padding:20px 24px">
+      <div class="step"><span class="n">1</span><h3>Chọn cách bắt đầu</h3></div>
+      <div class="modes" role="radiogroup" aria-label="Chế độ">
+        <button class="mode" role="radio" aria-checked="false" data-mode="co"><span class="mi"><svg class="i lg"><use href="#i-chat"/></svg></span><b>Đồng sáng tạo</b><p>Trò chuyện với AI để chốt hướng đi rồi mới viết.</p><span class="rb"></span></button>
+        <button class="mode" role="radio" aria-checked="false" data-mode="quick"><span class="mi"><svg class="i lg"><use href="#i-zap"/></svg></span><b>Bắt đầu nhanh</b><p>Mô tả yêu cầu, AI tự lên dàn ý và viết.</p><span class="rb"></span></button>
+        <button class="mode" role="radio" aria-checked="true" data-mode="cont"><span class="mi"><svg class="i lg"><use href="#i-book"/></svg></span><b>Viết tiếp từ chương đã có</b><p>AI đọc 6 chương rồi viết chương 7.</p><span class="rb"></span></button>
+      </div>
+      <div class="ctx" id="modeCtx"></div>
+
+      <div class="sect">
+        <div class="step"><span class="n">2</span><h3>Thiết lập</h3><span class="tiny muted">Đã có giá trị mặc định · chỉnh nếu cần</span></div>
+        <div class="cfg-sum">
+          <div class="cfg-row"><span class="k">Văn phong</span><span class="v" id="sumStyle">Mặc định</span></div>
+          <div class="cfg-row"><span class="k">Số chương</span><span class="v" id="sumChap">3 chương · chương 7 → 9</span></div>
+          <div class="cfg-row"><span class="k">Luật riêng</span><span class="v clamp" id="sumRules"></span></div>
+          <div class="cfg-row"><span class="k">Model</span><span class="v" id="sumModels"></span></div>
+          <div class="cfg-act"><button class="btn" data-open-cfg><svg class="i"><use href="#i-sliders"/></svg>Chỉnh thiết lập</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-f">
+      <div class="foot-est"><span class="tiny muted">Ước tính phiên này</span><b class="num" id="startEst">~540 credit</b></div>
+      <span class="badge b-err hidden" id="lowBadge"><svg class="i sm"><use href="#i-alert"/></svg>Không đủ credit</span>
+      <div class="spacer"></div>
+      <button class="btn primary lg" id="startBtn"><span id="startLbl">Viết tiếp chương 7</span><svg class="i"><use href="#i-arrow"/></svg></button>
     </div>
   </div>
 
-  <div class="start-grid">
-    <div class="stack" style="gap:18px">
-      <div>
-        <h3 style="margin-bottom:10px">Bạn muốn bắt đầu thế nào?</h3>
-        <div class="modes" role="radiogroup" aria-label="Chế độ">
-          <label class="mode" data-mode="co">
-            <input type="radio" name="mode" value="co"><span class="tick"></span>
-            <span class="ico">✎</span><b>Đồng sáng tạo</b>
-            <p>Trò chuyện với AI trước để chốt hướng đi, rồi mới viết.</p>
-          </label>
-          <label class="mode" data-mode="quick">
-            <input type="radio" name="mode" value="quick"><span class="tick"></span>
-            <span class="ico">⚡</span><b>Bắt đầu nhanh</b>
-            <p>Mô tả yêu cầu, AI tự lên dàn ý và viết ngay.</p>
-          </label>
-          <label class="mode sel" data-mode="cont">
-            <input type="radio" name="mode" value="cont" checked><span class="tick"></span>
-            <span class="ico">❧</span><b>Viết tiếp từ chương đã có</b>
-            <p>AI đọc 6 chương của bạn rồi viết chương 7.</p>
-          </label>
+  <div class="col">
+    <div class="panel" style="flex:none">
+      <div class="panel-h"><svg class="i"><use href="#i-wallet"/></svg><h3>Credit</h3><label class="switch spacer"><input type="checkbox" id="lowToggle">Giả lập số dư thấp</label></div>
+      <div class="panel-b" style="flex:none;overflow:visible">
+        <div class="tiny muted">Số dư khả dụng</div>
+        <div class="bal num" id="balBig">1.240</div>
+        <div class="bal-meter"><div class="meter"><i id="balBar" style="width:100%"></i></div><span class="mk" id="balMark" title="Mức tối thiểu"></span></div>
+        <div class="bal-scale"><span>0</span><span>tối thiểu 200</span><span>1.240</span></div>
+        <div style="margin-top:10px">
+          <div class="kv"><span>Tối thiểu để chạy</span><b class="num">200 credit</b></div>
+          <div class="kv"><span>Ước tính phiên này</span><b class="num" id="estKv">~540 credit</b></div>
+          <div class="kv"><span>Mỗi lượt chat</span><b class="num">2–5 credit</b></div>
         </div>
+        <div class="alert err hidden" id="lowAlert" style="margin-top:10px"><svg class="i"><use href="#i-alert"/></svg><div><b>Không đủ credit để chạy</b><span class="txt">Bạn còn 120 credit, cần tối thiểu 200. Nạp thêm để bắt đầu.</span></div></div>
+        <div class="alert warn hidden" id="midAlert" style="margin-top:10px"><svg class="i"><use href="#i-alert"/></svg><div><b id="midT">Có thể không đủ cho cả 3 chương</b><span class="txt">Phiên sẽ tạm dừng khi hết credit, các chương đã xong vẫn được giữ.</span></div></div>
       </div>
-
-      <div class="ctx-box" id="modeCtx"></div>
-
-      <details class="adv">
-        <summary><span>⚙</span> Thiết lập nâng cao <span class="muted small" style="font-weight:400">· văn phong, luật riêng, model, số chương</span><span class="chev">▾</span></summary>
-        <div class="adv-body">
-          <div>
-            <label class="f">Văn phong</label>
-            <div class="row" id="styleChips" style="gap:6px">
-              <button class="chip" aria-pressed="true">Mặc định</button>
-              <button class="chip" aria-pressed="false">Hồi hộp</button>
-              <button class="chip" aria-pressed="false">Huyền huyễn</button>
-              <button class="chip" aria-pressed="false">Lãng mạn</button>
-            </div>
-          </div>
-          <div>
-            <label class="f" for="rules">Luật riêng <span class="muted" style="font-weight:400">· AI sẽ tuân theo trong mọi chương</span></label>
-            <textarea class="input" id="rules" rows="3">Xưng hô cổ phong (ta – ngươi, sư huynh – sư muội). Không để Tạ Trầm chết. Không cảnh 18+. Mỗi chương kết bằng một câu thoại.</textarea>
-          </div>
-          <div>
-            <label class="f">Model và mức suy nghĩ cho từng vai trò</label>
-            <div class="role-table">
-              <div class="role-row"><span class="role-name"><i class="dot r-dieu"></i>Điều phối</span>
-                <select class="input" aria-label="Model điều phối"><option>Claude Sonnet 5.5</option><option>Claude Opus 5.5</option><option>Claude Haiku 4.5</option></select>
-                <select class="input" aria-label="Mức suy nghĩ điều phối"><option>Suy nghĩ: Vừa</option><option>Thấp</option><option>Cao</option></select></div>
-              <div class="role-row"><span class="role-name"><i class="dot r-kien"></i>Kiến trúc sư</span>
-                <select class="input" aria-label="Model kiến trúc sư"><option>Claude Opus 5.5</option><option>Claude Sonnet 5.5</option><option>Claude Haiku 4.5</option></select>
-                <select class="input" aria-label="Mức suy nghĩ kiến trúc sư"><option>Suy nghĩ: Cao</option><option>Vừa</option><option>Thấp</option></select></div>
-              <div class="role-row"><span class="role-name"><i class="dot r-chap"></i>Chấp bút</span>
-                <select class="input" aria-label="Model chấp bút"><option>Claude Opus 5.5</option><option>Claude Sonnet 5.5</option><option>Claude Haiku 4.5</option></select>
-                <select class="input" aria-label="Mức suy nghĩ chấp bút"><option>Suy nghĩ: Vừa</option><option>Thấp</option><option>Cao</option></select></div>
-              <div class="role-row"><span class="role-name"><i class="dot r-bien"></i>Biên tập</span>
-                <select class="input" aria-label="Model biên tập"><option>Claude Sonnet 5.5</option><option>Claude Opus 5.5</option><option>Claude Haiku 4.5</option></select>
-                <select class="input" aria-label="Mức suy nghĩ biên tập"><option>Suy nghĩ: Thấp</option><option>Vừa</option><option>Cao</option></select></div>
-            </div>
-            <p class="tiny muted" style="margin-top:6px">Model mạnh hơn và mức suy nghĩ cao hơn sẽ tốn nhiều token, tức nhiều credit hơn.</p>
-          </div>
-          <div>
-            <label class="f" for="nChap">Số chương viết lần này</label>
-            <div class="range-row">
-              <input type="range" id="nChap" min="1" max="10" value="3">
-              <span class="range-out num" id="nChapOut">3</span>
-            </div>
-            <p class="tiny muted" id="nChapHint">Chương 7 → 9 · khoảng 3–4 phút mỗi chương</p>
-          </div>
-        </div>
-      </details>
-
-      <div class="start-cta">
-        <button class="btn primary" id="startBtn">Viết tiếp chương 7</button>
-        <span class="small muted" id="startEst">Ước tính ~540 credit · trừ theo token thật</span>
+      <div class="panel-f"><button class="btn" id="topupBtn" style="width:100%">Xem và nạp credit</button></div>
+    </div>
+    <div class="panel" style="flex:1">
+      <div class="panel-h"><svg class="i"><use href="#i-clock"/></svg><h3>Các phiên trước</h3><span class="badge b-plain spacer">4</span></div>
+      <div class="panel-b" style="padding-top:4px;padding-bottom:4px">
+        <div class="sess"><span class="t">Viết tiếp · chương 5–6</span><span class="badge b-ok">Hoàn tất</span><span class="s">28/09 · 2 chương · 5.120 chữ · 386 credit</span></div>
+        <div class="sess"><span class="t">Đồng sáng tạo · ngoại truyện</span><span class="badge b-plain">Đã bỏ</span><span class="s">21/09 · bàn 9 lượt, chưa viết · 31 credit</span></div>
+        <div class="sess"><span class="t">Bắt đầu nhanh · chương 4</span><span class="badge b-warn">Đã dừng</span><span class="s">17/09 · 1 chương · 171 credit</span></div>
+        <div class="sess"><span class="t">Viết tiếp · chương 4</span><span class="badge b-err">Lỗi</span><span class="s">12/09 · không nạp được chương 2 · 8 credit</span></div>
       </div>
     </div>
-
-    <aside class="stack" style="gap:16px">
-      <div class="card card-pad credit-card stack">
-        <div class="row" style="justify-content:space-between">
-          <h3>Credit</h3>
-          <label class="switch"><input type="checkbox" id="lowToggle"> Giả lập số dư thấp</label>
-        </div>
-        <div><div class="big num" id="balBig">1.240</div><div class="small muted">credit khả dụng</div></div>
-        <div class="meter" aria-hidden="true"><i id="balBar" style="width:100%"></i><span class="mark" id="balMark" style="left:16%"></span></div>
-        <div>
-          <div class="kv"><span class="muted">Tối thiểu để chạy</span><b class="num">200 credit</b></div>
-          <div class="kv"><span class="muted">Ước tính phiên này</span><b class="num" id="estKv">~540 credit</b></div>
-          <div class="kv"><span class="muted">Mỗi lượt chat</span><b class="num">2–5 credit</b></div>
-        </div>
-        <div class="alert err hidden" id="lowAlert"><span>⚠</span><div><b>Không đủ credit để chạy</b>Bạn còn 120 credit, cần tối thiểu 200. Nạp thêm hoặc giảm số chương.</div></div>
-        <div class="alert warn hidden" id="midAlert"><span>!</span><div><b>Có thể không đủ cho cả 3 chương</b>Phiên sẽ tạm dừng khi hết credit, các chương đã xong vẫn được giữ.</div></div>
-        <button class="btn" id="topupBtn">Xem và nạp credit</button>
-      </div>
-
-      <div class="card card-pad">
-        <div class="sect-title"><h3>Các phiên trước</h3><span class="badge b-plain">4</span></div>
-        <div class="sessions">
-          <div class="sess"><div class="date"><b>28</b>th 9</div><div class="grow"><div class="t">Viết tiếp · chương 5–6</div><div class="s">2 chương · 5.120 chữ · 386 credit</div></div><span class="badge b-ok">Hoàn tất</span></div>
-          <div class="sess"><div class="date"><b>21</b>th 9</div><div class="grow"><div class="t">Đồng sáng tạo · ngoại truyện</div><div class="s">Bàn 9 lượt, chưa viết · 31 credit</div></div><span class="badge b-plain">Đã bỏ</span></div>
-          <div class="sess"><div class="date"><b>17</b>th 9</div><div class="grow"><div class="t">Bắt đầu nhanh · chương 4</div><div class="s">Dừng giữa chừng · 1 chương · 171 credit</div></div><span class="badge b-warn">Đã dừng</span></div>
-          <div class="sess"><div class="date"><b>12</b>th 9</div><div class="grow"><div class="t">Viết tiếp · chương 4</div><div class="s">Không nạp được chương 2 · 8 credit</div></div><span class="badge b-err">Lỗi</span></div>
-        </div>
-      </div>
-    </aside>
   </div>
 </section>
 
 <!-- ================= 2. CO-CREATE ================= -->
-<section data-screen="cocreate" class="hidden">
-  <div class="screen-head">
-    <div class="grow">
-      <div class="eyebrow">Đồng sáng tạo</div>
-      <h1>Bàn hướng đi cho chương 7–9</h1>
+<section class="screen s-chat hidden" data-screen="cocreate">
+  <div class="mtabs"><div class="seg" role="tablist" data-for="coPanes"><button role="tab" aria-selected="true" data-p="chat">Trò chuyện</button><button role="tab" aria-selected="false" data-p="dir">Chỉ thị sáng tác</button></div></div>
+  <div class="panes" id="coPanes" style="display:contents">
+  <div class="panel pane on" data-pane="chat" id="coChat">
+    <div class="panel-h">
+      <svg class="i"><use href="#i-chat"/></svg><h3>Đồng sáng tạo</h3><span class="badge b-plain">Claude Sonnet 5.5</span>
+      <span class="spacer tiny muted">Đã dùng <b class="num" id="coSpent">9</b> credit</span>
+      <button class="btn ghost sm" data-open-cfg><svg class="i sm"><use href="#i-sliders"/></svg>Thiết lập</button>
+      <button class="btn ghost danger sm" id="coQuit"><svg class="i sm"><use href="#i-trash"/></svg>Bỏ phiên</button>
     </div>
-    <span class="small muted">Đã dùng <b class="num" id="coSpent">9</b> credit cho chat</span>
-  </div>
-  <div class="mtabs" role="tablist" data-for="coPanes">
-    <button role="tab" aria-selected="true" data-p="chat">Trò chuyện</button>
-    <button role="tab" aria-selected="false" data-p="dir">Chỉ thị sáng tác</button>
-  </div>
-  <div class="co-grid panes" id="coPanes">
-    <div class="card chat pane on" data-pane="chat" id="coChat">
-      <div class="chat-head">
-        <b style="font-size:14px">AI điều phối</b><span class="badge b-plain">Claude Sonnet 5.5</span>
-        <span class="small muted" style="margin-left:auto">Mỗi lượt trả lời trừ credit theo token</span>
+    <div class="panel-b flat"><div class="chat-log" aria-live="polite"></div></div>
+    <div class="composer-wrap">
+      <div class="suggests">
+        <button class="chip">Thêm một phản diện mới</button><button class="chip">Giữ nhịp chậm, tập trung cảm xúc</button><button class="chip">Chương 9 nên có cú lật</button><button class="chip">Viết theo góc nhìn Tạ Trầm</button>
       </div>
-      <div class="chat-log" aria-live="polite"></div>
-      <div class="chat-foot">
-        <div class="suggests">
-          <button class="chip">Cho thêm một nhân vật phản diện mới</button>
-          <button class="chip">Giữ nhịp chậm, tập trung cảm xúc</button>
-          <button class="chip">Chương 9 nên có cú lật</button>
-          <button class="chip">Viết theo góc nhìn Tạ Trầm</button>
-        </div>
-        <div class="composer">
-          <textarea class="input" rows="1" placeholder="Nói với AI điều bạn muốn…" aria-label="Tin nhắn"></textarea>
-          <button class="btn icon send" aria-label="Gửi">➤</button>
-          <button class="btn icon danger stop hidden" aria-label="Dừng lượt trả lời" title="Dừng lượt trả lời">■</button>
-        </div>
+      <div class="composer">
+        <textarea rows="1" placeholder="Nói với AI điều bạn muốn… (Enter để gửi)" aria-label="Tin nhắn"></textarea>
+        <button class="btn icon send" aria-label="Gửi"><svg class="i"><use href="#i-send"/></svg></button>
+        <button class="btn sm danger stop hidden"><svg class="i sm"><use href="#i-stop"/></svg>Dừng</button>
       </div>
+      <span class="tiny faint">Mỗi lượt trả lời của AI trừ credit theo token thật.</span>
     </div>
-
-    <aside class="card directive pane" data-pane="dir">
-      <div class="chat-head" style="border-bottom:0">
-        <h3>Chỉ thị sáng tác</h3>
-        <span class="badge b-info" style="margin-left:auto">AI soạn · bạn sửa được</span>
-      </div>
-      <div class="body" id="dirBody">
-        <div class="dfield"><span class="lab">Mục tiêu 3 chương</span><textarea rows="3">Vãn Ca và Tạ Trầm gặp lại ở bến Vọng Nguyệt, cùng truy tìm nửa thanh Tuyết Lạc; kết chương 9 bằng việc Tạ Trầm biết thân phận thật của nàng.</textarea></div>
-        <div class="dfield"><span class="lab">Giọng văn</span><textarea rows="2">Chậm, nhiều không khí; thoại ngắn, ẩn ý. Ít giải thích nội tâm trực tiếp.</textarea></div>
-        <div class="dfield"><span class="lab">Bắt buộc có</span><textarea rows="2">Cảnh đêm trăng trên thuyền (ch.8). Hồi ức về sư phụ Bạch Uyên. Tiểu Đào đóng vai trò hài nhẹ.</textarea></div>
-        <div class="dfield" id="dirAvoid"><span class="lab">Tránh</span><textarea rows="2">Không để hai người bày tỏ tình cảm rõ ràng trước chương 9.</textarea></div>
-        <div class="dfield"><span class="lab">Phục bút cần trả</span><textarea rows="2">Vết sẹo trên cổ tay Vãn Ca (ch.2) · Lá thư chưa gửi của Bạch Uyên (ch.5).</textarea></div>
-      </div>
-      <div style="padding:0 18px 14px">
-        <div class="ready" id="readyBox"><span>Độ đầy đủ</span><div class="meter"><i id="readyBar" style="width:72%"></i></div><b class="num" id="readyTxt">72%</b></div>
-      </div>
-      <div class="foot-actions">
-        <button class="btn primary" id="coStart">Bắt đầu viết</button>
-        <button class="btn ghost danger" id="coQuit" style="margin-left:auto">Bỏ phiên</button>
-      </div>
-    </aside>
+  </div>
+  <aside class="panel pane" data-pane="dir">
+    <div class="panel-h"><svg class="i"><use href="#i-file"/></svg><h3>Chỉ thị sáng tác</h3><span class="badge b-info spacer"><svg class="i sm"><use href="#i-edit"/></svg>Sửa được</span></div>
+    <div class="panel-b">
+      <p class="tiny muted" style="margin-bottom:12px">AI soạn dần trong lúc trò chuyện. Bấm vào bất kỳ mục nào để chỉnh trước khi chạy.</p>
+      <div class="dfield"><span class="lbl">Mục tiêu 3 chương</span><textarea rows="3">Vãn Ca và Tạ Trầm gặp lại ở bến Vọng Nguyệt, cùng truy tìm nửa thanh Tuyết Lạc; kết chương 9 bằng việc Tạ Trầm biết thân phận thật của nàng.</textarea></div>
+      <div class="dfield"><span class="lbl">Giọng văn</span><textarea rows="2">Chậm, nhiều không khí; thoại ngắn, ẩn ý. Ít giải thích nội tâm trực tiếp.</textarea></div>
+      <div class="dfield"><span class="lbl">Bắt buộc có</span><textarea rows="2">Cảnh đêm trăng trên thuyền (ch.8). Hồi ức về sư phụ Bạch Uyên. Tiểu Đào đóng vai trò hài nhẹ.</textarea></div>
+      <div class="dfield" id="dirAvoid"><span class="lbl">Tránh</span><textarea rows="2">Không để hai người bày tỏ tình cảm rõ ràng trước chương 9.</textarea></div>
+      <div class="dfield"><span class="lbl">Phục bút cần trả</span><textarea rows="2">Vết sẹo trên cổ tay Vãn Ca (ch.2) · Lá thư chưa gửi của Bạch Uyên (ch.5).</textarea></div>
+    </div>
+    <div class="panel-f" style="display:grid;gap:12px">
+      <div class="ready" id="readyBox"><div class="row"><span id="readyTxt">AI cần thêm một chút thông tin</span><b class="num spacer" id="readyPct">72%</b></div><div class="meter"><i id="readyBar" style="width:72%"></i></div></div>
+      <button class="btn primary lg" id="coStart" style="width:100%">Bắt đầu viết<svg class="i"><use href="#i-arrow"/></svg></button>
+    </div>
+  </aside>
   </div>
 </section>
 
 <!-- ================= 3–4. WRITING ================= -->
-<section data-screen="writing" class="hidden">
-  <div class="card status" id="statusBar">
-    <div class="st phase"><div class="l">Pha hiện tại</div><div class="v"><span class="pulse" id="phPulse"></span><span id="phTxt">Chấp bút · viết chương 8</span></div></div>
-    <div class="st"><div class="l">Tiến độ</div><div class="v num">Chương 8/9 <small>· mới 2/3</small></div></div>
-    <div class="st"><div class="l">Số chữ</div><div class="v num" id="wWords">3.412</div></div>
-    <div class="st"><div class="l">Chi phí</div><div class="v num"><span id="wUsd">$1,24</span> <small>· <span id="wCred">124</span> credit</small></div></div>
-    <div class="st"><div class="l">Thời gian</div><div class="v num" id="wTime">06:42</div></div>
+<section class="screen s-write hidden" data-screen="writing">
+  <div class="panel statusbar">
+    <div class="sb phase"><span class="lbl">Pha hiện tại</span><span class="v"><span class="pulse" id="phPulse"></span><span id="phTxt">Chấp bút · viết chương 8</span></span></div>
+    <div class="sb prog"><span class="lbl">Chương 8/9 · mới 2/3</span><div class="chapbar" aria-label="Tiến độ chương"><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="d"></i><i class="w"></i><i></i></div></div>
+    <div class="sb"><span class="lbl">Số chữ</span><span class="v num" id="wWords">3.412</span></div>
+    <div class="sb cost"><span class="lbl">Chi phí</span><span class="v num"><span id="wUsd">$1,24</span><small><span id="wCred">124</span> credit</small></span></div>
+    <div class="sb time"><span class="lbl">Thời gian</span><span class="v num" id="wTime">06:42</span></div>
   </div>
 
-  <div class="mtabs" role="tablist" data-for="wPanes">
-    <button role="tab" aria-selected="true" data-p="ms">Bản thảo</button>
-    <button role="tab" aria-selected="false" data-p="act">Tác tử</button>
-    <button role="tab" aria-selected="false" data-p="side">Dàn ý · Bảng</button>
-  </div>
-
-  <div class="w-grid panes" id="wPanes">
-    <!-- activity -->
-    <div class="pane p-act stack" data-pane="act" style="gap:16px">
-      <div class="card card-pad">
-        <div class="sect-title"><h3>Tác tử</h3><span class="tiny muted">4 vai trò</span></div>
-        <div class="agents" id="agents">
-          <div class="agent"><i class="dot r-dieu"></i><div><div class="n">Điều phối</div><div class="d">chờ báo cáo biên tập ch.7</div></div><span class="idle">chờ</span></div>
-          <div class="agent"><i class="dot r-kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">đã xong dàn ý ch.7–9</div></div><span class="idle">xong</span></div>
-          <div class="agent on"><i class="dot r-chap"></i><div><div class="n">Chấp bút</div><div class="d">→ <b>viết chương 8</b></div></div><span class="spin"></span></div>
-          <div class="agent on"><i class="dot r-bien"></i><div><div class="n">Biên tập</div><div class="d">→ <b>kiểm tra nhất quán</b> ch.7</div></div><span class="spin"></span></div>
-        </div>
-      </div>
-      <div class="card card-pad">
-        <div class="sect-title"><h3>Diễn biến</h3><span class="tiny muted">mới nhất ở dưới</span></div>
-        <ol class="timeline" id="timeline">
-          <li><details class="grp">
-            <summary class="ev done"><span class="ic">✓</span><div><div class="tt">Nạp 6 chương cũ <span class="more">· xem 6 bước</span></div><div class="ts">00:00 – 01:12 · chỉ đọc, không sửa</div></div></summary>
-            <div class="ev sub"><span class="ic">✓</span><div class="tt">Phân tích chương 1/6 · «Tuyết đầu mùa»</div></div>
-            <div class="ev sub"><span class="ic">✓</span><div class="tt">Phân tích chương 2/6 · «Vết sẹo»</div></div>
-            <div class="ev sub"><span class="ic">✓</span><div class="tt">Phân tích chương 3/6 · «Ly Sơn không mưa»</div></div>
-            <div class="ev sub"><span class="ic">✓</span><div class="tt">Phân tích chương 4/6 · «Gió bấc»</div></div>
-            <div class="ev sub"><span class="ic">✓</span><div class="tt">Phân tích chương 5/6 · «Lá thư chưa gửi»</div></div>
-            <div class="ev sub"><span class="ic">✓</span><div class="tt">Phân tích chương 6/6 · «Biệt ly»</div></div>
-          </details></li>
-          <li class="ev done"><span class="ic">✓</span><div><div class="tt">Kiến trúc sư lập dàn ý 3 chương</div><div class="ts">01:58 · 6 phục bút được theo dõi</div></div></li>
-          <li class="ev done"><span class="ic">✓</span><div><div class="tt">Chấp bút xong chương 7 · 2.410 chữ</div><div class="ts">04:31</div></div></li>
-          <li class="ev err"><span class="ic">!</span><div class="box"><div class="tt">Biên tập: giới hạn tốc độ model</div><div class="ts">04:40 · thử lại 1/7 thành công sau 6 giây, không trừ credit</div></div></li>
-          <li class="ev done"><span class="ic">✓</span><div><div class="tt">Biên tập chấm chương 7 · 8,6/10</div><div class="ts">05:02</div></div></li>
-          <li class="ev run"><span class="ic"><span class="spin" style="width:12px;height:12px"></span></span><div><div class="tt">Biên tập kiểm tra nhất quán ch.7 ↔ hồ sơ nhân vật</div><div class="prog"><i style="width:64%"></i></div></div></li>
-          <li class="ev run" id="evWrite"><span class="ic"><span class="spin" style="width:12px;height:12px"></span></span><div><div class="tt">Chấp bút viết chương 8</div><div class="prog"><i id="evWriteBar" style="width:38%"></i></div></div></li>
-        </ol>
-      </div>
+  <div class="w-wrap">
+  <div class="mtabs"><div class="seg" role="tablist" data-for="wPanes"><button role="tab" aria-selected="true" data-p="ms">Bản thảo</button><button role="tab" aria-selected="false" data-p="side">Tiến trình · Dàn ý · Bảng</button></div></div>
+  <div class="w-main panes" id="wPanes">
+    <div class="panel" id="actPane">
+      <div class="panel-h"><svg class="i"><use href="#i-sparkle"/></svg><h3>Tác tử &amp; diễn biến</h3></div>
+      <div class="panel-b" id="actSlotWide"></div>
     </div>
 
-    <!-- manuscript -->
-    <div class="pane p-ms on" data-pane="ms">
-      <div class="card ms">
-        <div class="ms-head">
-          <span class="badge b-acc">● Đang viết</span>
-          <b style="font-size:14px">Chương 8</b>
-          <span class="small muted">Chỉ hiện văn chương · suy nghĩ của AI được ẩn</span>
-        </div>
-        <div class="paper" id="paper">
+    <div class="panel pane on" data-pane="ms">
+      <div class="panel-h ms-h">
+        <span class="badge b-acc"><span class="spin" style="width:10px;height:10px;border-width:1.5px"></span>Đang viết</span>
+        <div class="ttl"><b>Chương 8 · Đêm trăng ở bến Vọng Nguyệt</b><span>Chỉ hiển thị văn chương · suy nghĩ của AI được ẩn</span></div>
+      </div>
+      <div class="panel-b flat paper" id="paper">
+        <div class="paper-in">
           <h2>Đêm trăng ở bến Vọng Nguyệt</h2>
-          <div class="ch-sub">Bản nháp do AI viết · chưa gửi duyệt</div>
+          <div class="sub"><span class="badge b-warn">Bản nháp</span>do AI viết · chưa gửi duyệt</div>
           <p>Trăng lên quá ngọn tre thì bến Vọng Nguyệt mới thật sự yên. Lục Vãn Ca ngồi ở mũi thuyền, chân trần chạm mặt nước lạnh, nghe tiếng mái chèo của ai đó khua từ phía bờ bên kia — chậm, đều, như người đã quen đường lắm.</p>
           <p>Nàng không quay đầu. Có những người chỉ cần nghe bước chân là biết, và có những người, dù đã ba năm không gặp, tiếng thở vẫn nằm yên trong trí nhớ như một vết khắc trên chuôi kiếm.</p>
           <div id="liveZone"></div>
         </div>
-        <div class="ms-foot">
-          <div class="fb">
-            <textarea class="input" id="fbInput" rows="1" placeholder="Góp ý cho AI (không cần dừng) — vd: thoại của Tạ Trầm lạnh hơn chút"></textarea>
-            <button class="btn" id="fbSend">Gửi góp ý</button>
-          </div>
-          <div class="fb-sent" id="fbSent"></div>
-          <div class="ctrl">
-            <button class="btn primary" id="pauseBtn">Tạm dừng để bàn hướng đi</button>
-            <button class="btn danger" id="stopBtn">Dừng hẳn</button>
-            <span class="tiny muted" style="margin-left:auto">Chạy nền — bạn có thể đóng tab</span>
-          </div>
+      </div>
+      <div class="panel-f" style="display:grid;gap:10px">
+        <div class="composer"><textarea id="fbInput" rows="1" placeholder="Góp ý cho AI (không cần dừng) — vd: thoại của Tạ Trầm lạnh hơn" aria-label="Góp ý cho AI"></textarea><button class="btn sm" id="fbSend"><svg class="i sm"><use href="#i-send"/></svg>Gửi</button></div>
+        <div class="fb-sent" id="fbSent"></div>
+        <div class="row wrap">
+          <button class="btn primary" id="pauseBtn"><svg class="i"><use href="#i-pause"/></svg>Tạm dừng để bàn hướng đi</button>
+          <button class="btn danger" id="stopBtn"><svg class="i"><use href="#i-stop"/></svg>Dừng hẳn</button>
+          <span class="spacer tiny faint">Chạy nền · có thể đóng tab</span>
         </div>
       </div>
     </div>
 
-    <!-- side -->
-    <aside class="pane p-side card" data-pane="side" style="padding:0">
-      <div class="tabs" role="tablist" id="sideTabs">
-        <button class="tab" role="tab" aria-selected="true" data-t="outline">Dàn ý</button>
-        <button class="tab" role="tab" aria-selected="false" data-t="dash">Bảng điều khiển</button>
-        <button class="tab" role="tab" aria-selected="false" data-t="ledger">Bảng công</button>
-      </div>
-      <div class="tabp" data-tp="outline">
-        <div class="legend"><span><i style="background:var(--author-soft);border:1px solid var(--author)"></i>Của bạn</span><span><i style="background:var(--ok-soft);border:1px solid var(--ok)"></i>AI đã xong</span><span><i style="background:var(--accent)"></i>Đang viết</span></div>
+    <aside class="panel pane" data-pane="side">
+      <div class="side-tabs"><div class="seg" role="tablist" id="sideTabs">
+        <button role="tab" data-t="act" aria-selected="false">Tiến trình</button>
+        <button role="tab" data-t="outline" aria-selected="true">Dàn ý</button>
+        <button role="tab" data-t="dash" aria-selected="false">Điều khiển</button>
+        <button role="tab" data-t="ledger" aria-selected="false">Bảng công</button>
+      </div></div>
+      <div class="panel-b flat hidden" data-tp="act" id="actSlotNarrow"></div>
+      <div class="panel-b" data-tp="outline">
         <ol class="outline">
-          <li class="oc author"><span class="no">1</span><div><div class="tt">Tuyết đầu mùa <span class="badge b-author">🔒 của bạn</span></div></div></li>
-          <li class="oc author"><span class="no">2</span><div><div class="tt">Vết sẹo</div></div></li>
-          <li class="oc author"><span class="no">3</span><div><div class="tt">Ly Sơn không mưa</div></div></li>
-          <li class="oc author"><span class="no">4</span><div><div class="tt">Gió bấc</div></div></li>
-          <li class="oc author"><span class="no">5</span><div><div class="tt">Lá thư chưa gửi</div></div></li>
-          <li class="oc author"><span class="no">6</span><div><div class="tt">Biệt ly</div><div class="ds">AI chỉ đọc, không bao giờ sửa chương 1–6</div></div></li>
-          <li class="oc done"><span class="no">7</span><div><div class="tt">Ba năm sau <span class="badge b-ok">✓ xong</span></div><div class="ds">Vãn Ca về lại Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng.</div></div></li>
-          <li class="oc now"><span class="no">8</span><div><div class="tt">Đêm trăng ở bến Vọng Nguyệt <span class="badge b-acc">đang viết</span></div><div class="ds">Gặp lại Tạ Trầm; hắn trao nửa thanh Tuyết Lạc.</div></div></li>
-          <li class="oc todo"><span class="no">9</span><div><div class="tt">Tên thật</div><div class="ds">Tạ Trầm đọc lá thư của Bạch Uyên — biết nàng là ai.</div></div></li>
+          <li class="group-l">Của bạn · AI chỉ đọc</li>
+          <li class="oc author"><span class="no">1</span><div><div class="tt">Tuyết đầu mùa</div></div><svg class="i sm ic-r"><use href="#i-lock"/></svg></li>
+          <li class="oc author"><span class="no">2</span><div><div class="tt">Vết sẹo</div></div><svg class="i sm ic-r"><use href="#i-lock"/></svg></li>
+          <li class="oc author"><span class="no">3</span><div><div class="tt">Ly Sơn không mưa</div></div><svg class="i sm ic-r"><use href="#i-lock"/></svg></li>
+          <li class="oc author"><span class="no">4</span><div><div class="tt">Gió bấc</div></div><svg class="i sm ic-r"><use href="#i-lock"/></svg></li>
+          <li class="oc author"><span class="no">5</span><div><div class="tt">Lá thư chưa gửi</div></div><svg class="i sm ic-r"><use href="#i-lock"/></svg></li>
+          <li class="oc author"><span class="no">6</span><div><div class="tt">Biệt ly</div></div><svg class="i sm ic-r"><use href="#i-lock"/></svg></li>
+          <li class="group-l">AI viết lượt này</li>
+          <li class="oc done"><span class="no">7</span><div><div class="tt">Ba năm sau</div><div class="ds">Vãn Ca về lại Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng.</div></div><span class="badge b-ok">Xong</span></li>
+          <li class="oc now"><span class="no">8</span><div><div class="tt">Đêm trăng ở bến Vọng Nguyệt</div><div class="ds">Gặp lại Tạ Trầm; hắn trao nửa thanh Tuyết Lạc.</div></div><span class="badge b-acc">Đang viết</span></li>
+          <li class="oc todo"><span class="no">9</span><div><div class="tt">Tên thật</div><div class="ds">Tạ Trầm đọc lá thư của Bạch Uyên — biết nàng là ai.</div></div><span class="badge b-plain">Chờ</span></li>
         </ol>
       </div>
-      <div class="tabp hidden" data-tp="dash">
-        <div class="stack" style="gap:20px">
-          <div>
-            <div class="sect-title"><h4>Phục bút còn nợ</h4><span class="badge b-warn">3 chưa trả</span></div>
-            <div class="fs">
-              <div class="fs-i"><div><div class="tt">Nửa thanh Tuyết Lạc dưới đáy hồ</div><div class="ds">Gieo ch.3 · đang trả ở ch.8</div></div><span class="badge b-info">đang trả</span></div>
-              <div class="fs-i"><div><div class="tt">Lá thư chưa gửi của Bạch Uyên</div><div class="ds">Gieo ch.5 · dự kiến ch.9</div></div><span class="badge b-warn">nợ</span></div>
-              <div class="fs-i"><div><div class="tt">Vết sẹo trên cổ tay Vãn Ca</div><div class="ds">Gieo ch.2 · chưa có kế hoạch</div></div><span class="badge b-err">nợ lâu</span></div>
-              <div class="fs-i"><div><div class="tt">Tiếng sáo ở miếu hoang</div><div class="ds">Gieo ch.4 · dự kiến ch.9</div></div><span class="badge b-warn">nợ</span></div>
-            </div>
+      <div class="panel-b hidden" data-tp="dash">
+        <div class="side-sec">
+          <div class="hd"><h4>Phục bút còn nợ</h4><span class="badge b-warn spacer">3 chưa trả</span></div>
+          <div class="fs">
+            <div class="fs-i"><div><div class="tt">Nửa thanh Tuyết Lạc dưới đáy hồ</div><div class="ds">Gieo ch.3 · đang trả ở ch.8</div></div><span class="badge b-info">Đang trả</span></div>
+            <div class="fs-i"><div><div class="tt">Lá thư chưa gửi của Bạch Uyên</div><div class="ds">Gieo ch.5 · dự kiến ch.9</div></div><span class="badge b-warn">Nợ</span></div>
+            <div class="fs-i"><div><div class="tt">Tiếng sáo ở miếu hoang</div><div class="ds">Gieo ch.4 · dự kiến ch.9</div></div><span class="badge b-warn">Nợ</span></div>
+            <div class="fs-i"><div><div class="tt">Vết sẹo trên cổ tay Vãn Ca</div><div class="ds">Gieo ch.2 · chưa có kế hoạch</div></div><span class="badge b-err">Nợ lâu</span></div>
           </div>
-          <div>
-            <div class="sect-title"><h4>Nhịp căng thẳng theo chương</h4></div>
-            <svg class="chart" viewBox="0 0 300 150" role="img" aria-label="Biểu đồ nhịp căng thẳng chương 1 đến 9">
-              <line class="grid" x1="20" x2="296" y1="20" y2="20"/><line class="grid" x1="20" x2="296" y1="65" y2="65"/><line class="grid" x1="20" x2="296" y1="110" y2="110"/>
-              <text x="0" y="24">10</text><text x="6" y="69">5</text><text x="6" y="114">0</text>
-              <rect class="bar-a" x="26" y="83" width="22" height="27" rx="3"/>
-              <rect class="bar-a" x="56" y="74" width="22" height="36" rx="3"/>
-              <rect class="bar-a" x="86" y="65" width="22" height="45" rx="3"/>
-              <rect class="bar-a" x="116" y="74" width="22" height="36" rx="3"/>
-              <rect class="bar-a" x="146" y="47" width="22" height="63" rx="3"/>
-              <rect class="bar-a" x="176" y="56" width="22" height="54" rx="3"/>
-              <rect class="bar-d" x="206" y="38" width="22" height="72" rx="3"/>
-              <rect class="bar-n" x="236" y="47" width="22" height="63" rx="3"/>
-              <rect class="bar-p" x="266" y="29" width="22" height="81" rx="3"/>
-              <text x="33" y="128">1</text><text x="63" y="128">2</text><text x="93" y="128">3</text><text x="123" y="128">4</text><text x="153" y="128">5</text><text x="183" y="128">6</text><text x="213" y="128">7</text><text x="243" y="128">8</text><text x="273" y="128">9</text>
-              <text x="20" y="146">Của bạn</text><text x="206" y="146">AI · dự kiến</text>
-            </svg>
-          </div>
-          <div>
-            <div class="sect-title"><h4>Nhân vật phụ</h4></div>
-            <div class="chars">
-              <div class="cc"><b>Tiểu Đào</b><span>xuất hiện 7/8 chương · hài nhẹ</span></div>
-              <div class="cc"><b>Bạch Uyên</b><span>đã mất · chỉ trong hồi ức</span></div>
-              <div class="cc"><b>Lão chèo đò</b><span>mới ở ch.8 · do AI tạo</span></div>
-              <div class="cc"><b>Hàn Sương</b><span>vắng từ ch.4 · cần nhắc lại?</span></div>
-            </div>
+        </div>
+        <div class="side-sec">
+          <div class="hd"><h4>Nhịp căng thẳng theo chương</h4></div>
+          <svg class="chart" viewBox="0 0 300 132" role="img" aria-label="Nhịp căng thẳng chương 1 đến 9">
+            <line class="gl" x1="22" x2="298" y1="12" y2="12"/><line class="gl" x1="22" x2="298" y1="57" y2="57"/><line class="gl" x1="22" x2="298" y1="102" y2="102"/>
+            <text x="2" y="16">10</text><text x="8" y="61">5</text><text x="8" y="106">0</text>
+            <rect class="ba" x="28" y="75" width="22" height="27" rx="3"/><rect class="ba" x="58" y="66" width="22" height="36" rx="3"/><rect class="ba" x="88" y="57" width="22" height="45" rx="3"/>
+            <rect class="ba" x="118" y="66" width="22" height="36" rx="3"/><rect class="ba" x="148" y="39" width="22" height="63" rx="3"/><rect class="ba" x="178" y="48" width="22" height="54" rx="3"/>
+            <rect class="bd" x="208" y="30" width="22" height="72" rx="3"/><rect class="bw" x="238" y="39" width="22" height="63" rx="3"/><rect class="bp" x="268.5" y="21.5" width="21" height="80" rx="3"/>
+            <text x="36" y="120">1</text><text x="66" y="120">2</text><text x="96" y="120">3</text><text x="126" y="120">4</text><text x="156" y="120">5</text><text x="186" y="120">6</text><text x="216" y="120">7</text><text x="246" y="120">8</text><text x="276" y="120">9</text>
+          </svg>
+          <div class="legend"><span><i style="background:var(--line-2)"></i>Của bạn</span><span><i style="background:var(--accent)"></i>AI đã viết</span><span><i style="background:var(--accent);opacity:.5"></i>Đang viết</span><span><i style="border:1px dashed var(--accent)"></i>Dự kiến</span></div>
+        </div>
+        <div class="side-sec">
+          <div class="hd"><h4>Nhân vật phụ</h4></div>
+          <div class="chars">
+            <div class="cc"><span class="av2">TĐ</span><div><b>Tiểu Đào</b><span>7/8 chương · hài nhẹ</span></div></div>
+            <div class="cc"><span class="av2">BU</span><div><b>Bạch Uyên</b><span>đã mất · hồi ức</span></div></div>
+            <div class="cc"><span class="av2">LĐ</span><div><b>Lão chèo đò</b><span>mới ở ch.8 · AI tạo</span></div></div>
+            <div class="cc"><span class="av2">HS</span><div><b>Hàn Sương</b><span>vắng từ ch.4</span></div></div>
           </div>
         </div>
       </div>
-      <div class="tabp hidden" data-tp="ledger">
-        <div class="ledger">
-          <div class="lg">
-            <div class="hd"><b>Chương 7 · Ba năm sau</b><span class="score num">8,6<small>/10</small></span></div>
-            <p class="small muted">Vãn Ca trở lại Ly Sơn dưới tên giả. Tiểu Đào nhận ra nàng qua cách cầm chén trà. Kết bằng tin đồn về người chèo đò ở bến Vọng Nguyệt.</p>
-            <div class="subs"><div><b>9,0</b>Nhất quán</div><div><b>8,5</b>Văn phong</div><div><b>8,2</b>Nhịp</div></div>
-            <p class="tiny muted" style="margin-top:8px">Biên tập: sửa 3 chỗ xưng hô lệch luật riêng · 2.410 chữ · 168 credit</p>
-          </div>
-          <div class="lg">
-            <div class="hd"><b>Chương 6 · Biệt ly</b><span class="badge b-author">của bạn</span></div>
-            <p class="small muted">Tóm tắt do AI đọc: Bạch Uyên mất, Vãn Ca rời núi trong đêm, để lại nửa thanh kiếm dưới hồ.</p>
-          </div>
-          <div class="lg" style="border-style:dashed">
-            <div class="hd"><b>Chương 8</b><span class="badge b-plain">chưa chấm</span></div>
-            <p class="small muted">Biên tập sẽ chấm khi chấp bút viết xong.</p>
-          </div>
+      <div class="panel-b hidden" data-tp="ledger">
+        <div class="ledg">
+          <div class="hd"><b>Chương 7 · Ba năm sau</b><span class="score num spacer">8,6<small>/10</small></span></div>
+          <p class="small muted">Vãn Ca trở lại Ly Sơn dưới tên giả. Tiểu Đào nhận ra nàng qua cách cầm chén trà. Kết bằng tin đồn về người chèo đò ở bến Vọng Nguyệt.</p>
+          <div class="subs"><div><b>9,0</b>Nhất quán</div><div><b>8,5</b>Văn phong</div><div><b>8,2</b>Nhịp</div></div>
+          <p class="tiny muted" style="margin-top:8px">Biên tập sửa 3 chỗ xưng hô lệch luật riêng · 2.410 chữ · 168 credit</p>
+        </div>
+        <div class="ledg">
+          <div class="hd"><b>Chương 6 · Biệt ly</b><span class="badge b-plain spacer">Của bạn</span></div>
+          <p class="small muted">Tóm tắt khi AI đọc: Bạch Uyên mất, Vãn Ca rời núi trong đêm, để lại nửa thanh kiếm dưới hồ.</p>
+        </div>
+        <div class="ledg" style="border-style:dashed">
+          <div class="hd"><b>Chương 8</b><span class="badge b-plain spacer">Chưa chấm</span></div>
+          <p class="small muted">Biên tập sẽ chấm khi chấp bút viết xong.</p>
         </div>
       </div>
     </aside>
+  </div>
+  </div>
+
+  <!-- activity content: moved between wide / narrow slots by JS -->
+  <div id="actInner">
+    <div class="agents" id="agents">
+      <div class="agent"><i class="dot d-dieu"></i><div><div class="n">Điều phối</div><div class="d">chờ báo cáo biên tập ch.7</div></div><span class="st">chờ</span></div>
+      <div class="agent"><i class="dot d-kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">đã xong dàn ý ch.7–9</div></div><span class="st">xong</span></div>
+      <div class="agent on"><i class="dot d-chap"></i><div><div class="n">Chấp bút</div><div class="d">→ <b>viết chương 8</b></div></div><span class="spin"></span></div>
+      <div class="agent on"><i class="dot d-bien"></i><div><div class="n">Biên tập</div><div class="d">→ <b>kiểm tra nhất quán</b> ch.7</div></div><span class="spin"></span></div>
+    </div>
+    <div class="tl-h"><h4>Diễn biến</h4><span class="tiny faint spacer">mới nhất ở dưới</span></div>
+    <ol class="timeline" id="timeline">
+      <li><details class="grp">
+        <summary class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Nạp 6 chương cũ <span class="more">· xem 6 bước</span></div><div class="ts">00:00–01:12 · chỉ đọc, không sửa</div></div></summary>
+        <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Phân tích chương 1/6 · Tuyết đầu mùa</span></div>
+        <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Phân tích chương 2/6 · Vết sẹo</span></div>
+        <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Phân tích chương 3/6 · Ly Sơn không mưa</span></div>
+        <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Phân tích chương 4/6 · Gió bấc</span></div>
+        <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Phân tích chương 5/6 · Lá thư chưa gửi</span></div>
+        <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Phân tích chương 6/6 · Biệt ly</span></div>
+      </details></li>
+      <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Kiến trúc sư lập dàn ý 3 chương</div><div class="ts">01:58 · theo dõi 6 phục bút</div></div></li>
+      <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Chấp bút xong chương 7 · 2.410 chữ</div><div class="ts">04:31</div></div></li>
+      <li class="ev err"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><div class="box"><div class="tt">Biên tập: chạm giới hạn tốc độ model</div><div class="ts">04:40 · thử lại 1/7 thành công sau 6 giây · không trừ credit</div></div></li>
+      <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Biên tập chấm chương 7 · 8,6/10</div><div class="ts">05:02</div></div></li>
+      <li class="ev run"><span class="ic"><span class="spin" style="width:12px;height:12px"></span></span><div><div class="tt">Biên tập kiểm tra nhất quán ch.7 ↔ hồ sơ nhân vật</div><div class="prog"><i style="width:64%"></i></div></div></li>
+      <li class="ev run"><span class="ic"><span class="spin" style="width:12px;height:12px"></span></span><div><div class="tt">Chấp bút viết chương 8</div><div class="prog"><i id="evWriteBar" style="width:38%"></i></div></div></li>
+    </ol>
   </div>
 </section>
 
 <!-- ================= 6. PAUSE ================= -->
-<section data-screen="pause" class="hidden">
-  <div class="screen-head">
-    <div class="grow">
-      <div class="eyebrow">Đã tạm dừng · đang bàn</div>
-      <h1>Chỉnh hướng đi trước khi viết tiếp</h1>
-    </div>
-    <span class="badge b-warn">⏸ Engine chờ bạn · không tốn credit khi chờ</span>
-  </div>
-  <div class="mtabs" role="tablist" data-for="pPanes">
-    <button role="tab" aria-selected="true" data-p="chat">Trò chuyện</button>
-    <button role="tab" aria-selected="false" data-p="ctx">Ngữ cảnh truyện</button>
-  </div>
-  <div class="co-grid panes" id="pPanes">
-    <div class="card chat pane on" data-pane="chat" id="pChat">
-      <div class="chat-head"><b style="font-size:14px">Bàn hướng đi</b><span class="small muted" style="margin-left:auto">AI đã nắm chương 1–7 và 62% chương 8</span></div>
-      <div class="chat-log" aria-live="polite"></div>
-      <div class="chat-foot">
-        <div class="suggests">
-          <button class="chip">Cắt cảnh thuyền ngắn lại</button>
-          <button class="chip">Cho Tạ Trầm nghi ngờ sớm hơn</button>
-          <button class="chip">Thêm hồi ức về sư phụ</button>
-        </div>
-        <div class="composer">
-          <textarea class="input" rows="1" placeholder="Muốn đổi gì ở phần còn lại?" aria-label="Tin nhắn"></textarea>
-          <button class="btn icon send" aria-label="Gửi">➤</button>
-          <button class="btn icon danger stop hidden" aria-label="Dừng lượt trả lời">■</button>
-        </div>
+<section class="screen s-chat hidden" data-screen="pause">
+  <div class="mtabs"><div class="seg" role="tablist" data-for="pPanes"><button role="tab" aria-selected="true" data-p="chat">Trò chuyện</button><button role="tab" aria-selected="false" data-p="ctx">Ngữ cảnh &amp; thay đổi</button></div></div>
+  <div class="panes" id="pPanes" style="display:contents">
+  <div class="panel pane on" data-pane="chat" id="pChat">
+    <div class="panel-h"><svg class="i"><use href="#i-pause"/></svg><h3>Tạm dừng để bàn hướng đi</h3><span class="badge b-warn spacer">Engine đang chờ · không tốn credit khi chờ</span></div>
+    <div class="panel-b flat"><div class="chat-log" aria-live="polite"></div></div>
+    <div class="composer-wrap">
+      <div class="suggests"><button class="chip">Cắt cảnh thuyền ngắn lại</button><button class="chip">Cho Tạ Trầm nghi ngờ sớm hơn</button><button class="chip">Thêm hồi ức về sư phụ</button></div>
+      <div class="composer">
+        <textarea rows="1" placeholder="Muốn đổi gì ở phần còn lại?" aria-label="Tin nhắn"></textarea>
+        <button class="btn icon send" aria-label="Gửi"><svg class="i"><use href="#i-send"/></svg></button>
+        <button class="btn sm danger stop hidden"><svg class="i sm"><use href="#i-stop"/></svg>Dừng</button>
       </div>
     </div>
-    <aside class="card directive pane" data-pane="ctx">
-      <div class="chat-head" style="border-bottom:0"><h3>Ngữ cảnh truyện</h3></div>
-      <div class="body">
-        <div class="ctx-note"><b>Đã viết:</b> Chương 7 (xong, 8,6/10) · Chương 8 dở ở đoạn «Nàng biết đó là gì trước cả khi mở ra…» (≈1.480 chữ)</div>
-        <div class="dfield"><span class="lab">Còn lại theo dàn ý</span><textarea rows="3">Ch.8: Tạ Trầm trao nửa thanh Tuyết Lạc, hai người im lặng đến sáng. Ch.9: Tạ Trầm đọc lá thư của Bạch Uyên, biết thân phận thật của Vãn Ca.</textarea></div>
-        <div class="dfield" id="pChange"><span class="lab">Thay đổi sẽ áp dụng <span class="badge b-acc">mới</span></span><textarea rows="3">Tạ Trầm bắt đầu nghi ngờ ngay ở cuối ch.8 (thấy vết sẹo trên cổ tay nàng) — trả phục bút ch.2 sớm.</textarea></div>
-        <div class="dfield"><span class="lab">Giữ nguyên</span><textarea rows="2">Luật riêng, văn phong, model từng vai trò, số chương (còn 1 chương mới sau ch.8).</textarea></div>
+  </div>
+  <aside class="panel pane" data-pane="ctx">
+    <div class="panel-h"><svg class="i"><use href="#i-book"/></svg><h3>Ngữ cảnh truyện</h3></div>
+    <div class="panel-b">
+      <div class="ctx-card">
+        <div class="row"><span class="badge b-ok">Ch.7 xong</span><span class="tiny muted">8,6/10 · 2.410 chữ</span></div>
+        <div class="row"><span class="badge b-acc">Ch.8 dở</span><span class="tiny muted">≈1.480 chữ, dừng ở «Nàng biết đó là gì…»</span></div>
+        <div class="row"><span class="badge b-plain">Ch.9 chờ</span><span class="tiny muted">chưa viết</span></div>
       </div>
-      <div class="foot-actions">
-        <button class="btn primary" id="applyBtn">Áp dụng và viết tiếp</button>
-        <button class="btn ghost" id="skipBtn">Viết tiếp ngay, bỏ qua hội thoại</button>
-      </div>
-    </aside>
+      <div class="dfield"><span class="lbl">Còn lại theo dàn ý</span><textarea rows="3">Ch.8: Tạ Trầm trao nửa thanh Tuyết Lạc, hai người im lặng đến sáng. Ch.9: Tạ Trầm đọc lá thư của Bạch Uyên, biết thân phận thật của Vãn Ca.</textarea></div>
+      <div class="dfield" id="pChange"><span class="lbl" style="color:var(--accent)">Thay đổi sẽ áp dụng</span><textarea rows="3">Tạ Trầm bắt đầu nghi ngờ ngay ở cuối ch.8 (thấy vết sẹo trên cổ tay nàng) — trả phục bút ch.2 sớm.</textarea></div>
+      <div class="dfield"><span class="lbl">Giữ nguyên</span><textarea rows="2">Luật riêng, văn phong, model từng vai trò. Còn 1 chương mới sau ch.8.</textarea></div>
+    </div>
+    <div class="panel-f" style="display:grid;gap:8px">
+      <button class="btn primary lg" id="applyBtn" style="width:100%">Áp dụng và viết tiếp</button>
+      <button class="btn ghost" id="skipBtn" style="width:100%">Viết tiếp ngay, bỏ qua hội thoại</button>
+    </div>
+  </aside>
   </div>
 </section>
 
 <!-- ================= 7. ERRORS ================= -->
-<section data-screen="error" class="hidden">
-  <div class="err-grid">
-    <div class="card notice" id="errCard"></div>
-    <aside class="card card-pad stack">
-      <h3>Những gì đã được giữ</h3>
-      <div id="errKept"></div>
-      <hr class="divider" style="margin:4px 0">
-      <div class="kv"><span class="muted">Credit đã trừ phiên này</span><b class="num" id="errSpent">293</b></div>
-      <div class="kv"><span class="muted">Số dư hiện tại</span><b class="num" id="errBal">947</b></div>
-      <p class="tiny muted">Các lần gọi model thất bại không bị trừ credit.</p>
-    </aside>
+<section class="screen s-side hidden" data-screen="error">
+  <div class="panel">
+    <div class="panel-h"><span class="pulse wait"></span><h3>Phiên đang dừng</h3><span class="tiny muted spacer">Chương 1–6 của bạn không bị thay đổi</span></div>
+    <div class="panel-b"><div class="notice" id="errCard"></div></div>
+    <div class="panel-f" id="errFoot"></div>
   </div>
+  <aside class="panel">
+    <div class="panel-h"><svg class="i"><use href="#i-file"/></svg><h3>Những gì đã được giữ</h3></div>
+    <div class="panel-b">
+      <div id="errKept"></div>
+      <div style="margin-top:16px">
+        <div class="kv"><span>Credit đã trừ phiên này</span><b class="num" id="errSpent">293</b></div>
+        <div class="kv"><span>Số dư hiện tại</span><b class="num" id="errBal">947</b></div>
+      </div>
+      <p class="tiny muted" style="margin-top:10px">Các lần gọi model thất bại không bị trừ credit.</p>
+    </div>
+  </aside>
 </section>
 
 <!-- ================= 8. DONE ================= -->
-<section data-screen="done" class="hidden">
-  <div class="card done-hero">
-    <div>
-      <div class="eyebrow">Hoàn tất phiên</div>
-      <h1>Đã viết xong 3 chương mới</h1>
-      <p class="muted" style="margin-top:4px">Các chương nằm trong truyện dưới dạng <b>bản nháp</b>. Độc giả chưa thấy cho tới khi bạn duyệt.</p>
+<section class="screen s-side hidden" data-screen="done">
+  <div class="panel">
+    <div class="hero-h">
+      <div class="done-head"><span class="done-ic"><svg class="i lg"><use href="#i-check"/></svg></span><div><h1>Đã viết xong 3 chương mới</h1><p class="small muted">Các chương nằm trong truyện dưới dạng <b>bản nháp</b>. Độc giả chưa thấy cho tới khi bạn gửi duyệt.</p></div></div>
+    </div>
+    <div class="panel-b" style="padding:20px 24px;display:grid;gap:20px;align-content:start">
       <div class="stats">
         <div class="stat"><div class="v num">3</div><div class="l">chương mới (7–9)</div></div>
         <div class="stat"><div class="v num">7.236</div><div class="l">chữ</div></div>
         <div class="stat"><div class="v num">498</div><div class="l">credit · $4,98</div></div>
         <div class="stat"><div class="v num">11:24</div><div class="l">phút chạy nền</div></div>
       </div>
-    </div>
-  </div>
-
-  <div class="start-grid" style="margin-top:20px">
-    <div class="stack">
-      <div class="sect-title"><h3>Bản nháp vừa viết</h3><span class="small muted">Đọc lại rồi gửi duyệt</span></div>
-      <div class="drafts">
-        <a class="draft" href="#" data-draft="7"><span class="no">7</span><div class="grow"><div class="tt">Ba năm sau</div><div class="ds">2.410 chữ · biên tập 8,6/10</div></div><span class="go">Mở bản nháp →</span></a>
-        <a class="draft" href="#" data-draft="8"><span class="no">8</span><div class="grow"><div class="tt">Đêm trăng ở bến Vọng Nguyệt</div><div class="ds">2.538 chữ · biên tập 8,9/10</div></div><span class="go">Mở bản nháp →</span></a>
-        <a class="draft" href="#" data-draft="9"><span class="no">9</span><div class="grow"><div class="tt">Tên thật</div><div class="ds">2.288 chữ · biên tập 8,4/10 · có 1 ghi chú</div></div><span class="go">Mở bản nháp →</span></a>
+      <div>
+        <div class="row" style="margin-bottom:10px"><h3>Bản nháp vừa viết</h3><span class="tiny muted spacer">Đọc lại rồi gửi duyệt</span></div>
+        <div class="drafts">
+          <a class="draft" href="#" data-draft="7"><span class="no"><svg class="i"><use href="#i-file"/></svg></span><div class="grow"><div class="tt">Chương 7 · Ba năm sau</div><div class="ds"><span class="badge b-warn">Nháp</span>2.410 chữ · biên tập 8,6/10</div></div><span class="go">Mở bản nháp<svg class="i sm"><use href="#i-arrow"/></svg></span></a>
+          <a class="draft" href="#" data-draft="8"><span class="no"><svg class="i"><use href="#i-file"/></svg></span><div class="grow"><div class="tt">Chương 8 · Đêm trăng ở bến Vọng Nguyệt</div><div class="ds"><span class="badge b-warn">Nháp</span>2.538 chữ · biên tập 8,9/10</div></div><span class="go">Mở bản nháp<svg class="i sm"><use href="#i-arrow"/></svg></span></a>
+          <a class="draft" href="#" data-draft="9"><span class="no"><svg class="i"><use href="#i-file"/></svg></span><div class="grow"><div class="tt">Chương 9 · Tên thật</div><div class="ds"><span class="badge b-warn">Nháp</span>2.288 chữ · biên tập 8,4/10 · 1 ghi chú</div></div><span class="go">Mở bản nháp<svg class="i sm"><use href="#i-arrow"/></svg></span></a>
+        </div>
       </div>
-      <div class="alert info"><span>i</span><div><b>Gợi ý: đọc lại rồi gửi duyệt</b>Bạn có thể sửa thoải mái trong trình soạn. Chương chỉ xuất bản khi bạn bấm «Gửi duyệt» trong từng bản nháp.</div></div>
-      <div class="start-cta"><button class="btn primary" id="readFirst">Đọc chương 7 trước</button><button class="btn" id="newSess">Mở phiên mới</button></div>
+      <div class="alert info"><svg class="i"><use href="#i-help"/></svg><div><b>Gợi ý: đọc lại rồi gửi duyệt</b><span class="txt">Bạn sửa thoải mái trong trình soạn. Chương chỉ xuất bản khi bạn bấm «Gửi duyệt» trong từng bản nháp.</span></div></div>
     </div>
-    <aside class="card card-pad">
-      <h3 style="margin-bottom:10px">Chi phí theo vai trò</h3>
-      <div class="kv"><span><i class="dot r-dieu" style="display:inline-block;margin-right:6px"></i>Điều phối</span><b class="num">41 credit</b></div>
-      <div class="kv"><span><i class="dot r-kien" style="display:inline-block;margin-right:6px"></i>Kiến trúc sư</span><b class="num">88 credit</b></div>
-      <div class="kv"><span><i class="dot r-chap" style="display:inline-block;margin-right:6px"></i>Chấp bút</span><b class="num">301 credit</b></div>
-      <div class="kv"><span><i class="dot r-bien" style="display:inline-block;margin-right:6px"></i>Biên tập</span><b class="num">68 credit</b></div>
-      <div class="kv"><span class="muted">Nạp 6 chương cũ</span><span class="muted">gồm trong điều phối</span></div>
-      <p class="tiny muted" style="margin-top:10px">Trừ theo token thật · 1 credit = $0,01</p>
-    </aside>
+    <div class="panel-f">
+      <button class="btn" id="newSess"><svg class="i"><use href="#i-plus"/></svg>Mở phiên mới</button>
+      <div class="spacer"></div>
+      <button class="btn primary lg" id="readFirst">Đọc chương 7 trước<svg class="i"><use href="#i-arrow"/></svg></button>
+    </div>
   </div>
+  <aside class="panel">
+    <div class="panel-h"><svg class="i"><use href="#i-coin"/></svg><h3>Chi phí theo vai trò</h3></div>
+    <div class="panel-b">
+      <div class="kv"><span><i class="dot d-dieu"></i>&nbsp; Điều phối</span><b class="num">41 credit</b></div>
+      <div class="kv"><span><i class="dot d-kien"></i>&nbsp; Kiến trúc sư</span><b class="num">88 credit</b></div>
+      <div class="kv"><span><i class="dot d-chap"></i>&nbsp; Chấp bút</span><b class="num">301 credit</b></div>
+      <div class="kv"><span><i class="dot d-bien"></i>&nbsp; Biên tập</span><b class="num">68 credit</b></div>
+      <div class="kv"><span>Tổng</span><b class="num">498 credit</b></div>
+      <p class="tiny muted" style="margin-top:12px">Trừ theo token thật · 1 credit = $0,01 · bao gồm bước nạp 6 chương cũ.</p>
+      <div style="margin-top:20px">
+        <div class="lbl" style="margin-bottom:6px">Phiên này</div>
+        <div class="kv"><span>Chế độ</span><span>Viết tiếp</span></div>
+        <div class="kv"><span>Văn phong</span><span>Mặc định</span></div>
+        <div class="kv"><span>Góp ý giữa chừng</span><span>2 lần</span></div>
+        <div class="kv"><span>Câu hỏi AI đã hỏi</span><span>1</span></div>
+      </div>
+    </div>
+  </aside>
 </section>
 
 </main>
+</div>
 
 <!-- ================= MODALS ================= -->
 <div class="scrim hidden" id="askScrim" aria-hidden="true">
   <div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="askTitle" id="askDlg">
     <div class="dh">
-      <div class="row" style="gap:8px;margin-bottom:6px"><i class="dot r-kien"></i><span class="small muted">Kiến trúc sư cần bạn quyết định · engine đang chờ</span></div>
+      <div class="row tiny muted" style="margin-bottom:6px"><i class="dot d-kien"></i>Kiến trúc sư cần bạn quyết định · engine đang chờ</div>
       <h2 id="askTitle">Tạ Trầm phát hiện thân phận thật bằng cách nào?</h2>
     </div>
     <div class="db">
-      <p class="small">Dàn ý ch.9 có hai hướng hợp lý, mỗi hướng trả một phục bút khác nhau. Bạn muốn đi theo hướng nào?</p>
-      <div class="row" style="justify-content:space-between"><span class="tiny muted" id="askModeHint">Chọn một</span>
-        <label class="switch tiny"><input type="checkbox" id="askMulti"> Demo: nhiều lựa chọn</label></div>
+      <p class="small muted">Dàn ý chương 9 có vài hướng hợp lý, mỗi hướng trả một phục bút khác nhau.</p>
+      <div class="row"><span class="lbl" id="askModeHint">Chọn một</span><label class="switch spacer"><input type="checkbox" id="askMulti">Demo: cho chọn nhiều</label></div>
       <div class="opts" id="askOpts">
         <label class="opt"><input type="radio" name="ask" value="a"><div><b>Qua lá thư của Bạch Uyên</b><span>Trả phục bút ch.5. Cảm xúc lặng, Tạ Trầm biết một mình rồi giấu nàng.</span></div></label>
         <label class="opt"><input type="radio" name="ask" value="b"><div><b>Qua vết sẹo trên cổ tay</b><span>Trả phục bút ch.2. Đối mặt trực tiếp, kịch tính hơn, có thể xung đột.</span></div></label>
         <label class="opt"><input type="radio" name="ask" value="c"><div><b>Tiểu Đào vô tình nói lộ</b><span>Nhẹ nhàng, hơi hài, để dành cả hai phục bút cho sau.</span></div></label>
-        <label class="opt"><input type="radio" name="ask" value="own"><div><b>Tự nhập</b><span>Mô tả cách bạn muốn.</span><input class="input" id="askOwn" placeholder="Ví dụ: Tạ Trầm vốn đã biết từ ch.3…" aria-label="Tự nhập"></div></label>
+        <label class="opt"><input type="radio" name="ask" value="own"><div><b>Tự nhập</b><span>Mô tả cách bạn muốn.</span><input class="input" id="askOwn" placeholder="Ví dụ: Tạ Trầm vốn đã biết từ chương 3…" aria-label="Tự nhập"></div></label>
       </div>
-      <div><label class="f" for="askNote">Ghi chú thêm cho AI <span class="muted" style="font-weight:400">(không bắt buộc)</span></label><textarea class="input" id="askNote" rows="2" placeholder="Ví dụ: đừng để Vãn Ca khóc"></textarea></div>
-      <div class="lock-hint hidden" id="askLock">⚠ Cần trả lời (hoặc để AI tự quyết) thì AI mới viết tiếp được.</div>
+      <div class="field"><label for="askNote">Ghi chú cho AI <span class="muted" style="font-weight:400">· không bắt buộc</span></label><textarea class="input" id="askNote" rows="2" placeholder="Ví dụ: đừng để Vãn Ca khóc"></textarea></div>
+      <div class="alert warn hidden" id="askLock"><svg class="i"><use href="#i-alert"/></svg><span>Cần trả lời hoặc để AI tự quyết thì AI mới viết tiếp được.</span></div>
     </div>
     <div class="df">
-      <button class="btn" id="askAuto">Để AI tự quyết</button>
+      <button class="btn" id="askAuto"><svg class="i"><use href="#i-sparkle"/></svg>Để AI tự quyết</button>
       <button class="btn primary" id="askSend" disabled>Gửi lựa chọn</button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim hidden" id="cfgScrim">
+  <div class="dialog xl" role="dialog" aria-modal="true" aria-labelledby="cfgTitle">
+    <div class="dh row"><div class="grow"><h2 id="cfgTitle">Thiết lập phiên viết</h2><p class="small muted">Áp dụng cho mọi chương AI viết trong phiên này.</p></div><button class="btn ghost icon" data-close-cfg aria-label="Đóng"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="db">
+      <div class="cfg-grid">
+        <div class="adv-col">
+          <div class="field"><label>Văn phong</label>
+            <div class="seg" id="styleSeg" role="group" aria-label="Văn phong">
+              <button aria-pressed="true">Mặc định</button><button aria-pressed="false">Hồi hộp</button><button aria-pressed="false">Huyền huyễn</button><button aria-pressed="false">Lãng mạn</button>
+            </div>
+          </div>
+          <div class="field"><label for="nChap">Số chương viết lần này</label>
+            <div class="range-row"><input type="range" id="nChap" min="1" max="10" value="3"><span class="range-val" id="nChapOut">3</span></div>
+            <span class="hint" id="nChapHint">Chương 7 → 9 · khoảng 3–4 phút mỗi chương</span>
+          </div>
+          <div class="field"><label for="rules">Luật riêng</label>
+            <textarea class="input" id="rules" rows="5">Xưng hô cổ phong (ta – ngươi, sư huynh – sư muội). Không để Tạ Trầm chết. Không cảnh 18+. Mỗi chương kết bằng một câu thoại.</textarea>
+            <span class="hint">Văn bản tự do. AI tuân theo trong mọi chương.</span>
+          </div>
+        </div>
+        <div class="field" style="align-content:start"><label>Model và mức suy nghĩ theo vai trò</label>
+          <div class="roles" id="roles">
+            <div class="roles-h"><span>Vai trò</span><span>Model</span><span>Suy nghĩ</span></div>
+            <div class="role" data-r="dieu" data-base="25"><span class="nm"><i class="dot d-dieu"></i>Điều phối</span><select class="input m" aria-label="Model điều phối"><option>Claude Opus 5.5</option><option selected>Claude Sonnet 5.5</option><option>Claude Haiku 4.5</option></select><select class="input t" aria-label="Mức suy nghĩ điều phối"><option>Thấp</option><option selected>Vừa</option><option>Cao</option></select></div>
+            <div class="role" data-r="kien" data-base="30"><span class="nm"><i class="dot d-kien"></i>Kiến trúc sư</span><select class="input m" aria-label="Model kiến trúc sư"><option selected>Claude Opus 5.5</option><option>Claude Sonnet 5.5</option><option>Claude Haiku 4.5</option></select><select class="input t" aria-label="Mức suy nghĩ kiến trúc sư"><option>Thấp</option><option>Vừa</option><option selected>Cao</option></select></div>
+            <div class="role" data-r="chap" data-base="110"><span class="nm"><i class="dot d-chap"></i>Chấp bút</span><select class="input m" aria-label="Model chấp bút"><option selected>Claude Opus 5.5</option><option>Claude Sonnet 5.5</option><option>Claude Haiku 4.5</option></select><select class="input t" aria-label="Mức suy nghĩ chấp bút"><option>Thấp</option><option selected>Vừa</option><option>Cao</option></select></div>
+            <div class="role" data-r="bien" data-base="35"><span class="nm"><i class="dot d-bien"></i>Biên tập</span><select class="input m" aria-label="Model biên tập"><option>Claude Opus 5.5</option><option selected>Claude Sonnet 5.5</option><option>Claude Haiku 4.5</option></select><select class="input t" aria-label="Mức suy nghĩ biên tập"><option selected>Thấp</option><option>Vừa</option><option>Cao</option></select></div>
+          </div>
+          <span class="hint">Model mạnh hơn và suy nghĩ sâu hơn dùng nhiều token, tức nhiều credit hơn.</span>
+          <div class="cfg-est"><span class="muted">Ước tính với thiết lập này</span><b class="num" id="cfgEst">~543 credit</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="df">
+      <button class="btn ghost" id="cfgReset" style="margin-right:auto">Khôi phục mặc định</button>
+      <button class="btn" data-close-cfg>Huỷ</button>
+      <button class="btn primary" id="cfgSave">Lưu thiết lập</button>
     </div>
   </div>
 </div>
@@ -950,7 +1008,7 @@ body.asking #askDlg{max-height:calc(100vh - var(--hdr,110px) - 28px)}
 <div class="scrim hidden" id="cfScrim">
   <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="cfTitle">
     <div class="dh"><h2 id="cfTitle"></h2></div>
-    <div class="db"><p id="cfBody" class="small"></p></div>
+    <div class="db"><p id="cfBody" class="small muted" style="line-height:1.65"></p></div>
     <div class="df"><button class="btn" id="cfNo"></button><button class="btn danger-solid" id="cfYes"></button></div>
   </div>
 </div>
@@ -963,44 +1021,74 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const fmt = n => Math.round(n).toLocaleString('vi-VN');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+const ic = (n, cls = '') => `<svg class="i ${cls}"><use href="#i-${n}"/></svg>`;
+const esc = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 
 /* ---------- theme ---------- */
 const root = document.documentElement;
-$('#themeBtn').onclick = () => {
-  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  root.dataset.theme = dark ? 'light' : 'dark';
-};
+const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+const syncThemeIcon = () => $('#themeBtn use').setAttribute('href', isDark() ? '#i-sun' : '#i-moon');
+$('#themeBtn').onclick = () => { root.dataset.theme = isDark() ? 'light' : 'dark'; syncThemeIcon(); };
+syncThemeIcon();
 
-/* ---------- credit ---------- */
+/* ---------- credit / toast ---------- */
 let credit = 1240;
 function spend(n) {
   credit = Math.max(0, credit - n);
   $('#hdrCredit').textContent = fmt(credit);
   const d = $('#hdrDelta'); d.textContent = '−' + fmt(n); d.classList.add('show');
-  clearTimeout(spend.t); spend.t = setTimeout(() => d.classList.remove('show'), 1200);
+  clearTimeout(spend.t); spend.t = setTimeout(() => d.classList.remove('show'), 1100);
 }
-
-/* ---------- toast ---------- */
 function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 2400); }
 
+/* ---------- demo menu ---------- */
+const states = [
+  { g: 'Luồng chính', id: 'start', n: '1', t: 'Bắt đầu phiên' },
+  { id: 'cfg', n: '1b', t: 'Thiết lập nâng cao (modal)' },
+  { id: 'cocreate', n: '2', t: 'Đồng sáng tạo' },
+  { id: 'writing', n: '3–4', t: 'Đang viết + bảng phụ' },
+  { id: 'ask', n: '5', t: 'AI hỏi lại tác giả' },
+  { id: 'pause', n: '6', t: 'Tạm dừng để bàn' },
+  { id: 'done', n: '8', t: 'Hoàn tất' },
+  { g: 'Lỗi & tạm dừng', id: 'error', sub: 'credit', n: '7a', t: 'Hết credit' },
+  { id: 'error', sub: 'load', n: '7b', t: 'Không nạp được chương cũ' },
+  { id: 'error', sub: 'engine', n: '7c', t: 'Engine dừng chưa viết' },
+  { id: 'error', sub: 'retry', n: '7d', t: 'Lỗi kết nối · đang thử lại' },
+];
+let si = 0;
+const menu = $('#demoMenu');
+menu.innerHTML = states.map((s, i) => (s.g ? `<div class="grp lbl">${s.g}</div>` : '') + `<button class="demo-item" role="menuitem" data-i="${i}"><span class="n">${s.n}</span><span>${s.t}</span></button>`).join('');
+const toggleMenu = open => { menu.classList.toggle('hidden', !open); $('#demoBtn').setAttribute('aria-expanded', open); };
+$('#demoBtn').onclick = e => { e.stopPropagation(); toggleMenu(menu.classList.contains('hidden')); };
+menu.onclick = e => { const b = e.target.closest('.demo-item'); if (b) { go(+b.dataset.i); toggleMenu(false); } };
+document.addEventListener('click', e => { if (!e.target.closest('.demo-wrap')) toggleMenu(false); });
+$('#demoPrev').onclick = () => go((si - 1 + states.length) % states.length);
+$('#demoNext').onclick = () => go((si + 1) % states.length);
+function go(i) { si = i; show(states[i].id, states[i].sub); }
+function markDemo(name, sub) {
+  const i = states.findIndex(s => s.id === name && (!s.sub || s.sub === sub));
+  if (i >= 0) si = i;
+  $('#demoCur').textContent = states[si].n + ' · ' + states[si].t;
+  $$('.demo-item', menu).forEach(b => b.setAttribute('aria-current', +b.dataset.i === si));
+}
+
 /* ---------- screens ---------- */
-let current = 'start';
 function show(name, sub) {
-  closeAsk(true);
-  $$('[data-screen]').forEach(s => s.classList.toggle('hidden', s.dataset.screen !== (name === 'ask' ? 'writing' : name)));
-  $$('#demoNav .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.go === name && (!c.dataset.sub || c.dataset.sub === sub)));
-  current = name;
-  name === 'writing' ? sim.start() : sim.stop();
+  closeAsk(true); cfClose(); closeCfg();
+  const scr = name === 'ask' ? 'writing' : name === 'cfg' ? 'start' : name;
+  $$('[data-screen]').forEach(s => s.classList.toggle('hidden', s.dataset.screen !== scr));
+  markDemo(name, sub);
+  scr === 'writing' ? sim.start() : sim.stop();
   if (name === 'ask') { sim.wait(); openAsk(); }
-  if (name === 'error') renderError(sub || 'credit');
+  if (name === 'cfg') openCfg();
+  if (name === 'error') renderError(sub || 'credit'); else clearInterval(retryTimer);
   if (name === 'cocreate') coChat.init();
   if (name === 'pause') pChat.init();
-  scrollTo({ top: 0, behavior: 'instant' });
+  window.scrollTo(0, 0);
 }
-$$('#demoNav .chip').forEach(c => c.onclick = () => { show(c.dataset.go, c.dataset.sub); c.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); });
 
 /* ---------- mobile tabs ---------- */
-$$('.mtabs').forEach(t => t.addEventListener('click', e => {
+$$('.mtabs .seg').forEach(t => t.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   $$('button', t).forEach(x => x.setAttribute('aria-selected', x === b));
   $$('#' + t.dataset.for + ' > .pane').forEach(p => p.classList.toggle('on', p.dataset.pane === b.dataset.p));
@@ -1008,138 +1096,171 @@ $$('.mtabs').forEach(t => t.addEventListener('click', e => {
 
 /* ---------- START ---------- */
 const modeInfo = {
-  co: { btn: 'Bắt đầu trò chuyện', html: `<b>Đồng sáng tạo</b><p class="small muted" style="margin-top:4px">AI sẽ hỏi bạn về hướng đi, soạn dần «Chỉ thị sáng tác». Mỗi lượt chat trừ 2–5 credit. Chưa viết gì cho tới khi bạn bấm «Bắt đầu viết».</p>
-      <label class="f" style="margin-top:12px" for="coSeed">Câu mở đầu (không bắt buộc)</label><input class="input" id="coSeed" placeholder="Mình muốn 3 chương tiếp theo xoay quanh cuộc gặp lại…">` },
-  quick: { btn: 'Lên dàn ý và viết', html: `<label class="f" for="qReq">Mô tả yêu cầu</label><textarea class="input" id="qReq" rows="4">Viết 3 chương: Vãn Ca trở lại Ly Sơn sau ba năm, gặp lại Tạ Trầm ở bến Vọng Nguyệt. Không khí buồn, chậm. Kết chương cuối bằng việc Tạ Trầm biết thân phận thật của nàng.</textarea><p class="tiny muted" style="margin-top:6px">AI tự lên dàn ý rồi viết luôn. Bạn vẫn xem và góp ý được khi đang chạy.</p>` },
-  cont: { btn: 'Viết tiếp chương 7', html: `<b>AI sẽ đọc 6 chương rồi viết chương 7 trở đi</b><p class="small muted" style="margin-top:4px">Chương của bạn chỉ được đọc để nắm nhân vật, giọng văn và phục bút. <b style="color:var(--ink)">AI không bao giờ sửa chương của bạn.</b></p>
-      <div class="chap-strip"><span>🔒 1 Tuyết đầu mùa</span><span>🔒 2 Vết sẹo</span><span>🔒 3 Ly Sơn không mưa</span><span>🔒 4 Gió bấc</span><span>🔒 5 Lá thư chưa gửi</span><span>🔒 6 Biệt ly</span><span class="next">＋ 7 AI viết</span></div>
-      <label class="f" style="margin-top:12px" for="contNote">Lưu ý thêm (không bắt buộc)</label><input class="input" id="contNote" placeholder="Ví dụ: chương 7 bắt đầu sau ba năm">` }
+  co: { btn: 'Bắt đầu trò chuyện', html: `<div class="row">${ic('chat')}<b>AI sẽ hỏi bạn về hướng đi trước</b></div><p class="small muted">AI soạn dần «Chỉ thị sáng tác» trong lúc trò chuyện. Mỗi lượt chat trừ 2–5 credit. Chưa viết gì cho tới khi bạn bấm «Bắt đầu viết».</p><div class="field"><label for="coSeed">Câu mở đầu <span class="muted" style="font-weight:400">· không bắt buộc</span></label><input class="input" id="coSeed" placeholder="Mình muốn 3 chương tiếp theo xoay quanh cuộc gặp lại…"></div>` },
+  quick: { btn: 'Lên dàn ý và viết', html: `<div class="field"><label for="qReq">Mô tả yêu cầu</label><textarea class="input" id="qReq" rows="4">Viết 3 chương: Vãn Ca trở lại Ly Sơn sau ba năm, gặp lại Tạ Trầm ở bến Vọng Nguyệt. Không khí buồn, chậm. Kết chương cuối bằng việc Tạ Trầm biết thân phận thật của nàng.</textarea><span class="hint">AI tự lên dàn ý rồi viết luôn. Bạn vẫn xem và góp ý được khi đang chạy.</span></div>` },
+  cont: { btn: 'Viết tiếp chương 7', html: `<div class="row">${ic('lock')}<b>AI đọc 6 chương của bạn, rồi viết từ chương 7</b></div><p class="small muted">Chương của bạn chỉ được đọc để nắm nhân vật, giọng văn và phục bút. AI không bao giờ sửa chương của bạn.</p><div class="chaps"><span>${ic('lock', 'sm')}1 Tuyết đầu mùa</span><span>${ic('lock', 'sm')}2 Vết sẹo</span><span>${ic('lock', 'sm')}3 Ly Sơn không mưa</span><span>${ic('lock', 'sm')}4 Gió bấc</span><span>${ic('lock', 'sm')}5 Lá thư chưa gửi</span><span>${ic('lock', 'sm')}6 Biệt ly</span><span class="next">${ic('plus', 'sm')}7 AI viết</span></div><div class="field"><label for="contNote">Lưu ý thêm <span class="muted" style="font-weight:400">· không bắt buộc</span></label><input class="input" id="contNote" placeholder="Ví dụ: chương 7 bắt đầu sau ba năm"></div>` }
 };
 let mode = 'cont';
 function setMode(m) {
   mode = m;
-  $$('.mode').forEach(x => { const on = x.dataset.mode === m; x.classList.toggle('sel', on); $('input', x).checked = on; });
+  $$('.mode').forEach(x => x.setAttribute('aria-checked', x.dataset.mode === m));
   $('#modeCtx').innerHTML = modeInfo[m].html;
   updateStart();
 }
 $$('.mode').forEach(x => x.addEventListener('click', () => setMode(x.dataset.mode)));
-$('#styleChips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (!b) return; $$('.chip', e.currentTarget).forEach(c => c.setAttribute('aria-pressed', c === b)); });
+$('#styleSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; $$('button', e.currentTarget).forEach(c => c.setAttribute('aria-pressed', c === b)); });
+
+/* ---------- SETTINGS (modal) ---------- */
+const W_MODEL = { 'Claude Opus 5.5': 1, 'Claude Sonnet 5.5': .6, 'Claude Haiku 4.5': .2 };
+const W_THINK = { 'Thấp': .8, 'Vừa': 1, 'Cao': 1.3 };
+const DEFAULT_RULES = $('#rules').value;
+const readModal = () => ({
+  style: $('#styleSeg [aria-pressed=true]').textContent,
+  n: +$('#nChap').value,
+  rules: $('#rules').value.trim(),
+  roles: $$('#roles .role').map(r => ({ r: r.dataset.r, name: $('.nm', r).textContent, base: +r.dataset.base, m: $('.m', r).value, t: $('.t', r).value }))
+});
+const DEFAULT_CFG = readModal();
+let cfg = JSON.parse(JSON.stringify(DEFAULT_CFG));
+const perChap = c => c.roles.reduce((s, r) => s + r.base * W_MODEL[r.m] * W_THINK[r.t], 0);
+const estOf = c => Math.round(perChap(c) * c.n);
+function writeModal(c) {
+  $$('#styleSeg button').forEach(b => b.setAttribute('aria-pressed', b.textContent === c.style));
+  $('#nChap').value = c.n; $('#rules').value = c.rules;
+  c.roles.forEach(r => { const row = $(`#roles .role[data-r=${r.r}]`); $('.m', row).value = r.m; $('.t', row).value = r.t; });
+  modalChanged();
+}
+function modalChanged() {
+  const c = readModal();
+  $('#nChapOut').textContent = c.n;
+  $('#nChapHint').textContent = (c.n === 1 ? 'Chương 7' : `Chương 7 → ${6 + c.n}`) + ' · khoảng 3–4 phút mỗi chương';
+  $('#cfgEst').textContent = `~${fmt(estOf(c))} credit · ${c.n} chương`;
+}
+$('#cfgScrim').addEventListener('input', modalChanged);
+$('#cfgScrim').addEventListener('click', e => { if (e.target.closest('#styleSeg')) modalChanged(); });
+function openCfg() { writeModal(cfg); $('#cfgScrim').classList.remove('hidden'); setTimeout(() => $('#styleSeg [aria-pressed=true]').focus(), 30); }
+function closeCfg() { $('#cfgScrim').classList.add('hidden'); }
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-open-cfg]')) openCfg();
+  if (e.target.closest('[data-close-cfg]') || e.target.id === 'cfgScrim') closeCfg();
+});
+$('#cfgReset').onclick = () => writeModal(DEFAULT_CFG);
+$('#cfgSave').onclick = () => { cfg = readModal(); closeCfg(); updateStart(); toast('Đã lưu thiết lập'); };
 
 function updateStart() {
-  const n = +$('#nChap').value;
-  const bal = $('#lowToggle').checked ? 120 : credit;
-  const est = n * 180;
-  $('#nChapOut').textContent = n;
-  $('#nChapHint').textContent = (n === 1 ? 'Chương 7' : `Chương 7 → ${6 + n}`) + ` · khoảng 3–4 phút mỗi chương`;
-  $('#startEst').textContent = mode === 'co' ? `Chat 2–5 credit/lượt · viết ước tính ~${fmt(est)} credit` : `Ước tính ~${fmt(est)} credit · trừ theo token thật`;
+  const n = cfg.n, bal = $('#lowToggle').checked ? 120 : credit, est = estOf(cfg), max = 1240;
+  $('#sumStyle').textContent = cfg.style;
+  $('#sumChap').textContent = `${n} chương · ` + (n === 1 ? 'chương 7' : `chương 7 → ${6 + n}`);
+  $('#sumRules').textContent = cfg.rules || '— Không có —';
+  const short = m => m.replace('Claude ', '');
+  $('#sumModels').innerHTML = cfg.roles.map(r => `<span style="white-space:nowrap"><i class="dot d-${r.r}"></i>${short(r.m)}</span>`).join(' &nbsp;·&nbsp; ');
+  $('#startEst').textContent = mode === 'co' ? `Chat 2–5/lượt · viết ~${fmt(est)} credit` : `~${fmt(est)} credit`;
   $('#estKv').textContent = `~${fmt(est)} credit`;
   $('#balBig').textContent = fmt(bal);
-  $('#balBar').style.width = Math.min(100, bal / 1240 * 100) + '%';
-  $('#balBar').style.background = bal < 200 ? 'var(--err)' : bal < est ? 'var(--warn)' : 'var(--ok)';
-  $('#balMark').style.left = (200 / 1240 * 100) + '%';
+  const bar = $('#balBar'); bar.style.width = Math.min(100, bal / max * 100) + '%';
+  bar.style.background = bal < 200 ? 'var(--err)' : bal < est ? 'var(--warn)' : 'var(--ok)';
+  $('#balMark').style.left = (200 / max * 100) + '%';
   const low = bal < 200;
   $('#lowAlert').classList.toggle('hidden', !low);
+  $('#lowBadge').classList.toggle('hidden', !low);
   $('#midAlert').classList.toggle('hidden', low || bal >= est);
-  $('#midAlert b').textContent = `Có thể không đủ cho cả ${n} chương`;
-  const btn = $('#startBtn');
-  btn.textContent = modeInfo[mode].btn; btn.disabled = low;
+  $('#midT').textContent = `Có thể không đủ cho cả ${n} chương`;
+  $('#startLbl').textContent = modeInfo[mode].btn; $('#startBtn').disabled = low;
 }
-$('#nChap').oninput = updateStart;
 $('#lowToggle').onchange = updateStart;
 $('#startBtn').onclick = () => show(mode === 'co' ? 'cocreate' : 'writing');
 $('#topupBtn').onclick = () => toast('Mở trang credit (ngoài phạm vi mockup)');
 setMode('cont');
 
-/* ---------- CHAT component ---------- */
+/* ---------- CHAT ---------- */
 function makeChat(el, { history, replies, onReply, cost = 3 }) {
-  const log = $('.chat-log', el), ta = $('textarea', el), send = $('.send', el), stop = $('.stop', el);
+  const scroller = $('.panel-b', el), log = $('.chat-log', el), ta = $('textarea', el), send = $('.send', el), stop = $('.stop', el);
   let inited = false, typing = null, ri = 0;
-  function add(who, html, meta) {
-    const m = document.createElement('div');
-    m.className = 'msg ' + who;
-    m.innerHTML = `<div class="av">${who === 'ai' ? 'AI' : 'Bạn'}</div><div><div class="bubble">${html}</div>${meta ? `<div class="meta">${meta}</div>` : ''}</div>`;
-    log.appendChild(m); log.scrollTop = log.scrollHeight; return m;
+  const down = () => { scroller.scrollTop = scroller.scrollHeight; log.scrollTop = log.scrollHeight; };
+  function add(who, html, c) {
+    const m = document.createElement('div'); m.className = 'msg ' + who;
+    m.innerHTML = `<div class="av">${who === 'ai' ? 'AI' : 'L'}</div><div><div class="who">${who === 'ai' ? 'AI điều phối' : 'Bạn'}${c ? `<span class="c">−${c} credit</span>` : ''}</div><div class="txt">${html}</div></div>`;
+    log.appendChild(m); down(); return m;
   }
-  function init() {
-    if (inited) return; inited = true;
-    history.forEach(([w, t, meta]) => add(w, t, meta));
-  }
+  function init() { if (inited) return; inited = true; history.forEach(([w, t, c]) => add(w, t, c)); }
   async function reply() {
     const text = replies[ri % replies.length]; ri++;
     send.classList.add('hidden'); stop.classList.remove('hidden');
-    const m = add('ai', '<span class="typing-dots"><i></i><i></i><i></i></span>');
-    const b = $('.bubble', m);
+    const m = add('ai', '<span class="dots"><i></i><i></i><i></i></span>'); const b = $('.txt', m);
     const tok = typing = { stopped: false };
-    await sleep(700);
+    await sleep(650);
     b.textContent = ''; b.classList.add('caret');
     let i = 0;
-    while (i < text.length && !tok.stopped) {
-      i += 1 + Math.floor(Math.random() * 3);
-      b.textContent = text.slice(0, i); log.scrollTop = log.scrollHeight;
-      await sleep(22);
-    }
+    while (i < text.length && !tok.stopped) { i += 1 + Math.floor(Math.random() * 3); b.textContent = text.slice(0, i); down(); await sleep(22); }
     b.classList.remove('caret');
     const c = tok.stopped ? Math.max(1, Math.round(cost * i / text.length)) : cost;
-    const meta = document.createElement('div'); meta.className = 'meta';
-    meta.innerHTML = `<span>${tok.stopped ? 'Đã dừng giữa chừng · ' : ''}−${c} credit</span>`;
-    b.parentElement.appendChild(meta);
+    $('.who', m).insertAdjacentHTML('beforeend', `<span class="c">${tok.stopped ? 'đã dừng · ' : ''}−${c} credit</span>`);
     spend(c);
-    send.classList.remove('hidden'); stop.classList.add('hidden');
-    typing = null;
-    if (!tok.stopped && onReply) onReply(ri);
-    return c;
+    send.classList.remove('hidden'); stop.classList.add('hidden'); typing = null;
+    if (onReply) onReply(c, tok.stopped);
   }
-  function submit() {
-    const v = ta.value.trim(); if (!v || typing) return;
-    add('me', v.replace(/</g, '&lt;')); ta.value = ''; reply();
-  }
+  function submit() { const v = ta.value.trim(); if (!v || typing) return; add('me', esc(v)); ta.value = ''; reply(); }
   send.onclick = submit;
   ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); } });
   stop.onclick = () => { if (typing) typing.stopped = true; };
   $$('.suggests .chip', el).forEach(c => c.onclick = () => { ta.value = c.textContent; ta.focus(); });
   return { init };
 }
-
+const flash = el => { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); };
 let coSpent = 9;
 const coChat = makeChat($('#coChat'), {
   history: [
-    ['ai', 'Chào bạn! Mình đã đọc 6 chương của «Tuyết Lạc Vọng Nguyệt Lâu». Chương 6 kết ở đêm Vãn Ca rời núi. Bạn muốn 3 chương tới bắt đầu ngay sau đó, hay nhảy thời gian?', '−2 credit'],
+    ['ai', 'Chào bạn! Mình đã đọc 6 chương của «Tuyết Lạc Vọng Nguyệt Lâu». Chương 6 kết ở đêm Vãn Ca rời núi. Bạn muốn 3 chương tới bắt đầu ngay sau đó, hay nhảy thời gian?', 2],
     ['me', 'Nhảy ba năm. Mình muốn cuộc gặp lại với Tạ Trầm thật chậm, không bày tỏ gì cả.'],
-    ['ai', 'Hiểu rồi. Mình gợi ý đặt cuộc gặp ở bến Vọng Nguyệt (chương 8), vì ở chương 3 bạn đã gieo chi tiết nửa thanh Tuyết Lạc dưới đáy hồ — Tạ Trầm có thể là người vớt nó lên. Bạn có muốn chương 9 có một cú lật không?', '−4 credit'],
+    ['ai', 'Hiểu rồi. Mình gợi ý đặt cuộc gặp ở bến Vọng Nguyệt (chương 8), vì ở chương 3 bạn đã gieo chi tiết nửa thanh Tuyết Lạc dưới đáy hồ — Tạ Trầm có thể là người vớt nó lên. Bạn có muốn chương 9 có một cú lật không?', 4],
     ['me', 'Có, cuối chương 9 Tạ Trầm phải biết nàng là ai.'],
-    ['ai', 'Tốt. Mình đã cập nhật chỉ thị. Còn một điểm: có điều gì bạn muốn AI tuyệt đối tránh trong 3 chương này không?', '−3 credit'],
+    ['ai', 'Tốt. Mình đã cập nhật chỉ thị. Còn một điểm: có điều gì bạn muốn AI tuyệt đối tránh trong 3 chương này không?', 3],
   ],
   replies: [
-    'Đã ghi nhận. Mình thêm vào mục «Tránh» rồi. Với thông tin hiện có, mình thấy đã đủ để lên dàn ý cho cả 3 chương — bạn có thể bấm «Bắt đầu viết» bất cứ lúc nào, hoặc chỉnh lại chỉ thị bên phải trước.',
+    'Đã ghi nhận, mình thêm vào mục «Tránh». Với thông tin hiện có, mình thấy đã đủ để lên dàn ý cho cả 3 chương — bạn có thể bấm «Bắt đầu viết», hoặc chỉnh lại chỉ thị bên phải trước.',
     'Ý hay. Mình sẽ để kiến trúc sư cân nhắc điều đó khi lên dàn ý. Chỉ thị đã cập nhật.',
   ],
-  onReply: () => {
-    coSpent += 3; $('#coSpent').textContent = coSpent;
+  onReply: (c, stopped) => {
+    coSpent += c; $('#coSpent').textContent = coSpent;
+    if (stopped) return;
     const f = $('#dirAvoid textarea');
     f.value = 'Không để hai người bày tỏ tình cảm rõ ràng trước chương 9. Không thêm tình địch. Không dùng từ ngữ hiện đại.';
-    f.classList.remove('flash'); void f.offsetWidth; f.classList.add('flash');
-    $('#readyBar').style.width = '100%'; $('#readyTxt').textContent = 'AI thấy đã đủ thông tin';
-    $('#readyBox').classList.add('ok'); $('#readyBox > span').textContent = '✓';
+    flash(f);
+    $('#readyBar').style.width = '100%'; $('#readyPct').textContent = '100%';
+    $('#readyTxt').innerHTML = `<span class="row" style="color:var(--ok);font-weight:600">${ic('check', 'sm')}AI thấy đã đủ thông tin</span>`;
+    $('#readyBox').classList.add('ok');
   }
 });
 $('#coStart').onclick = () => show('writing');
-$('#coQuit').onclick = () => confirmBox({
-  title: 'Bỏ phiên đồng sáng tạo?',
-  body: `Cuộc trò chuyện và «Chỉ thị sáng tác» sẽ bị xoá. ${coSpent} credit đã dùng cho các lượt chat không được hoàn lại.`,
-  no: 'Ở lại', yes: 'Bỏ phiên', onYes: () => { show('start'); toast('Đã bỏ phiên'); }
-});
+$('#coQuit').onclick = () => confirmBox({ title: 'Bỏ phiên đồng sáng tạo?', body: `Cuộc trò chuyện và «Chỉ thị sáng tác» sẽ bị xoá. ${coSpent} credit đã dùng cho các lượt chat không được hoàn lại.`, no: 'Ở lại', yes: 'Bỏ phiên', onYes: () => { show('start'); toast('Đã bỏ phiên'); } });
 
 const pChat = makeChat($('#pChat'), {
   history: [
-    ['ai', 'Đã tạm dừng ở giữa chương 8. Chương 7 đã xong (8,6/10). Chương 8 đang ở đoạn Tạ Trầm trao nửa thanh Tuyết Lạc. Bạn muốn chỉnh gì cho phần còn lại?', '−2 credit'],
+    ['ai', 'Đã tạm dừng giữa chương 8. Chương 7 xong (8,6/10); chương 8 đang ở đoạn Tạ Trầm trao nửa thanh Tuyết Lạc. Bạn muốn chỉnh gì cho phần còn lại?', 2],
     ['me', 'Mình thấy chương 9 mới để Tạ Trầm nghi ngờ là hơi muộn.'],
-    ['ai', 'Vậy mình đề xuất: cuối chương 8, khi Vãn Ca đưa tay nhận kiếm, Tạ Trầm thấy vết sẹo trên cổ tay nàng. Như vậy trả luôn phục bút chương 2, và chương 9 sẽ là lúc hắn xác nhận qua lá thư. Mình đã ghi vào «Thay đổi sẽ áp dụng».', '−4 credit'],
+    ['ai', 'Vậy mình đề xuất: cuối chương 8, khi Vãn Ca đưa tay nhận kiếm, Tạ Trầm thấy vết sẹo trên cổ tay nàng — trả luôn phục bút chương 2. Chương 9 sẽ là lúc hắn xác nhận qua lá thư. Mình đã ghi vào «Thay đổi sẽ áp dụng».', 4],
   ],
   replies: ['Được. Mình điều chỉnh lại thay đổi. Phần đã viết của chương 8 giữ nguyên, AI chỉ viết tiếp từ đoạn đang dở.'],
-  onReply: () => { const f = $('#pChange textarea'); f.classList.remove('flash'); void f.offsetWidth; f.classList.add('flash'); }
+  onReply: (c, stopped) => { if (!stopped) flash($('#pChange textarea')); }
 });
 $('#applyBtn').onclick = () => { show('writing'); toast('Đã áp dụng thay đổi · AI viết tiếp'); };
 $('#skipBtn').onclick = () => { show('writing'); toast('Viết tiếp theo dàn ý cũ'); };
+
+/* ---------- WRITING: side tabs + activity placement ---------- */
+function selectSide(t) {
+  $$('#sideTabs button').forEach(x => x.setAttribute('aria-selected', x.dataset.t === t));
+  $$('[data-tp]').forEach(p => p.classList.toggle('hidden', p.dataset.tp !== t));
+}
+$('#sideTabs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) selectSide(b.dataset.t); });
+const mqNarrow = matchMedia('(max-width:1279px)');
+function placeAct() {
+  if (mqNarrow.matches) $('#actSlotNarrow').appendChild($('#actInner'));
+  else {
+    $('#actSlotWide').appendChild($('#actInner'));
+    if ($('#sideTabs [data-t=act]').getAttribute('aria-selected') === 'true') selectSide('outline');
+  }
+}
+mqNarrow.addEventListener('change', placeAct); placeAct();
 
 /* ---------- WRITING sim ---------- */
 const prose = [
@@ -1149,9 +1270,9 @@ const prose = [
   'Nàng biết đó là gì trước cả khi mở ra. Nửa thanh Tuyết Lạc, thứ đáng lẽ phải nằm dưới đáy hồ từ đêm sư phụ mất. Lưỡi kiếm vẫn lạnh như ngày ấy, chỉ có chuôi đã mòn đi, như thể ai đó đã cầm nó mỗi đêm suốt ba năm.',
   '— Ta không hỏi ngươi đi đâu, — hắn nói, mắt vẫn nhìn mặt hồ. — Ta chỉ hỏi, lần này ngươi có định ở lại không.',
 ];
-const tools = ['Chấp bút đang tra hồ sơ nhân vật: Tạ Trầm', 'Chấp bút đang đọc lại đoạn cuối chương 3 (thanh kiếm dưới hồ)', 'Chấp bút đang kiểm tra luật riêng về xưng hô'];
+const tools = ['Chấp bút đang tra hồ sơ nhân vật: Tạ Trầm', 'Chấp bút đang đọc lại đoạn cuối chương 3', 'Chấp bút đang kiểm tra luật xưng hô'];
 const sim = (() => {
-  let timer = null, pi = 0, ci = 0, p = null, words = 3412, usd = 1.24, secs = 402, waiting = false, toolT = 0, ti = 0, tool = null, tick = 0;
+  let timer = null, pi = 0, ci = 0, p = null, words = 3412, usd = 1.24, ms = 402000, waiting = false, toolT = 0, ti = 0, tool = null, tick = 0;
   const zone = $('#liveZone'), paper = $('#paper');
   function setWait(on) {
     waiting = on;
@@ -1159,25 +1280,26 @@ const sim = (() => {
     $('#phTxt').textContent = on ? 'Chờ bạn trả lời câu hỏi' : 'Chấp bút · viết chương 8';
   }
   function step() {
-    secs++; if (secs % 1 === 0) $('#wTime').textContent = String(Math.floor(secs / 60)).padStart(2, '0') + ':' + String(secs % 60).padStart(2, '0');
+    ms += 70; const s = Math.floor(ms / 1000);
+    $('#wTime').textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
     if (waiting) return;
     if (tool) { if (--toolT <= 0) { tool.remove(); tool = null; } return; }
-    if (!p) {
-      if (pi >= prose.length) { pi = 0; zone.innerHTML = ''; }
-      p = document.createElement('p'); p.className = 'live caret'; zone.appendChild(p); ci = 0;
-    }
-    const txt = prose[pi]; const add = 2 + Math.floor(Math.random() * 4);
-    const chunk = txt.slice(ci, ci + add); ci += add; p.textContent = txt.slice(0, ci);
+    if (!p) { if (pi >= prose.length) { pi = 0; zone.innerHTML = ''; } p = document.createElement('p'); p.className = 'caret'; zone.appendChild(p); ci = 0; }
+    const txt = prose[pi], add = 2 + Math.floor(Math.random() * 4), chunk = txt.slice(ci, ci + add);
+    ci += add; p.textContent = txt.slice(0, ci);
     const w = (chunk.match(/ /g) || []).length;
-    if (w) { words += w; usd += w * 0.0021; const el = $('#wWords'); el.textContent = fmt(words); }
-    if (++tick % 25 === 0) { $('#wUsd').textContent = '$' + usd.toFixed(2).replace('.', ','); $('#wCred').textContent = fmt(usd * 100); spend(1); $('#wCred').classList.remove('tick-up'); void $('#wCred').offsetWidth; $('#wCred').classList.add('tick-up'); }
+    if (w) { words += w; usd += w * 0.0021; $('#wWords').textContent = fmt(words); }
+    if (++tick % 25 === 0) {
+      $('#wUsd').textContent = '$' + usd.toFixed(2).replace('.', ','); $('#wCred').textContent = fmt(usd * 100); spend(1);
+      const c = $('#wCred').parentElement; c.classList.remove('tick-up'); void c.offsetWidth; c.classList.add('tick-up');
+    }
     $('#evWriteBar').style.width = Math.min(96, 38 + (words - 3412) / 20) + '%';
     paper.scrollTop = paper.scrollHeight;
     if (ci >= txt.length) {
       p.classList.remove('caret'); p = null; pi++;
       if (pi % 2 === 0) {
         tool = document.createElement('div'); tool.className = 'toolline';
-        tool.innerHTML = `<span class="spin" style="border-top-color:var(--info)"></span>${tools[ti++ % tools.length]}…`;
+        tool.innerHTML = `<span class="spin"></span>${ic('tool', 'sm')}<span>${tools[ti++ % tools.length]}…</span>`;
         zone.appendChild(tool); toolT = 30; paper.scrollTop = paper.scrollHeight;
       }
     }
@@ -1190,55 +1312,47 @@ const sim = (() => {
   };
 })();
 
-$('#sideTabs').addEventListener('click', e => {
-  const b = e.target.closest('.tab'); if (!b) return;
-  $$('#sideTabs .tab').forEach(x => x.setAttribute('aria-selected', x === b));
-  $$('[data-tp]').forEach(p => p.classList.toggle('hidden', p.dataset.tp !== b.dataset.t));
-});
-
 $('#fbSend').onclick = () => {
   const v = $('#fbInput').value.trim(); if (!v) { $('#fbInput').focus(); return; }
-  const c = document.createElement('span'); c.className = 'badge b-info';
-  c.textContent = '✓ Đã gửi: «' + (v.length > 40 ? v.slice(0, 40) + '…' : v) + '» · áp dụng từ đoạn tiếp theo';
-  $('#fbSent').appendChild(c); $('#fbInput').value = '';
-  const li = document.createElement('li'); li.className = 'ev done';
-  li.innerHTML = `<span class="ic">✎</span><div><div class="tt">Bạn góp ý · điều phối đã chuyển cho chấp bút</div><div class="ts">${v.replace(/</g, '&lt;')}</div></div>`;
-  $('#timeline').appendChild(li); $('#timeline').scrollTop = 1e6;
+  $('#fbSent').insertAdjacentHTML('beforeend', `<span class="badge b-info">${ic('check', 'sm')}Đã gửi «${esc(v.length > 48 ? v.slice(0, 48) + '…' : v)}» · áp dụng từ đoạn tiếp theo</span>`);
+  $('#fbInput').value = '';
+  $('#timeline').insertAdjacentHTML('beforeend', `<li class="ev you"><span class="ic">${ic('edit')}</span><div><div class="tt">Bạn góp ý · điều phối chuyển cho chấp bút</div><div class="ts">${esc(v)}</div></div></li>`);
 };
 $('#fbInput').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#fbSend').click(); } });
 $('#pauseBtn').onclick = () => { show('pause'); toast('Đã tạm dừng sau đoạn đang viết'); };
 $('#stopBtn').onclick = () => confirmBox({
   title: 'Dừng hẳn phiên viết?',
-  body: 'Chương 7 đã xong sẽ được giữ thành bản nháp. Phần dở của chương 8 (≈1.480 chữ) cũng được lưu thành bản nháp chưa hoàn chỉnh. Chương 9 sẽ không được viết. Credit đã trừ không hoàn lại.',
+  body: 'Chương 7 đã xong được giữ thành bản nháp. Phần dở của chương 8 (≈1.480 chữ) cũng được lưu thành bản nháp chưa hoàn chỉnh. Chương 9 sẽ không được viết. Credit đã trừ không hoàn lại.',
   no: 'Tiếp tục viết', yes: 'Dừng hẳn', onYes: () => { show('done'); toast('Đã dừng · giữ các chương đã viết'); }
 });
 
-/* ---------- ASK dialog (non-dismissable) ---------- */
+/* ---------- ASK (non-dismissable) ---------- */
 const askScrim = $('#askScrim'), askDlg = $('#askDlg');
 function openAsk() {
+  document.body.classList.add('asking');
   askScrim.classList.remove('hidden'); askScrim.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('asking'); root.style.setProperty('--hdr', $('.topbar').offsetHeight + 'px');
   $('#askLock').classList.add('hidden');
   setTimeout(() => $('#askOpts input').focus(), 50);
 }
-function closeAsk(silent) { document.body.classList.remove('asking'); askScrim.classList.add('hidden'); askScrim.setAttribute('aria-hidden', 'true'); if (!silent) sim.resume(); }
+function closeAsk(silent) {
+  document.body.classList.remove('asking');
+  askScrim.classList.add('hidden'); askScrim.setAttribute('aria-hidden', 'true');
+  if (!silent) { sim.resume(); markDemo('writing'); }
+}
 function nudge() { askDlg.classList.remove('shake'); void askDlg.offsetWidth; askDlg.classList.add('shake'); $('#askLock').classList.remove('hidden'); }
 askScrim.addEventListener('click', e => { if (e.target === askScrim) nudge(); });
 function askValid() {
-  const checked = $$('#askOpts input[name=ask]:checked');
-  const own = checked.some(x => x.value === 'own');
-  $('#askSend').disabled = !checked.length || (own && !$('#askOwn').value.trim());
+  const ch = $$('#askOpts input[name=ask]:checked'), own = ch.some(x => x.value === 'own');
+  $('#askSend').disabled = !ch.length || (own && !$('#askOwn').value.trim());
 }
 $('#askOpts').addEventListener('change', askValid);
-$('#askOwn').addEventListener('input', () => { const r = $('#askOpts input[value=own]'); if ($('#askOwn').value && !r.checked) { r.checked = true; } askValid(); });
+$('#askOwn').addEventListener('input', () => { if ($('#askOwn').value) $('#askOpts input[value=own]').checked = true; askValid(); });
 $('#askMulti').onchange = e => {
-  const multi = e.target.checked;
-  $$('#askOpts input[name=ask]').forEach(i => { i.type = multi ? 'checkbox' : 'radio'; i.checked = false; });
-  $('#askModeHint').textContent = multi ? 'Chọn một hoặc nhiều' : 'Chọn một';
-  askValid();
+  $$('#askOpts input[name=ask]').forEach(i => { i.type = e.target.checked ? 'checkbox' : 'radio'; i.checked = false; });
+  $('#askModeHint').textContent = e.target.checked ? 'Chọn một hoặc nhiều' : 'Chọn một'; askValid();
 };
-$('#askSend').onclick = () => { closeAsk(); toast('Đã gửi lựa chọn · AI viết tiếp'); $$('#demoNav .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.go === 'writing')); current = 'writing'; };
-$('#askAuto').onclick = () => { closeAsk(); toast('AI sẽ tự quyết · ghi lại lý do trong bảng công'); $$('#demoNav .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.go === 'writing')); current = 'writing'; };
+$('#askSend').onclick = () => { closeAsk(); toast('Đã gửi lựa chọn · AI viết tiếp'); };
+$('#askAuto').onclick = () => { closeAsk(); toast('AI sẽ tự quyết và ghi lý do vào bảng công'); };
 
 /* ---------- confirm ---------- */
 let cfOnYes = null;
@@ -1251,76 +1365,63 @@ function cfClose() { $('#cfScrim').classList.add('hidden'); }
 $('#cfNo').onclick = cfClose;
 $('#cfYes').onclick = () => { cfClose(); cfOnYes && cfOnYes(); };
 $('#cfScrim').addEventListener('click', e => { if (e.target.id === 'cfScrim') cfClose(); });
-
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
-  if (!$('#cfScrim').classList.contains('hidden')) cfClose();
+  if (!menu.classList.contains('hidden')) toggleMenu(false);
+  else if (!$('#cfScrim').classList.contains('hidden')) cfClose();
+  else if (!$('#cfgScrim').classList.contains('hidden')) closeCfg();
   else if (!askScrim.classList.contains('hidden')) { e.preventDefault(); nudge(); }
 });
-// keep focus inside open dialog
 document.addEventListener('focusin', e => {
-  const open = !$('#cfScrim').classList.contains('hidden') ? $('#cfScrim') : !askScrim.classList.contains('hidden') ? askScrim : null;
-  if (open && !open.contains(e.target) && !e.target.closest('#demoNav, #themeBtn')) $('button, input', open).focus();
+  const open = !$('#cfScrim').classList.contains('hidden') ? $('#cfScrim') : !$('#cfgScrim').classList.contains('hidden') ? $('#cfgScrim') : !askScrim.classList.contains('hidden') ? askScrim : null;
+  if (open && !open.contains(e.target) && !e.target.closest('.demo-wrap, #themeBtn')) $('button, input', open).focus();
 });
 
 /* ---------- ERRORS ---------- */
 let retryTimer = null;
 const errs = {
-  credit: {
-    t: 't-warn', ic: '◔', title: 'Phiên tạm dừng vì hết credit',
+  credit: { t: 't-warn', ic: 'wallet', title: 'Phiên tạm dừng vì hết credit',
     why: 'Số dư còn <b>6 credit</b>. Chương 9 cần khoảng <b>180 credit</b> để viết xong, nên engine dừng an toàn sau khi chương 8 hoàn tất thay vì bỏ dở giữa đoạn.',
     extra: '', primary: 'Xem credit', secondary: 'Dừng hẳn, giữ 2 chương',
-    kept: [['7', 'Ba năm sau', 'xong'], ['8', 'Đêm trăng ở bến Vọng Nguyệt', 'xong']], spent: 487, bal: 6
-  },
-  load: {
-    t: 't-err', ic: '⨯', title: 'Không nạp được chương cũ',
+    kept: [['Chương 7 · Ba năm sau', 'Xong', 'b-ok'], ['Chương 8 · Đêm trăng ở bến Vọng Nguyệt', 'Xong', 'b-ok']], spent: 487, bal: 6 },
+  load: { t: 't-err', ic: 'book', title: 'Không nạp được chương cũ',
     why: 'Chương 4 «Gió bấc» không đọc được — máy chủ truyện trả lỗi định dạng ở đoạn 12. AI cần đọc đủ 6 chương trước khi viết chương 7 để không lệch nhân vật, nên <b>chưa bắt đầu viết và chưa trừ credit cho bước viết</b>.',
-    extra: `<div class="loadsteps" id="loadSteps"></div>`, primary: 'Thử nạp lại', secondary: 'Quay lại thiết lập',
-    kept: [], spent: 8, bal: 1232
-  },
-  engine: {
-    t: 't-info', ic: '❙❙', title: 'Engine dừng trước khi viết chương mới',
-    why: 'Kiến trúc sư đã lập dàn ý cho chương 7, nhưng điều phối kết thúc lượt mà chưa giao việc cho chấp bút (thường do yêu cầu còn mơ hồ hoặc dàn ý mâu thuẫn với luật riêng). Đã trừ <b>23 credit</b> cho phần phân tích và dàn ý — phần này được giữ lại.',
-    extra: `<div><label class="f" for="engReq">Yêu cầu để viết tiếp</label><textarea class="input" id="engReq" rows="3">Viết chương 7 theo dàn ý đã có. Bỏ qua mâu thuẫn về tuổi của Tiểu Đào, lấy theo chương 1.</textarea></div>`,
-    primary: 'Viết tiếp', secondary: 'Xem dàn ý đã lập', kept: [['—', 'Dàn ý chương 7–9', 'đã lập']], spent: 23, bal: 1217
-  },
-  retry: {
-    t: 't-warn', ic: '↻', title: 'Model đang quá tải · đang thử lại 3/7',
+    extra: '<div><div class="lbl" style="margin-bottom:4px">Các bước nạp</div><div id="loadSteps"></div></div>', primary: 'Thử nạp lại', secondary: 'Quay lại thiết lập', kept: [], spent: 8, bal: 1232 },
+  engine: { t: 't-info', ic: 'pause', title: 'Engine dừng trước khi viết chương mới',
+    why: 'Kiến trúc sư đã lập dàn ý cho chương 7, nhưng điều phối kết thúc lượt mà chưa giao việc cho chấp bút — thường do yêu cầu còn mơ hồ hoặc dàn ý mâu thuẫn với luật riêng. Đã trừ <b>23 credit</b> cho phần phân tích và dàn ý; phần này được giữ lại.',
+    extra: '<div class="field"><label for="engReq">Yêu cầu để viết tiếp</label><textarea class="input" id="engReq" rows="3">Viết chương 7 theo dàn ý đã có. Bỏ qua mâu thuẫn về tuổi của Tiểu Đào, lấy theo chương 1.</textarea></div>',
+    primary: 'Viết tiếp', secondary: 'Xem dàn ý đã lập', kept: [['Dàn ý chương 7–9', 'Đã lập', 'b-info']], spent: 23, bal: 1217 },
+  retry: { t: 't-warn', ic: 'wifi', title: 'Model đang quá tải · đang thử lại 3/7',
     why: 'Chấp bút gặp <b>giới hạn tốc độ của model</b> (hoặc mất kết nối tạm thời) khi đang viết chương 8. Hệ thống tự thử lại với thời gian chờ tăng dần. Các lần gọi lỗi <b>không bị trừ credit</b>.',
-    extra: `<div class="stack" style="gap:8px"><div class="retry-dots"><i class="f"></i><i class="f"></i><i class="a"></i><i></i><i></i><i></i><i></i></div><div class="row small"><span>Lần 3/7 · thử lại sau <b class="num" id="retryCd">12</b> giây</span><span class="muted" style="margin-left:auto">Lỗi gần nhất: 429 rate_limit</span></div></div>`,
-    primary: 'Thử lại ngay', secondary: 'Dừng hẳn', kept: [['7', 'Ba năm sau', 'xong'], ['8', 'Đêm trăng ở bến Vọng Nguyệt', '1.480 chữ, đang dở']], spent: 293, bal: 947
-  }
+    extra: '<div style="display:grid;gap:8px"><div class="retry"><i class="f"></i><i class="f"></i><i class="a"></i><i></i><i></i><i></i><i></i></div><div class="row small wrap"><span>Lần 3/7 · thử lại sau <b class="num" id="retryCd">12</b> giây</span><span class="spacer tiny muted">Lỗi gần nhất: 429 rate_limit</span></div></div>',
+    primary: 'Thử lại ngay', secondary: 'Dừng hẳn', kept: [['Chương 7 · Ba năm sau', 'Xong', 'b-ok'], ['Chương 8 · Đêm trăng…', '1.480 chữ, dở', 'b-warn']], spent: 293, bal: 947 }
 };
 function renderError(k) {
   clearInterval(retryTimer);
   const e = errs[k];
-  $('#errCard').className = 'card notice ' + e.t;
-  $('#errCard').innerHTML = `
-    <div class="row" style="gap:14px;flex-wrap:nowrap"><div class="ic">${e.ic}</div><div><div class="eyebrow" style="color:var(--muted)">Phiên đang dừng</div><h2>${e.title}</h2></div></div>
-    <div class="why"><div class="lab">Lý do</div>${e.why}</div>
-    ${e.extra}
-    <div class="row"><button class="btn primary" id="errPrimary">${e.primary}</button><button class="btn" id="errSecondary">${e.secondary}</button></div>`;
-  $('#errKept').innerHTML = e.kept.length ? e.kept.map(([n, t, s]) => `<div class="kv"><span>${n === '—' ? '' : 'Chương ' + n + ' · '}${t}</span><span class="badge ${s === 'xong' ? 'b-ok' : 'b-warn'}">${s}</span></div>`).join('')
-    : '<p class="small muted">Chưa có chương mới nào. Chương 1–6 của bạn không bị thay đổi.</p>';
+  $('#errCard').className = 'notice ' + e.t;
+  $('#errCard').innerHTML = `<span class="ic-big">${ic(e.ic, 'lg')}</span><h1>${e.title}</h1><div class="why"><div class="lbl">Lý do</div>${e.why}</div>${e.extra}`;
+  $('#errFoot').innerHTML = `<button class="btn" id="errSecondary">${e.secondary}</button><div class="spacer"></div><button class="btn primary lg" id="errPrimary">${e.primary}</button>`;
+  $('#errKept').innerHTML = e.kept.length ? e.kept.map(([t, s, c]) => `<div class="kv"><span style="color:var(--ink)">${t}</span><span class="badge ${c}">${s}</span></div>`).join('') : '<p class="small muted">Chưa có chương mới nào. Chương 1–6 của bạn không bị thay đổi.</p>';
   $('#errSpent').textContent = fmt(e.spent); $('#errBal').textContent = fmt(e.bal);
   const P = $('#errPrimary'), S = $('#errSecondary');
   if (k === 'credit') { P.onclick = () => toast('Mở trang credit'); S.onclick = () => show('done'); }
   if (k === 'load') {
     const steps = ['Tuyết đầu mùa', 'Vết sẹo', 'Ly Sơn không mưa', 'Gió bấc', 'Lá thư chưa gửi', 'Biệt ly'];
-    const draw = (upto, bad, running) => $('#loadSteps').innerHTML = steps.map((s, i) => {
-      const st = i < upto ? 'ok' : i === bad ? 'bad' : '';
-      const ic = i < upto ? '✓' : i === bad ? '✕' : i === running ? '<span class="spin" style="width:12px;height:12px"></span>' : '·';
-      return `<div class="ls ${st}"><span class="ic2">${ic}</span>Phân tích chương ${i + 1}/6 · «${s}»${i === bad ? ' — lỗi định dạng' : i === running ? '…' : ''}</div>`;
+    const draw = (upto, bad, run) => $('#loadSteps').innerHTML = steps.map((s, i) => {
+      const cls = i < upto ? 'ok' : i === bad ? 'bad' : '';
+      const c = i < upto ? ic('check') : i === bad ? ic('x') : i === run ? '<span class="spin" style="width:12px;height:12px"></span>' : '';
+      return `<div class="ls ${cls}"><span class="c">${c}</span>Phân tích chương ${i + 1}/6 · ${s}${i === bad ? ' — lỗi định dạng' : i === run ? '…' : ''}</div>`;
     }).join('');
     draw(3, 3);
     P.onclick = async () => {
       P.disabled = true; P.textContent = 'Đang nạp lại…';
-      for (let i = 0; i < 6; i++) { draw(i, -1, i); await sleep(450); }
+      for (let i = 0; i < 6; i++) { draw(i, -1, i); await sleep(420); }
       draw(6, -1); P.textContent = 'Đã nạp đủ 6 chương'; await sleep(600); show('writing');
     };
     S.onclick = () => show('start');
   }
-  if (k === 'engine') { P.onclick = () => { if (!$('#engReq').value.trim()) return $('#engReq').focus(); show('writing'); toast('Đã gửi yêu cầu · engine chạy lại'); }; S.onclick = () => { show('writing'); }; }
+  if (k === 'engine') { P.onclick = () => { if (!$('#engReq').value.trim()) return $('#engReq').focus(); show('writing'); toast('Đã gửi yêu cầu · engine chạy lại'); }; S.onclick = () => { show('writing'); selectSide('outline'); }; }
   if (k === 'retry') {
     let cd = 12;
     retryTimer = setInterval(() => { cd = cd <= 1 ? 12 : cd - 1; const el = $('#retryCd'); if (el) el.textContent = cd; }, 1000);
