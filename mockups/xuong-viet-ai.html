@@ -298,7 +298,7 @@ details.more-d[open]>summary::after{content:"−"}
 @container cv (max-width:520px){ .page{padding:32px 20px 48px;border-radius:0;border-left:0;border-right:0} .stage{padding:0 0 120px} .ed{font-size:16.5px} .ed h1{font-size:25px} .saved .t{display:none} }
 
 /* ================= AI PANEL ================= */
-.ai{container-type:inline-size;container-name:ap;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;min-width:0}
+aside.ai{container-type:inline-size;container-name:ap;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;min-width:0}
 .ai>section{display:flex;flex-direction:column;flex:1;min-height:0}
 .ai-h{flex:none;display:flex;align-items:center;gap:8px;padding:0 14px;height:50px;border-bottom:1px solid var(--line)}
 .ai-h h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
@@ -377,7 +377,7 @@ details.more-d[open]>summary::after{content:"−"}
 body.focus .topbar{display:none}
 body.focus .app{grid-template-rows:minmax(0,1fr)}
 body.focus .ws{grid-template-columns:minmax(0,1fr)}
-body.focus .ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{display:none!important}
+body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{display:none!important}
 .plan{list-style:none;margin:0;padding:0}
 .plan .arcl{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:12px 0 4px}
 .plan .arcl:first-child{padding-top:0}
@@ -658,11 +658,11 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .dgrid{grid-template-columns:1fr}
   .dailies{top:auto;bottom:120px}
   /* AI panel = bottom sheet with a peek bar */
-  .ai{position:fixed;left:0;right:0;bottom:0;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+  aside.ai{position:fixed;left:0;right:0;bottom:0;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .ws.ai-off>.ai{display:flex}
-  .ai.open{transform:translateY(var(--drag,0px))}
-  .ai.dragging{transition:none}
-  .ai:not(.open)>*:not(.ai-peek){visibility:hidden}
+  aside.ai.open{transform:translateY(var(--drag,0px))}
+  aside.ai.dragging{transition:none}
+  aside.ai:not(.open)>*:not(.ai-peek){visibility:hidden}
   .ai-peek{display:flex;flex:none;flex-direction:column;align-items:stretch;gap:4px;border:0;background:transparent;padding:6px 16px 10px;cursor:pointer;touch-action:none;text-align:left;border-bottom:1px solid var(--line)}
   .ai:not(.open) .ai-peek{border-bottom-color:transparent}
   .ai-peek .grip{display:block;width:40px;height:4px;border-radius:2px;background:var(--line-2);margin:0 auto 2px}
@@ -671,7 +671,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .ai.open .ai-peek .chev{transform:none}
   .aiscrim.open{display:block;position:fixed;inset:52px 0 0 0;background:rgba(0,0,0,.3);z-index:85}
   .canvas{padding-bottom:52px}
-  .ai{border-left:0}
+  aside.ai{border-left:0}
   .nav{top:auto;left:0;right:0;bottom:0;width:auto;height:min(80dvh,660px);border-right:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;transform:translateY(102%);transition:transform .26s cubic-bezier(.2,.8,.2,1),visibility .26s;padding-bottom:env(safe-area-inset-bottom);z-index:120}
   .nav.open{transform:translateY(var(--drag,0px));box-shadow:0 -12px 40px rgba(0,0,0,.25)}
   .nav.dragging{transition:none}
