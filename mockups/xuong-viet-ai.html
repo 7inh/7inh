@@ -757,6 +757,9 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .aiscrim.open{inset:0}
   .wbar:not(.paused){display:none!important}
   .banner.pz{display:none}
+  /* mobile: no chapter pager under the page and no tall empty runway — chapters are switched from the chapter list */
+  .pager{display:none!important}
+  .stage{padding-bottom:16px!important}
   /* the peek bar is the sheet's title on mobile: drop the duplicate section headers */
   [data-ai=cocreate]>.ai-h,[data-ai=planning]>.ai-h{display:none}
   .peek-act{position:absolute;top:9px;right:46px;z-index:2;height:32px}
