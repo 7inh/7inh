@@ -970,6 +970,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="wbtns">
           <button class="btn ghost sm dlchip hidden" id="dlChip" title="Xem báo cáo chương"><span class="ck"><svg class="i"><use href="#i-check"/></svg></span>Ch.7 đã chốt · 8,6/10</button>
           <button class="btn ghost sm" id="fbOpen" aria-expanded="false" aria-controls="fbRow"><svg class="i sm"><use href="#i-edit"/></svg><span class="lbl-t">Góp ý</span></button>
+          <button class="btn sm hidden" id="plnStop"><svg class="i sm"><use href="#i-stop"/></svg>Dừng lập dàn ý</button>
           <button class="btn primary sm hidden" id="plnStart"><svg class="i sm"><use href="#i-arrow"/></svg>Bắt đầu viết</button>
           <button class="btn primary sm" id="pauseEdit"><svg class="i sm"><use href="#i-pause"/></svg><span id="pauseEditT">Tạm dừng để sửa</span></button>
         </div>
@@ -1445,6 +1446,7 @@ const DOCS = {
   c7: { t: 'Chương 7 · Ba năm sau', k: 'draft', w: '2.410' }, c8: { t: 'Chương 8 · Đêm trăng ở bến Vọng Nguyệt', k: 'draft', w: '2.538' },
   c9: { t: 'Chương 9 · Tên thật', k: 'draft', w: '2.288' },
 };
+let planRunning = false;
 let curDoc = 'c6', state = 'start', errSub = 'credit', needSync = false, editPaused = false, planHeld = false, planMade = false;
 const chapState = { c7: 'todo', c8: 'todo', c9: 'todo' };
 
@@ -1654,6 +1656,8 @@ function show(name, sub) {
   setNav();
   $('#wbar').classList.toggle('hidden', st !== 'writing' && st !== 'planning'); ticker('Chấp bút đang viết chương 8');
   $('#pauseEdit').classList.toggle('hidden', st === 'planning');
+  /* while the outline is being drafted the only action is to stop it — no feedback box, no menu detour */
+  $('#fbOpen').classList.toggle('hidden', st === 'planning'); $('#plnStop').classList.toggle('hidden', st !== 'planning');
   $('#wbar').classList.remove('paused'); setFb(false);
   $('#fbInput').placeholder = st === 'planning' ? 'Góp ý cho dàn ý — không cần dừng' : 'Góp ý cho AI — không cần dừng';
   $('#banner').className = 'banner hidden';
@@ -1690,9 +1694,9 @@ function show(name, sub) {
   markDemo(name, sub); syncPeekAct();
 }
 function syncPeekAct() {
-  const w = state === 'writing' && !editPaused, p = state === 'planning' && planHeld, on = w || p;
-  $('#peekAct').classList.toggle('hidden', !on); aiP.classList.toggle('has-act', on);
-  $('#peekAct').innerHTML = p ? `${ic('arrow', 'sm')}Bắt đầu viết` : `${ic('pause', 'sm')}Tạm dừng`;
+  const w = state === 'writing' && !editPaused, p = state === 'planning' && planHeld, r = state === 'planning' && planRunning, on = w || p || r;
+  const b = $('#peekAct'); b.classList.toggle('hidden', !on); aiP.classList.toggle('has-act', on); b.classList.toggle('primary', !r);
+  b.innerHTML = p ? `${ic('arrow', 'sm')}Bắt đầu viết` : r ? `${ic('stop', 'sm')}Dừng` : `${ic('pause', 'sm')}Tạm dừng`;
 }
 function banner(tone, icon, html, linkText) {
   const b = $('#banner'); b.className = 'banner ' + tone;
@@ -2114,6 +2118,7 @@ const planner = (() => {
     tl.innerHTML = ''; cr = 0; stepsUI(0);
   }
   function start() {
+    planRunning = true;
     reset(); status('kiến trúc sư đang lập');
     ev('done', 'Điều phối giao kiến trúc sư lập dàn ý arc 3', 'từ yêu cầu một câu · đọc 6 chương cũ');
     let t = 500;
@@ -2135,6 +2140,7 @@ const planner = (() => {
     later(t, finished);
   }
   function finished() {
+    planRunning = false; $('#plnStop').classList.add('hidden'); syncPeekAct();
     stepsUI(STEPS.length); $('#plnArch').classList.remove('on'); $('#plnSpin').className = 'st'; $('#plnSpin').textContent = 'xong';
     $('#plnBadge').className = 'badge b-line'; $('#plnBadge').textContent = 'Đã lập';
     $('#plnMeta').textContent = 'Kiến trúc sư · 3 chương · 2 phục bút được lên lịch trả';
@@ -2160,7 +2166,7 @@ const planner = (() => {
   }
   function closeEnd() { $('#plnScrim').classList.add('hidden'); }
   function go() { stop(); closeEnd(); show('writing'); toast(planHeld ? 'Đã chốt dàn ý đã sửa · chấp bút bắt đầu viết' : 'Dàn ý arc 3 đã chốt · chấp bút bắt đầu viết'); }
-  function stop() { timers.forEach(clearTimeout); timers = []; clearInterval(cdT); cdT = null; $('#plnScrim').classList.add('hidden'); }
+  function stop() { planRunning = false; timers.forEach(clearTimeout); timers = []; clearInterval(cdT); cdT = null; $('#plnScrim').classList.add('hidden'); }
   async function feedback(v) {
     ev('you', 'Bạn góp ý cho dàn ý', `«${esc(v)}»`); ticker('Trọng tài đang đánh giá góp ý…'); toast('Trọng tài đang đánh giá góp ý…');
     await sleep(1300); if (state !== 'planning') return;
@@ -2171,6 +2177,7 @@ const planner = (() => {
   $('#plnHold').onclick = () => hold(false);
   $('#plnGo').onclick = go;
   $('#plnStart').onclick = go;
+  $('#plnStop').onclick = () => confirmStop();
   /* Esc or a click outside never starts writing: it just keeps the outline for editing */
   $('#plnScrim').addEventListener('click', e => { if (e.target.id === 'plnScrim') hold(false); });
   return { start, stop, feedback, go, hold, spent: () => cr, ending: () => !$('#plnScrim').classList.contains('hidden') };
@@ -2217,7 +2224,7 @@ function setEditPause(on) {
   }
   openDoc('c8', { keepScroll: true });
 }
-$('#peekAct').onclick = () => state === 'planning' ? planner.go() : $('#pauseEdit').click();
+$('#peekAct').onclick = () => state === 'planning' ? (planRunning ? confirmStop() : planner.go()) : $('#pauseEdit').click();
 $('#pauseEdit').onclick = () => { setEditPause(!editPaused); if (!editPaused) toast('AI đọc lại chỉnh sửa của bạn rồi viết tiếp'); };
 function setFb(open) {
   $('#fbRow').classList.toggle('hidden', !open); $('#fbOpen').setAttribute('aria-expanded', open);
@@ -2299,7 +2306,6 @@ $('#topMore').onclick = e => popMenu(e.currentTarget, [
 $('#panelMore').onclick = e => $('#docMore').onclick(e);
 $('#docMore').onclick = e => {
   const it = [];
-  if (state === 'planning') it.push({ ic: 'stop', t: 'Dừng lập dàn ý', danger: true, run: confirmStop }, '-');
   if (state === 'cocreate') it.push({ ic: 'trash', t: 'Bỏ phiên đồng sáng tác', danger: true, run: quitCo }, '-');
   if (state === 'writing' || state === 'ask' || state === 'pause' || (state === 'error' && errSub === 'retry')) it.push({ ic: 'stop', t: 'Dừng hẳn, giữ chương đã viết', danger: true, run: confirmStop }, '-');
   if (state === 'done' && needSync) it.push({ ic: 'sync', t: 'Đồng bộ chỉnh sửa', k: '/sync', run: doSync });
