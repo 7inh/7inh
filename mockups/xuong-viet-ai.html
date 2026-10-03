@@ -627,7 +627,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 }
 @media (max-width:899px){
   .ws{grid-template-columns:minmax(0,1fr)}
-  #aiTog{display:none}
+  #aiTog,#focusBtn{display:none}
+  .suggests .chip .mono{display:none}
   /* AI panel = bottom sheet with a peek bar */
   .ai{position:fixed;left:0;right:0;bottom:0;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .ws.ai-off>.ai{display:flex}
@@ -1220,9 +1221,11 @@ let popOwner = null;
 const pop = document.createElement('div'); pop.className = 'pop hidden'; pop.setAttribute('role', 'menu'); document.body.appendChild(pop);
 function closePop() { pop.classList.add('hidden'); if (popOwner) popOwner.setAttribute('aria-expanded', 'false'); popOwner = null; }
 function popMenu(btn, items) {
+  items = items.filter(it => it === '-' || !(it.desk && isSheet()));
+  items = items.filter((it, i, a) => it !== '-' || (i > 0 && i < a.length - 1 && a[i - 1] !== '-'));
   if (popOwner === btn) { closePop(); return; }
   closePop();
-  pop.innerHTML = items.map((it, i) => it === '-' ? '<div class="sep"></div>' : `<button class="pi ${it.danger ? 'danger' : ''}" role="menuitem" data-i="${i}">${ic(it.ic)}<span>${it.t}</span><span class="mono">${it.k || ''}</span></button>`).join('');
+  pop.innerHTML = items.map((it, i) => it === '-' ? '<div class="sep"></div>' : `<button class="pi ${it.danger ? 'danger' : ''}" role="menuitem" data-i="${i}">${ic(it.ic)}<span>${it.t}</span><span class="mono">${it.k && !(isSheet() && /^[/⌘]/.test(it.k)) ? it.k : ''}</span></button>`).join('');
   pop.classList.remove('hidden');
   const r = btn.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
   let left = Math.min(r.right - w, innerWidth - w - 8); left = Math.max(8, left);
@@ -1879,7 +1882,7 @@ function openPal() { $('#palScrim').classList.remove('hidden'); $('#palInput').v
 function closePal() { $('#palScrim').classList.add('hidden'); }
 function runPal(k) { const c = CMDS.find(x => x.k === k); closePal(); c && c.run(); }
 $('#topMore').onclick = e => popMenu(e.currentTarget, [
-  { ic: 'search', t: 'Bảng lệnh', k: '⌘K', run: openPal },
+  { ic: 'search', t: 'Bảng lệnh', k: '⌘K', desk: true, run: openPal },
   { ic: isDark() ? 'sun' : 'moon', t: isDark() ? 'Giao diện sáng' : 'Giao diện tối', run: toggleTheme },
   '-', { ic: 'user', t: 'Tài khoản & credit', run: () => toast('Mở trang tài khoản (demo)') },
 ]);
@@ -1892,7 +1895,7 @@ $('#docMore').onclick = e => {
   it.push({ ic: 'search', t: 'Tìm trong chương', run: () => toast('Tìm trong chương (demo)') });
   it.push({ ic: 'export', t: 'Xuất bản thảo', k: '/export', run: () => toast('Xuất bản thảo (demo)') });
   if (state === 'done') it.push({ ic: 'plus', t: 'Mở phiên mới', run: () => show('start') });
-  it.push('-', { ic: 'cmd', t: 'Bảng lệnh', k: '⌘K', run: openPal });
+  it.push('-', { ic: 'cmd', t: 'Bảng lệnh', k: '⌘K', desk: true, run: openPal });
   popMenu(e.currentTarget, it);
 };
 $('#startMore').onclick = e => popMenu(e.currentTarget, [{ ic: 'clock', t: 'Các phiên trước', k: '4', run: () => showHist(true) }, { ic: 'sliders', t: 'Thiết lập phiên', run: openCfg }]);
@@ -1903,9 +1906,9 @@ $('#readBtn').onclick = e => popMenu(e.currentTarget, [
   { ic: 'plus', t: 'Chữ lớn hơn', k: fs + 'px', run: () => { fs = Math.min(23, fs + 1.5); applyRead(); toast('Cỡ chữ ' + fs + 'px'); } },
   { ic: 'minus', t: 'Chữ nhỏ hơn', run: () => { fs = Math.max(15.5, fs - 1.5); applyRead(); toast('Cỡ chữ ' + fs + 'px'); } },
   '-',
-  { ic: 'width', t: 'Trang hẹp', k: pw === 640 ? '✓' : '', run: () => { pw = 640; applyRead(); } },
-  { ic: 'width', t: 'Trang vừa', k: pw === 760 ? '✓' : '', run: () => { pw = 760; applyRead(); } },
-  { ic: 'width', t: 'Trang rộng', k: pw === 900 ? '✓' : '', run: () => { pw = 900; applyRead(); } },
+  { ic: 'width', desk: true, t: 'Trang hẹp', k: pw === 640 ? '✓' : '', run: () => { pw = 640; applyRead(); } },
+  { ic: 'width', desk: true, t: 'Trang vừa', k: pw === 760 ? '✓' : '', run: () => { pw = 760; applyRead(); } },
+  { ic: 'width', desk: true, t: 'Trang rộng', k: pw === 900 ? '✓' : '', run: () => { pw = 900; applyRead(); } },
 ]);
 function setFocus(on) { document.body.classList.toggle('focus', on); $('#focusBtn').setAttribute('aria-pressed', on); $('#focusBtn').title = on ? 'Thoát tập trung (Esc)' : 'Tập trung'; if (on) toast('Chế độ tập trung · Esc để thoát'); }
 $('#focusBtn').onclick = () => setFocus(!document.body.classList.contains('focus'));
