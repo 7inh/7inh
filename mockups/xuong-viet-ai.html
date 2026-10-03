@@ -534,9 +534,7 @@ details.grp .more{font-size:12px;font-weight:500;text-decoration:underline;text-
 @keyframes tickc{0%{opacity:.3}100%{opacity:1}}
 
 /* mobile switch */
-.mswitch{display:none;background:var(--surface);border-top:1px solid var(--line);padding:6px 10px;gap:6px}
-.mswitch button{flex:1;height:34px;border:0;background:transparent;border-radius:6px;font-size:13px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
-.mswitch button[aria-pressed="true"]{background:var(--fill);color:var(--fill-ink)}
+.ai-peek,.aiscrim{display:none}
 .navscrim{display:none}
 
 /* ================= MODALS ================= */
@@ -598,12 +596,22 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 }
 @media (max-width:899px){
   .ws{grid-template-columns:minmax(0,1fr)}
-  .ws>.canvas,.ws>.ai{grid-area:1/1}
-  .ws[data-view="canvas"]>.ai,.ws[data-view="ai"]>.canvas{display:none}
-  .mswitch{display:flex}
-  #aiTog,#navBtn{display:none}
+  #aiTog{display:none}
+  /* AI panel = bottom sheet with a peek bar */
+  .ai{position:fixed;left:0;right:0;bottom:30px;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .ws.ai-off>.ai{display:flex}
-  .app{grid-template-rows:52px minmax(0,1fr) auto 30px}
+  .ai.open{transform:translateY(var(--drag,0px))}
+  .ai.dragging{transition:none}
+  .ai:not(.open)>*:not(.ai-peek){visibility:hidden}
+  .ai-peek{display:flex;flex:none;flex-direction:column;align-items:stretch;gap:4px;border:0;background:transparent;padding:6px 16px 10px;cursor:pointer;touch-action:none;text-align:left;border-bottom:1px solid var(--line)}
+  .ai:not(.open) .ai-peek{border-bottom-color:transparent}
+  .ai-peek .grip{display:block;width:40px;height:4px;border-radius:2px;background:var(--line-2);margin:0 auto 2px}
+  .ai-peek .pk{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;min-width:0;padding-right:28px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ai-peek .chev{position:absolute;right:16px;top:20px;transform:rotate(180deg);transition:transform .2s}
+  .ai.open .ai-peek .chev{transform:none}
+  .aiscrim.open{display:block;position:fixed;inset:52px 0 30px 0;background:rgba(0,0,0,.3);z-index:85}
+  .stage{padding-bottom:150px}
+  .fbfloat{bottom:68px}
   .ai{border-left:0}
   .nav{top:auto;left:0;right:0;bottom:0;width:auto;height:min(80dvh,660px);border-right:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;transform:translateY(102%);transition:transform .26s cubic-bezier(.2,.8,.2,1),visibility .26s;padding-bottom:env(safe-area-inset-bottom);z-index:120}
   .nav.open{transform:translateY(var(--drag,0px));box-shadow:0 -12px 40px rgba(0,0,0,.25)}
@@ -710,7 +718,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <button class="btn ghost icon" id="topMore" aria-label="Thêm" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
 </header>
 
-<div class="ws" id="ws" data-view="canvas">
+<div class="ws" id="ws">
 
   <!-- ============ LEFT: outline (Arc → Chương) ============ -->
   <aside class="nav" id="nav" aria-label="Dàn ý phân tầng">
@@ -809,7 +817,9 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   </section>
 
   <!-- ============ RIGHT: AI assistant panel ============ -->
-  <aside class="ai" aria-label="Trợ lý AI">
+  <div class="aiscrim" id="aiScrim"></div>
+  <aside class="ai" id="aiPanel" aria-label="Trợ lý AI">
+    <button class="ai-peek" id="aiPeek" aria-expanded="false" aria-controls="aiPanel"><span class="grip" aria-hidden="true"></span><span class="pk"><span class="pulse off" id="peekDot"></span><span id="peekTxt">Trợ lý AI</span></span><svg class="i chev"><use href="#i-down"/></svg></button>
     <div class="rail hidden" id="rail"></div>
 
     <!-- START -->
@@ -1065,11 +1075,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   </aside>
 </div>
 
-<div class="mswitch" id="mswitch">
-  <button id="msNav"><svg class="i"><use href="#i-menu"/></svg>Dàn ý</button>
-  <button data-view="canvas" aria-pressed="true"><svg class="i"><use href="#i-file"/></svg>Bản thảo</button>
-  <button data-view="ai" aria-pressed="false"><svg class="i"><use href="#i-sparkle"/></svg>Trợ lý AI</button>
-</div>
 <footer class="sbar" id="sbar"></footer>
 </div>
 
@@ -1328,6 +1333,7 @@ document.addEventListener('input', e => {
 /* nav drawer + mobile view */
 const isSheet = () => matchMedia('(max-width:899px)').matches;
 const openNav = () => {
+  if (isSheet() && typeof setView === 'function') setView('canvas');
   const nav = $('#nav'); nav.style.removeProperty('--drag');
   nav.classList.add('open'); $('#navScrim').classList.add('open');
   $('#sheetSub').textContent = 'Đang mở: ' + DOCS[curDoc].t;
@@ -1344,12 +1350,35 @@ $('#sheetX').onclick = closeNav;
   const up = () => { if (y0 === null) return; nav.classList.remove('dragging'); y0 = null; if (dy > 90) closeNav(); else nav.style.removeProperty('--drag'); };
   ['#sheetGrip', '#navHead'].forEach(s => { const el = $(s); el.addEventListener('pointerdown', down); el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); });
 })();
-$('#navBtn').onclick = openNav; $('#msNav').onclick = openNav; $('#navScrim').onclick = closeNav;
+$('#navBtn').onclick = openNav; $('#navScrim').onclick = closeNav;
+/* mobile: AI panel is a bottom sheet; 'ai' opens it, 'canvas' folds it to the peek bar */
+const aiP = $('#aiPanel');
 function setView(v) {
-  $('#ws').dataset.view = v;
-  $$('#mswitch [data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === v));
+  const open = v === 'ai';
+  aiP.classList.toggle('open', open); aiP.style.removeProperty('--drag');
+  $('#aiPeek').setAttribute('aria-expanded', open);
+  $('#aiScrim').classList.toggle('open', open && isSheet());
 }
-$$('#mswitch [data-view]').forEach(b => b.onclick = () => setView(b.dataset.view));
+$('#aiScrim').onclick = () => setView('canvas');
+function setPeek(txt, dot = 'off') { $('#peekTxt').textContent = txt; $('#peekDot').className = 'pulse ' + dot; }
+(() => {
+  const pk = $('#aiPeek'); let y0 = null, dy = 0, moved = false;
+  pk.addEventListener('pointerdown', e => { if (!isSheet()) return; y0 = e.clientY; dy = 0; moved = false; aiP.classList.add('dragging'); pk.setPointerCapture(e.pointerId); });
+  pk.addEventListener('pointermove', e => {
+    if (y0 === null) return; dy = e.clientY - y0; if (Math.abs(dy) > 6) moved = true;
+    if (aiP.classList.contains('open')) aiP.style.setProperty('--drag', Math.max(0, dy) + 'px');
+  });
+  const up = () => {
+    if (y0 === null) return; aiP.classList.remove('dragging'); y0 = null;
+    const open = aiP.classList.contains('open');
+    if (!moved) setView(open ? 'canvas' : 'ai');
+    else if (open && dy > 90) setView('canvas');
+    else if (!open && dy < -30) setView('ai');
+    else aiP.style.removeProperty('--drag');
+  };
+  pk.addEventListener('pointerup', up); pk.addEventListener('pointercancel', up);
+  pk.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setView(aiP.classList.contains('open') ? 'canvas' : 'ai'); } });
+})();
 
 /* status bar */
 const si = (h, cls = '') => `<span class="si ${cls}">${h}</span>`;
@@ -1423,6 +1452,10 @@ function show(name, sub) {
   if (st === 'error') renderError(errSub);
   if (name === 'ask') { sim.wait(); openAsk(); }
   if (name === 'cfg') openCfg();
+  const pkMap = { start: ['Phiên viết mới', 'off'], cocreate: ['Đồng sáng tạo · trò chuyện với AI', ''], writing: ['Chấp bút · viết chương 8', ''], pause: ['Tạm dừng · bàn hướng đi', 'wait'], done: ['Hoàn tất · 3 chương mới', 'off'] };
+  if (name === 'ask') setPeek('AI đang chờ bạn trả lời', 'wait');
+  else if (st === 'error') setPeek(errs[errSub].title, errs[errSub].t === 't-err' ? 'bad' : 'wait');
+  else setPeek(...pkMap[st]);
   markDemo(name, sub);
 }
 function banner(tone, icon, html, linkText) {
@@ -1615,7 +1648,7 @@ const coChat = makeChat($('#coChat'), {
     f.scrollIntoView({ block: 'center', behavior: 'smooth' }); flash(f);
     $('#readyBar').style.width = '100%'; $('#readyPct').textContent = '100%';
     $('#readyTxt').innerHTML = `<span class="row" style="font-weight:600">${ic('check', 'sm')}AI thấy đã đủ thông tin</span>`;
-    if (innerWidth < 900) toast('Chỉ thị đã cập nhật — xem ở «Bản thảo»');
+    if (innerWidth < 900) toast('Chỉ thị đã cập nhật trên trang');
   }
 });
 $('#coStart').onclick = () => show('writing');
@@ -1828,7 +1861,8 @@ document.addEventListener('keydown', e => {
   else if (!$('#cfScrim').classList.contains('hidden')) cfClose();
   else if (!$('#cfgScrim').classList.contains('hidden')) closeCfg();
   else if (!askScrim.classList.contains('hidden')) { e.preventDefault(); nudge(); }
-  else closeNav();
+  else if ($('#nav').classList.contains('open')) closeNav();
+  else if (isSheet() && $('#aiPanel').classList.contains('open')) setView('canvas');
 });
 document.addEventListener('focusin', e => {
   const open = ['#cfScrim', '#cfgScrim', '#palScrim'].map(s => $(s)).find(s => !s.classList.contains('hidden')) || (!askScrim.classList.contains('hidden') ? askScrim : null);
