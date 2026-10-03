@@ -201,7 +201,7 @@ body.prestart .ai-rz{display:none}
 .fbbox{display:flex;align-items:flex-end;gap:8px;width:100%}
 .fbpill{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 10px 0 14px;border:0;background:transparent;border-radius:999px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink)}
 .fbpill:hover{background:var(--hover)}
-.pop{position:fixed;z-index:125;max-height:calc(100dvh - 16px);overflow:auto;min-width:230px;max-width:calc(100vw - 16px);background:var(--surface);border:1px solid var(--line-2);border-radius:10px;box-shadow:var(--shadow-lg);padding:5px}
+.pop{position:fixed;z-index:125;max-height:calc(100dvh - 16px);overflow:auto;min-width:min(300px,calc(100vw - 16px));max-width:calc(100vw - 16px);background:var(--surface);border:1px solid var(--line-2);border-radius:10px;box-shadow:var(--shadow-lg);padding:5px}
 .pi{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;border:0;background:transparent;text-align:left;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--ink)}
 .pi:hover,.pi:focus-visible{background:var(--hover);outline:none}
 .pi.danger{font-weight:600}
@@ -391,7 +391,15 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .wline{display:flex;align-items:center;gap:10px;min-width:0}
 .wline .ticker{flex:1}
 .fbrow{display:flex}
-.fbrow .composer{flex:1;min-width:0}
+/* one composer card: note on top, status + actions in a footer inside the card */
+.fbcard{flex:1;min-width:0;border:1px solid var(--line-2);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-sm);transition:border-color .12s,box-shadow .12s}
+.fbcard:focus-within{border-color:var(--ink-2);box-shadow:0 0 0 3px var(--accent-soft)}
+.fbcard textarea{display:block;width:100%;border:0;outline:0;background:transparent;resize:none;font:inherit;font-size:14px;line-height:1.55;padding:10px 12px 2px;min-height:24px;max-height:160px;color:var(--ink)}
+.fbfoot{display:flex;align-items:center;gap:8px;padding:4px 6px 6px 12px;min-width:0}
+.fbfoot #fbHint{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.fbfoot .btn.icon{width:30px;height:30px}
+.wbar.paused .wline{display:none}
+.banner.pz{display:none} /* the paused hint lives in the composer card */
 #fbOpen[aria-expanded=true]{background:var(--soft)}
 .ticker{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);min-width:0}
 .ticker #tickerTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
@@ -704,6 +712,16 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   body.prestart aside.ai .ai-f{padding:14px 18px}
 }
 
+/* wide screens: the chapter list is a permanent left column (no toggle); it collapses back to a drawer below 1280px */
+@media (min-width:1280px){
+  .ws{grid-template-columns:272px minmax(0,1fr) var(--ai-w,392px)}
+  .ws.ai-off{grid-template-columns:272px minmax(0,1fr)}
+  .ws>.nav{position:static;transform:none;visibility:visible;width:auto;height:auto;box-shadow:none;z-index:auto}
+  .ws>.navscrim{display:none!important}
+  #navBtn{display:none}
+  body.prestart .ws{grid-template-columns:minmax(0,1fr)}
+  body.prestart .ws>.nav{display:none}
+}
 /* desktop: the session menu (⋯) lives in the AI panel's top-right corner; it falls back to the doc bar while the panel is closed */
 .panel-more{display:none}
 @media (min-width:900px){
@@ -728,7 +746,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .wbar.paused .wbtns .btn{height:40px}
   /* paused: the note box and the peek bar read as ONE block — the box is the top of the sheet, «Viết tiếp» sits on the peek bar */
   .wbar.paused{display:block;background:var(--surface);border-top:0;border-radius:14px 14px 0 0;box-shadow:0 -10px 28px rgba(40,30,10,.10);padding:12px 12px 4px;position:relative;z-index:91}
-  .wbar.paused .wline{display:none}
+  .wbar.paused .fbfoot{display:none}
   body.paused aside.ai:not(.open){border-radius:0;border-top:0;box-shadow:none}
   body.paused aside.ai:not(.open) .ai-peek .grip{display:none}
 }
@@ -954,7 +972,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <h3>Ranh giới</h3><p>Không phép thuật lớn; võ công đời thường. Kết mở về tình cảm.</p>
       </div></article>
       <article class="page" data-page="c7"><div class="ed" spellcheck="false"><h1>Ba năm sau</h1><div class="doc-meta"><span class="badge b-line">Bản nháp AI</span>Chương 7 · 2.410 chữ · biên tập 8,6/10 · đạt</div><p>Ba năm sau, Ly Sơn vẫn vậy, chỉ có người đã khác. Vãn Ca trở về trong bộ áo vải thô của một khách buôn trà, đội nón lá che nửa mặt.</p><p>Quán trà dưới chân núi giờ do Tiểu Đào trông coi. Cô bé năm nào đã thành thiếu nữ, nói nhiều hơn, cười cũng nhiều hơn.</p><p>— Khách quan dùng trà gì? — Tiểu Đào hỏi, rồi khựng lại khi thấy nàng cầm chén bằng ba ngón tay, ngón út hơi cong lên — đúng cái tật sư phụ từng mắng không biết bao lần.</p><p>— Trà nhạt thôi, — Vãn Ca nói. — Nghe nói ở bến Vọng Nguyệt có người chèo đò đêm?</p></div></article>
-      <article class="page" data-page="c8"><div class="ed" spellcheck="false"><h1>Đêm trăng ở bến Vọng Nguyệt</h1><div class="doc-meta"><span class="badge b-solid" id="c8Badge">Đang viết</span><span id="c8Meta">Chương 8 · chỉ hiện văn chương, suy nghĩ của AI được ẩn</span></div><p>Trăng lên quá ngọn tre thì bến Vọng Nguyệt mới thật sự yên. Lục Vãn Ca ngồi ở mũi thuyền, chân trần chạm mặt nước lạnh, nghe tiếng mái chèo của ai đó khua từ phía bờ bên kia — chậm, đều, như người đã quen đường lắm.</p><p>Nàng không quay đầu. Có những người chỉ cần nghe bước chân là biết, và có những người, dù đã ba năm không gặp, tiếng thở vẫn nằm yên trong trí nhớ như một vết khắc trên chuôi kiếm.</p><div id="liveZone"></div></div></article>
+      <article class="page" data-page="c8"><div class="ed" spellcheck="false"><h1>Đêm trăng ở bến Vọng Nguyệt</h1><div class="doc-meta"><span class="badge b-solid" id="c8Badge">Đang viết</span><span id="c8Meta">Chương 8</span></div><p>Trăng lên quá ngọn tre thì bến Vọng Nguyệt mới thật sự yên. Lục Vãn Ca ngồi ở mũi thuyền, chân trần chạm mặt nước lạnh, nghe tiếng mái chèo của ai đó khua từ phía bờ bên kia — chậm, đều, như người đã quen đường lắm.</p><p>Nàng không quay đầu. Có những người chỉ cần nghe bước chân là biết, và có những người, dù đã ba năm không gặp, tiếng thở vẫn nằm yên trong trí nhớ như một vết khắc trên chuôi kiếm.</p><div id="liveZone"></div></div></article>
       <article class="page" data-page="pln"><div class="ed doc" spellcheck="false"><h1>Dàn ý arc 3</h1><div class="doc-meta" contenteditable="false"><span class="badge b-solid" id="plnBadge">Đang lập</span><span id="plnMeta">Kiến trúc sư lập từ yêu cầu của bạn · cập nhật trực tiếp</span></div>
         <div class="plnreq" contenteditable="false"><span class="lbl">Yêu cầu</span><span id="plnReq"></span></div>
         <section class="pl-s" data-ps="premise"><h3>Tiền đề arc</h3><div class="pl-b"><p>Ba năm sau đêm rời núi, Vãn Ca trở về Ly Sơn trong vai khách lạ để tìm nửa thanh Tuyết Lạc. Cuộc gặp lại Tạ Trầm buộc nàng chọn giữa giấu tên và nói thật.</p></div></section>
@@ -984,7 +1002,13 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         </div>
       </div>
       <div class="fbrow hidden" id="fbRow">
-        <div class="composer"><textarea id="fbInput" rows="1" placeholder="Góp ý cho AI — không cần dừng" aria-label="Góp ý cho AI"></textarea><button class="btn icon" id="fbSend" aria-label="Gửi góp ý"><svg class="i"><use href="#i-send"/></svg></button></div>
+        <div class="fbcard">
+          <textarea id="fbInput" rows="1" placeholder="Góp ý cho AI — không cần dừng" aria-label="Góp ý cho AI"></textarea>
+          <div class="fbfoot"><span class="tiny muted" id="fbHint">Trọng tài áp dụng vào phần chưa viết · Enter để gửi</span><span class="spacer"></span>
+            <button class="btn icon sm" id="fbSend" aria-label="Gửi góp ý"><svg class="i sm"><use href="#i-send"/></svg></button>
+            <button class="btn primary sm hidden" id="fbResume"><svg class="i sm"><use href="#i-play"/></svg>Viết tiếp</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1526,7 +1550,7 @@ function setNav() {
   const c8b = $('#c8Badge');
   c8b.className = 'badge ' + ({ live: 'b-solid', done: 'b-line', warn: 'b-hatch', todo: 'b-mute' }[chapState.c8]);
   c8b.textContent = { live: 'Đang viết', done: 'Bản nháp AI', warn: 'Viết dở', todo: 'Chờ viết' }[chapState.c8];
-  $('#c8Meta').textContent = chapState.c8 === 'live' ? 'Chương 8 · chỉ hiện văn chương, suy nghĩ của AI được ẩn' : 'Chương 8 · 2.538 chữ · biên tập 8,9/10';
+  $('#c8Meta').textContent = chapState.c8 === 'live' ? 'Chương 8' : 'Chương 8 · 2.538 chữ · biên tập 8,9/10';
   $('#navFoot').textContent = { start: 'Chưa có phiên đang chạy', cocreate: 'Đang soạn chỉ thị', planning: 'Đang lập dàn ý arc 3', done: 'Điểm khôi phục #58 · phiên đã đóng' }[state] || 'Điểm khôi phục #41 · vừa xong';
 }
 
@@ -2223,7 +2247,9 @@ document.addEventListener('keydown', e => {
 });
 function setEditPause(on) {
   editPaused = on; document.body.classList.toggle('paused', on); syncPeekAct(); $('#wbar').classList.toggle('paused', on);
-  $('#fbInput').placeholder = on ? 'Dặn AI khi viết tiếp…' : 'Góp ý cho AI — không cần dừng';
+  $('#fbInput').placeholder = on ? 'Dặn AI khi viết tiếp… (không bắt buộc)' : 'Góp ý cho AI — không cần dừng';
+  $('#fbSend').classList.toggle('hidden', on); $('#fbResume').classList.toggle('hidden', !on);
+  $('#fbHint').textContent = on ? 'Đã tạm dừng · sửa thẳng trên trang · Enter để viết tiếp' : 'Trọng tài áp dụng vào phần chưa viết · Enter để gửi';
   setFb(on); /* pausing opens the feedback box; resuming closes it */
   if (on) {
     sim.wait(); ticker('Đã tạm dừng', false);
@@ -2240,7 +2266,10 @@ function setEditPause(on) {
   }
   openDoc('c8', { keepScroll: true });
 }
-$('#peekAct').onclick = () => state === 'planning' ? (planRunning ? confirmStop() : planner.go()) : $('#pauseEdit').click();
+/* resume after a pause: a typed note is sent along with «Viết tiếp» */
+function resumeWithNote() { if ($('#fbInput').value.trim()) $('#fbSend').click(); $('#pauseEdit').click(); }
+$('#fbResume').onclick = resumeWithNote;
+$('#peekAct').onclick = () => state === 'planning' ? (planRunning ? confirmStop() : planner.go()) : editPaused ? resumeWithNote() : $('#pauseEdit').click();
 $('#pauseEdit').onclick = () => { setEditPause(!editPaused); if (!editPaused) toast('AI đọc lại chỉnh sửa của bạn rồi viết tiếp'); };
 function setFb(open) {
   $('#fbRow').classList.toggle('hidden', !open); $('#fbOpen').setAttribute('aria-expanded', open);
@@ -2248,7 +2277,7 @@ function setFb(open) {
 }
 $('#fbOpen').onclick = () => setFb($('#fbRow').classList.contains('hidden'));
 $('#fbInput').addEventListener('keydown', e => {
-  if (e.key === 'Escape') { e.stopPropagation(); $('#fbInput').blur(); if (!editPaused) setFb(false); return; } if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#fbSend').click(); } });
+  if (e.key === 'Escape') { e.stopPropagation(); $('#fbInput').blur(); if (!editPaused) setFb(false); return; } if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); editPaused ? resumeWithNote() : $('#fbSend').click(); } });
 function confirmStop() {
   if (state === 'planning') return confirmBox({
     title: 'Dừng lập dàn ý?',
