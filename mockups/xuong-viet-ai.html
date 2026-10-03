@@ -1005,7 +1005,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         </div>
         <div class="wstep hidden" data-ws="3">
           <h2>Kiểm tra trước khi chạy</h2>
-          <p class="sub">AI chạy nền vài phút mỗi chương, trừ credit theo token thật.</p>
+          <p class="sub">AI chạy nền vài phút mỗi chương.</p>
           <div class="sum">
             <div class="kv"><span>Chế độ</span><b id="sumMode"></b></div>
             <div class="kv"><span>Viết</span><b id="sumChap"></b></div>
@@ -1098,7 +1098,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
             </details></li>
             <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Kiến trúc sư mở rộng arc 3 · 3 chương</div><div class="ts">01:58 · theo dõi 6 phục bút <span class="mono">· #12</span></div></div></li>
             <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Chấp bút chốt chương 7 · 2.410 chữ</div><div class="ts">04:31 <span class="mono">· #27</span></div></div></li>
-            <li class="ev err"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><div class="box"><div class="tt">Biên tập: chạm giới hạn tốc độ model</div><div class="ts">04:40 · thử lại 1/7 thành công sau 6 giây · không trừ credit</div></div></li>
+            <li class="ev err"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><div class="box"><div class="tt">Biên tập: chạm giới hạn tốc độ model</div><div class="ts">04:40 · thử lại 1/7 thành công sau 6 giây</div></div></li>
             <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Biên tập duyệt chương 7 · 8,6/10 · đạt</div><div class="ts">05:02 · 7 tiêu chí, có dẫn chứng</div></div></li>
             <li class="ev run"><span class="ic"><span class="spin" style="width:12px;height:12px"></span></span><div><div class="tt">Biên tập kiểm tra nhất quán ch.7 ↔ hồ sơ nhân vật</div><div class="prog"><i style="width:64%"></i></div></div></li>
             <li class="ev run"><span class="ic"><span class="spin" style="width:12px;height:12px"></span></span><div><div class="tt">Chấp bút viết nháp chương 8</div><div class="prog"><i id="evWriteBar" style="width:38%"></i></div></div></li>
@@ -1176,7 +1176,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 
     <!-- PAUSE -->
     <section data-ai="pause" class="hidden" id="pChat">
-      <div class="ai-h"><span class="ai-mark o"><svg class="i sm"><use href="#i-pause"/></svg></span><h3>Bàn hướng đi</h3><span class="badge b-dash spacer">Không tốn credit khi chờ</span></div>
+      <div class="ai-h"><span class="ai-mark o"><svg class="i sm"><use href="#i-pause"/></svg></span><h3>Bàn hướng đi</h3></div>
       <div class="ai-b">
         <div class="ctx-card" style="margin-bottom:16px">
           <div class="row"><span class="badge b-line">Ch.7 chốt</span><span class="tiny muted">8,6/10 · 2.410 chữ</span></div>
@@ -1209,7 +1209,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
           <div id="errKept"></div>
           <div class="kv"><span>Credit đã trừ phiên này</span><b class="num" id="errSpent">293</b></div>
           <div class="kv"><span>Số dư hiện tại</span><b class="num" id="errBal">947</b></div>
-          <p class="tiny muted" style="margin-top:8px">Lần gọi model thất bại không bị trừ credit. Chương 1–6 của bạn không bị thay đổi.</p>
+          <p class="tiny muted" style="margin-top:8px">Chương 1–6 của bạn không bị thay đổi.</p>
         </div>
       </div>
       <div class="ai-f" id="errFoot"></div>
@@ -1671,7 +1671,7 @@ function show(name, sub) {
   if (st === 'planning') { planMade = true; planner.start(); }
   if (st === 'pause') {
     pChat.init(); addPauseMark();
-    setStatus(si('<span class="pulse wait"></span>Sáng tác · <b>can thiệp</b>') + si('Chương 8/9 · mới 2/3', 'sx') + si(`<b class="num">${fmt(W.words)}</b> chữ`, 'sx') + si('Không tốn credit khi chờ', 'r'));
+    setStatus(si('<span class="pulse wait"></span>Sáng tác · <b>can thiệp</b>') + si('Chương 8/9 · mới 2/3', 'sx') + si(`<b class="num">${fmt(W.words)}</b> chữ`, 'sx'));
   }
   if (st === 'done') {
     banner('', 'check', '<b>Bản nháp do AI viết.</b> <span class="txt">Đọc lại, sửa thẳng trên trang, đồng bộ nếu có sửa, rồi «Gửi duyệt».</span>');
@@ -1728,7 +1728,7 @@ drawCtx();
 
 /* ================= START ================= */
 const modeInfo = {
-  co: { name: 'Đồng sáng tác trước', btn: 'Bắt đầu sáng tác', t: 'Bạn muốn bàn điều gì trước?', h: 'Không bắt buộc. AI sẽ hỏi bạn từng ý, rồi soạn «Chỉ thị sáng tác» trên canvas. Mỗi lượt trao đổi trừ 2–5 credit.', ph: 'Ví dụ: mình muốn arc tiếp theo xoay quanh cuộc gặp lại…', v: '', chips: ['Cuộc gặp lại', 'Một phản diện mới', 'Cú lật cuối arc'] },
+  co: { name: 'Đồng sáng tác trước', btn: 'Bắt đầu sáng tác', t: 'Bạn muốn bàn điều gì trước?', h: 'Không bắt buộc. AI sẽ hỏi bạn từng ý, rồi soạn «Chỉ thị sáng tác» trên canvas.', ph: 'Ví dụ: mình muốn arc tiếp theo xoay quanh cuộc gặp lại…', v: '', chips: ['Cuộc gặp lại', 'Một phản diện mới', 'Cú lật cuối arc'] },
   quick: { name: 'Viết tiếp ngay', btn: 'Lên dàn ý và viết', t: 'Arc tiếp theo nên thế nào?', h: 'Không bắt buộc. Để trống thì kiến trúc sư đi theo la bàn truyện.', ph: 'Ví dụ: chương 7 bắt đầu sau ba năm', v: 'Vãn Ca trở lại Ly Sơn sau ba năm, gặp lại Tạ Trầm ở bến Vọng Nguyệt; cuối arc Tạ Trầm biết thân phận thật của nàng.', chips: ['Giữ nhịp chậm', 'Góc nhìn Tạ Trầm', 'Thêm hồi ức về sư phụ'] }
 };
 let mode = 'quick', wStep = 1;
@@ -2014,7 +2014,7 @@ const coFlow = (() => {
   return { start, leave };
 })();
 $('#coStart').onclick = () => show('writing');
-const quitCo = () => confirmBox({ title: 'Bỏ phiên đồng sáng tác?', body: `Cuộc trò chuyện và tài liệu «Chỉ thị sáng tác» sẽ bị xoá. ${coSpent} credit đã dùng cho các lượt trao đổi không được hoàn lại.`, no: 'Ở lại', yes: 'Bỏ phiên', onYes: () => { show('start'); toast('Đã bỏ phiên'); } });
+const quitCo = () => confirmBox({ title: 'Bỏ phiên đồng sáng tác?', body: `Cuộc trò chuyện và tài liệu «Chỉ thị sáng tác» sẽ bị xoá.`, no: 'Ở lại', yes: 'Bỏ phiên', onYes: () => { show('start'); toast('Đã bỏ phiên'); } });
 
 const pChat = makeChat($('#pChat'), {
   history: [
@@ -2146,8 +2146,8 @@ const planner = (() => {
     $('#plnScrim').classList.remove('hidden');
     if (cfg.review) {
       $('#plnEndT').textContent = 'Dàn ý xong · chờ bạn duyệt'; $('#plnHold').textContent = 'Xem lại dàn ý'; $('#plnGo').textContent = 'Bắt đầu viết';
-      $('#plnEndS').textContent = 'Bạn bật «Duyệt từng chương» nên AI chờ bạn. Không tốn credit khi chờ.';
-      ticker('Chờ bạn duyệt dàn ý · không tốn credit', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait'); return;
+      $('#plnEndS').textContent = 'Bạn bật «Duyệt từng chương» nên AI chờ bạn.';
+      ticker('Chờ bạn duyệt dàn ý', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait'); return;
     }
     $('#plnEndT').textContent = 'Dàn ý arc 3 đã xong';
     let n = 8; const tick = () => { $('#plnEndS').innerHTML = `Chấp bút bắt đầu viết sau <b class="num" style="display:inline">${n}</b> giây. Muốn chỉnh trước thì giữ lại.`; };
@@ -2159,7 +2159,7 @@ const planner = (() => {
     $('.ed', page).contentEditable = true; openDoc('pln', { keepScroll: true }); setNav();
     closeEnd(); $('#plnStart').classList.remove('hidden'); syncPeekAct();
     toast('Sửa thẳng trên trang · bấm «Bắt đầu viết» khi xong');
-    ticker('Đang sửa dàn ý · không tốn credit khi chờ', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait');
+    ticker('Đang sửa dàn ý', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait');
   }
   function closeEnd() { $('#plnScrim').classList.add('hidden'); }
   function go() { stop(); closeEnd(); show('writing'); toast(planHeld ? 'Đã chốt dàn ý đã sửa · chấp bút bắt đầu viết' : 'Dàn ý arc 3 đã chốt · chấp bút bắt đầu viết'); }
@@ -2192,7 +2192,7 @@ $('#fbSend').onclick = async () => {
   setFlow('steering'); steerQueue(true, v); toast('Trọng tài đang đánh giá góp ý…');
   await sleep(1400);
   tl.insertAdjacentHTML('beforeend', `<li class="ev arb"><span class="ic"></span><div><div class="tt">Trọng tài: áp dụng ngay vào luật viết</div><div class="ts">Ảnh hưởng ch.8 (phần chưa viết), ch.9 · không cần viết lại ch.7 <span class="mono">· decisions #9</span></div></div></li>`);
-  steerQueue(false); setFlow('writing'); ticker(editPaused ? 'Đã tạm dừng · không tốn credit khi chờ' : 'Trọng tài: áp dụng ngay vào luật viết · không cần viết lại ch.7', !editPaused);
+  steerQueue(false); setFlow('writing'); ticker(editPaused ? 'Đã tạm dừng' : 'Trọng tài: áp dụng ngay vào luật viết · không cần viết lại ch.7', !editPaused);
   const pb = tl.closest('.ai-b'); pb.scrollTop = pb.scrollHeight;
 };
 function ticker(t, busy = true) { $('#tickerTxt').textContent = t; $('#tickerSpin').style.visibility = busy ? 'visible' : 'hidden'; }
@@ -2206,7 +2206,7 @@ function setEditPause(on) {
   $('#fbInput').placeholder = on ? 'Dặn AI khi viết tiếp…' : 'Góp ý cho AI — không cần dừng';
   setFb(on); /* pausing opens the feedback box; resuming closes it */
   if (on) {
-    sim.wait(); ticker('Đã tạm dừng · không tốn credit khi chờ', false);
+    sim.wait(); ticker('Đã tạm dừng', false);
     banner('hatch pz', 'edit', '<b>Đã tạm dừng.</b> <span class="txt">Sửa thẳng trên trang rồi bấm «Viết tiếp».</span>');
     $('#pauseEditT').textContent = 'Viết tiếp'; $('#pauseEdit use').setAttribute('href', '#i-play');
     const el = $('#sbFlow'); if (el) el.textContent = 'tạm dừng để sửa';
@@ -2232,12 +2232,12 @@ $('#fbInput').addEventListener('keydown', e => {
 function confirmStop() {
   if (state === 'planning') return confirmBox({
     title: 'Dừng lập dàn ý?',
-    body: `Chưa có chương nào được viết. Phần dàn ý đã lập được giữ trong «Dàn ý arc 3». ${planner.spent()} credit đã dùng không hoàn lại.`,
+    body: `Chưa có chương nào được viết. Phần dàn ý đã lập được giữ trong «Dàn ý arc 3».`,
     no: 'Tiếp tục lập', yes: 'Dừng', onYes: () => { show('start'); toast('Đã dừng · giữ phần dàn ý đã lập'); }
   });
   confirmBox({
     title: 'Dừng hẳn phiên viết?',
-    body: 'Chương 7 đã chốt được giữ thành bản nháp. Phần dở của chương 8 (≈1.480 chữ) cũng được lưu thành bản nháp chưa hoàn chỉnh. Chương 9 sẽ không được viết. Credit đã trừ không hoàn lại.',
+    body: 'Chương 7 đã chốt được giữ thành bản nháp. Phần dở của chương 8 (≈1.480 chữ) cũng được lưu thành bản nháp chưa hoàn chỉnh. Chương 9 sẽ không được viết.',
     no: 'Tiếp tục viết', yes: 'Dừng hẳn', onYes: () => { show('done'); toast('Đã dừng · giữ các chương đã viết'); }
   });
 }
@@ -2388,14 +2388,14 @@ const errs = {
     extra: '<div class="ls ok"><span class="c">' + ic('check') + '</span>Sẽ tiếp tục từ điểm khôi phục #52 · bắt đầu chương 9<span class="mono">#52</span></div>', primary: 'Xem credit', secondary: 'Dừng hẳn, giữ 2 chương', status: 'Hết credit · đã chốt 2 chương',
     kept: [['Chương 7 · Ba năm sau', 'Đã chốt', 'b-line'], ['Chương 8 · Đêm trăng…', 'Đã chốt', 'b-line']], spent: 487, bal: 6 },
   load: { t: 't-err', ic: 'book', title: 'Không nạp được chương cũ', bn: ['strong', 'alert', '<b>Không đọc được chương 4, đoạn 12.</b> <span class="txt">Đoạn lỗi được đánh dấu bên dưới — bạn sửa được ngay trên trang.</span>'],
-    why: 'Máy chủ truyện trả lỗi định dạng ở chương 4 «Gió bấc», đoạn 12. AI cần đọc đủ 6 chương trước khi viết chương 7 để không lệch nhân vật, nên <b>chưa bắt đầu viết và chưa trừ credit cho bước viết</b>.',
+    why: 'Máy chủ truyện trả lỗi định dạng ở chương 4 «Gió bấc», đoạn 12. AI cần đọc đủ 6 chương trước khi viết chương 7 để không lệch nhân vật, nên <b>chưa bắt đầu viết</b>.',
     extra: '<div><div class="lbl" style="margin-bottom:4px">Nạp chương cũ</div><div id="loadSteps"></div></div>', primary: 'Thử nạp lại', secondary: 'Quay lại thiết lập', status: 'Khởi tạo · lỗi phân tích chương 4/6', kept: [], spent: 8, bal: 1232 },
   engine: { t: 't-info', ic: 'pause', title: 'Engine dừng trước khi viết chương mới', bn: ['', 'pause', '<b>Chưa có chương mới nào được viết.</b> <span class="txt">Dàn ý arc 3 đã lập — chỉnh chỉ thị trên trang rồi viết tiếp.</span>'],
     why: 'Kiến trúc sư đã lập dàn ý arc 3, nhưng điều phối kết thúc lượt mà chưa giao việc cho chấp bút — thường do yêu cầu còn mơ hồ hoặc dàn ý mâu thuẫn với luật riêng. Đã trừ <b>23 credit</b> cho phân tích và dàn ý.',
     extra: '<div class="field"><label for="engReq">Yêu cầu để viết tiếp</label><textarea class="input" id="engReq" rows="3">Viết chương 7 theo dàn ý đã có. Bỏ qua mâu thuẫn về tuổi của Tiểu Đào, lấy theo chương 1.</textarea></div>',
     primary: 'Viết tiếp', secondary: 'Quay lại thiết lập', status: 'Dàn ý · engine dừng · 0 chương mới', kept: [['Dàn ý arc 3 · ch.7–9', 'Đã lập', 'b-line']], spent: 23, bal: 1217 },
   retry: { t: 't-warn', ic: 'wifi', title: 'Model quá tải · đang thử lại 3/7', bn: ['hatch', 'wifi', '<b>Đang thử lại 3/7.</b> <span class="txt">Mất kết nối với model khi viết chương 8 — phần đã viết vẫn còn nguyên.</span>'],
-    why: 'Chấp bút gặp <b>giới hạn tốc độ của model</b> (hoặc mất kết nối tạm thời). Hệ thống tự thử lại với thời gian chờ tăng dần. Các lần gọi lỗi <b>không bị trừ credit</b>.',
+    why: 'Chấp bút gặp <b>giới hạn tốc độ của model</b> (hoặc mất kết nối tạm thời). Hệ thống tự thử lại với thời gian chờ tăng dần.',
     extra: '<div style="display:grid;gap:8px"><div class="retry"><i class="f"></i><i class="f"></i><i class="a"></i><i></i><i></i><i></i><i></i></div><div class="row small wrap"><span>Lần 3/7 · thử lại sau <b class="num" id="retryCd">12</b> giây</span><span class="spacer mono faint">429 rate_limit</span></div><div class="ls ok"><span class="c">' + ic('check') + '</span>Tiếp tục đúng bước: chương 8 · viết nháp<span class="mono">#41</span></div></div>',
     primary: 'Thử lại ngay', secondary: 'Dừng hẳn', status: 'Sáng tác · đang thử lại 3/7', kept: [['Chương 7 · Ba năm sau', 'Đã chốt', 'b-line'], ['Chương 8 · Đêm trăng…', '1.480 chữ, dở', 'b-hatch']], spent: 293, bal: 947 }
 };
