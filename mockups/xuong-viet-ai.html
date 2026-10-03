@@ -16,8 +16,8 @@
   --fill:#222222; --fill-ink:#ffffff;      /* inverted / primary */
   --soft:#ececec;                          /* tinted neutral */
   --paper:#ffffff; --ai-tint:#f1f1f1;
-  /* accent = ainovel-cli colorAccent (internal/entry/tui/theme.go): fills use the bright gold with dark ink; lines/text use the deeper gold */
-  --accent:#e5b449; --accent-ink:#241a04; --accent-line:#b8860b; --accent-soft:rgba(229,180,73,.18);
+  /* accent: one clean yellow (ainovel-cli's signature colour), same in light and dark; text on it is near-black */
+  --accent:#facc15; --accent-ink:#1a1a1a; --accent-line:var(--accent); --accent-soft:rgba(250,204,21,.28);
   --hatch:repeating-linear-gradient(-45deg,rgba(0,0,0,.09) 0 2px,transparent 2px 7px);
   --shadow-sm:0 1px 2px rgba(0,0,0,.05);
   --shadow-page:0 1px 2px rgba(0,0,0,.06),0 10px 30px rgba(0,0,0,.06);
@@ -33,7 +33,7 @@
     --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
     --line:#2a2a2a; --line-2:#3a3a3a;
     --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
-    --paper:#141414; --ai-tint:#1d1d1d; --accent:#e5b449; --accent-ink:#241a04; --accent-line:#e5b449; --accent-soft:rgba(229,180,73,.14);
+    --paper:#141414; --ai-tint:#1d1d1d; 
     --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
     --shadow-sm:0 1px 2px rgba(0,0,0,.4);
     --shadow-page:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
@@ -46,7 +46,7 @@
   --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
   --line:#2a2a2a; --line-2:#3a3a3a;
   --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
-  --paper:#141414; --ai-tint:#1d1d1d; --accent:#e5b449; --accent-ink:#241a04; --accent-line:#e5b449; --accent-soft:rgba(229,180,73,.14);
+  --paper:#141414; --ai-tint:#1d1d1d; 
   --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
   --shadow-sm:0 1px 2px rgba(0,0,0,.4);
   --shadow-page:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
