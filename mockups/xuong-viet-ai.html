@@ -1696,7 +1696,8 @@ function show(name, sub) {
   $$('.ai>section').forEach(s => s.classList.toggle('hidden', s.dataset.ai !== st));
   setNav();
   $('#wbar').classList.toggle('hidden', st !== 'writing' && st !== 'planning'); ticker('Chấp bút đang viết chương 8');
-  $('#pauseEdit').classList.toggle('hidden', st === 'planning');
+  /* one primary action at a time: «Bắt đầu viết» only while a finished outline is held for editing, «Tạm dừng» only while writing */
+  $('#pauseEdit').classList.toggle('hidden', st === 'planning'); $('#plnStart').classList.add('hidden');
   /* while the outline is being drafted the only action is to stop it — no feedback box, no menu detour */
   $('#fbOpen').classList.toggle('hidden', st === 'planning'); $('#plnStop').classList.toggle('hidden', st !== 'planning');
   $('#wbar').classList.remove('paused'); document.body.classList.remove('paused'); setFb(false);
