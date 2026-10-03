@@ -230,6 +230,7 @@ details.more-d[open]>summary::after{content:"−"}
 .ni[aria-current="true"]{background:var(--soft);color:var(--ink);border-left:2px solid var(--ink);padding-left:9px}
 .ni .no{width:22px;height:22px;border-radius:4px;display:grid;place-items:center;font-size:11px;font-weight:600;font-family:var(--mono);background:var(--surface-3);color:var(--muted)}
 .ni .t{min-width:0;line-height:1.35}
+.docs .ni{margin-left:0;width:100%}
 .ni .t span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ni .t small{display:block;font-size:11px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ni .st{color:var(--ink);display:flex}
@@ -896,12 +897,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <div class="arc"><b>Arc 4</b><span class="tag badge b-dash">khung</span></div>
       <div class="ni skel" aria-disabled="true"><span class="no">··</span><span class="t"><span>Chưa mở rộng</span><small>Kiến trúc sư mở rộng khi xong arc 3</small></span></div>
 
-      <div id="navDocs">
-        <div class="nav-g">Tài liệu phiên</div>
-        <button class="ni doc" data-doc="dir"><span class="no"><svg class="i sm"><use href="#i-file"/></svg></span><span class="t"><span>Chỉ thị sáng tác</span><small id="dirSub">AI soạn cùng bạn</small></span><span class="st"></span></button>
-        <button class="ni doc" data-doc="cmp"><span class="no"><svg class="i sm"><use href="#i-compass"/></svg></span><span class="t"><span>Định hướng truyện</span><small>Đích đến dài hạn</small></span><span class="st"></span></button>
-        <button class="ni doc hidden" data-doc="pln" id="niPln"><span class="no"><svg class="i sm"><use href="#i-file"/></svg></span><span class="t"><span>Dàn ý arc 3</span><small id="plnSub">Kiến trúc sư lập</small></span><span class="st"></span></button>
-      </div>
     </div>
     <div class="nav-f"><svg class="i sm"><use href="#i-cloud"/></svg><span id="navFoot">Điểm khôi phục #41 · 2 phút trước</span></div>
   </aside>
@@ -1123,6 +1118,12 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         </div>
       </div>
       <div class="ai-b hidden" data-tp="dash">
+        <div class="blk docs" id="navDocs">
+          <div class="sect-l"><span class="lbl">Tài liệu phiên</span></div>
+          <button class="ni doc" data-doc="dir"><span class="no"><svg class="i sm"><use href="#i-file"/></svg></span><span class="t"><span>Chỉ thị sáng tác</span><small id="dirSub">AI soạn cùng bạn</small></span><span class="st"></span></button>
+          <button class="ni doc" data-doc="cmp"><span class="no"><svg class="i sm"><use href="#i-compass"/></svg></span><span class="t"><span>Định hướng truyện</span><small>Đích đến dài hạn</small></span><span class="st"></span></button>
+          <button class="ni doc hidden" data-doc="pln" id="niPln"><span class="no"><svg class="i sm"><use href="#i-file"/></svg></span><span class="t"><span>Dàn ý arc 3</span><small id="plnSub">Kiến trúc sư lập</small></span><span class="st"></span></button>
+        </div>
         <div class="blk">
           <div class="sect-l"><span class="lbl">Ngữ cảnh</span><span class="spacer mono tiny" id="ctxPct">62%</span></div>
           <div class="ctxm"><div class="bar" id="ctxBar"></div><span class="tiny muted">Tóm tắt 2 tầng: chương gần · arc. Tự nén khi vượt 85%.</span></div>
@@ -1492,6 +1493,8 @@ function openDoc(id, opts = {}) {
   if (opts.toCanvas) setView('canvas');
 }
 $('#navList').addEventListener('click', e => { const b = e.target.closest('.ni[data-doc]'); if (b) openDoc(b.dataset.doc, { toCanvas: true }); });
+/* session documents live in the AI panel («Điều khiển» tab) and the ⋯ menu, not in the chapter list */
+$('#navDocs').addEventListener('click', e => { const b = e.target.closest('.ni[data-doc]'); if (b) openDoc(b.dataset.doc, { toCanvas: true }); });
 
 function setNav() {
   const loadErr = state === 'error' && errSub === 'load';
@@ -2323,6 +2326,9 @@ $('#docMore').onclick = e => {
   it.push({ ic: 'export', t: 'Xuất bản thảo', k: '/export', run: () => openExp() });
   it.push({ ic: 'pulse', t: 'Chẩn đoán phiên', k: '/diag', run: () => openDiag() });
   if (state === 'done') it.push({ ic: 'plus', t: 'Mở phiên mới', run: () => show('start') });
+  if (state !== 'start') it.push('-', { ic: 'file', t: 'Chỉ thị sáng tác', run: () => openDoc('dir', { toCanvas: true }) },
+    { ic: 'compass', t: 'Định hướng truyện', run: () => openDoc('cmp', { toCanvas: true }) },
+    ...(state === 'planning' || planMade ? [{ ic: 'file', t: 'Dàn ý arc 3', run: () => openDoc('pln', { toCanvas: true }) }] : []));
   it.push('-', { ic: 'cmd', t: 'Bảng lệnh', k: '⌘K', desk: true, run: openPal });
   if (isSheet()) it.unshift({ ic: 'coin', t: `Số dư ${fmt(credit)} credit`, run: () => toast('Mở trang tài khoản (demo)') }, '-'),
     it.push('-', { ic: 'type', t: 'Cỡ chữ', run: () => $('#readBtn').onclick({ currentTarget: $('#docMore') }) },
