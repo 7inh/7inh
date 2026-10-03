@@ -280,6 +280,28 @@ details.more-d[open]>summary::after{content:"−"}
 .nextph{margin-top:34px;border:1px dashed var(--line-2);border-radius:8px;padding:18px 20px;font-family:var(--sans);color:var(--muted);font-size:13.5px;display:flex;gap:12px;align-items:center}
 .nextph .gi{width:34px;height:34px;border-radius:7px;border:1px solid var(--ink);color:var(--ink);display:grid;place-items:center;flex:none}
 .nextph b{display:block;color:var(--ink);font-size:14px}
+/* quick start: architect fills the arc outline live */
+.plnreq{display:flex;gap:12px;align-items:baseline;font-family:var(--sans);font-size:13.5px;line-height:1.6;color:var(--ink-2);background:var(--surface-3);border-radius:8px;padding:10px 14px;margin:-10px 0 8px}
+.plnreq .lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);flex:none}
+.pl-s .pl-b{display:none}
+.pl-s.done .pl-b{display:block;animation:pop .3s ease}
+.pl-s:not(.done)::after,.pl-s.done.run .pl-b::after{content:"";display:block;height:30px;margin:8px 0 6px;border-radius:3px;opacity:.8;background:linear-gradient(var(--line) 0 0) 0 0/100% 9px no-repeat,linear-gradient(var(--line) 0 0) 0 19px/62% 9px no-repeat}
+.pl-s.run::after,.pl-s.done.run .pl-b::after{animation:fadea .8s ease-in-out infinite alternate}
+.pl-s:not(.done):not(.run) h3{color:var(--faint)}
+.pl-s.run h3::after{content:" · đang lập…";text-transform:none;letter-spacing:0;font-weight:500}
+.plch{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px}
+.plch li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-family:var(--sans);animation:pop .3s ease}
+.plch li:not(.on){display:none}
+.plch .n{font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:2px}
+.plch b{display:block;font-size:14.5px;line-height:1.5}
+.plch span{font-size:13.5px;color:var(--muted);line-height:1.6}
+.plnend{margin-top:30px;border:1px solid var(--ink);border-radius:10px;padding:16px 18px;font-family:var(--sans);display:grid;gap:14px;animation:pop .3s ease}
+.plnend .row{display:flex;gap:12px;align-items:center}
+.plnend .gi{width:34px;height:34px;border-radius:50%;background:var(--fill);color:var(--fill-ink);display:grid;place-items:center;flex:none}
+.plnend b{display:block;font-size:15px;line-height:1.5}
+.plnend .s{display:block;font-size:13.5px;color:var(--muted);line-height:1.6}
+.plnend .row:first-child{align-items:flex-start}
+.plnend .btns{justify-content:flex-end;flex-wrap:wrap;gap:8px}
 .toolline{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:12.5px;color:var(--ink-2);border:1px dashed var(--line-2);border-radius:6px;padding:7px 12px;margin:2px 0 16px}
 .toolline .spin{width:12px;height:12px}
 .toolline .mono{color:var(--faint);margin-left:auto}
@@ -809,6 +831,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="nav-g">Tài liệu phiên</div>
         <button class="ni doc" data-doc="dir"><span class="no"><svg class="i sm"><use href="#i-file"/></svg></span><span class="t"><span>Chỉ thị sáng tác</span><small id="dirSub">AI soạn cùng bạn</small></span><span class="st"></span></button>
         <button class="ni doc" data-doc="cmp"><span class="no"><svg class="i sm"><use href="#i-compass"/></svg></span><span class="t"><span>La bàn truyện</span><small>Đích đến dài hạn</small></span><span class="st"></span></button>
+        <button class="ni doc hidden" data-doc="pln" id="niPln"><span class="no"><svg class="i sm"><use href="#i-file"/></svg></span><span class="t"><span>Dàn ý arc 3</span><small id="plnSub">Kiến trúc sư lập</small></span><span class="st"></span></button>
       </div>
     </div>
     <div class="nav-f"><svg class="i sm"><use href="#i-cloud"/></svg><span id="navFoot">Điểm khôi phục #41 · 2 phút trước</span></div>
@@ -863,6 +886,22 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       </div></article>
       <article class="page" data-page="c7"><div class="ed" spellcheck="false"><h1>Ba năm sau</h1><div class="doc-meta"><span class="badge b-line">Bản nháp AI</span>Chương 7 · 2.410 chữ · biên tập 8,6/10 · đạt</div><p>Ba năm sau, Ly Sơn vẫn vậy, chỉ có người đã khác. Vãn Ca trở về trong bộ áo vải thô của một khách buôn trà, đội nón lá che nửa mặt.</p><p>Quán trà dưới chân núi giờ do Tiểu Đào trông coi. Cô bé năm nào đã thành thiếu nữ, nói nhiều hơn, cười cũng nhiều hơn.</p><p>— Khách quan dùng trà gì? — Tiểu Đào hỏi, rồi khựng lại khi thấy nàng cầm chén bằng ba ngón tay, ngón út hơi cong lên — đúng cái tật sư phụ từng mắng không biết bao lần.</p><p>— Trà nhạt thôi, — Vãn Ca nói. — Nghe nói ở bến Vọng Nguyệt có người chèo đò đêm?</p></div></article>
       <article class="page" data-page="c8"><div class="ed" spellcheck="false"><h1>Đêm trăng ở bến Vọng Nguyệt</h1><div class="doc-meta"><span class="badge b-solid" id="c8Badge">Đang viết</span><span id="c8Meta">Chương 8 · chỉ hiện văn chương, suy nghĩ của AI được ẩn</span></div><p>Trăng lên quá ngọn tre thì bến Vọng Nguyệt mới thật sự yên. Lục Vãn Ca ngồi ở mũi thuyền, chân trần chạm mặt nước lạnh, nghe tiếng mái chèo của ai đó khua từ phía bờ bên kia — chậm, đều, như người đã quen đường lắm.</p><p>Nàng không quay đầu. Có những người chỉ cần nghe bước chân là biết, và có những người, dù đã ba năm không gặp, tiếng thở vẫn nằm yên trong trí nhớ như một vết khắc trên chuôi kiếm.</p><div id="liveZone"></div></div></article>
+      <article class="page" data-page="pln"><div class="ed doc" spellcheck="false"><h1>Dàn ý arc 3</h1><div class="doc-meta" contenteditable="false"><span class="badge b-solid" id="plnBadge">Đang lập</span><span id="plnMeta">Kiến trúc sư lập từ yêu cầu của bạn · cập nhật trực tiếp</span></div>
+        <div class="plnreq" contenteditable="false"><span class="lbl">Yêu cầu</span><span id="plnReq"></span></div>
+        <section class="pl-s" data-ps="premise"><h3>Tiền đề arc</h3><div class="pl-b"><p>Ba năm sau đêm rời núi, Vãn Ca trở về Ly Sơn trong vai khách lạ để tìm nửa thanh Tuyết Lạc. Cuộc gặp lại Tạ Trầm buộc nàng chọn giữa giấu tên và nói thật.</p></div></section>
+        <section class="pl-s" data-ps="cast"><h3>Tuyến nhân vật</h3><div class="pl-b"><p>Vãn Ca giấu thân phận, giữ khoảng cách. Tạ Trầm nghi ngờ rồi nhận ra nàng. Tiểu Đào là người đầu tiên nhận ra, và giữ bí mật.</p></div></section>
+        <section class="pl-s" data-ps="seeds"><h3>Phục bút sẽ trả</h3><div class="pl-b"><p>Nửa thanh Tuyết Lạc dưới đáy hồ (ch.3) → ch.8 · Lá thư chưa gửi của Bạch Uyên (ch.5) → ch.9 · Vết sẹo cổ tay (ch.2) → để dành cho arc 4.</p></div></section>
+        <section class="pl-s" data-ps="chaps"><h3>Chương</h3><div class="pl-b"><ol class="plch">
+          <li data-pc="7"><span class="n">07</span><div><b>Ba năm sau</b><span>Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng. Móc cuối chương: hỏi về người chèo đò đêm.</span></div></li>
+          <li data-pc="8"><span class="n">08</span><div><b>Đêm trăng ở bến Vọng Nguyệt</b><span>Gặp lại Tạ Trầm trên thuyền; hắn trao nửa thanh Tuyết Lạc mà không hỏi gì.</span></div></li>
+          <li data-pc="9"><span class="n">09</span><div><b>Tên thật</b><span>Tạ Trầm đọc lá thư của Bạch Uyên và biết nàng là ai. Khép arc 3.</span></div></li>
+        </ol></div></section>
+        <section class="pl-s" data-ps="compass"><h3>La bàn</h3><div class="pl-b"><p>Arc 4 mở bằng bí mật của Bạch Uyên ở bến cũ. Đích dài hạn giữ nguyên: rèn lại Tuyết Lạc để khép chuyện cũ.</p></div></section>
+        <div class="plnend hidden" id="plnEnd" contenteditable="false">
+          <div class="row"><span class="gi"><svg class="i"><use href="#i-check"/></svg></span><div><b id="plnEndT">Dàn ý arc 3 đã xong</b><span class="s" id="plnEndS"></span></div></div>
+          <div class="row btns"><button class="btn" id="plnHold">Giữ lại để sửa</button><button class="btn primary" id="plnGo">Viết ngay</button></div>
+        </div>
+      </div></article>
       <article class="page" data-page="c9"><div class="ed" spellcheck="false"><h1>Tên thật</h1><div class="doc-meta"><span class="badge b-mute" id="c9Badge">Chờ viết</span>Chương 9</div>
         <div id="c9Empty" class="nextph" style="margin-top:8px"><span class="gi"><svg class="i"><use href="#i-clock"/></svg></span><div><b>Chưa viết</b>Chấp bút sẽ viết chương này sau khi chốt chương 8. Dàn ý: Tạ Trầm đọc lá thư của Bạch Uyên và biết nàng là ai.</div></div>
         <div id="c9Body" class="hidden"><p>Lá thư nằm trong hộp gỗ đàn hương, dưới lớp lụa đã ngả màu. Tạ Trầm mở nó vào lúc gà gáy canh tư, khi Vãn Ca còn ngủ say ở gian bên.</p><p>«Trầm nhi, nếu con đọc được những dòng này, nghĩa là con bé đã trở về…»</p></div>
@@ -977,6 +1016,25 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         </div>
         <div class="ready" id="readyBox"><div class="row"><span id="readyTxt">AI cần thêm một chút thông tin</span><b class="num spacer mono" id="readyPct">72%</b></div><div class="meter"><i id="readyBar" style="width:72%"></i></div></div>
         <button class="btn primary lg block" id="coStart">Bắt đầu viết<svg class="i"><use href="#i-arrow"/></svg></button>
+      </div>
+    </section>
+
+    <!-- PLANNING (quick start) -->
+    <section data-ai="planning" class="hidden">
+      <div class="ai-h"><span class="ai-mark"><svg class="i sm"><use href="#i-compass"/></svg></span><h3>Lập dàn ý</h3><span class="tiny muted spacer mono"><b id="plnCr">0</b> cr</span></div>
+      <div class="ai-b">
+        <div class="blk">
+          <div class="sect-l"><span class="lbl">Tác tử</span><span class="spacer tiny muted">giai đoạn · <b style="color:var(--ink)">dàn ý</b></span></div>
+          <div class="agent"><i class="rg dieu"></i><div><div class="n">Điều phối <span class="mono">trọng tài</span></div><div class="d">chờ kiến trúc sư</div></div><span class="st">chờ</span></div>
+          <div class="agent on" id="plnArch"><i class="rg kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">→ <b>lập dàn ý arc 3</b></div>
+            <div class="steps" id="plnSteps"><span>Tiền đề</span><span>Nhân vật</span><span>Phục bút</span><span>Chương</span><span>La bàn</span></div></div><span class="spin" id="plnSpin"></span></div>
+          <div class="agent"><i class="rg chap"></i><div><div class="n">Chấp bút</div><div class="d">chờ dàn ý</div></div><span class="st">chờ</span></div>
+          <div class="agent"><i class="rg bien"></i><div><div class="n">Biên tập</div><div class="d">chờ chương đầu</div></div><span class="st">chờ</span></div>
+        </div>
+        <div class="blk">
+          <div class="sect-l"><span class="lbl">Diễn biến</span><span class="tiny faint spacer">mới nhất ở dưới</span></div>
+          <ol class="timeline" id="plnTl"></ol>
+        </div>
       </div>
     </section>
 
@@ -1333,16 +1391,17 @@ const DOCS = {
   c1: { t: 'Chương 1 · Tuyết đầu mùa', k: 'author', w: '2.104' }, c2: { t: 'Chương 2 · Vết sẹo', k: 'author', w: '2.380' },
   c3: { t: 'Chương 3 · Ly Sơn không mưa', k: 'author', w: '2.712' }, c4: { t: 'Chương 4 · Gió bấc', k: 'author', w: '2.455' },
   c5: { t: 'Chương 5 · Lá thư chưa gửi', k: 'author', w: '2.809' }, c6: { t: 'Chương 6 · Biệt ly', k: 'author', w: '2.360' },
-  dir: { t: 'Chỉ thị sáng tác', k: 'doc' }, cmp: { t: 'La bàn truyện', k: 'doc' },
+  dir: { t: 'Chỉ thị sáng tác', k: 'doc' }, cmp: { t: 'La bàn truyện', k: 'doc' }, pln: { t: 'Dàn ý arc 3', k: 'plan' },
   c7: { t: 'Chương 7 · Ba năm sau', k: 'draft', w: '2.410' }, c8: { t: 'Chương 8 · Đêm trăng ở bến Vọng Nguyệt', k: 'draft', w: '2.538' },
   c9: { t: 'Chương 9 · Tên thật', k: 'draft', w: '2.288' },
 };
-let curDoc = 'c6', state = 'start', errSub = 'credit', needSync = false, editPaused = false;
+let curDoc = 'c6', state = 'start', errSub = 'credit', needSync = false, editPaused = false, planHeld = false, planMade = false;
 const chapState = { c7: 'todo', c8: 'todo', c9: 'todo' };
 
 function canEdit(id) {
   const k = DOCS[id].k;
   if (k === 'author') return true;
+  if (k === 'plan') return state === 'planning' ? planHeld : ['done', 'pause', 'error'].includes(state);
   if (k === 'doc') return ['cocreate', 'start', 'error', 'pause', 'done'].includes(state);
   if (editPaused && id === 'c8') return true;
   return state === 'done' && chapState[id] === 'done';
@@ -1364,6 +1423,7 @@ function openDoc(id, opts = {}) {
   if (d.k === 'author') sub = `Chương gốc được bảo vệ · ${d.w} chữ`;
   else if (id === 'dir') sub = 'Tài liệu phiên · bạn và AI cùng soạn';
   else if (id === 'cmp') sub = 'Kiến trúc sư giữ · bạn sửa được';
+  else if (id === 'pln') sub = state !== 'planning' ? 'Kiến trúc sư lập · đã chốt cho arc 3' : planHeld ? 'Kiến trúc sư lập · chờ bạn duyệt' : 'Kiến trúc sư đang lập';
   else sub = { live: 'Bản nháp AI · đang viết', done: `Bản nháp AI · ${d.w} chữ`, warn: 'Bản nháp AI · viết dở', todo: 'Bản nháp AI · chưa viết' }[chapState[id]];
   $('#docSub').textContent = sub;
   setSaved(); renderCtl(); if (typeof renderPager === 'function') renderPager();
@@ -1389,6 +1449,8 @@ function setNav() {
   $('#navDrafts').classList.toggle('hidden', !showDrafts);
   $('#navNext').classList.toggle('hidden', showDrafts);
   $('#navDocs').classList.toggle('hidden', state === 'start' || loadErr);
+  $('#niPln').classList.toggle('hidden', !(state === 'planning' || planMade));
+  $('#plnSub').textContent = state === 'planning' ? (planHeld ? 'Chờ bạn duyệt' : 'Kiến trúc sư đang lập…') : 'Đã chốt · 3 chương';
   ['c7', 'c8', 'c9'].forEach(id => {
     const n = $(`#navDrafts .ni[data-doc=${id}]`), s = chapState[id];
     n.className = 'ni ' + s;
@@ -1407,7 +1469,7 @@ function setNav() {
   c8b.className = 'badge ' + ({ live: 'b-solid', done: 'b-line', warn: 'b-hatch', todo: 'b-mute' }[chapState.c8]);
   c8b.textContent = { live: 'Đang viết', done: 'Bản nháp AI', warn: 'Viết dở', todo: 'Chờ viết' }[chapState.c8];
   $('#c8Meta').textContent = chapState.c8 === 'live' ? 'Chương 8 · chỉ hiện văn chương, suy nghĩ của AI được ẩn' : 'Chương 8 · 2.538 chữ · biên tập 8,9/10';
-  $('#navFoot').textContent = { start: 'Chưa có phiên đang chạy', cocreate: 'Đang soạn chỉ thị', done: 'Điểm khôi phục #58 · phiên đã đóng' }[state] || 'Điểm khôi phục #41 · vừa xong';
+  $('#navFoot').textContent = { start: 'Chưa có phiên đang chạy', cocreate: 'Đang soạn chỉ thị', planning: 'Đang lập dàn ý arc 3', done: 'Điểm khôi phục #58 · phiên đã đóng' }[state] || 'Điểm khôi phục #41 · vừa xong';
 }
 
 /* phase rail — ainovel: khởi tạo → tiền đề → dàn ý → sáng tác → hoàn thành */
@@ -1522,6 +1584,7 @@ const states = [
   { g: 'Luồng chính', id: 'start', n: '1', t: 'Bắt đầu phiên' },
   { id: 'cfg', n: '1b', t: 'Thiết lập nâng cao (modal)' },
   { id: 'cocreate', n: '2', t: 'Đồng sáng tạo' },
+  { id: 'planning', n: '2b', t: 'Bắt đầu nhanh · lập dàn ý' },
   { id: 'writing', n: '3–4', t: 'Đang viết + bảng phụ' },
   { id: 'editpause', n: '3b', t: 'Tạm dừng để sửa' },
   { id: 'dailies', n: '3c', t: 'Bảng công sau mỗi chương' },
@@ -1545,29 +1608,32 @@ document.addEventListener('keydown', e => { if (e.altKey && (e.key === 'ArrowRig
 /* ================= STATE MACHINE ================= */
 function show(name, sub) {
   closeAsk(true); cfClose(); closeCfg(); closePal(); closePop(); closeDiag(); closeExp(); closeDailies(); clearInterval(retryTimer);
-  setAiOpen(!['writing', 'ask', 'editpause', 'dailies'].includes(name)); editPaused = false;
+  setAiOpen(!['writing', 'ask', 'editpause', 'dailies', 'planning'].includes(name)); editPaused = false; planner.stop(); planHeld = false;
   $('#pauseEditT').textContent = 'Tạm dừng để sửa'; $('#pauseEdit use').setAttribute('href', '#i-pause');
   const st = (name === 'ask' || name === 'editpause' || name === 'dailies') ? 'writing' : name === 'cfg' ? 'start' : name;
   state = name === 'ask' ? 'ask' : st;
   errSub = sub || 'credit'; needSync = false;
   const cs = {
-    start: ['todo', 'todo', 'todo'], cocreate: ['todo', 'todo', 'todo'], writing: ['done', 'live', 'todo'], pause: ['done', 'warn', 'todo'], done: ['done', 'done', 'done'],
+    start: ['todo', 'todo', 'todo'], cocreate: ['todo', 'todo', 'todo'], planning: ['todo', 'todo', 'todo'], writing: ['done', 'live', 'todo'], pause: ['done', 'warn', 'todo'], done: ['done', 'done', 'done'],
     error: { credit: ['done', 'done', 'todo'], load: ['todo', 'todo', 'todo'], engine: ['todo', 'todo', 'todo'], retry: ['done', 'warn', 'todo'] }
   };
   [chapState.c7, chapState.c8, chapState.c9] = st === 'error' ? cs.error[errSub] : cs[st];
   $$('.ai>section').forEach(s => s.classList.toggle('hidden', s.dataset.ai !== st));
   setNav();
-  $('#wbar').classList.toggle('hidden', st !== 'writing'); ticker('Chấp bút đang viết chương 8');
+  $('#wbar').classList.toggle('hidden', st !== 'writing' && st !== 'planning'); ticker('Chấp bút đang viết chương 8');
+  ['#pauseEdit', '#pauseTalk'].forEach(b => $(b).classList.toggle('hidden', st === 'planning'));
+  $('#fbInput').placeholder = st === 'planning' ? 'Góp ý cho dàn ý — không cần dừng' : 'Góp ý cho AI — không cần dừng';
   $('#banner').className = 'banner hidden';
   $$('.pausemark').forEach(m => m.remove());
-  const doc = { start: 'c6', cocreate: 'dir', writing: 'c8', pause: 'c8', done: 'c7', error: { credit: 'c8', load: 'c4', engine: 'dir', retry: 'c8' }[errSub] }[st];
+  const doc = { start: 'c6', cocreate: 'dir', planning: 'pln', writing: 'c8', pause: 'c8', done: 'c7', error: { credit: 'c8', load: 'c4', engine: 'dir', retry: 'c8' }[errSub] }[st];
   st === 'writing' ? sim.start() : sim.stop();
-  setRail({ start: -1, cocreate: 1, writing: 3, pause: 3, done: 4, error: { credit: 3, load: 0, engine: 2, retry: 3 }[errSub] }[st]);
+  setRail({ start: -1, cocreate: 1, planning: 1, writing: 3, pause: 3, done: 4, error: { credit: 3, load: 0, engine: 2, retry: 3 }[errSub] }[st]);
   openDoc(doc);
-  setView({ start: 'ai', cocreate: 'ai', writing: 'canvas', pause: 'ai', done: 'canvas', error: 'ai' }[st]);
+  setView({ start: 'ai', cocreate: 'ai', planning: 'canvas', writing: 'canvas', pause: 'ai', done: 'canvas', error: 'ai' }[st]);
   if (st === 'start') { showHist(false); setMode(mode); setStep(name === 'cfg' ? 3 : 1); statusIdle(); }
   if (st === 'cocreate') { coChat.init(); setStatus(si('<span class="pulse"></span>Tiền đề · đồng sáng tạo') + si(`<b class="num">${coChat.turns()}</b> lượt chat`) + si(`<b class="num" id="sbCo">${coSpent}</b> credit`, 'sx') + si('Chỉ thị: 6 mục', 'sx r')); }
   if (st === 'writing') { setFlow('writing'); statusWriting(); }
+  if (st === 'planning') { planMade = true; planner.start(); }
   if (st === 'pause') {
     pChat.init(); addPauseMark();
     setStatus(si('<span class="pulse wait"></span>Sáng tác · <b>can thiệp</b>') + si('Chương 8/9 · mới 2/3', 'sx') + si(`<b class="num">${fmt(W.words)}</b> chữ`, 'sx') + si('Không tốn credit khi chờ', 'r'));
@@ -1582,7 +1648,7 @@ function show(name, sub) {
   if (name === 'editpause') setTimeout(() => setEditPause(true), 0);
   if (name === 'dailies') setTimeout(openDailies, 0);
   else if (st === 'writing' && !openDailies.auto) { openDailies.auto = true; setTimeout(() => { if (state === 'writing') openDailies(); }, 2600); }
-  const pkMap = { start: ['Phiên viết mới', 'off'], cocreate: ['Đồng sáng tạo · trò chuyện với AI', ''], writing: ['Chấp bút · viết chương 8', ''], pause: ['Tạm dừng · bàn hướng đi', 'wait'], done: ['Hoàn tất · 3 chương mới', 'off'] };
+  const pkMap = { start: ['Phiên viết mới', 'off'], cocreate: ['Đồng sáng tạo · trò chuyện với AI', ''], planning: ['Kiến trúc sư · lập dàn ý arc 3', ''], writing: ['Chấp bút · viết chương 8', ''], pause: ['Tạm dừng · bàn hướng đi', 'wait'], done: ['Hoàn tất · 3 chương mới', 'off'] };
   if (name === 'ask') setPeek('AI đang chờ bạn trả lời', 'wait');
   else if (st === 'error') setPeek(errs[errSub].title, errs[errSub].t === 't-err' ? 'bad' : 'wait');
   else setPeek(...pkMap[st]);
@@ -1716,7 +1782,7 @@ function updateStart() {
   if (state === 'start') statusIdle();
 }
 $('#lowToggle').onchange = updateStart;
-$('#startBtn').onclick = () => { if (wStep < 3) setStep(wStep + 1); else show(mode === 'co' ? 'cocreate' : 'writing'); };
+$('#startBtn').onclick = () => { if (wStep < 3) setStep(wStep + 1); else show(mode === 'co' ? 'cocreate' : mode === 'quick' ? 'planning' : 'writing'); };
 $('#topupBtn').onclick = () => toast('Mở trang nạp credit (ngoài phạm vi mockup)');
 
 /* ================= CHAT ================= */
@@ -1864,10 +1930,93 @@ const sim = (() => {
   };
 })();
 
+/* quick start — kiến trúc sư lập dàn ý arc trên canvas trước khi chấp bút viết */
+const planner = (() => {
+  const STEPS = [['premise', 'Tiền đề arc', 'save_premise'], ['cast', 'Tuyến nhân vật', 'save_characters'], ['seeds', 'Phục bút sẽ trả', 'save_foreshadow'], ['chaps', 'Chương 7–9', 'save_outline'], ['compass', 'La bàn', 'update_compass']];
+  const page = $('[data-page="pln"]'), tl = $('#plnTl');
+  let timers = [], cdT = null, cr = 0;
+  const later = (ms, f) => timers.push(setTimeout(f, ms));
+  const runIc = '<span class="spin" style="width:12px;height:12px"></span>';
+  function ev(cls, tt, ts) {
+    tl.insertAdjacentHTML('beforeend', `<li class="ev ${cls}"><span class="ic">${cls === 'run' ? runIc : cls === 'you' ? ic('edit') : cls === 'arb' ? '' : ic('check')}</span><div><div class="tt">${tt}</div>${ts ? `<div class="ts">${ts}</div>` : ''}</div></li>`);
+    const pb = tl.closest('.ai-b'); pb.scrollTop = pb.scrollHeight; return tl.lastElementChild;
+  }
+  const finishEv = (li, ts) => { li.className = 'ev done'; $('.ic', li).innerHTML = ic('check'); if (ts) $('.tt', li).insertAdjacentHTML('afterend', `<div class="ts">${ts}</div>`); };
+  function pay(n) { cr += n; spend(n); $('#plnCr').textContent = cr; const s = $('#plnCrS'); if (s) s.textContent = cr; }
+  function status(txt, wait) {
+    setStatus(si(`<span class="pulse ${wait ? 'wait' : ''}"></span>Dàn ý · <b>${txt}</b>`) + si('Arc 3 · 3 chương', 'sx') + si(`<b class="num" id="plnCrS">${cr}</b> credit`, 'r'));
+  }
+  function stepsUI(i) { $$('#plnSteps span').forEach((s, k) => { s.className = k < i ? 'd' : k === i ? 'c' : ''; }); }
+  function follow(el) { if (curDoc === 'pln') el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+  function reset() {
+    $$('.pl-s', page).forEach(x => x.className = 'pl-s'); $$('.plch li', page).forEach(x => x.classList.remove('on'));
+    $('#plnEnd').classList.add('hidden'); $('#plnHold').classList.remove('hidden'); $('#plnGo').textContent = 'Viết ngay';
+    $('#plnBadge').className = 'badge b-solid'; $('#plnBadge').textContent = 'Đang lập';
+    $('#plnMeta').textContent = 'Kiến trúc sư lập từ yêu cầu của bạn · cập nhật trực tiếp';
+    $('#plnReq').textContent = notes.quick.trim() || modeInfo.quick.v;
+    $('#plnArch').classList.add('on'); $('#plnSpin').className = 'spin'; $('#plnSpin').textContent = '';
+    tl.innerHTML = ''; cr = 0; $('#plnCr').textContent = 0; stepsUI(0);
+  }
+  function start() {
+    reset(); status('kiến trúc sư đang lập');
+    ev('done', 'Điều phối giao kiến trúc sư lập dàn ý arc 3', 'từ yêu cầu một câu · đọc 6 chương cũ');
+    let t = 500;
+    STEPS.forEach(([key, label, tool], i) => {
+      const sec = $(`.pl-s[data-ps="${key}"]`, page);
+      later(t, () => {
+        sec.classList.add('run'); stepsUI(i); follow(sec); ticker(`Kiến trúc sư · ${label.toLowerCase()}…`);
+        sec._ev = ev('run', `Kiến trúc sư · ${label}`, `<span class="mono">${tool}</span>`);
+      });
+      if (key === 'chaps') {
+        $$('.plch li', sec).forEach((li, k) => later(t + 900 + k * 650, () => { sec.classList.add('done'); li.classList.add('on'); follow(li); ticker(`Kiến trúc sư · chương ${7 + k}…`); }));
+        t += 900 + 3 * 650;
+      } else t += 1200;
+      later(t, () => {
+        sec.classList.remove('run'); sec.classList.add('done'); finishEv(sec._ev); pay(key === 'chaps' ? 9 : 4);
+        if (key === 'premise') setRail(2);
+      });
+      t += 350;
+    });
+    later(t, finished);
+  }
+  function finished() {
+    stepsUI(STEPS.length); $('#plnArch').classList.remove('on'); $('#plnSpin').className = 'st'; $('#plnSpin').textContent = 'xong';
+    $('#plnBadge').className = 'badge b-line'; $('#plnBadge').textContent = 'Đã lập';
+    $('#plnMeta').textContent = 'Kiến trúc sư · 3 chương · 2 phục bút được lên lịch trả';
+    ev('done', 'Dàn ý arc 3 · 3 chương', `${cr} credit · <span class="mono">#8</span>`);
+    $('#plnEnd').classList.remove('hidden'); if (curDoc === 'pln') { $('#docSub').textContent = 'Kiến trúc sư lập · đã xong'; setTimeout(() => $('#stage').scrollTo({ top: 1e6, behavior: 'smooth' }), 60); }
+    if (cfg.review) return hold(true);
+    let n = 8; const tick = () => { $('#plnEndS').innerHTML = `Chấp bút bắt đầu viết sau <b class="num" style="display:inline">${n}</b> giây. Muốn chỉnh trước thì giữ lại.`; };
+    tick(); ticker('Dàn ý xong · sắp chuyển sang viết', false); status('đã xong'); setPeek('Dàn ý xong · sắp bắt đầu viết', '');
+    cdT = setInterval(() => { if (--n <= 0) go(); else tick(); }, 1000);
+  }
+  function hold(auto) {
+    clearInterval(cdT); cdT = null; planHeld = true;
+    $('.ed', page).contentEditable = true; openDoc('pln', { keepScroll: true }); setNav();
+    $('#plnEndT').textContent = auto ? 'Dàn ý xong · chờ bạn duyệt' : 'Bạn đang sửa dàn ý';
+    $('#plnEndS').textContent = (auto ? 'Bạn bật «Duyệt từng chương» nên AI chờ bạn. ' : 'Sửa thẳng trên trang. ') + 'Chấp bút chỉ viết khi bạn bấm «Bắt đầu viết». Không tốn credit khi chờ.';
+    $('#plnHold').classList.add('hidden'); $('#plnGo').textContent = 'Bắt đầu viết';
+    ticker('Chờ bạn duyệt dàn ý · không tốn credit', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait');
+  }
+  function go() { stop(); show('writing'); toast(planHeld ? 'Đã chốt dàn ý đã sửa · chấp bút bắt đầu viết' : 'Dàn ý arc 3 đã chốt · chấp bút bắt đầu viết'); }
+  function stop() { timers.forEach(clearTimeout); timers = []; clearInterval(cdT); cdT = null; }
+  async function feedback(v) {
+    ev('you', 'Bạn góp ý cho dàn ý', `«${esc(v)}»`); ticker('Trọng tài đang đánh giá góp ý…'); toast('Trọng tài đang đánh giá góp ý…');
+    await sleep(1300); if (state !== 'planning') return;
+    const left = $$('.pl-s:not(.done)', page).length;
+    ev('arb', left ? 'Trọng tài: kiến trúc sư áp dụng vào phần chưa lập' : 'Trọng tài: kiến trúc sư sửa lại dàn ý trước khi viết', left ? `${left} mục còn lại sẽ theo góp ý` : 'không tốn thêm lượt viết');
+    if (!planHeld && !cdT) ticker('Kiến trúc sư đang lập…');
+  }
+  $('#plnHold').onclick = () => hold(false);
+  $('#plnGo').onclick = go;
+  return { start, stop, feedback, spent: () => cr };
+})();
+
 /* steering — góp ý không cần dừng, trọng tài phân loại */
 let fbCount = 0;
 $('#fbSend').onclick = async () => {
   const v = $('#fbInput').value.trim(); if (!v) { $('#fbInput').focus(); return; }
+  if (state === 'planning') { $('#fbInput').value = ''; return planner.feedback(v); }
   fbCount++; $('#fbCnt').textContent = `đã gửi ${fbCount}`;
   $('#fbInput').value = ''; ticker('Trọng tài đang đánh giá góp ý của bạn…');
   const tl = $('#timeline');
@@ -1907,6 +2056,11 @@ $('#stopHard').onclick = () => confirmStop();
 $('#fbInput').addEventListener('keydown', e => {
   if (e.key === 'Escape') { e.stopPropagation(); $('#fbInput').blur(); return; } if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#fbSend').click(); } });
 function confirmStop() {
+  if (state === 'planning') return confirmBox({
+    title: 'Dừng lập dàn ý?',
+    body: `Chưa có chương nào được viết. Phần dàn ý đã lập được giữ trong «Dàn ý arc 3». ${planner.spent()} credit đã dùng không hoàn lại.`,
+    no: 'Tiếp tục lập', yes: 'Dừng', onYes: () => { show('start'); toast('Đã dừng · giữ phần dàn ý đã lập'); }
+  });
   confirmBox({
     title: 'Dừng hẳn phiên viết?',
     body: 'Chương 7 đã chốt được giữ thành bản nháp. Phần dở của chương 8 (≈1.480 chữ) cũng được lưu thành bản nháp chưa hoàn chỉnh. Chương 9 sẽ không được viết. Credit đã trừ không hoàn lại.',
@@ -1973,6 +2127,7 @@ $('#topMore').onclick = e => popMenu(e.currentTarget, [
 ]);
 $('#docMore').onclick = e => {
   const it = [];
+  if (state === 'planning') it.push({ ic: 'stop', t: 'Dừng lập dàn ý', danger: true, run: confirmStop }, '-');
   if (state === 'writing' || state === 'ask' || state === 'pause' || (state === 'error' && errSub === 'retry')) it.push({ ic: 'stop', t: 'Dừng hẳn, giữ chương đã viết', danger: true, run: confirmStop }, '-');
   if (state === 'done' && needSync) it.push({ ic: 'sync', t: 'Đồng bộ chỉnh sửa', k: '/sync', run: doSync });
 
