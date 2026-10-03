@@ -340,15 +340,6 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .sect-l{display:flex;align-items:center;gap:8px;margin:0 0 10px}
 .blk+.blk{margin-top:22px}
 
-/* phase rail (ainovel phases) */
-.rail{flex:none;display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);gap:0;overflow-x:auto;scrollbar-width:none}
-.rail::-webkit-scrollbar{display:none}
-.rail .ph{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--faint);white-space:nowrap}
-.rail .ph i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--line-2);flex:none}
-.rail .ph.done{color:var(--muted)} .rail .ph.done i{background:var(--ink-2);border-color:var(--ink-2)}
-.rail .ph.cur{color:var(--ink);font-weight:600} .rail .ph.cur i{background:var(--fill);border-color:var(--fill);box-shadow:0 0 0 3px var(--soft)}
-.rail .ln{flex:1;min-width:6px;height:1px;background:var(--line-2);margin:0 5px}
-@container ap (max-width:370px){ .rail .ph:not(.cur) .pl{display:none} }
 .flow{display:flex;gap:4px;flex-wrap:wrap}
 .flow span{font-size:11px;padding:2px 7px;border-radius:4px;color:var(--faint);border:1px solid var(--line)}
 .flow span.on{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
@@ -983,7 +974,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <aside class="ai" id="aiPanel" aria-label="Hồ sơ & AI">
     <div class="ai-rz" id="aiRz" role="separator" aria-orientation="vertical" aria-label="Kéo để đổi độ rộng" title="Kéo để đổi độ rộng · nhấp đúp để đặt lại"></div>
     <button class="ai-peek" id="aiPeek" aria-expanded="false" aria-controls="aiPanel"><span class="grip" aria-hidden="true"></span><span class="pk"><span class="pulse off" id="peekDot"></span><span id="peekTxt">Hồ sơ &amp; AI</span></span><svg class="i chev"><use href="#i-down"/></svg></button>
-    <div class="rail hidden" id="rail"></div>
 
     <!-- START -->
     <section data-ai="start">
@@ -1509,14 +1499,6 @@ function setNav() {
   $('#navFoot').textContent = { start: 'Chưa có phiên đang chạy', cocreate: 'Đang soạn chỉ thị', planning: 'Đang lập dàn ý arc 3', done: 'Điểm khôi phục #58 · phiên đã đóng' }[state] || 'Điểm khôi phục #41 · vừa xong';
 }
 
-/* phase rail — ainovel: khởi tạo → tiền đề → dàn ý → sáng tác → hoàn thành */
-const PHASES = ['Khởi tạo', 'Tiền đề', 'Dàn ý', 'Sáng tác', 'Hoàn thành'];
-function setRail(cur) {
-  const r = $('#rail');
-  if (cur < 0) { r.classList.add('hidden'); return; }
-  r.classList.remove('hidden');
-  r.innerHTML = PHASES.map((p, i) => `<span class="ph ${i < cur ? 'done' : i === cur ? 'cur' : ''}" title="${p}"><i></i><span class="pl">${p}</span></span>`).join('<span class="ln"></span>');
-}
 
 /* toolbar AI controls by state */
 function renderCtl() {
@@ -1665,7 +1647,6 @@ function show(name, sub) {
   $$('.pausemark').forEach(m => m.remove());
   const doc = { start: 'c6', cocreate: 'dir', planning: 'pln', writing: 'c8', pause: 'c8', done: 'c7', error: { credit: 'c8', load: 'c4', engine: 'dir', retry: 'c8' }[errSub] }[st];
   st === 'writing' ? sim.start() : sim.stop();
-  setRail({ start: -1, cocreate: 1, planning: 1, writing: 3, pause: 3, done: 4, error: { credit: 3, load: 0, engine: 2, retry: 3 }[errSub] }[st]);
   openDoc(doc);
   setView({ start: 'ai', cocreate: 'ai', planning: 'canvas', writing: 'canvas', pause: 'ai', done: 'canvas', error: 'ai' }[st]);
   if (st === 'start') { showHist(false); setMode(mode); setStep(name === 'cfg' ? 3 : 1); statusIdle(); }
@@ -2129,7 +2110,6 @@ const planner = (() => {
       } else t += 1200;
       later(t, () => {
         sec.classList.remove('run'); sec.classList.add('done'); finishEv(sec._ev); pay(key === 'chaps' ? 9 : 4);
-        if (key === 'premise') setRail(2);
       });
       t += 350;
     });
