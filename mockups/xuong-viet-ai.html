@@ -54,7 +54,7 @@
 
 /* ================= BASE ================= */
 *{box-sizing:border-box}
-html,body{margin:0;height:100%}
+html,body{margin:0;height:100%;width:100%;max-width:100%;overflow:hidden}
 body{background:var(--bg);color:var(--ink);font:14px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden}
 h1,h2,h3,h4{margin:0;font-weight:600;line-height:1.45;letter-spacing:-.01em}
 h2{font-size:18px} h3{font-size:15px} h4{font-size:13.5px}
@@ -142,7 +142,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .meter>i{display:block;height:100%;border-radius:99px;background:var(--ink);transition:width .3s}
 
 /* ================= APP SHELL ================= */
-.app{height:100vh;height:100dvh;display:grid;grid-template-rows:52px minmax(0,1fr) 30px}
+.app{width:100%;max-width:100vw;overflow:hidden;height:100vh;height:100dvh;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:52px minmax(0,1fr) 30px}
 .topbar{z-index:40;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 14px;min-width:0}
 .logo{width:30px;height:30px;border-radius:7px;background:var(--fill);color:var(--fill-ink);display:grid;place-items:center;flex:none}
 .crumbs{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);min-width:0;white-space:nowrap}
@@ -321,7 +321,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .bal-line{display:flex;align-items:baseline;gap:8px}
 .bal{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
 .bal-meter{position:relative;margin:8px 0 4px}
-.bal-meter .mk{position:absolute;top:-4px;width:2px;height:14px;background:var(--ink)}
+.bal-meter .mk{position:absolute;top:-4px;width:3px;height:14px;background:var(--surface);box-shadow:0 0 0 1px var(--ink)}
 .bal-scale{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);font-family:var(--mono)}
 .sess{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}
 .sess:last-child{border-bottom:0}
@@ -330,6 +330,27 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .foot-est{display:flex;align-items:center;justify-content:space-between;font-size:12.5px}
 .foot-est b{font-size:13.5px}
 
+/* start wizard */
+.wz{flex:none;display:flex;gap:8px;padding:10px 14px 12px;border-bottom:1px solid var(--line)}
+.wz button{flex:1;display:grid;gap:7px;border:0;background:none;padding:0;cursor:pointer;text-align:left;color:var(--faint);font-size:12px;font-weight:500;min-width:0}
+.wz button i{display:block;height:3px;border-radius:2px;background:var(--line)}
+.wz button>span{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wz .n{width:17px;height:17px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-size:10px;font-family:var(--mono);flex:none}
+.wz button.done{color:var(--muted)} .wz button.done i{background:var(--ink-2)} .wz button.done .n{border-color:var(--ink-2);color:var(--ink-2)}
+.wz button.cur{color:var(--ink);font-weight:600} .wz button.cur i{background:var(--ink)} .wz button.cur .n{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
+.wz button:disabled{cursor:default}
+.wstep h2{font-size:17px;line-height:1.45}
+.wstep .sub{font-size:13px;color:var(--muted);margin:2px 0 16px}
+.wrapc{flex-wrap:wrap;margin-top:10px}
+.sum{border-top:1px solid var(--line)}
+.sum .kv b{font-weight:500;text-align:right;min-width:0}
+.sum .kv b .rg{margin:0 4px 0 8px;vertical-align:0}
+.credit-box{margin-top:14px;border:1px solid var(--line);border-radius:8px;padding:12px;display:grid;gap:6px}
+.credit-box b{font-size:15px}
+.credit-box .bal-meter{margin:4px 0}
+.wstep .alert{margin-top:10px}
+.wz-f{display:flex;gap:8px}
+.wz-f .primary{flex:1}
 /* chat */
 .chat-log{display:flex;flex-direction:column;gap:16px}
 .msg{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px}
@@ -775,40 +796,47 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
     <!-- START -->
     <section data-ai="start">
       <div class="ai-h"><span class="ai-mark"><svg class="i sm"><use href="#i-sparkle"/></svg></span><h3>Phiên viết mới</h3>
-        <div class="seg spacer" role="tablist" id="startTabs"><button role="tab" aria-selected="true" data-st="new">Thiết lập</button><button role="tab" aria-selected="false" data-st="hist">Lịch sử · 4</button></div>
+        <div class="seg spacer" role="tablist" id="startTabs"><button role="tab" aria-selected="true" data-st="new">Phiên mới</button><button role="tab" aria-selected="false" data-st="hist">Lịch sử · 4</button></div>
+      </div>
+      <div class="wz" id="wz" data-sp="new" aria-label="Các bước">
+        <button data-go="1"><i></i><span><span class="n">1</span>Cách bắt đầu</span></button>
+        <button data-go="2"><i></i><span><span class="n">2</span>Yêu cầu</span></button>
+        <button data-go="3"><i></i><span><span class="n">3</span>Xác nhận</span></button>
       </div>
       <div class="ai-b" data-sp="new">
-        <div class="blk">
-          <div class="sect-l"><span class="lbl">Cách bắt đầu</span></div>
+        <div class="wstep" data-ws="1">
+          <h2>Bạn muốn bắt đầu thế nào?</h2>
+          <p class="sub">Truyện đang có 6 chương. Chương của bạn không bao giờ bị sửa.</p>
           <div class="modes" role="radiogroup" aria-label="Chế độ">
-            <button class="mode" role="radio" aria-checked="false" data-mode="co"><span class="mi"><svg class="i"><use href="#i-chat"/></svg></span><b>Đồng sáng tạo</b><p>Trò chuyện để chốt chỉ thị, rồi mới viết.</p><span class="rb"></span></button>
-            <button class="mode" role="radio" aria-checked="false" data-mode="quick"><span class="mi"><svg class="i"><use href="#i-zap"/></svg></span><b>Bắt đầu nhanh</b><p>Một câu yêu cầu, AI tự lên dàn ý và viết.</p><span class="rb"></span></button>
-            <button class="mode" role="radio" aria-checked="true" data-mode="cont"><span class="mi"><svg class="i"><use href="#i-book"/></svg></span><b>Viết tiếp từ chương đã có</b><p>Nạp 6 chương, AI viết từ chương 7. Không sửa chương của bạn.</p><span class="rb"></span></button>
-          </div>
-          <div class="ctx" id="modeCtx"></div>
-        </div>
-        <div class="blk">
-          <div class="sect-l"><span class="lbl">Thiết lập</span></div>
-          <div class="cfg-sum">
-            <div class="cfg-row"><span class="k">Văn phong</span><span class="v" id="sumStyle"></span></div>
-            <div class="cfg-row"><span class="k">Số chương</span><span class="v" id="sumChap"></span></div>
-            <div class="cfg-row"><span class="k">Duyệt từng chương</span><span class="v" id="sumReview"></span></div>
-            <div class="cfg-row"><span class="k">Luật riêng</span><span class="v clamp" id="sumRules"></span></div>
-            <div class="cfg-row"><span class="k">Model</span><span class="v" id="sumModels"></span></div>
-            <div class="cfg-act"><button class="btn sm" data-open-cfg><svg class="i sm"><use href="#i-sliders"/></svg>Chỉnh thiết lập</button></div>
+            <button class="mode" role="radio" aria-checked="true" data-mode="cont"><span class="mi"><svg class="i"><use href="#i-book"/></svg></span><b>Viết tiếp chương 7</b><p>AI đọc 6 chương rồi viết tiếp.</p><span class="rb"></span></button>
+            <button class="mode" role="radio" aria-checked="false" data-mode="co"><span class="mi"><svg class="i"><use href="#i-chat"/></svg></span><b>Đồng sáng tạo</b><p>Trò chuyện với AI trước khi viết.</p><span class="rb"></span></button>
+            <button class="mode" role="radio" aria-checked="false" data-mode="quick"><span class="mi"><svg class="i"><use href="#i-zap"/></svg></span><b>Bắt đầu nhanh</b><p>Một câu yêu cầu, AI tự lên dàn ý.</p><span class="rb"></span></button>
           </div>
         </div>
-        <div class="blk">
-          <div class="sect-l"><span class="lbl">Credit</span><label class="switch spacer"><input type="checkbox" id="lowToggle">Giả lập số dư thấp</label></div>
-          <div class="bal-line"><span class="bal num" id="balBig">1.240</span><span class="small muted">credit khả dụng</span></div>
-          <div class="bal-meter"><div class="meter"><i id="balBar" style="width:100%"></i></div><span class="mk" id="balMark"></span></div>
-          <div class="bal-scale"><span>0</span><span>min 200</span><span>1.240</span></div>
-          <div style="margin-top:6px">
-            <div class="kv"><span>Tối thiểu để chạy</span><b class="num">200 credit</b></div>
-            <div class="kv"><span>Mỗi lượt chat</span><b class="num">2–5 credit</b></div>
+        <div class="wstep hidden" data-ws="2">
+          <h2 id="s2Title"></h2>
+          <p class="sub" id="s2Hint"></p>
+          <textarea class="input" id="s2Input" rows="4"></textarea>
+          <div class="suggests wrapc" id="s2Chips"></div>
+        </div>
+        <div class="wstep hidden" data-ws="3">
+          <h2>Kiểm tra trước khi chạy</h2>
+          <p class="sub">AI chạy nền vài phút mỗi chương, trừ credit theo token thật.</p>
+          <div class="sum">
+            <div class="kv"><span>Chế độ</span><b id="sumMode"></b></div>
+            <div class="kv"><span>Viết</span><b id="sumChap"></b></div>
+            <div class="kv"><span>Văn phong</span><b id="sumStyle"></b></div>
+            <div class="kv"><span>Model</span><b id="sumModels"></b></div>
+            <div class="kv hidden" id="sumNoteRow"><span>Yêu cầu</span><b class="clamp" id="sumNote"></b></div>
           </div>
-          <div class="alert strong hidden" id="lowAlert" style="margin-top:8px"><svg class="i"><use href="#i-alert"/></svg><div><b>Không đủ credit để chạy</b><span class="txt">Còn 120 credit, cần tối thiểu 200.</span><div style="margin-top:8px"><button class="btn sm" id="topupBtn">Nạp credit</button></div></div></div>
-          <div class="alert hatch hidden" id="midAlert" style="margin-top:8px"><svg class="i"><use href="#i-alert"/></svg><div><b id="midT"></b><span class="txt">Phiên sẽ tạm dừng khi hết credit, chương đã chốt vẫn được giữ.</span></div></div>
+          <button class="btn sm ghost" data-open-cfg style="margin:6px 0 0 -8px"><svg class="i sm"><use href="#i-sliders"/></svg>Chỉnh thiết lập</button>
+          <div class="credit-box">
+            <div class="row"><span class="muted small">Số dư</span><b class="num" id="balBig">1.240</b><span class="muted small spacer">Ước tính</span><b class="num" id="startEst">~542</b></div>
+            <div class="bal-meter"><div class="meter"><i id="balBar" style="width:100%"></i></div><span class="mk" id="balMark" title="Tối thiểu 200"></span></div>
+            <div class="row tiny muted"><span>Tối thiểu để chạy: 200 credit</span><label class="switch spacer"><input type="checkbox" id="lowToggle">Demo số dư thấp</label></div>
+          </div>
+          <div class="alert strong hidden" id="lowAlert"><svg class="i"><use href="#i-alert"/></svg><div><b>Không đủ credit để chạy</b><span class="txt">Còn 120 credit, cần tối thiểu 200.</span><div style="margin-top:8px"><button class="btn sm" id="topupBtn">Nạp credit</button></div></div></div>
+          <div class="alert hatch hidden" id="midAlert"><svg class="i"><use href="#i-alert"/></svg><div><b id="midT"></b><span class="txt">Phiên tạm dừng khi hết credit, chương đã chốt vẫn được giữ.</span></div></div>
         </div>
       </div>
       <div class="ai-b hidden" data-sp="hist">
@@ -817,9 +845,9 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="sess"><span class="t">Bắt đầu nhanh · chương 4</span><span class="badge b-hatch">Đã dừng</span><span class="s">17/09 · 1 chương · 171 credit</span></div>
         <div class="sess"><span class="t">Viết tiếp · chương 4</span><span class="badge b-solid">Lỗi</span><span class="s">12/09 · không nạp được chương 2 · 8 credit</span></div>
       </div>
-      <div class="ai-f">
-        <div class="foot-est"><span class="muted">Ước tính phiên này</span><b class="num" id="startEst">~542 credit</b></div>
-        <button class="btn primary lg block" id="startBtn"><span id="startLbl">Viết tiếp chương 7</span><svg class="i"><use href="#i-arrow"/></svg></button>
+      <div class="ai-f wz-f" data-sp="new">
+        <button class="btn ghost" id="wzBack"><svg class="i"><use href="#i-left"/></svg>Quay lại</button>
+        <button class="btn primary lg" id="startBtn"><span id="startLbl">Tiếp tục</span><svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </section>
 
@@ -1345,7 +1373,7 @@ function show(name, sub) {
   setRail({ start: -1, cocreate: 1, writing: 3, pause: 3, done: 4, error: { credit: 3, load: 0, engine: 2, retry: 3 }[errSub] }[st]);
   openDoc(doc);
   setView({ start: 'ai', cocreate: 'ai', writing: 'canvas', pause: 'ai', done: 'canvas', error: 'ai' }[st]);
-  if (st === 'start') { setMode(mode); statusIdle(); }
+  if (st === 'start') { setMode(mode); setStep(name === 'cfg' ? 3 : 1); statusIdle(); }
   if (st === 'cocreate') { coChat.init(); setStatus(si('<span class="pulse"></span>Tiền đề · đồng sáng tạo') + si(`<b class="num">${coChat.turns()}</b> lượt chat`) + si(`<b class="num" id="sbCo">${coSpent}</b> credit`, 'sx') + si('Chỉ thị: 6 mục', 'sx r')); }
   if (st === 'writing') { setFlow('writing'); statusWriting(); }
   if (st === 'pause') {
@@ -1395,22 +1423,45 @@ drawCtx();
 
 /* ================= START ================= */
 const modeInfo = {
-  co: { btn: 'Bắt đầu trò chuyện', html: `<p class="small muted">AI hỏi bạn từng ý, soạn dần «Chỉ thị sáng tác» thành tài liệu trên canvas. Bấm phím số để chọn nhanh gợi ý. Mỗi lượt chat trừ 2–5 credit.</p>` },
-  quick: { btn: 'Lên dàn ý và viết', html: `<div class="field"><label for="qReq">Một câu yêu cầu</label><textarea class="input" id="qReq" rows="3">Viết cung tiếp: Vãn Ca trở lại Ly Sơn sau ba năm, gặp lại Tạ Trầm ở bến Vọng Nguyệt; cuối cung Tạ Trầm biết thân phận thật của nàng.</textarea><span class="hint">Kiến trúc sư tự lập dàn ý cung 3 rồi viết luôn.</span></div>` },
-  cont: { btn: 'Viết tiếp chương 7', html: `<div class="pipe"><span class="lbl" style="margin-bottom:4px">Nạp chương cũ · 5 bước, chỉ đọc</span><div><span class="mono">1</span>Ghi nhận bản gốc</div><div><span class="mono">2</span>Tách chương, nhận ra cung</div><div><span class="mono">3</span>Phân tích từng chương</div><div><span class="mono">4</span>Tổng hợp tiền đề, nhân vật, dàn ý, la bàn</div><div><span class="mono">5</span>Công bố nền móng → viết chương 7</div></div><div class="field"><label for="contNote">Lưu ý thêm <span class="muted" style="font-weight:400">· không bắt buộc</span></label><input class="input" id="contNote" placeholder="Ví dụ: chương 7 bắt đầu sau ba năm"></div>` }
+  cont: { name: 'Viết tiếp từ chương đã có', btn: 'Viết tiếp chương 7', t: 'Có lưu ý gì cho chương 7?', h: 'Không bắt buộc. AI đã đọc 6 chương nên có thể bỏ qua bước này.', ph: 'Ví dụ: chương 7 bắt đầu sau ba năm', v: '', chips: ['Bắt đầu sau ba năm', 'Giữ nhịp chậm', 'Góc nhìn Tạ Trầm', 'Thêm hồi ức về sư phụ'] },
+  co: { name: 'Đồng sáng tạo', btn: 'Bắt đầu trò chuyện', t: 'Bạn muốn bàn điều gì trước?', h: 'Không bắt buộc. AI sẽ hỏi bạn từng ý, rồi soạn «Chỉ thị sáng tác» trên canvas. Mỗi lượt chat trừ 2–5 credit.', ph: 'Ví dụ: mình muốn cung tiếp theo xoay quanh cuộc gặp lại…', v: '', chips: ['Cuộc gặp lại', 'Một phản diện mới', 'Cú lật cuối cung'] },
+  quick: { name: 'Bắt đầu nhanh', btn: 'Lên dàn ý và viết', t: 'Cung tiếp theo nên thế nào?', h: 'Một câu là đủ. Kiến trúc sư tự lập dàn ý rồi viết luôn.', ph: 'Mô tả yêu cầu…', v: 'Vãn Ca trở lại Ly Sơn sau ba năm, gặp lại Tạ Trầm ở bến Vọng Nguyệt; cuối cung Tạ Trầm biết thân phận thật của nàng.', chips: [] }
 };
-let mode = 'cont';
+let mode = 'cont', wStep = 1;
+const notes = { cont: '', co: '', quick: modeInfo.quick.v };
 function setMode(m) {
   mode = m;
   $$('.mode').forEach(x => x.setAttribute('aria-checked', x.dataset.mode === m));
-  $('#modeCtx').innerHTML = modeInfo[m].html;
   updateStart();
 }
+function setStep(n) {
+  wStep = n;
+  $$('.wstep').forEach(x => x.classList.toggle('hidden', +x.dataset.ws !== n));
+  $$('#wz button').forEach(b => { const k = +b.dataset.go; b.className = k < n ? 'done' : k === n ? 'cur' : ''; b.disabled = k > n; });
+  if (n === 2) {
+    const mi = modeInfo[mode];
+    $('#s2Title').textContent = mi.t; $('#s2Hint').textContent = mi.h;
+    const ta = $('#s2Input'); ta.placeholder = mi.ph; ta.value = notes[mode]; ta.rows = mode === 'quick' ? 4 : 3;
+    $('#s2Chips').innerHTML = mi.chips.map(c => `<button class="chip">${c}</button>`).join('');
+  }
+  $('#wzBack').classList.toggle('hidden', n === 1);
+  updateStart();
+  $('[data-ai="start"] .ai-b[data-sp="new"]').scrollTop = 0;
+}
+$('#s2Input').addEventListener('input', e => { notes[mode] = e.target.value; });
+$('#s2Chips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  const ta = $('#s2Input'); ta.value = (ta.value ? ta.value.replace(/[.\s]*$/, '') + '. ' : '') + c.textContent; notes[mode] = ta.value; ta.focus();
+});
+$('#wz').addEventListener('click', e => { const b = e.target.closest('button'); if (b && !b.disabled) setStep(+b.dataset.go); });
+$('#wzBack').onclick = () => setStep(Math.max(1, wStep - 1));
 $$('.mode').forEach(x => x.addEventListener('click', () => setMode(x.dataset.mode)));
+$$('.mode').forEach(x => x.addEventListener('dblclick', () => { setMode(x.dataset.mode); setStep(2); }));
 $('#startTabs').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   $$('#startTabs button').forEach(x => x.setAttribute('aria-selected', x === b));
   $$('[data-sp]').forEach(p => p.classList.toggle('hidden', p.dataset.sp !== b.dataset.st));
+  if (b.dataset.st === 'new') setStep(wStep);
 });
 
 /* settings modal */
@@ -1448,24 +1499,28 @@ $('#cfgSave').onclick = () => { cfg = readModal(); closeCfg(); updateStart(); to
 
 function updateStart() {
   const n = cfg.n, bal = $('#lowToggle').checked ? 120 : credit, est = estOf(cfg), max = 1240;
+  $('#sumMode').textContent = modeInfo[mode].name;
+  $('#sumChap').textContent = `${n} chương · ` + (n === 1 ? 'chương 7' : `chương 7 → ${6 + n}`) + (cfg.review ? ' · duyệt từng chương' : '');
   $('#sumStyle').textContent = cfg.style;
-  $('#sumChap').textContent = `${n} chương · ` + (n === 1 ? 'chương 7' : `chương 7 → ${6 + n}`);
-  $('#sumReview').textContent = cfg.review ? 'Bật · dừng sau mỗi chương' : 'Tắt · viết liền mạch';
-  $('#sumRules').textContent = cfg.rules || '— Không có —';
-  $('#sumModels').innerHTML = cfg.roles.map(r => `<span style="white-space:nowrap"><i class="rg ${r.r}"></i>${r.m.replace('Claude ', '')}</span>`).join(' &nbsp;');
-  $('#startEst').textContent = mode === 'co' ? `chat 2–5/lượt · viết ~${fmt(est)}` : `~${fmt(est)} credit`;
-  $('#balBig').textContent = fmt(bal);
+  const models = [...new Set(cfg.roles.map(r => r.m.replace('Claude ', '')))];
+  $('#sumModels').textContent = models.join(' + ');
+  const note = notes[mode].trim();
+  $('#sumNoteRow').classList.toggle('hidden', !note); $('#sumNote').textContent = note;
+  $('#startEst').textContent = (mode === 'co' ? '~' + fmt(est) + ' + chat' : '~' + fmt(est)) + ' credit';
+  $('#balBig').textContent = fmt(bal) + ' credit';
   $('#balBar').style.width = Math.min(100, bal / max * 100) + '%';
   $('#balMark').style.left = (200 / max * 100) + '%';
   const low = bal < 200;
   $('#lowAlert').classList.toggle('hidden', !low);
   $('#midAlert').classList.toggle('hidden', low || bal >= est);
   $('#midT').textContent = `Có thể không đủ cho cả ${n} chương`;
-  $('#startLbl').textContent = modeInfo[mode].btn; $('#startBtn').disabled = low;
+  const last = wStep === 3;
+  $('#startLbl').textContent = last ? modeInfo[mode].btn : 'Tiếp tục';
+  $('#startBtn').disabled = last && low;
   if (state === 'start') statusIdle();
 }
 $('#lowToggle').onchange = updateStart;
-$('#startBtn').onclick = () => show(mode === 'co' ? 'cocreate' : 'writing');
+$('#startBtn').onclick = () => { if (wStep < 3) setStep(wStep + 1); else show(mode === 'co' ? 'cocreate' : 'writing'); };
 $('#topupBtn').onclick = () => toast('Mở trang nạp credit (ngoài phạm vi mockup)');
 
 /* ================= CHAT ================= */
