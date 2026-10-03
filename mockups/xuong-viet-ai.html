@@ -16,6 +16,8 @@
   --fill:#222222; --fill-ink:#ffffff;      /* inverted / primary */
   --soft:#ececec;                          /* tinted neutral */
   --paper:#ffffff; --ai-tint:#f1f1f1;
+  /* accent = ainovel-cli colorAccent (internal/entry/tui/theme.go): fills use the bright gold with dark ink; lines/text use the deeper gold */
+  --accent:#e5b449; --accent-ink:#241a04; --accent-line:#b8860b; --accent-soft:rgba(229,180,73,.18);
   --hatch:repeating-linear-gradient(-45deg,rgba(0,0,0,.09) 0 2px,transparent 2px 7px);
   --shadow-sm:0 1px 2px rgba(0,0,0,.05);
   --shadow-page:0 1px 2px rgba(0,0,0,.06),0 10px 30px rgba(0,0,0,.06);
@@ -31,7 +33,7 @@
     --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
     --line:#2a2a2a; --line-2:#3a3a3a;
     --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
-    --paper:#141414; --ai-tint:#1d1d1d;
+    --paper:#141414; --ai-tint:#1d1d1d; --accent:#e5b449; --accent-ink:#241a04; --accent-line:#e5b449; --accent-soft:rgba(229,180,73,.14);
     --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
     --shadow-sm:0 1px 2px rgba(0,0,0,.4);
     --shadow-page:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
@@ -44,7 +46,7 @@
   --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
   --line:#2a2a2a; --line-2:#3a3a3a;
   --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
-  --paper:#141414; --ai-tint:#1d1d1d;
+  --paper:#141414; --ai-tint:#1d1d1d; --accent:#e5b449; --accent-ink:#241a04; --accent-line:#e5b449; --accent-soft:rgba(229,180,73,.14);
   --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
   --shadow-sm:0 1px 2px rgba(0,0,0,.4);
   --shadow-page:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
@@ -60,7 +62,7 @@ h1,h2,h3,h4{margin:0;font-weight:600;line-height:1.45;letter-spacing:-.01em}
 h2{font-size:18px} h3{font-size:15px} h4{font-size:13.5px}
 p{margin:0}
 button,input,textarea,select{font:inherit;color:inherit}
-::selection{background:var(--fill);color:var(--fill-ink)}
+::selection{background:var(--accent-soft);color:inherit}
 .muted{color:var(--muted)} .faint{color:var(--faint)} .small{font-size:13px} .tiny{font-size:12px}
 .num{font-variant-numeric:tabular-nums}
 .mono{font-family:var(--mono);font-size:11.5px;letter-spacing:0}
@@ -83,9 +85,9 @@ button,input,textarea,select{font:inherit;color:inherit}
 /* ================= CONTROLS ================= */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:9px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:500;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}
 .btn:hover{background:var(--hover);border-color:var(--ink)}
-.btn:focus-visible,.seg button:focus-visible,.chip:focus-visible,.mode:focus-visible,.ni:focus-visible,.tool:focus-visible,.cmd:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.btn.primary{background:var(--fill);border-color:var(--fill);color:var(--fill-ink);font-weight:600}
-.btn.primary:hover{opacity:.88}
+.btn:focus-visible,.seg button:focus-visible,.chip:focus-visible,.mode:focus-visible,.ni:focus-visible,.tool:focus-visible,.cmd:focus-visible{outline:2px solid var(--accent-line);outline-offset:2px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.primary:hover{filter:brightness(.95)}
 .btn[disabled]{opacity:.35;cursor:not-allowed}
 .btn.ghost{background:transparent;border-color:transparent}
 .btn.ghost:hover{background:var(--hover);border-color:transparent}
@@ -103,7 +105,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 .seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:var(--fill);color:var(--fill-ink)}
 /* badges: state by form, not colour */
 .badge{display:inline-flex;align-items:center;gap:4px;height:21px;padding:0 7px;border-radius:5px;font-size:11px;font-weight:600;white-space:nowrap;line-height:1;border:1px solid transparent;letter-spacing:.01em}
-.b-solid{background:var(--fill);color:var(--fill-ink)}
+.b-solid{background:var(--accent);color:var(--accent-ink)}
 .b-line{border-color:var(--ink);color:var(--ink)}
 .b-dash{border:1px dashed var(--ink);color:var(--ink)}
 .b-soft{background:var(--soft);color:var(--ink-2)}
@@ -114,7 +116,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 .field .hint{font-size:12px;color:var(--muted)}
 .input{width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:9px;padding:8px 11px;font-size:13.5px;line-height:1.55;transition:border-color .12s,box-shadow .12s}
 textarea{resize:none}
-textarea.input{resize:none;min-height:72px;display:block}
+textarea.input{resize:none;min-height:72px;max-height:240px;display:block}
 .input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--soft)}
 select.input{appearance:none;height:34px;padding:0 28px 0 10px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
 input[type=range]{width:100%;accent-color:var(--ink)}
@@ -129,18 +131,18 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .alert.strong{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
 .alert.strong .txt{color:var(--fill-ink);opacity:.85}
 .alert.hatch{background:var(--hatch),var(--surface);border-color:var(--ink)}
-.spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--ink);animation:spin .8s linear infinite;flex:none;display:inline-block}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--line-2);border-top-color:var(--accent-line);animation:spin .8s linear infinite;flex:none;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
-.pulse{width:8px;height:8px;border-radius:50%;background:var(--ink);flex:none;animation:pulse 1.6s infinite;display:inline-block}
-.pulse.wait{background:transparent;border:1.5px solid var(--ink);animation:none}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;animation:pulse 1.6s infinite;display:inline-block}
+.pulse.wait{background:transparent;border:1.5px solid var(--accent-line);animation:none}
 .pulse.off{background:var(--faint);animation:none}
 .pulse.bad{border-radius:1px;transform:rotate(45deg);animation:none}
-@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ink) 45%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
 .kv{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;padding:8px 0;border-bottom:1px solid var(--line)}
 .kv:last-child{border-bottom:0}
 .kv>span:first-child{color:var(--muted)}
 .meter{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden;position:relative}
-.meter>i{display:block;height:100%;border-radius:99px;background:var(--ink);transition:width .3s}
+.meter>i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .3s}
 
 /* ================= APP SHELL ================= */
 .app{width:100%;max-width:100vw;overflow:hidden;height:100vh;height:100dvh;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:52px minmax(0,1fr)}
@@ -153,8 +155,6 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .cmdk:hover{border-color:var(--ink);color:var(--ink)}
 .credit{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:1px solid var(--line-2);border-radius:9px;font-size:13px;white-space:nowrap;position:relative}
 .credit b{font-weight:600}
-.credit .delta{position:absolute;right:6px;top:-10px;background:var(--fill);color:var(--fill-ink);font-size:11px;font-weight:600;padding:1px 6px;border-radius:4px;opacity:0;transform:translateY(4px);transition:all .2s;font-family:var(--mono)}
-.credit .delta.show{opacity:1;transform:none}
 .avatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--ink);color:var(--ink);display:grid;place-items:center;font-size:12px;font-weight:600;flex:none}
 .demo-wrap{position:relative;display:flex;align-items:center;gap:2px;border:1px dashed var(--line-2);border-radius:7px;padding:2px}
 .demo-btn{display:flex;align-items:center;gap:8px;height:26px;border:0;background:transparent;padding:0 8px;border-radius:5px;cursor:pointer;font-size:12.5px;white-space:nowrap}
@@ -279,7 +279,7 @@ details.more-d[open]>summary::after{content:"−"}
 .ed blockquote{margin:0 0 1em;padding-left:16px;border-left:2px solid var(--ink);color:var(--ink-2);font-style:italic}
 .ed[contenteditable="true"]:focus{caret-color:var(--ink)}
 .doc-meta{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:0 0 28px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.ed .ai-para{background:linear-gradient(90deg,var(--ai-tint),transparent 75%);border-left:2px solid var(--ink);margin-left:-12px;padding-left:10px;transition:background 2s,border-color 2s}
+.ed .ai-para{background:linear-gradient(90deg,var(--ai-tint),transparent 75%);border-left:2px solid var(--accent-line);margin-left:-12px;padding-left:10px;transition:background 2s,border-color 2s}
 .ed .ai-para.settled{background:transparent;border-left-color:transparent}
 .ed .bad{background:var(--fill);color:var(--fill-ink);border-radius:3px;padding:6px 10px;text-indent:0;font-family:var(--sans);font-size:13.5px;line-height:1.6}
 .ed .bad .mono{opacity:.75}
@@ -312,7 +312,7 @@ details.more-d[open]>summary::after{content:"−"}
 .toolline .spin{width:12px;height:12px}
 .toolline .mono{color:var(--faint);margin-left:auto}
 .pausemark{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--fill-ink);background:var(--fill);border-radius:4px;padding:2px 8px;vertical-align:3px;margin-left:6px;text-indent:0}
-.caret::after{content:"";display:inline-block;width:2px;height:1.05em;background:var(--ink);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+.caret::after{content:"";display:inline-block;width:2px;height:1.05em;background:var(--accent-line);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .flash{animation:flash 1.8s ease}
 @keyframes flash{0%,30%{background:var(--soft);box-shadow:0 0 0 4px var(--soft)}100%{background:transparent;box-shadow:0 0 0 4px transparent}}
@@ -330,7 +330,7 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .ai>section{display:flex;flex-direction:column;flex:1;min-height:0}
 .ai-h{flex:none;display:flex;align-items:center;gap:8px;padding:0 14px;height:50px;border-bottom:1px solid var(--line)}
 .ai-h h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
-.ai-mark{width:24px;height:24px;border-radius:5px;background:var(--fill);color:var(--fill-ink);display:grid;place-items:center;flex:none}
+.ai-mark{width:24px;height:24px;border-radius:5px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
 .ai-mark.o{background:transparent;border:1px solid var(--ink);color:var(--ink)}
 .ai-tabs{flex:none;padding:8px 12px;border-bottom:1px solid var(--line)}
 .ai-tabs .seg{display:flex}
@@ -361,9 +361,9 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .mode b{font-size:13.5px;font-weight:600;line-height:1.45;padding-right:22px}
 .mode p{font-size:12.5px;color:var(--muted);line-height:1.45}
 .mode .rb{position:absolute;top:12px;right:12px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-2)}
-.mode[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.mode[aria-checked="true"] .mi{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
-.mode[aria-checked="true"] .rb{border:5px solid var(--ink)}
+.mode[aria-checked="true"]{border-color:var(--accent-line);box-shadow:inset 0 0 0 1px var(--accent-line)}
+.mode[aria-checked="true"] .mi{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.mode[aria-checked="true"] .rb{border:5px solid var(--accent-line)}
 .ctx{margin-top:10px;display:grid;gap:10px}
 .pipe{display:grid;gap:0;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface-2)}
 .pipe div{display:flex;gap:10px;align-items:center;font-size:12.5px;padding:3px 0;color:var(--ink-2)}
@@ -400,26 +400,8 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .ticker .cnt{margin-left:auto;color:var(--faint);flex:none}
 .wbtns{display:flex;gap:6px;flex:none;align-items:center}
 .wbtns .btn{height:32px}
-@container cv (max-width:640px){ #pauseTalk .lbl-t{display:none} #pauseTalk{width:32px;padding:0;justify-content:center} }
 #aiTog{gap:6px}
 #aiTog[aria-pressed="true"]{background:var(--soft)}
-#focusBtn[aria-pressed="true"]{background:var(--soft)}
-body.focus .topbar{display:none}
-body.focus .app{grid-template-rows:minmax(0,1fr)}
-body.focus .ws{grid-template-columns:minmax(0,1fr)}
-body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{display:none!important}
-.plan{list-style:none;margin:0;padding:0}
-.plan .arcl{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:12px 0 4px}
-.plan .arcl:first-child{padding-top:0}
-.plan li.ch{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
-.plan li.ch:hover .t{text-decoration:underline;text-underline-offset:3px}
-.plan .n{font-family:var(--mono);font-size:11px;color:var(--faint)}
-.plan .t{min-width:0}
-.plan .t small{display:block;font-size:12px;color:var(--muted);line-height:1.45}
-.plan .s{font-size:11.5px;color:var(--muted);white-space:nowrap}
-.plan li.now{font-weight:600}
-.plan li.now .n{color:var(--ink)}
-.plan .foot{font-size:12px;color:var(--muted);padding-top:10px;display:flex;gap:6px;align-items:center}
 /* dailies card */
 .dailies{position:absolute;top:94px;right:16px;width:min(360px,calc(100% - 32px));background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow-lg);padding:14px 16px 12px;z-index:8;display:grid;gap:8px;animation:pop .2s ease}
 @keyframes pop{from{opacity:0;transform:translateY(-6px)}}
@@ -453,7 +435,7 @@ body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{dis
 .wz button>span{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wz .n{width:17px;height:17px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-size:10px;font-family:var(--mono);flex:none}
 .wz button.done{color:var(--muted)} .wz button.done i{background:var(--ink-2)} .wz button.done .n{border-color:var(--ink-2);color:var(--ink-2)}
-.wz button.cur{color:var(--ink);font-weight:600} .wz button.cur i{background:var(--ink)} .wz button.cur .n{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
+.wz button.cur{color:var(--ink);font-weight:600} .wz button.cur i{background:var(--accent)} .wz button.cur .n{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .wz button:disabled{cursor:default}
 .wstep h2{font-size:17px;line-height:1.45}
 .wstep .sub{font-size:13px;color:var(--muted);margin:2px 0 16px}
@@ -497,9 +479,9 @@ body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{dis
 /* co-create: AI asks with a choice card in place of the composer (like Claude Code's planning questions) */
 #coFoot.asking .suggests,#coFoot.asking .composer{display:none}
 #coFoot:not(.done) .suggests{display:none}
-.aq{border:1px solid var(--ink);border-radius:10px;padding:12px;display:grid;gap:10px;animation:pop .2s ease}
+.aq{border:1px solid var(--accent-line);border-radius:10px;padding:12px;display:grid;gap:10px;animation:pop .2s ease}
 .aq-h{display:flex;align-items:center;gap:8px}
-.aq-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--fill);color:var(--fill-ink)}
+.aq-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
 .aq-n{margin-left:auto;font-size:11px;color:var(--faint)}
 .aq-t{font-size:14px;font-weight:600;line-height:1.5}
 .aq-t .tiny{font-weight:400}
@@ -507,13 +489,13 @@ body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{dis
 .aq-o{display:grid;grid-template-columns:20px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:8px 10px;cursor:pointer;color:var(--ink);width:100%;font:inherit}
 .aq-o:hover,.aq-o:focus-visible,.aq-o:focus-within{border-color:var(--ink);outline:none}
 .aq-o .k{width:20px;height:20px;border-radius:5px;border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
-.aq-o[aria-checked=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.aq-o[aria-checked=true] .k{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
+.aq-o[aria-checked=true]{border-color:var(--accent-line);box-shadow:inset 0 0 0 1px var(--accent-line)}
+.aq-o[aria-checked=true] .k{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .aq-o b{display:block;font-size:13px;font-weight:600;line-height:1.45}
 .aq-o b em{font-style:normal;font-weight:500;font-size:10.5px;color:var(--muted);margin-left:6px;border:1px solid var(--line-2);border-radius:4px;padding:0 5px;vertical-align:1px}
 .aq-o small{display:block;font-size:12px;color:var(--muted);line-height:1.45;margin-top:1px}
 .aq-o.other{align-items:center;cursor:text}
-.aq-o.other textarea{border:0;outline:0;background:transparent;font:inherit;font-size:13px;line-height:1.5;color:var(--ink);min-width:0;width:100%;padding:1px 0;resize:none;min-height:0;display:block}
+.aq-o.other textarea{border:0;outline:0;background:transparent;font:inherit;font-size:13px;line-height:1.5;color:var(--ink);min-width:0;width:100%;padding:1px 0;resize:none;min-height:0;max-height:120px;display:block}
 .aq-f [data-ok]{margin-left:auto}
 @media (max-width:899px){ .aq-f .faint{display:none} }
 .aq-f{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -537,7 +519,7 @@ body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{dis
 .steps{display:flex;gap:3px;margin-top:6px}
 .steps span{flex:1;font-size:10.5px;text-align:center;padding:3px 2px;border-radius:3px;border:1px solid var(--line);color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .steps span.d{background:var(--soft);color:var(--ink-2);border-color:var(--soft)}
-.steps span.c{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
+.steps span.c{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .timeline{list-style:none;margin:0;padding:0}
 .ev{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;padding:7px 0;position:relative;font-size:13px;line-height:1.45}
 .ev::before{content:"";position:absolute;left:9.5px;top:29px;bottom:-7px;width:1px;background:var(--line)}
@@ -641,12 +623,10 @@ details.grp .more{font-size:12px;font-weight:500;text-decoration:underline;text-
 .chapbar{display:inline-flex;gap:2px}
 .chapbar i{width:9px;height:6px;border-radius:1px;background:var(--surface-3)}
 .chapbar i.a{background:var(--line-2)} .chapbar i.d{background:var(--ink)}
-.chapbar i.w{background:var(--hatch),var(--surface);box-shadow:inset 0 0 0 1px var(--ink)}
+.chapbar i.w{background:var(--accent);box-shadow:none}
 .minictx{display:inline-flex;gap:1px}
 .minictx i{width:4px;height:9px;background:var(--surface-3)}
 .minictx i.f{background:var(--ink)}
-.tick-up{animation:tickc .6s ease}
-@keyframes tickc{0%{opacity:.3}100%{opacity:1}}
 
 /* mobile switch */
 .ai-peek,.aiscrim{display:none}
@@ -685,8 +665,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 .preset b{display:block;font-size:13.5px;font-weight:600}
 .preset small{display:block;font-size:12px;color:var(--muted);margin-top:1px}
 .preset .rb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-2);flex:none}
-.preset[aria-checked=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.preset[aria-checked=true] .rb{border:5px solid var(--ink)}
+.preset[aria-checked=true]{border-color:var(--accent-line);box-shadow:inset 0 0 0 1px var(--accent-line)}
+.preset[aria-checked=true] .rb{border:5px solid var(--accent-line)}
 .lblrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .lblrow .seg button{height:28px;padding:0 12px;font-size:12.5px}
 .roles{border:1px solid var(--line);border-radius:8px;overflow:hidden}
@@ -743,7 +723,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 }
 @media (max-width:899px){
   .ws{grid-template-columns:minmax(0,1fr)}
-  #aiTog,#focusBtn{display:none}
+  #aiTog{display:none}
   .suggests .chip .mono{display:none}
   .dgrid{grid-template-columns:1fr}
   .dailies{top:auto;bottom:120px}
@@ -846,7 +826,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <symbol id="i-cmd" viewBox="0 0 24 24"><path d="M9 6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3z"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></g></symbol>
   <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></symbol>
-  <symbol id="i-focus" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
   <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
   <symbol id="i-width" viewBox="0 0 24 24"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></symbol>
@@ -860,7 +839,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <span class="logo" title="Cầu Truyện" aria-label="Cầu Truyện"><svg class="i"><use href="#i-logo"/></svg></span>
   <span class="story-t" title="Tuyết Lạc Vọng Nguyệt Lâu · Xưởng viết AI">Tuyết Lạc Vọng Nguyệt Lâu</span>
   <div class="spacer"></div>
-  <div class="credit" title="Số dư credit"><svg class="i"><use href="#i-coin"/></svg><b class="num" id="hdrCredit">1.240</b><span class="muted unit">credit</span><span class="delta num" id="hdrDelta">−3</span></div>
+  <div class="credit" title="Số dư credit"><svg class="i"><use href="#i-coin"/></svg><b class="num" id="hdrCredit">1.240</b><span class="muted unit">credit</span></div>
   <button class="btn ghost icon" id="topMore" aria-label="Thêm" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
 </header>
 
@@ -910,7 +889,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <div class="doc-t grow"><b id="docTitle">Chương 6 · Biệt ly</b><span><span id="docSub">Của bạn</span><span id="saved"></span></span></div>
       <div class="ai-ctl" id="aiCtl"></div>
       <button class="btn ghost icon" id="readBtn" aria-label="Cỡ chữ và độ rộng trang" title="Cỡ chữ & độ rộng" aria-haspopup="menu"><span style="font-family:var(--serif);font-size:15px;font-weight:600">Aa</span></button>
-      <button class="btn ghost icon" id="focusBtn" aria-label="Chế độ tập trung" title="Tập trung" aria-pressed="false"><svg class="i"><use href="#i-focus"/></svg></button>
       <button class="btn ghost icon" id="docMore" aria-label="Thêm thao tác" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
       <button class="btn ghost" id="aiTog" aria-label="Ẩn/hiện Hồ sơ & AI" title="Hồ sơ & AI" aria-pressed="true"><svg class="i"><use href="#i-panel"/></svg><span class="lbl-t">Hồ sơ &amp; AI</span></button>
     </div>
@@ -991,7 +969,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="ticker"><span class="spin" id="tickerSpin"></span><span id="tickerTxt">Chấp bút đang viết chương 8</span><span class="cnt mono" id="fbCnt"></span></div>
         <div class="wbtns">
           <button class="btn ghost sm" id="fbOpen" aria-expanded="false" aria-controls="fbRow"><svg class="i sm"><use href="#i-edit"/></svg><span class="lbl-t">Góp ý</span></button>
-          <button class="btn sm" id="pauseTalk" title="Bàn hướng đi"><svg class="i sm"><use href="#i-chat"/></svg><span class="lbl-t">Bàn hướng đi</span></button>
           <button class="btn primary sm" id="pauseEdit"><svg class="i sm"><use href="#i-pause"/></svg><span id="pauseEditT">Tạm dừng để sửa</span></button>
         </div>
       </div>
@@ -1103,8 +1080,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 
     <!-- WRITING -->
     <section data-ai="writing" class="hidden">
-      <div class="ai-tabs"><div class="seg" role="tablist" id="wTabs"><button role="tab" aria-selected="false" data-t="plan">Dàn ý</button><button role="tab" aria-selected="false" data-t="dash">Điều khiển</button><button role="tab" aria-selected="false" data-t="ledger">Bảng công</button><button role="tab" aria-selected="true" data-t="prog">Hoạt động</button></div></div>
-      <div class="ai-b hidden" data-tp="plan"><ol class="plan" id="planList"></ol></div>
+      <div class="ai-tabs"><div class="seg" role="tablist" id="wTabs"><button role="tab" aria-selected="false" data-t="dash">Điều khiển</button><button role="tab" aria-selected="false" data-t="ledger">Bảng công</button><button role="tab" aria-selected="true" data-t="prog">Hoạt động</button></div></div>
       <div class="ai-b" data-tp="prog">
         <div class="blk hidden" id="steerQ"><div class="sect-l"><span class="lbl">Góp ý đang chờ</span><span class="badge b-solid spacer" id="steerN">0</span></div><div class="fs" id="steerList"></div></div>
         <div class="blk" id="rewriteQ"><div class="sect-l"><span class="lbl">Hàng đợi viết lại</span><span class="badge b-hatch spacer">1</span></div>
@@ -1251,7 +1227,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
           <div class="stats">
             <div class="stat"><div class="v">3</div><div class="l">chương mới (7–9)</div></div>
             <div class="stat"><div class="v">7.236</div><div class="l">chữ</div></div>
-            <div class="stat"><div class="v">498</div><div class="l">credit · $4,98</div></div>
+            <div class="stat"><div class="v">498</div><div class="l">credit</div></div>
             <div class="stat"><div class="v">11:24</div><div class="l">phút chạy nền</div></div>
           </div>
         </div>
@@ -1407,6 +1383,17 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const fmt = n => Math.round(n).toLocaleString('vi-VN');
+/* Every textarea grows with its content up to its CSS max-height, then scrolls.
+   PORT(React): use one shared <AutoGrowTextarea> (or CSS `field-sizing: content` where supported) for all multi-line inputs —
+   chat composers, feedback box, question-card "Khác", step-2 request, settings rules. Re-measure after programmatic value changes. */
+function autoGrow(t) {
+  if (!t || !t.offsetParent) return;
+  t.style.height = 'auto';
+  const max = parseFloat(getComputedStyle(t).maxHeight) || Infinity, full = t.scrollHeight + (t.offsetHeight - t.clientHeight);
+  t.style.height = Math.min(full, max) + 'px'; t.style.overflowY = full > max ? 'auto' : 'hidden';
+}
+const growAll = (root = document) => root.querySelectorAll('textarea').forEach(autoGrow);
+document.addEventListener('input', e => { if (e.target.matches && e.target.matches('textarea')) autoGrow(e.target); });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const ic = (n, cls = '') => `<svg class="i ${cls}"><use href="#i-${n}"/></svg>`;
 const esc = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
@@ -1443,8 +1430,6 @@ let credit = 1240;
 function spend(n) {
   credit = Math.max(0, credit - n);
   $('#hdrCredit').textContent = fmt(credit);
-  const d = $('#hdrDelta'); d.textContent = '−' + fmt(n); d.classList.add('show');
-  clearTimeout(spend.t); spend.t = setTimeout(() => d.classList.remove('show'), 1100);
 }
 function toast(t, ms = 2400) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), ms); }
 
@@ -1470,7 +1455,7 @@ function canEdit(id) {
 }
 function setSaved(txt) {
   const ed = canEdit(curDoc);
-  $('#saved').textContent = txt || (!ed ? ' · chỉ xem' : needSync && DOCS[curDoc].k === 'draft' ? ' · đã sửa tay' : ' · đã lưu');
+  $('#saved').textContent = txt || (!ed ? '' : needSync && DOCS[curDoc].k === 'draft' ? ' · đã sửa tay' : ' · đã lưu');
 }
 function doSync() { needSync = false; setSaved(); renderCtl(); toast('Đã đồng bộ: AI cập nhật dữ kiện, phục bút và ảnh chụp nhân vật'); }
 function openDoc(id, opts = {}) {
@@ -1495,17 +1480,7 @@ function openDoc(id, opts = {}) {
 }
 $('#navList').addEventListener('click', e => { const b = e.target.closest('.ni[data-doc]'); if (b) openDoc(b.dataset.doc, { toCanvas: true }); });
 
-const PLAN = [['Arc 1 · Vọng Nguyệt Lâu', [['01', 'c1', 'Tuyết đầu mùa'], ['02', 'c2', 'Vết sẹo'], ['03', 'c3', 'Ly Sơn không mưa']]], ['Arc 2 · Biệt ly', [['04', 'c4', 'Gió bấc'], ['05', 'c5', 'Lá thư chưa gửi'], ['06', 'c6', 'Biệt ly']]], ['Arc 3 · Trở về · lượt này', [['07', 'c7', 'Ba năm sau', 'Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng.'], ['08', 'c8', 'Đêm trăng ở bến Vọng Nguyệt', 'Gặp lại Tạ Trầm; hắn trao nửa thanh Tuyết Lạc.'], ['09', 'c9', 'Tên thật', 'Tạ Trầm đọc lá thư của Bạch Uyên — biết nàng là ai.']]]];
-function renderPlan() {
-  const lab = { done: 'Đã chốt', live: '● Đang viết', todo: 'Chờ viết', warn: 'Viết dở' };
-  $('#planList').innerHTML = PLAN.map(([arc, rows]) => `<li class="arcl">${arc}</li>` + rows.map(([n, id, t, d]) => {
-    const st = DOCS[id].k === 'author' ? 'Chương gốc' : lab[chapState[id]];
-    return `<li class="ch ${chapState[id] === 'live' ? 'now' : ''}" data-doc="${id}"><span class="n">${n}</span><span class="t">${t}${d ? `<small>${d}</small>` : ''}</span><span class="s">${st}</span></li>`;
-  }).join('')).join('') + `<li class="arcl">Arc 4 · khung, chưa mở rộng</li><li class="foot">${ic('lock', 'sm')}Chương gốc được bảo vệ — AI không chỉnh sửa.</li>`;
-}
-$('#planList').addEventListener('click', e => { const r = e.target.closest('li.ch'); if (r) openDoc(r.dataset.doc, { toCanvas: true }); });
 function setNav() {
-  renderPlan();
   const loadErr = state === 'error' && errSub === 'load';
   const showDrafts = !['start', 'cocreate'].includes(state) && !loadErr;
   $('#navDrafts').classList.toggle('hidden', !showDrafts);
@@ -1683,7 +1658,7 @@ function show(name, sub) {
   $$('.ai>section').forEach(s => s.classList.toggle('hidden', s.dataset.ai !== st));
   setNav();
   $('#wbar').classList.toggle('hidden', st !== 'writing' && st !== 'planning'); ticker('Chấp bút đang viết chương 8');
-  ['#pauseEdit', '#pauseTalk'].forEach(b => $(b).classList.toggle('hidden', st === 'planning'));
+  $('#pauseEdit').classList.toggle('hidden', st === 'planning');
   $('#wbar').classList.remove('paused'); setFb(false);
   $('#fbInput').placeholder = st === 'planning' ? 'Góp ý cho dàn ý — không cần dừng' : 'Góp ý cho AI — không cần dừng';
   $('#banner').className = 'banner hidden';
@@ -1704,7 +1679,7 @@ function show(name, sub) {
   }
   if (st === 'done') {
     banner('', 'check', '<b>Bản nháp do AI viết.</b> <span class="txt">Đọc lại, sửa thẳng trên trang, đồng bộ nếu có sửa, rồi «Gửi duyệt».</span>');
-    setStatus(si('<span class="pulse off"></span>Hoàn thành') + si('<b>3</b> chương mới') + si('<b>7.236</b> chữ', 'sx') + si('<b>498</b> credit · $4,98', 'r'));
+    setStatus(si('<span class="pulse off"></span>Hoàn thành') + si('<b>3</b> chương mới') + si('<b>7.236</b> chữ', 'sx') + si('<b>498</b> credit', 'r'));
   }
   if (st === 'error') renderError(errSub);
   if (name === 'ask') { sim.wait(); openAsk(); }
@@ -1726,7 +1701,7 @@ function banner(tone, icon, html, linkText) {
 function statusIdle() {
   setStatus(si('<span class="pulse off"></span>Chưa chạy') + si('<b>6</b> chương · 2 arc · 14.820 chữ', 'sx') + si(`Số dư <b class="num">${fmt(credit)}</b> credit`, 'r'));
 }
-let W = { words: 3412, usd: 1.24, ms: 402000, ctx: 62 };
+let W = { words: 3412, cr: 124, ms: 402000, ctx: 62 };
 const FLOW_VI = { writing: 'đang viết', reviewing: 'duyệt', rewriting: 'viết lại', polishing: 'trau chuốt', steering: 'can thiệp' };
 let flowNow = 'writing';
 function setFlow(f) {
@@ -1740,7 +1715,7 @@ function statusWriting() {
     si(`<span class="pulse ${waiting ? 'wait' : ''}"></span>Sáng tác · <b id="sbFlow">${waiting ? 'chờ bạn trả lời' : FLOW_VI[flowNow]}</b>`) +
     si(`<span class="chapbar"><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="d"></i><i class="w"></i><i></i></span><b>8/9</b> · mới 2/3`, 'sx') +
     si(`<b class="num" id="wWords">${fmt(W.words)}</b> chữ`, 'sx') +
-    si(`<b class="num" id="wUsd">$${W.usd.toFixed(2).replace('.', ',')}</b> · <span id="wCredW"><b class="num" id="wCred">${fmt(W.usd * 100)}</b> credit</span>`, 'r'));
+    si(`<b class="num" id="wCred">${fmt(W.cr)}</b> credit`, 'r'));
 }
 function drawCtx() {
   $('#ctxPct').textContent = `${W.ctx}% · ${W.ctx < 70 ? 'ổn' : W.ctx < 85 ? 'cao' : 'sắp nén'}`;
@@ -1767,7 +1742,7 @@ function setStep(n) {
   if (n === 2) {
     const mi = modeInfo[mode];
     $('#s2Title').textContent = mi.t; $('#s2Hint').textContent = mi.h;
-    const ta = $('#s2Input'); ta.placeholder = mi.ph; ta.value = notes[mode]; ta.rows = mode === 'quick' ? 4 : 3;
+    const ta = $('#s2Input'); ta.placeholder = mi.ph; ta.value = notes[mode]; ta.rows = 2; setTimeout(() => autoGrow(ta), 0);
     $('#s2Chips').innerHTML = mi.chips.map(c => `<button class="chip">${c}</button>`).join('');
   }
   $('#wzBack').classList.toggle('hidden', n === 1);
@@ -1788,7 +1763,7 @@ $('.sum').addEventListener('keydown', e => { const r = e.target.closest('.kv.xp'
 $('#s2Input').addEventListener('input', e => { notes[mode] = e.target.value; });
 $('#s2Chips').addEventListener('click', e => {
   const c = e.target.closest('.chip'); if (!c) return;
-  const ta = $('#s2Input'); ta.value = (ta.value ? ta.value.replace(/[.\s]*$/, '') + '. ' : '') + c.textContent; notes[mode] = ta.value; ta.focus();
+  const ta = $('#s2Input'); ta.value = (ta.value ? ta.value.replace(/[.\s]*$/, '') + '. ' : '') + c.textContent; notes[mode] = ta.value; autoGrow(ta); ta.focus();
 });
 $('#wz').addEventListener('click', e => { const b = e.target.closest('button'); if (b && !b.disabled) setStep(+b.dataset.go); });
 $('#wzBack').onclick = () => setStep(Math.max(1, wStep - 1));
@@ -1839,13 +1814,13 @@ $('#nMinus').onclick = () => setN(-1); $('#nPlus').onclick = () => setN(1);
 $('#presets').addEventListener('click', e => { const b = e.target.closest('.preset'); if (!b) return; applyPreset(b.dataset.p); modalChanged(); });
 $('#mModeSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setModelMode(b.dataset.mm === 'adv'); });
 $('#cfgScrim').addEventListener('change', modalChanged);
-function openCfg() { writeModal(cfg); $('#cfgScrim').classList.remove('hidden'); setTimeout(() => $('#rules').focus(), 30); }
+function openCfg() { writeModal(cfg); $('#cfgScrim').classList.remove('hidden'); setTimeout(() => { growAll($('#cfgScrim')); $('#rules').focus(); }, 30); }
 function closeCfg() { $('#cfgScrim').classList.add('hidden'); }
 document.addEventListener('click', e => {
   if (e.target.closest('[data-open-cfg]')) openCfg();
   if (e.target.closest('[data-close-cfg]') || e.target.id === 'cfgScrim') closeCfg();
 });
-$('#cfgReset').onclick = () => writeModal(DEFAULT_CFG);
+$('#cfgReset').onclick = () => { writeModal(DEFAULT_CFG); growAll($('#cfgScrim')); };
 $('#cfgSave').onclick = () => { cfg = readModal(); closeCfg(); updateStart(); syncClamp(); toast('Đã lưu thiết lập'); };
 
 function updateStart() {
@@ -1899,7 +1874,7 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
     const v = ta.value.trim(), box = el.querySelector('.atts'), files = box ? [...box.querySelectorAll('.att')] : [];
     if ((!v && !files.length) || typing) return;
     const att = files.map(a => `<div class="att">${ic('clip', 'sm')}<span>${a.dataset.n}</span></div>`).join('');
-    add('me', (v ? esc(v) : '<span class="muted">Đính kèm tệp tham khảo</span>') + att); ta.value = ''; if (box) box.innerHTML = '';
+    add('me', (v ? esc(v) : '<span class="muted">Đính kèm tệp tham khảo</span>') + att); ta.value = ''; autoGrow(ta); if (box) box.innerHTML = '';
     reply();
   }
   send.onclick = submit;
@@ -1908,7 +1883,7 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
     if (!ta.value && /^[1-4]$/.test(e.key)) { const chip = $$('.suggests .chip', el)[+e.key - 1]; if (chip) { e.preventDefault(); chip.click(); } }
   });
   stop.onclick = () => { if (typing) typing.stopped = true; };
-  $$('.suggests .chip', el).forEach(c => c.onclick = () => { ta.value = c.textContent.replace(/^\d/, ''); ta.focus(); });
+  $$('.suggests .chip', el).forEach(c => c.onclick = () => { ta.value = c.textContent.replace(/^\d/, ''); autoGrow(ta); ta.focus(); });
   return { init, turns: () => turns, add, say, reset };
 }
 let coSpent = 0;
@@ -1982,7 +1957,6 @@ const coFlow = (() => {
       <div class="aq-f"><button class="btn ghost sm" data-skip>Để AI tự quyết</button><span class="tiny faint spacer">${q.multi ? 'Bấm số để chọn nhiều' : `Bấm 1–${n} để chọn`}</span>${q.multi ? '<button class="btn sm" data-ok disabled>Xác nhận</button>' : ''}</div>`;
     foot.classList.add('asking'); box.classList.remove('hidden');
     const ta = $('textarea', box);
-    ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 120) + 'px'; });
     ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const v = ta.value.trim(); if (v) answer([v], false, true); } });
     const sc = $('.ai-b', $('#coChat')); sc.scrollTop = sc.scrollHeight;
   }
@@ -2086,10 +2060,9 @@ const sim = (() => {
     const txt = prose[pi], add = 2 + Math.floor(Math.random() * 4), chunk = txt.slice(ci, ci + add);
     ci += add; p.textContent = txt.slice(0, ci);
     const w = (chunk.match(/ /g) || []).length;
-    if (w) { W.words += w; W.usd += w * 0.0021; const el = $('#wWords'); if (el) el.textContent = fmt(W.words); }
+    if (w) { W.words += w; W.cr += w * 0.21; const el = $('#wWords'); if (el) el.textContent = fmt(W.words); }
     if (++tick % 25 === 0) {
-      const u = $('#wUsd'); if (u) u.textContent = '$' + W.usd.toFixed(2).replace('.', ',');
-      const c = $('#wCred'); if (c) { c.textContent = fmt(W.usd * 100); const pr = $('#wCredW'); pr.classList.remove('tick-up'); void pr.offsetWidth; pr.classList.add('tick-up'); }
+      const c = $('#wCred'); if (c) c.textContent = fmt(W.cr);
       spend(1);
       if (tick % 100 === 0 && W.ctx < 84) { W.ctx++; drawCtx(); const sc = $('#sbCtx'); if (sc) sc.textContent = W.ctx + '%'; }
     }
@@ -2200,9 +2173,9 @@ let fbCount = 0;
 $('#fbSend').onclick = async () => {
   const v = $('#fbInput').value.trim(); if (!v) { $('#fbInput').focus(); return; }
   if (!editPaused) setFb(false);
-  if (state === 'planning') { $('#fbInput').value = ''; return planner.feedback(v); }
+  if (state === 'planning') { $('#fbInput').value = ''; autoGrow($('#fbInput')); return planner.feedback(v); }
   fbCount++; $('#fbCnt').textContent = `đã gửi ${fbCount}`;
-  $('#fbInput').value = ''; ticker('Trọng tài đang đánh giá góp ý của bạn…');
+  $('#fbInput').value = ''; autoGrow($('#fbInput')); ticker('Trọng tài đang đánh giá góp ý của bạn…');
   const tl = $('#timeline');
   tl.insertAdjacentHTML('beforeend', `<li class="ev you"><span class="ic">${ic('edit')}</span><div><div class="tt">Bạn can thiệp</div><div class="ts">«${esc(v)}»</div></div></li>`);
   setFlow('steering'); steerQueue(true, v); toast('Trọng tài đang đánh giá góp ý…');
@@ -2220,6 +2193,7 @@ document.addEventListener('keydown', e => {
 function setEditPause(on) {
   editPaused = on; $('#wbar').classList.toggle('paused', on);
   $('#fbInput').placeholder = on ? 'Dặn AI điều cần lưu ý khi viết tiếp…' : 'Góp ý cho AI — không cần dừng';
+  setFb(on); /* pausing opens the feedback box; resuming closes it */
   if (on) {
     sim.wait(); ticker('Đã tạm dừng · không tốn credit khi chờ', false);
     banner('hatch', 'edit', '<b>Đã tạm dừng để bạn sửa.</b> <span class="txt">Sửa thẳng chương 8 trên trang. Khi bấm «Viết tiếp», AI đọc lại phần bạn sửa rồi mới viết.</span>');
@@ -2236,7 +2210,6 @@ function setEditPause(on) {
   openDoc('c8', { keepScroll: true });
 }
 $('#pauseEdit').onclick = () => { setEditPause(!editPaused); if (!editPaused) toast('AI đọc lại chỉnh sửa của bạn rồi viết tiếp'); };
-$('#pauseTalk').onclick = () => { show('pause'); toast('Đã tạm dừng · bàn hướng đi với AI'); };
 function setFb(open) {
   $('#fbRow').classList.toggle('hidden', !open); $('#fbOpen').setAttribute('aria-expanded', open);
   if (open) setTimeout(() => $('#fbInput').focus(), 0);
@@ -2340,8 +2313,6 @@ $('#readBtn').onclick = e => popMenu(e.currentTarget, [
   { ic: 'width', desk: true, t: 'Trang vừa', k: pw === 760 ? '✓' : '', run: () => { pw = 760; applyRead(); } },
   { ic: 'width', desk: true, t: 'Trang rộng', k: pw === 900 ? '✓' : '', run: () => { pw = 900; applyRead(); } },
 ]);
-function setFocus(on) { document.body.classList.toggle('focus', on); $('#focusBtn').setAttribute('aria-pressed', on); $('#focusBtn').title = on ? 'Thoát tập trung (Esc)' : 'Tập trung'; if (on) toast('Chế độ tập trung · Esc để thoát'); }
-$('#focusBtn').onclick = () => setFocus(!document.body.classList.contains('focus'));
 /* AI panel resize (desktop). PORT(React): same behaviour as a controlled width state + pointer capture. */
 (() => {
   const rz = $('#aiRz'), ws = $('#ws'); let x0 = null, w0 = 0;
@@ -2386,7 +2357,6 @@ document.addEventListener('keydown', e => {
   else if (!$('#cfgScrim').classList.contains('hidden')) closeCfg();
   else if (!askScrim.classList.contains('hidden')) { e.preventDefault(); nudge(); }
   else if ($('#nav').classList.contains('open')) closeNav();
-  else if (document.body.classList.contains('focus')) setFocus(false);
   else if (isSheet() && $('#aiPanel').classList.contains('open')) setView('canvas');
 });
 document.addEventListener('focusin', e => {
