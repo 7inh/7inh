@@ -220,12 +220,12 @@ details.more-d[open]>summary::after{content:"−"}
 .nav-b{flex:1;overflow:auto;padding:0 8px 16px}
 .vol{font-size:12px;font-weight:700;color:var(--ink);padding:14px 8px 4px;display:flex;align-items:center;gap:8px}
 .vol .mono{color:var(--faint);font-weight:400}
-.arc{font-size:11.5px;color:var(--muted);padding:8px 8px 4px 10px;display:flex;align-items:center;gap:6px;border-left:1px solid var(--line);margin-left:8px}
+.arc{font-size:11.5px;color:var(--muted);padding:8px 8px 4px 10px;display:flex;align-items:center;gap:6px;border-left:1px solid var(--line);margin-left:0}
 .arc b{color:var(--ink-2);font-weight:600;flex:none;white-space:nowrap}
 .arc .an{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .arc .tag{flex:none}
 .arc .tag{margin-left:auto}
-.ni{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:8px;align-items:center;width:calc(100% - 8px);margin-left:8px;border:0;border-left:1px solid var(--line);background:transparent;text-align:left;padding:5px 8px 5px 10px;border-radius:0 6px 6px 0;cursor:pointer;font-size:13px;color:var(--ink-2);min-height:32px}
+.ni{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:8px;align-items:center;width:100%;margin-left:0;border:0;border-left:1px solid var(--line);background:transparent;text-align:left;padding:5px 8px 5px 10px;border-radius:0 6px 6px 0;cursor:pointer;font-size:13px;color:var(--ink-2);min-height:32px}
 .ni:hover{background:var(--hover)}
 .ni[aria-current="true"]{background:var(--soft);color:var(--ink);border-left:2px solid var(--ink);padding-left:9px}
 .ni .no{width:22px;height:22px;border-radius:4px;display:grid;place-items:center;font-size:11px;font-weight:600;font-family:var(--mono);background:var(--surface-3);color:var(--muted)}
@@ -726,6 +726,11 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .wbar.paused .wline{order:2;flex:none}
   .wbar.paused .ticker{display:none}
   .wbar.paused .wbtns .btn{height:40px}
+  /* paused: the note box and the peek bar read as ONE block — the box is the top of the sheet, «Viết tiếp» sits on the peek bar */
+  .wbar.paused{display:block;background:var(--surface);border-top:0;border-radius:14px 14px 0 0;box-shadow:0 -10px 28px rgba(40,30,10,.10);padding:12px 12px 4px;position:relative;z-index:91}
+  .wbar.paused .wline{display:none}
+  body.paused aside.ai:not(.open){border-radius:0;border-top:0;box-shadow:none}
+  body.paused aside.ai:not(.open) .ai-peek .grip{display:none}
 }
 @media (max-width:1279px){
   .ws{grid-template-columns:minmax(0,1fr) var(--ai-w,360px)}
@@ -779,7 +784,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .nav-h .mono{display:none}
   .sheet-sub{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   .sheet-x{display:inline-flex;margin-left:auto}
-  .nav-b{padding:4px 10px 16px}
+  .nav-b{padding:4px 8px 16px}
   .ni{min-height:44px}
   .nav-f{display:none}
   .sbar .sx{display:none}
@@ -973,7 +978,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="wbtns">
           <button class="btn ghost sm dlchip hidden" id="dlChip" title="Xem báo cáo chương"><span class="ck"><svg class="i"><use href="#i-check"/></svg></span>Ch.7 đã chốt · 8,6/10</button>
           <button class="btn ghost sm" id="fbOpen" aria-expanded="false" aria-controls="fbRow"><svg class="i sm"><use href="#i-edit"/></svg><span class="lbl-t">Góp ý</span></button>
-          <button class="btn sm hidden" id="plnStop"><svg class="i sm"><use href="#i-stop"/></svg>Dừng lập dàn ý</button>
+          <button class="btn primary sm hidden" id="plnStop"><svg class="i sm"><use href="#i-stop"/></svg>Dừng lập dàn ý</button>
           <button class="btn primary sm hidden" id="plnStart"><svg class="i sm"><use href="#i-arrow"/></svg>Bắt đầu viết</button>
           <button class="btn primary sm" id="pauseEdit"><svg class="i sm"><use href="#i-pause"/></svg><span id="pauseEditT">Tạm dừng để sửa</span></button>
         </div>
@@ -1669,7 +1674,7 @@ function show(name, sub) {
   $('#pauseEdit').classList.toggle('hidden', st === 'planning');
   /* while the outline is being drafted the only action is to stop it — no feedback box, no menu detour */
   $('#fbOpen').classList.toggle('hidden', st === 'planning'); $('#plnStop').classList.toggle('hidden', st !== 'planning');
-  $('#wbar').classList.remove('paused'); setFb(false);
+  $('#wbar').classList.remove('paused'); document.body.classList.remove('paused'); setFb(false);
   $('#fbInput').placeholder = st === 'planning' ? 'Góp ý cho dàn ý — không cần dừng' : 'Góp ý cho AI — không cần dừng';
   $('#banner').className = 'banner hidden';
   $$('.pausemark').forEach(m => m.remove());
@@ -1705,9 +1710,9 @@ function show(name, sub) {
   markDemo(name, sub); syncPeekAct();
 }
 function syncPeekAct() {
-  const w = state === 'writing' && !editPaused, p = state === 'planning' && planHeld, r = state === 'planning' && planRunning, on = w || p || r;
-  const b = $('#peekAct'); b.classList.toggle('hidden', !on); aiP.classList.toggle('has-act', on); b.classList.toggle('primary', !r);
-  b.innerHTML = p ? `${ic('arrow', 'sm')}Bắt đầu viết` : r ? `${ic('stop', 'sm')}Dừng` : `${ic('pause', 'sm')}Tạm dừng`;
+  const w = state === 'writing' && !editPaused, z = state === 'writing' && editPaused, p = state === 'planning' && planHeld, r = state === 'planning' && planRunning, on = w || z || p || r;
+  const b = $('#peekAct'); b.classList.toggle('hidden', !on); aiP.classList.toggle('has-act', on);
+  b.innerHTML = p ? `${ic('arrow', 'sm')}Bắt đầu viết` : r ? `${ic('stop', 'sm')}Dừng` : z ? `${ic('play', 'sm')}Viết tiếp` : `${ic('pause', 'sm')}Tạm dừng`;
 }
 function banner(tone, icon, html, linkText) {
   const b = $('#banner'); b.className = 'banner ' + tone;
@@ -2217,7 +2222,7 @@ document.addEventListener('keydown', e => {
   e.preventDefault(); $('#fbInput').focus();
 });
 function setEditPause(on) {
-  editPaused = on; syncPeekAct(); $('#wbar').classList.toggle('paused', on);
+  editPaused = on; document.body.classList.toggle('paused', on); syncPeekAct(); $('#wbar').classList.toggle('paused', on);
   $('#fbInput').placeholder = on ? 'Dặn AI khi viết tiếp…' : 'Góp ý cho AI — không cần dừng';
   setFb(on); /* pausing opens the feedback box; resuming closes it */
   if (on) {
