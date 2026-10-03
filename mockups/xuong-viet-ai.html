@@ -393,14 +393,7 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .wbtns .btn{height:32px}
 #aiTog{gap:6px}
 #aiTog[aria-pressed="true"]{background:var(--soft)}
-/* dailies card */
-.dailies{position:absolute;top:94px;right:16px;width:min(360px,calc(100% - 32px));background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow-lg);padding:14px 16px 12px;z-index:8;display:grid;gap:8px;animation:pop .2s ease}
 @keyframes pop{from{opacity:0;transform:translateY(-6px)}}
-.dailies .hd{display:flex;align-items:center;gap:8px}
-.dailies .hd b{font-size:14px}
-.dailies .kv{padding:5px 0;font-size:12.5px}
-.dailies .kv b{font-weight:500;text-align:right;max-width:66%}
-.dailies .q{font-size:12.5px;color:var(--ink-2);border-left:2px solid var(--ink);padding:4px 10px;background:var(--surface-2);font-family:var(--serif)}
 /* reader pager */
 .pager{max-width:var(--pw,760px);margin:14px auto 0;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
 .pager .btn{max-width:42%;overflow:hidden;text-overflow:ellipsis}
@@ -558,6 +551,13 @@ details.grp .more{font-size:12px;font-weight:500;text-decoration:underline;text-
 .cc .chg{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
 .ledg{border:1px solid var(--line);border-radius:8px;padding:12px 14px}
 .ledg+.ledg{margin-top:10px}
+.ledg .facts{margin-top:8px}
+.ledg .facts .kv{font-size:12.5px;padding:6px 0}
+.ledg .facts .kv b{font-weight:500;text-align:right;max-width:64%}
+.ledg .facts .kv:last-child{border-bottom:0}
+.dlchip{gap:6px;color:var(--ink-2)}
+.dlchip .ck{width:16px;height:16px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+.dlchip .ck .i{width:11px;height:11px}
 .ledg .hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .ledg .score{font-size:20px;font-weight:600;line-height:1.2;font-variant-numeric:tabular-nums}
 .ledg .score small{font-size:12px;color:var(--muted);font-weight:400}
@@ -702,10 +702,16 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 @media (min-width:900px){ .canvas>.sbar{order:10;border-bottom:0;border-top:1px solid var(--line);height:28px} }
 /* ================= RESPONSIVE ================= */
 @media (max-width:899px){
-  #fbOpen{display:none}
+  #fbOpen,#dlChip{display:none!important}
   .wbar:not(.paused) .fbrow{display:none!important}
   .wbar.paused .fbrow{display:flex!important}
   .wbar{padding:8px 12px}
+  /* paused on mobile: one row — the note box and «Viết tiếp»; the peek bar already says the session is paused */
+  .wbar.paused{display:flex;align-items:flex-end;gap:8px}
+  .wbar.paused .fbrow{order:1;flex:1;min-width:0}
+  .wbar.paused .wline{order:2;flex:none}
+  .wbar.paused .ticker{display:none}
+  .wbar.paused .wbtns .btn{height:40px}
 }
 @media (max-width:1279px){
   .ws{grid-template-columns:minmax(0,1fr) var(--ai-w,360px)}
@@ -717,8 +723,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   #aiTog{display:none}
   .suggests .chip .mono{display:none}
   .dgrid{grid-template-columns:1fr}
-  .dailies{top:auto;bottom:120px}
-  /* AI panel = bottom sheet with a peek bar */
+    /* AI panel = bottom sheet with a peek bar */
   aside.ai{position:fixed;left:0;right:0;bottom:0;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .ws.ai-off>.ai{display:flex}
   aside.ai.open{transform:translateY(var(--drag,0px))}
@@ -942,23 +947,11 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div id="c9Body" class="hidden"><p>Lá thư nằm trong hộp gỗ đàn hương, dưới lớp lụa đã ngả màu. Tạ Trầm mở nó vào lúc gà gáy canh tư, khi Vãn Ca còn ngủ say ở gian bên.</p><p>«Trầm nhi, nếu con đọc được những dòng này, nghĩa là con bé đã trở về…»</p></div>
       </div></article>
     </div>
-    <div class="dailies hidden" id="dailies" role="dialog" aria-labelledby="dlT">
-      <div class="hd"><span class="lbl">Báo cáo chương · vừa chốt</span><button class="btn ghost icon sm spacer" id="dlX" aria-label="Đóng" style="width:28px"><svg class="i sm"><use href="#i-x"/></svg></button></div>
-      <b id="dlT" style="font-size:15px">Chương 7 · Ba năm sau</b>
-      <div>
-        <div class="kv"><span>Hook cuối chương</span><b>«Nghe nói ở bến Vọng Nguyệt có người chèo đò đêm?»</b></div>
-        <div class="kv"><span>Căng thẳng</span><b>8/10 · ▲ +2 so với ch.6</b></div>
-        <div class="kv"><span>Tuyến phục bút mở</span><b>4</b></div>
-        <div class="kv"><span>Thẩm định</span><b>Đạt · 8,6/10</b></div>
-      </div>
-      <div class="q">«Quán trà dưới chân núi giờ do Tiểu Đào trông coi…» — đoạn giới thiệu hơi dài, nhịp chậm ở đầu chương.</div>
-      <div class="kv" style="border:0"><span>Đang chờ</span><b>Trau chuốt nhịp ch.7 sau khi chốt ch.8</b></div>
-      <div class="row"><button class="btn sm" id="dlRead">Đọc chương 7</button><span class="tiny faint spacer">Tự bật sau mỗi chương</span></div>
-    </div>
     <div class="wbar hidden" id="wbar">
       <div class="wline">
         <div class="ticker"><span class="spin" id="tickerSpin"></span><span id="tickerTxt">Chấp bút đang viết chương 8</span><span class="cnt mono" id="fbCnt"></span></div>
         <div class="wbtns">
+          <button class="btn ghost sm dlchip hidden" id="dlChip" title="Xem báo cáo chương"><span class="ck"><svg class="i"><use href="#i-check"/></svg></span>Ch.7 đã chốt · 8,6/10</button>
           <button class="btn ghost sm" id="fbOpen" aria-expanded="false" aria-controls="fbRow"><svg class="i sm"><use href="#i-edit"/></svg><span class="lbl-t">Góp ý</span></button>
           <button class="btn primary sm" id="pauseEdit"><svg class="i sm"><use href="#i-pause"/></svg><span id="pauseEditT">Tạm dừng để sửa</span></button>
         </div>
@@ -1140,8 +1133,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         </div>
       </div>
       <div class="ai-b hidden" data-tp="ledger">
-        <button class="btn sm block" id="openDailies" style="margin-bottom:12px">Báo cáo chương vừa chốt</button>
-        <div class="ledg">
+        <div class="ledg" id="ledC7">
           <div class="hd"><b>Chương 7 · Ba năm sau</b><span class="badge b-line spacer">Đạt</span><span class="score">8,6<small>/10</small></span></div>
           <p class="small muted">Vãn Ca trở lại Ly Sơn dưới tên giả. Tiểu Đào nhận ra nàng qua cách cầm chén trà. Kết bằng tin đồn về người chèo đò ở bến Vọng Nguyệt.</p>
           <div class="dims">
@@ -1154,6 +1146,13 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
             <div class="dim"><span>Thẩm mỹ</span><span class="m"><i style="width:87%"></i></span><b>8,7</b></div>
           </div>
           <div class="cite"><span class="lbl">Dẫn chứng · nhịp</span><br><em>«Quán trà dưới chân núi giờ do Tiểu Đào trông coi…»</em> — đoạn giới thiệu kéo dài 3 câu, có thể gọn hơn. Đã trau chuốt 1 lần.</div>
+          <div class="facts">
+            <div class="kv"><span>Móc cuối chương</span><b>«Nghe nói ở bến Vọng Nguyệt có người chèo đò đêm?»</b></div>
+            <div class="kv"><span>Căng thẳng</span><b>8/10 · ▲ +2 so với ch.6</b></div>
+            <div class="kv"><span>Phục bút đang mở</span><b>4</b></div>
+            <div class="kv"><span>Đang chờ</span><b>Trau chuốt nhịp ch.7 sau khi chốt ch.8</b></div>
+          </div>
+          <button class="btn ghost sm" id="dlRead" style="margin:6px 0 -4px -8px">Đọc chương 7</button>
         </div>
         <div class="ledg">
           <div class="hd"><b>Chương 6 · Biệt ly</b><span class="badge b-mute spacer">Của bạn</span></div>
@@ -1626,7 +1625,7 @@ document.addEventListener('keydown', e => { if (e.altKey && (e.key === 'ArrowRig
 
 /* ================= STATE MACHINE ================= */
 function show(name, sub) {
-  closeAsk(true); cfClose(); closeCfg(); closePal(); closePop(); closeDiag(); closeExp(); closeDailies(); clearInterval(retryTimer);
+  closeAsk(true); cfClose(); closeCfg(); closePal(); closePop(); closeDiag(); closeExp(); clearInterval(retryTimer); $('#dlChip').classList.add('hidden');
   setAiOpen(!['writing', 'ask', 'editpause', 'dailies', 'planning'].includes(name)); document.body.classList.toggle('prestart', name === 'start' || name === 'cfg'); editPaused = false; planner.stop(); planHeld = false;
   $('#pauseEditT').textContent = 'Tạm dừng để sửa'; $('#pauseEdit use').setAttribute('href', '#i-pause');
   const st = (name === 'ask' || name === 'editpause' || name === 'dailies') ? 'writing' : name === 'cfg' ? 'start' : name;
@@ -1667,7 +1666,9 @@ function show(name, sub) {
   if (name === 'cfg') openCfg();
   if (name === 'editpause') setTimeout(() => setEditPause(true), 0);
   if (name === 'dailies') setTimeout(openDailies, 0);
-  else if (st === 'writing' && !openDailies.auto) { openDailies.auto = true; setTimeout(() => { if (state === 'writing') openDailies(); }, 2600); }
+  /* a finished chapter no longer pops a card over the page: desktop shows a quiet chip in the writing bar that opens the
+     report in the AI panel; mobile shows nothing (the report lives in the panel's «Báo cáo» tab) */
+  else if (st === 'writing') setTimeout(() => { if (state === 'writing' && !editPaused) $('#dlChip').classList.remove('hidden'); }, 2600);
   const pkMap = { start: ['Phiên viết mới', 'off'], cocreate: ['Đồng sáng tác · trò chuyện với AI', ''], planning: ['Kiến trúc sư · lập dàn ý arc 3', ''], writing: ['Chấp bút · viết chương 8', ''], pause: ['Tạm dừng · bàn hướng đi', 'wait'], done: ['Hoàn tất · 3 chương mới', 'off'] };
   if (name === 'ask') setPeek('AI đang chờ bạn trả lời', 'wait');
   else if (st === 'error') setPeek(errs[errSub].title, errs[errSub].t === 't-err' ? 'bad' : 'wait');
@@ -2172,11 +2173,11 @@ document.addEventListener('keydown', e => {
 });
 function setEditPause(on) {
   editPaused = on; $('#wbar').classList.toggle('paused', on);
-  $('#fbInput').placeholder = on ? 'Dặn AI điều cần lưu ý khi viết tiếp…' : 'Góp ý cho AI — không cần dừng';
+  $('#fbInput').placeholder = on ? 'Dặn AI khi viết tiếp…' : 'Góp ý cho AI — không cần dừng';
   setFb(on); /* pausing opens the feedback box; resuming closes it */
   if (on) {
     sim.wait(); ticker('Đã tạm dừng · không tốn credit khi chờ', false);
-    banner('hatch', 'edit', '<b>Đã tạm dừng để bạn sửa.</b> <span class="txt">Sửa thẳng chương 8 trên trang. Khi bấm «Viết tiếp», AI đọc lại phần bạn sửa rồi mới viết.</span>');
+    banner('hatch', 'edit', '<b>Đã tạm dừng.</b> <span class="txt">Sửa thẳng trên trang rồi bấm «Viết tiếp».</span>');
     $('#pauseEditT').textContent = 'Viết tiếp'; $('#pauseEdit use').setAttribute('href', '#i-play');
     const el = $('#sbFlow'); if (el) el.textContent = 'tạm dừng để sửa';
     $$('#liveZone .caret').forEach(x => x.classList.remove('caret'));
@@ -2332,7 +2333,6 @@ document.addEventListener('keydown', e => {
   else if (!$('#palScrim').classList.contains('hidden')) closePal();
   else if (!$('#diagScrim').classList.contains('hidden')) closeDiag();
   else if (!$('#expScrim').classList.contains('hidden')) closeExp();
-  else if (!$('#dailies').classList.contains('hidden')) closeDailies();
   else if (!$('#cfScrim').classList.contains('hidden')) cfClose();
   else if (!$('#cfgScrim').classList.contains('hidden')) closeCfg();
   else if (!askScrim.classList.contains('hidden')) { e.preventDefault(); nudge(); }
@@ -2407,11 +2407,14 @@ $$('.draft').forEach(b => b.onclick = () => openDoc(b.dataset.doc, { toCanvas: t
 $('#newSess').onclick = () => show('start');
 
 /* ================= TUI PARITY: dailies, diag, export, reader, attach, queues ================= */
-function openDailies() { $('#dailies').classList.remove('hidden'); }
-function closeDailies() { $('#dailies').classList.add('hidden'); }
-$('#dlX').onclick = closeDailies;
-$('#dlRead').onclick = () => { closeDailies(); openDoc('c7', { toCanvas: true }); };
-$('#openDailies').onclick = openDailies;
+function openDailies() {
+  $('#dlChip').classList.add('hidden');
+  if (isSheet()) setView('ai'); else setAiOpen(true);
+  $('#wTabs [data-t="ledger"]').click();
+  const c = $('#ledC7'); c.scrollIntoView({ block: 'start' }); flash(c);
+}
+$('#dlChip').onclick = openDailies;
+$('#dlRead').onclick = () => openDoc('c7', { toCanvas: true });
 
 function openDiag() { $('#diagScrim').classList.remove('hidden'); setTimeout(() => $('#diagScrim [data-close-diag]').focus(), 30); }
 function closeDiag() { $('#diagScrim').classList.add('hidden'); }
