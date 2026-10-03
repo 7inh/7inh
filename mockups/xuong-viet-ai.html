@@ -952,7 +952,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       </div></article>
     </div>
     <div class="dailies hidden" id="dailies" role="dialog" aria-labelledby="dlT">
-      <div class="hd"><span class="lbl">Bảng công · vừa chốt</span><button class="btn ghost icon sm spacer" id="dlX" aria-label="Đóng" style="width:28px"><svg class="i sm"><use href="#i-x"/></svg></button></div>
+      <div class="hd"><span class="lbl">Báo cáo chương · vừa chốt</span><button class="btn ghost icon sm spacer" id="dlX" aria-label="Đóng" style="width:28px"><svg class="i sm"><use href="#i-x"/></svg></button></div>
       <b id="dlT" style="font-size:15px">Chương 7 · Ba năm sau</b>
       <div>
         <div class="kv"><span>Hook cuối chương</span><b>«Nghe nói ở bến Vọng Nguyệt có người chèo đò đêm?»</b></div>
@@ -1080,7 +1080,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 
     <!-- WRITING -->
     <section data-ai="writing" class="hidden">
-      <div class="ai-tabs"><div class="seg" role="tablist" id="wTabs"><button role="tab" aria-selected="false" data-t="dash">Điều khiển</button><button role="tab" aria-selected="false" data-t="ledger">Bảng công</button><button role="tab" aria-selected="true" data-t="prog">Hoạt động</button></div></div>
+      <div class="ai-tabs"><div class="seg" role="tablist" id="wTabs"><button role="tab" aria-selected="false" data-t="dash">Điều khiển</button><button role="tab" aria-selected="false" data-t="ledger">Báo cáo</button><button role="tab" aria-selected="true" data-t="prog">Hoạt động</button></div></div>
       <div class="ai-b" data-tp="prog">
         <div class="blk hidden" id="steerQ"><div class="sect-l"><span class="lbl">Góp ý đang chờ</span><span class="badge b-solid spacer" id="steerN">0</span></div><div class="fs" id="steerList"></div></div>
         <div class="blk" id="rewriteQ"><div class="sect-l"><span class="lbl">Hàng đợi viết lại</span><span class="badge b-hatch spacer">1</span></div>
@@ -1150,7 +1150,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         </div>
       </div>
       <div class="ai-b hidden" data-tp="ledger">
-        <button class="btn sm block" id="openDailies" style="margin-bottom:12px">Bảng công chương vừa chốt</button>
+        <button class="btn sm block" id="openDailies" style="margin-bottom:12px">Báo cáo chương vừa chốt</button>
         <div class="ledg">
           <div class="hd"><b>Chương 7 · Ba năm sau</b><span class="badge b-line spacer">Đạt</span><span class="score">8,6<small>/10</small></span></div>
           <p class="small muted">Vãn Ca trở lại Ly Sơn dưới tên giả. Tiểu Đào nhận ra nàng qua cách cầm chén trà. Kết bằng tin đồn về người chèo đò ở bến Vọng Nguyệt.</p>
@@ -1624,7 +1624,7 @@ const states = [
   { id: 'planning', n: '2b', t: 'Viết tiếp ngay · lập dàn ý' },
   { id: 'writing', n: '3–4', t: 'Đang viết + bảng phụ' },
   { id: 'editpause', n: '3b', t: 'Tạm dừng để sửa' },
-  { id: 'dailies', n: '3c', t: 'Bảng công sau mỗi chương' },
+  { id: 'dailies', n: '3c', t: 'Báo cáo sau mỗi chương' },
   { id: 'ask', n: '5', t: 'AI hỏi lại tác giả' },
   { id: 'pause', n: '6', t: 'Tạm dừng để bàn' },
   { id: 'done', n: '8', t: 'Hoàn tất' },
@@ -2265,7 +2265,7 @@ const CMDS = [
   { k: 'next', ic: 'arrow', t: 'Cho viết chương tiếp', d: 'Khi đang bật duyệt từng chương', c: '/next', run: () => toast('Chưa có chương nào đang chờ duyệt') },
   { k: 'sync', ic: 'sync', t: 'Đồng bộ chỉnh sửa tay', d: 'Cập nhật dữ kiện sau khi bạn sửa bản nháp', c: '/sync', run: () => doSync() },
   { k: 'diag', ic: 'pulse', t: 'Chẩn đoán phiên', d: 'Kiểm tra luồng, chất lượng, kế hoạch, ngữ cảnh', c: '/diag', run: () => openDiag() },
-  { k: 'dailies', ic: 'flag', t: 'Bảng công chương vừa chốt', d: 'Hook, căng thẳng, thẩm định', c: '/dailies', run: () => openDailies() },
+  { k: 'dailies', ic: 'flag', t: 'Báo cáo chương vừa chốt', d: 'Hook, căng thẳng, thẩm định', c: '/dailies', run: () => openDailies() },
   { k: 'cmp', ic: 'compass', t: 'Mở la bàn truyện', d: 'Hướng dài hạn của kiến trúc sư', c: 'la bàn', run: () => openDoc('cmp', { toCanvas: true }) },
   { k: 'export', ic: 'export', t: 'Xuất bản thảo', d: 'TXT hoặc EPUB, chọn khoảng chương', c: '/export', run: () => openExp() },
 ];
