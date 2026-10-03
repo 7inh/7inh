@@ -296,18 +296,17 @@ details.more-d[open]>summary::after{content:"−"}
 .pl-s:not(.done):not(.run) h3{color:var(--faint)}
 .pl-s.run h3::after{content:" · đang lập…";text-transform:none;letter-spacing:0;font-weight:500}
 .plch{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px}
+.pln-dlg{width:min(420px,100%)}
+.dialog.pln-dlg .db{padding:26px 24px 18px;justify-items:center;text-align:center;gap:8px}
+.pln-dlg .gi{width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+.pln-dlg h2{font-size:17px;line-height:1.5;margin:4px 0 0}
+.pln-dlg p{line-height:1.6;max-width:32ch}
+.pln-dlg .df .btn{flex:1 0 auto;height:40px}
 .plch li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-family:var(--sans);animation:pop .3s ease}
 .plch li:not(.on){display:none}
 .plch .n{font-family:var(--mono);font-size:12px;color:var(--faint);padding-top:2px}
 .plch b{display:block;font-size:14.5px;line-height:1.5}
 .plch span{font-size:13.5px;color:var(--muted);line-height:1.6}
-.plnend{margin-top:30px;border:1px solid var(--ink);border-radius:10px;padding:16px 18px;font-family:var(--sans);display:grid;gap:14px;animation:pop .3s ease}
-.plnend .row{display:flex;gap:12px;align-items:center}
-.plnend .gi{width:34px;height:34px;border-radius:50%;background:var(--fill);color:var(--fill-ink);display:grid;place-items:center;flex:none}
-.plnend b{display:block;font-size:15px;line-height:1.5}
-.plnend .s{display:block;font-size:13.5px;color:var(--muted);line-height:1.6}
-.plnend .row:first-child{align-items:flex-start}
-.plnend .btns{justify-content:flex-end;flex-wrap:wrap;gap:8px}
 .toolline{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:12.5px;color:var(--ink-2);border:1px dashed var(--line-2);border-radius:6px;padding:7px 12px;margin:2px 0 16px}
 .toolline .spin{width:12px;height:12px}
 .toolline .mono{color:var(--faint);margin-left:auto}
@@ -947,10 +946,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
           <li data-pc="9"><span class="n">09</span><div><b>Tên thật</b><span>Tạ Trầm đọc lá thư của Bạch Uyên và biết nàng là ai. Khép arc 3.</span></div></li>
         </ol></div></section>
         <section class="pl-s" data-ps="compass"><h3>La bàn</h3><div class="pl-b"><p>Arc 4 mở bằng bí mật của Bạch Uyên ở bến cũ. Đích dài hạn giữ nguyên: rèn lại Tuyết Lạc để khép chuyện cũ.</p></div></section>
-        <div class="plnend hidden" id="plnEnd" contenteditable="false">
-          <div class="row"><span class="gi"><svg class="i"><use href="#i-check"/></svg></span><div><b id="plnEndT">Dàn ý arc 3 đã xong</b><span class="s" id="plnEndS"></span></div></div>
-          <div class="row btns"><button class="btn" id="plnHold">Giữ lại để sửa</button><button class="btn primary" id="plnGo">Viết ngay</button></div>
-        </div>
       </div></article>
       <article class="page" data-page="c9"><div class="ed" spellcheck="false"><h1>Tên thật</h1><div class="doc-meta"><span class="badge b-mute" id="c9Badge">Chờ viết</span>Chương 9</div>
         <div id="c9Empty" class="nextph" style="margin-top:8px"><span class="gi"><svg class="i"><use href="#i-clock"/></svg></span><div><b>Chưa viết</b>Chấp bút sẽ viết chương này sau khi chốt chương 8. Dàn ý: Tạ Trầm đọc lá thư của Bạch Uyên và biết nàng là ai.</div></div>
@@ -963,6 +958,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="wbtns">
           <button class="btn ghost sm dlchip hidden" id="dlChip" title="Xem báo cáo chương"><span class="ck"><svg class="i"><use href="#i-check"/></svg></span>Ch.7 đã chốt · 8,6/10</button>
           <button class="btn ghost sm" id="fbOpen" aria-expanded="false" aria-controls="fbRow"><svg class="i sm"><use href="#i-edit"/></svg><span class="lbl-t">Góp ý</span></button>
+          <button class="btn primary sm hidden" id="plnStart"><svg class="i sm"><use href="#i-arrow"/></svg>Bắt đầu viết</button>
           <button class="btn primary sm" id="pauseEdit"><svg class="i sm"><use href="#i-pause"/></svg><span id="pauseEditT">Tạm dừng để sửa</span></button>
         </div>
       </div>
@@ -1368,6 +1364,13 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   </div>
 </div>
 
+<div class="scrim hidden" id="plnScrim">
+  <div class="dialog pln-dlg" role="dialog" aria-modal="true" aria-labelledby="plnEndT">
+    <div class="db"><span class="gi"><svg class="i"><use href="#i-check"/></svg></span><h2 id="plnEndT">Dàn ý arc 3 đã xong</h2><p class="small muted" id="plnEndS"></p></div>
+    <div class="df"><button class="btn" id="plnHold">Giữ lại để sửa</button><button class="btn primary" id="plnGo">Viết ngay</button></div>
+  </div>
+</div>
+
 <div class="scrim hidden" id="cfScrim">
   <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="cfTitle">
     <div class="dh"><h2 id="cfTitle"></h2></div>
@@ -1686,7 +1689,11 @@ function show(name, sub) {
   else setPeek(...pkMap[st]);
   markDemo(name, sub); syncPeekAct();
 }
-function syncPeekAct() { const on = state === 'writing' && !editPaused; $('#peekAct').classList.toggle('hidden', !on); aiP.classList.toggle('has-act', on); }
+function syncPeekAct() {
+  const w = state === 'writing' && !editPaused, p = state === 'planning' && planHeld, on = w || p;
+  $('#peekAct').classList.toggle('hidden', !on); aiP.classList.toggle('has-act', on);
+  $('#peekAct').innerHTML = p ? `${ic('arrow', 'sm')}Bắt đầu viết` : `${ic('pause', 'sm')}Tạm dừng`;
+}
 function banner(tone, icon, html, linkText) {
   const b = $('#banner'); b.className = 'banner ' + tone;
   b.innerHTML = `${ic(icon)}<span>${html}</span>` + (linkText ? `<button class="linkbtn" id="bannerLink">${linkText}</button>` : '');
@@ -2100,7 +2107,7 @@ const planner = (() => {
   function follow(el) { if (curDoc === 'pln') el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
   function reset() {
     $$('.pl-s', page).forEach(x => x.className = 'pl-s'); $$('.plch li', page).forEach(x => x.classList.remove('on'));
-    $('#plnEnd').classList.add('hidden'); $('#plnHold').classList.remove('hidden'); $('#plnGo').textContent = 'Viết ngay';
+    closeEnd(); $('#plnStart').classList.add('hidden'); $('#plnHold').textContent = 'Giữ lại để sửa'; $('#plnGo').textContent = 'Viết ngay';
     $('#plnBadge').className = 'badge b-solid'; $('#plnBadge').textContent = 'Đang lập';
     $('#plnMeta').textContent = 'Kiến trúc sư lập từ yêu cầu của bạn · cập nhật trực tiếp';
     $('#plnReq').textContent = notes.quick.trim() || 'Không có yêu cầu riêng · kiến trúc sư đi theo la bàn truyện';
@@ -2133,8 +2140,14 @@ const planner = (() => {
     $('#plnBadge').className = 'badge b-line'; $('#plnBadge').textContent = 'Đã lập';
     $('#plnMeta').textContent = 'Kiến trúc sư · 3 chương · 2 phục bút được lên lịch trả';
     ev('done', 'Dàn ý arc 3 · 3 chương', `${cr} credit · <span class="mono">#8</span>`);
-    $('#plnEnd').classList.remove('hidden'); if (curDoc === 'pln') { $('#docSub').textContent = 'Kiến trúc sư lập · đã xong'; setTimeout(() => $('#stage').scrollTo({ top: 1e6, behavior: 'smooth' }), 60); }
-    if (cfg.review) return hold(true);
+    if (curDoc === 'pln') $('#docSub').textContent = 'Kiến trúc sư lập · đã xong';
+    $('#plnScrim').classList.remove('hidden');
+    if (cfg.review) {
+      $('#plnEndT').textContent = 'Dàn ý xong · chờ bạn duyệt'; $('#plnHold').textContent = 'Xem lại dàn ý'; $('#plnGo').textContent = 'Bắt đầu viết';
+      $('#plnEndS').textContent = 'Bạn bật «Duyệt từng chương» nên AI chờ bạn. Không tốn credit khi chờ.';
+      ticker('Chờ bạn duyệt dàn ý · không tốn credit', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait'); return;
+    }
+    $('#plnEndT').textContent = 'Dàn ý arc 3 đã xong';
     let n = 8; const tick = () => { $('#plnEndS').innerHTML = `Chấp bút bắt đầu viết sau <b class="num" style="display:inline">${n}</b> giây. Muốn chỉnh trước thì giữ lại.`; };
     tick(); ticker('Dàn ý xong · sắp chuyển sang viết', false); status('đã xong'); setPeek('Dàn ý xong · sắp bắt đầu viết', '');
     cdT = setInterval(() => { if (--n <= 0) go(); else tick(); }, 1000);
@@ -2142,13 +2155,13 @@ const planner = (() => {
   function hold(auto) {
     clearInterval(cdT); cdT = null; planHeld = true;
     $('.ed', page).contentEditable = true; openDoc('pln', { keepScroll: true }); setNav();
-    $('#plnEndT').textContent = auto ? 'Dàn ý xong · chờ bạn duyệt' : 'Bạn đang sửa dàn ý';
-    $('#plnEndS').textContent = (auto ? 'Bạn bật «Duyệt từng chương» nên AI chờ bạn. ' : 'Sửa thẳng trên trang. ') + 'Chấp bút chỉ viết khi bạn bấm «Bắt đầu viết». Không tốn credit khi chờ.';
-    $('#plnHold').classList.add('hidden'); $('#plnGo').textContent = 'Bắt đầu viết';
-    ticker('Chờ bạn duyệt dàn ý · không tốn credit', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait');
+    closeEnd(); $('#plnStart').classList.remove('hidden'); syncPeekAct();
+    toast('Sửa thẳng trên trang · bấm «Bắt đầu viết» khi xong');
+    ticker('Đang sửa dàn ý · không tốn credit khi chờ', false); status('chờ bạn duyệt', true); setPeek('Dàn ý · chờ bạn duyệt', 'wait');
   }
-  function go() { stop(); show('writing'); toast(planHeld ? 'Đã chốt dàn ý đã sửa · chấp bút bắt đầu viết' : 'Dàn ý arc 3 đã chốt · chấp bút bắt đầu viết'); }
-  function stop() { timers.forEach(clearTimeout); timers = []; clearInterval(cdT); cdT = null; }
+  function closeEnd() { $('#plnScrim').classList.add('hidden'); }
+  function go() { stop(); closeEnd(); show('writing'); toast(planHeld ? 'Đã chốt dàn ý đã sửa · chấp bút bắt đầu viết' : 'Dàn ý arc 3 đã chốt · chấp bút bắt đầu viết'); }
+  function stop() { timers.forEach(clearTimeout); timers = []; clearInterval(cdT); cdT = null; $('#plnScrim').classList.add('hidden'); }
   async function feedback(v) {
     ev('you', 'Bạn góp ý cho dàn ý', `«${esc(v)}»`); ticker('Trọng tài đang đánh giá góp ý…'); toast('Trọng tài đang đánh giá góp ý…');
     await sleep(1300); if (state !== 'planning') return;
@@ -2158,7 +2171,10 @@ const planner = (() => {
   }
   $('#plnHold').onclick = () => hold(false);
   $('#plnGo').onclick = go;
-  return { start, stop, feedback, spent: () => cr };
+  $('#plnStart').onclick = go;
+  /* Esc or a click outside never starts writing: it just keeps the outline for editing */
+  $('#plnScrim').addEventListener('click', e => { if (e.target.id === 'plnScrim') hold(false); });
+  return { start, stop, feedback, go, hold, spent: () => cr, ending: () => !$('#plnScrim').classList.contains('hidden') };
 })();
 
 /* steering — góp ý không cần dừng, trọng tài phân loại */
@@ -2202,7 +2218,7 @@ function setEditPause(on) {
   }
   openDoc('c8', { keepScroll: true });
 }
-$('#peekAct').onclick = () => $('#pauseEdit').click();
+$('#peekAct').onclick = () => state === 'planning' ? planner.go() : $('#pauseEdit').click();
 $('#pauseEdit').onclick = () => { setEditPause(!editPaused); if (!editPaused) toast('AI đọc lại chỉnh sửa của bạn rồi viết tiếp'); };
 function setFb(open) {
   $('#fbRow').classList.toggle('hidden', !open); $('#fbOpen').setAttribute('aria-expanded', open);
@@ -2346,6 +2362,7 @@ $('#cfYes').onclick = () => { cfClose(); cfOnYes && cfOnYes(); };
 $('#cfScrim').addEventListener('click', e => { if (e.target.id === 'cfScrim') cfClose(); });
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
+  if (planner.ending()) { planner.hold(false); return; }
   if (popOwner) { const o = popOwner; closePop(); o.focus(); }
   else if (!$('#palScrim').classList.contains('hidden')) closePal();
   else if (!$('#diagScrim').classList.contains('hidden')) closeDiag();
