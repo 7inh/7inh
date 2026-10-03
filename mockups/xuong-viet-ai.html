@@ -156,6 +156,10 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .credit{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:1px solid var(--line-2);border-radius:9px;font-size:13px;white-space:nowrap;position:relative}
 .credit b{font-weight:600}
 .avatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--ink);color:var(--ink);display:grid;place-items:center;font-size:12px;font-weight:600;flex:none}
+/* avatar placeholder (top-right): opens the account menu */
+button.avatar{width:32px;height:32px;padding:0;border:0;background:var(--surface-3);color:var(--ink-2);font:600 13px/1 var(--sans);cursor:pointer}
+button.avatar:hover{background:var(--line)}
+button.avatar:focus-visible{outline:2px solid var(--accent-line);outline-offset:2px}
 .demo-wrap{position:relative;display:flex;align-items:center;gap:2px;border:1px dashed var(--line-2);border-radius:7px;padding:2px}
 .demo-btn{display:flex;align-items:center;gap:8px;height:26px;border:0;background:transparent;padding:0 8px;border-radius:5px;cursor:pointer;font-size:12.5px;white-space:nowrap}
 .demo-btn:hover,.demo-step:hover{background:var(--hover)}
@@ -695,6 +699,14 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   body.prestart aside.ai .ai-f{padding:14px 18px}
 }
 
+/* desktop: the session menu (⋯) lives in the AI panel's top-right corner; it falls back to the doc bar while the panel is closed */
+.panel-more{display:none}
+@media (min-width:900px){
+  .ws:not(.ai-off) #docMore{display:none}
+  .ws:not(.ai-off) .panel-more{display:grid;position:absolute;top:9px;right:8px;z-index:3}
+  body.prestart .panel-more{display:none!important}
+  aside.ai .ai-h,aside.ai .ai-tabs{padding-right:48px}
+}
 /* desktop: session status lives at the bottom of the canvas, like an editor status bar */
 @media (min-width:900px){ .canvas>.sbar{order:10;border-bottom:0;border-top:1px solid var(--line);height:28px} .peek-act{display:none!important} }
 /* ================= RESPONSIVE ================= */
@@ -845,7 +857,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <span class="story-t" title="Tuyết Lạc Vọng Nguyệt Lâu · Xưởng viết AI">Tuyết Lạc Vọng Nguyệt Lâu</span>
   <div class="spacer"></div>
   <div class="credit" title="Số dư credit"><svg class="i"><use href="#i-coin"/></svg><b class="num" id="hdrCredit">1.240</b><span class="muted unit">credit</span></div>
-  <button class="btn ghost icon" id="topMore" aria-label="Thêm" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
+  <button class="avatar" id="topMore" aria-label="Tài khoản" title="Tài khoản" aria-haspopup="menu">L</button>
 </header>
 
 <div class="ws" id="ws">
@@ -971,6 +983,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <!-- ============ RIGHT: AI assistant panel ============ -->
   <div class="aiscrim" id="aiScrim"></div>
   <aside class="ai" id="aiPanel" aria-label="Hồ sơ & AI">
+    <button class="btn ghost icon panel-more" id="panelMore" aria-label="Thao tác phiên" title="Thao tác phiên" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
     <div class="ai-rz" id="aiRz" role="separator" aria-orientation="vertical" aria-label="Kéo để đổi độ rộng" title="Kéo để đổi độ rộng · nhấp đúp để đặt lại"></div>
     <button class="ai-peek" id="aiPeek" aria-expanded="false" aria-controls="aiPanel"><span class="grip" aria-hidden="true"></span><span class="pk"><span class="pulse off" id="peekDot"></span><span id="peekTxt">Hồ sơ &amp; AI</span></span><svg class="i chev"><use href="#i-down"/></svg></button>
     <button class="btn primary sm peek-act hidden" id="peekAct"><svg class="i sm"><use href="#i-pause"/></svg>Tạm dừng</button>
@@ -1055,8 +1068,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="blk">
           <div class="sect-l"><span class="lbl">Tác tử</span><span class="spacer tiny muted">giai đoạn · <b style="color:var(--ink)">dàn ý</b></span></div>
           <div class="agent"><i class="rg dieu"></i><div><div class="n">Điều phối <span class="mono">trọng tài</span></div><div class="d">chờ kiến trúc sư</div></div><span class="st">chờ</span></div>
-          <div class="agent on" id="plnArch"><i class="rg kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">→ <b>lập dàn ý arc 3</b></div>
-            <div class="steps" id="plnSteps"><span>Tiền đề</span><span>Nhân vật</span><span>Phục bút</span><span>Chương</span><span>Định hướng</span></div></div><span class="spin" id="plnSpin"></span></div>
+          <div class="agent on" id="plnArch"><i class="rg kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">→ <b>lập dàn ý arc 3</b><span id="plnNow"></span></div></div><span class="spin" id="plnSpin"></span></div>
           <div class="agent"><i class="rg chap"></i><div><div class="n">Chấp bút</div><div class="d">chờ dàn ý</div></div><span class="st">chờ</span></div>
           <div class="agent"><i class="rg bien"></i><div><div class="n">Biên tập</div><div class="d">chờ chương đầu</div></div><span class="st">chờ</span></div>
         </div>
@@ -1078,8 +1090,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
           <div class="sect-l"><span class="lbl">Tác tử</span><span class="spacer tiny muted">luồng · <b id="flowNow" style="color:var(--ink)">đang viết</b></span></div>
           <div class="agent"><i class="rg dieu"></i><div><div class="n">Điều phối <span class="mono">trọng tài</span></div><div class="d">chờ báo cáo biên tập ch.7</div></div><span class="st">chờ</span></div>
           <div class="agent"><i class="rg kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">đã mở rộng arc 3 · ch.7–9</div></div><span class="st">xong</span></div>
-          <div class="agent on"><i class="rg chap"></i><div><div class="n">Chấp bút</div><div class="d">→ <b>viết chương 8</b></div>
-            <div class="steps" id="wSteps"><span class="d">Kế hoạch</span><span class="c">Viết nháp</span><span>Kiểm tra</span><span>Chốt</span></div></div><span class="spin"></span></div>
+          <div class="agent on"><i class="rg chap"></i><div><div class="n">Chấp bút</div><div class="d">→ <b>viết chương 8</b></div></div><span class="spin"></span></div>
           <div class="agent on"><i class="rg bien"></i><div><div class="n">Biên tập</div><div class="d">→ <b>kiểm tra nhất quán</b> ch.7</div></div><span class="spin"></span></div>
         </div>
         <div class="blk">
@@ -2032,7 +2043,7 @@ const prose = [
   'Nàng biết đó là gì trước cả khi mở ra. Nửa thanh Tuyết Lạc, thứ đáng lẽ phải nằm dưới đáy hồ từ đêm sư phụ mất. Lưỡi kiếm vẫn lạnh như ngày ấy, chỉ có chuôi đã mòn đi, như thể ai đó đã cầm nó mỗi đêm suốt ba năm.',
   '— Ta không hỏi ngươi đi đâu, — hắn nói, mắt vẫn nhìn mặt hồ. — Ta chỉ hỏi, lần này ngươi có định ở lại không.',
 ];
-const tools = [['Chấp bút tra hồ sơ nhân vật: Tạ Trầm', 'novel_context'], ['Chấp bút đọc lại chương 3 (gợi ý từ sổ phục bút)', 'read_chapter'], ['Chấp bút kiểm tra luật xưng hô', 'check_consistency']];
+const tools = [['Chấp bút tra hồ sơ nhân vật: Tạ Trầm', 'tra hồ sơ'], ['Chấp bút đọc lại chương 3 (gợi ý từ sổ phục bút)', 'đọc chương'], ['Chấp bút kiểm tra luật xưng hô', 'kiểm tra nhất quán']];
 const sim = (() => {
   let timer = null, pi = 0, ci = 0, p = null, waiting = false, toolT = 0, ti = 0, tool = null, tick = 0;
   const zone = $('#liveZone'), stage = $('#stage');
@@ -2062,7 +2073,7 @@ const sim = (() => {
       if (pi % 2 === 0) {
         const [label, code] = tools[ti++ % tools.length];
         tool = document.createElement('div'); tool.className = 'toolline'; tool.contentEditable = 'false';
-        tool.innerHTML = `<span class="spin"></span>${ic('tool', 'sm')}<span>${label}…</span><span class="mono">${code}</span>`;
+        tool.innerHTML = `<span class="spin"></span>${ic('tool', 'sm')}<span>${label}…</span><span class="faint">${code}</span>`;
         ticker(label + '…'); zone.appendChild(tool); toolT = 30; if (follow) stage.scrollTop = stage.scrollHeight;
       }
     }
@@ -2077,7 +2088,7 @@ const sim = (() => {
 
 /* quick start — kiến trúc sư lập dàn ý arc trên canvas trước khi chấp bút viết */
 const planner = (() => {
-  const STEPS = [['premise', 'Tiền đề arc', 'save_premise'], ['cast', 'Tuyến nhân vật', 'save_characters'], ['seeds', 'Phục bút sẽ trả', 'save_foreshadow'], ['chaps', 'Chương 7–9', 'save_outline'], ['compass', 'Định hướng', 'update_compass']];
+  const STEPS = [['premise', 'Tiền đề arc', 'lưu tiền đề'], ['cast', 'Tuyến nhân vật', 'lưu nhân vật'], ['seeds', 'Phục bút sẽ trả', 'lưu phục bút'], ['chaps', 'Chương 7–9', 'lưu dàn ý'], ['compass', 'Định hướng', 'cập nhật định hướng']];
   const page = $('[data-page="pln"]'), tl = $('#plnTl');
   let timers = [], cdT = null, cr = 0;
   const later = (ms, f) => timers.push(setTimeout(f, ms));
@@ -2091,7 +2102,7 @@ const planner = (() => {
   function status(txt, wait) {
     setStatus(si(`<span class="pulse ${wait ? 'wait' : ''}"></span>Dàn ý · <b>${txt}</b>`) + si('Arc 3 · 3 chương', 'sx'));
   }
-  function stepsUI(i) { $$('#plnSteps span').forEach((s, k) => { s.className = k < i ? 'd' : k === i ? 'c' : ''; }); }
+  function stepsUI(i) { $('#plnNow').textContent = i < STEPS.length ? ' · ' + STEPS[i][1].toLowerCase() : ''; }
   function follow(el) { if (curDoc === 'pln') el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
   function reset() {
     $$('.pl-s', page).forEach(x => x.className = 'pl-s'); $$('.plch li', page).forEach(x => x.classList.remove('on'));
@@ -2110,7 +2121,7 @@ const planner = (() => {
       const sec = $(`.pl-s[data-ps="${key}"]`, page);
       later(t, () => {
         sec.classList.add('run'); stepsUI(i); follow(sec); ticker(`Kiến trúc sư · ${label.toLowerCase()}…`);
-        sec._ev = ev('run', `Kiến trúc sư · ${label}`, `<span class="mono">${tool}</span>`);
+        sec._ev = ev('run', `Kiến trúc sư · ${label}`, tool);
       });
       if (key === 'chaps') {
         $$('.plch li', sec).forEach((li, k) => later(t + 900 + k * 650, () => { sec.classList.add('done'); li.classList.add('on'); follow(li); ticker(`Kiến trúc sư · chương ${7 + k}…`); }));
@@ -2285,6 +2296,7 @@ $('#topMore').onclick = e => popMenu(e.currentTarget, [
   { ic: isDark() ? 'sun' : 'moon', t: isDark() ? 'Giao diện sáng' : 'Giao diện tối', run: toggleTheme },
   '-', { ic: 'user', t: 'Tài khoản & credit', run: () => toast('Mở trang tài khoản (demo)') },
 ]);
+$('#panelMore').onclick = e => $('#docMore').onclick(e);
 $('#docMore').onclick = e => {
   const it = [];
   if (state === 'planning') it.push({ ic: 'stop', t: 'Dừng lập dàn ý', danger: true, run: confirmStop }, '-');
@@ -2382,7 +2394,7 @@ const errs = {
     primary: 'Viết tiếp', secondary: 'Quay lại thiết lập', status: 'Dàn ý · engine dừng · 0 chương mới', kept: [['Dàn ý arc 3 · ch.7–9', 'Đã lập', 'b-line']], spent: 23, bal: 1217 },
   retry: { t: 't-warn', ic: 'wifi', title: 'Model quá tải · đang thử lại 3/7', bn: ['hatch', 'wifi', '<b>Đang thử lại 3/7.</b> <span class="txt">Mất kết nối với model khi viết chương 8 — phần đã viết vẫn còn nguyên.</span>'],
     why: 'Chấp bút gặp <b>giới hạn tốc độ của model</b> (hoặc mất kết nối tạm thời). Hệ thống tự thử lại với thời gian chờ tăng dần.',
-    extra: '<div style="display:grid;gap:8px"><div class="retry"><i class="f"></i><i class="f"></i><i class="a"></i><i></i><i></i><i></i><i></i></div><div class="row small wrap"><span>Lần 3/7 · thử lại sau <b class="num" id="retryCd">12</b> giây</span><span class="spacer mono faint">429 rate_limit</span></div><div class="ls ok"><span class="c">' + ic('check') + '</span>Tiếp tục đúng bước: chương 8 · viết nháp<span class="mono">#41</span></div></div>',
+    extra: '<div style="display:grid;gap:8px"><div class="retry"><i class="f"></i><i class="f"></i><i class="a"></i><i></i><i></i><i></i><i></i></div><div class="row small wrap"><span>Lần 3/7 · thử lại sau <b class="num" id="retryCd">12</b> giây</span><span class="spacer faint">lỗi 429 · quá giới hạn tốc độ</span></div><div class="ls ok"><span class="c">' + ic('check') + '</span>Tiếp tục đúng bước: chương 8 · viết nháp<span class="mono">#41</span></div></div>',
     primary: 'Thử lại ngay', secondary: 'Dừng hẳn', status: 'Sáng tác · đang thử lại 3/7', kept: [['Chương 7 · Ba năm sau', 'Đã chốt', 'b-line'], ['Chương 8 · Đêm trăng…', '1.480 chữ, dở', 'b-hatch']], spent: 293, bal: 947 }
 };
 function renderError(k) {
