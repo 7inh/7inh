@@ -11,9 +11,9 @@
 /* ================= TOKENS — monochrome ================= */
 :root{
   --bg:#f4f4f4; --canvas:#e9e9e9; --surface:#ffffff; --surface-2:#f8f8f8; --surface-3:#eeeeee; --hover:#f1f1f1;
-  --ink:#0b0b0b; --ink-2:#333333; --muted:#6a6a6a; --faint:#9c9c9c;
-  --line:#e2e2e2; --line-2:#cccccc;
-  --fill:#0b0b0b; --fill-ink:#ffffff;      /* inverted / primary */
+  --ink:#1e1e1e; --ink-2:#3d3d3d; --muted:#727272; --faint:#a0a0a0;
+  --line:#e7e7e7; --line-2:#d6d6d6;
+  --fill:#222222; --fill-ink:#ffffff;      /* inverted / primary */
   --soft:#ececec;                          /* tinted neutral */
   --paper:#ffffff; --ai-tint:#f1f1f1;
   --hatch:repeating-linear-gradient(-45deg,rgba(0,0,0,.09) 0 2px,transparent 2px 7px);
@@ -28,9 +28,9 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#0a0a0a; --canvas:#050505; --surface:#121212; --surface-2:#171717; --surface-3:#202020; --hover:#1c1c1c;
-    --ink:#f1f1f1; --ink-2:#cfcfcf; --muted:#949494; --faint:#686868;
-    --line:#262626; --line-2:#383838;
-    --fill:#f1f1f1; --fill-ink:#0a0a0a; --soft:#232323;
+    --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
+    --line:#2a2a2a; --line-2:#3a3a3a;
+    --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
     --paper:#141414; --ai-tint:#1d1d1d;
     --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
     --shadow-sm:0 1px 2px rgba(0,0,0,.4);
@@ -41,9 +41,9 @@
 }
 :root[data-theme="dark"]{
   --bg:#0a0a0a; --canvas:#050505; --surface:#121212; --surface-2:#171717; --surface-3:#202020; --hover:#1c1c1c;
-  --ink:#f1f1f1; --ink-2:#cfcfcf; --muted:#949494; --faint:#686868;
-  --line:#262626; --line-2:#383838;
-  --fill:#f1f1f1; --fill-ink:#0a0a0a; --soft:#232323;
+  --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
+  --line:#2a2a2a; --line-2:#3a3a3a;
+  --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
   --paper:#141414; --ai-tint:#1d1d1d;
   --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
   --shadow-sm:0 1px 2px rgba(0,0,0,.4);
@@ -81,7 +81,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 .rg.bien{clip-path:polygon(50% 0,100% 100%,0 100%);width:10px}
 
 /* ================= CONTROLS ================= */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:6px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:500;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:9px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:500;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}
 .btn:hover{background:var(--hover);border-color:var(--ink)}
 .btn:focus-visible,.seg button:focus-visible,.chip:focus-visible,.mode:focus-visible,.ni:focus-visible,.tool:focus-visible,.cmd:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .btn.primary{background:var(--fill);border-color:var(--fill);color:var(--fill-ink);font-weight:600}
@@ -102,7 +102,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 .seg button{border:0;background:transparent;height:26px;padding:0 10px;border-radius:5px;font-size:12.5px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap}
 .seg button[aria-pressed="true"],.seg button[aria-selected="true"]{background:var(--fill);color:var(--fill-ink)}
 /* badges: state by form, not colour */
-.badge{display:inline-flex;align-items:center;gap:4px;height:21px;padding:0 7px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap;line-height:1;border:1px solid transparent;letter-spacing:.01em}
+.badge{display:inline-flex;align-items:center;gap:4px;height:21px;padding:0 7px;border-radius:5px;font-size:11px;font-weight:600;white-space:nowrap;line-height:1;border:1px solid transparent;letter-spacing:.01em}
 .b-solid{background:var(--fill);color:var(--fill-ink)}
 .b-line{border-color:var(--ink);color:var(--ink)}
 .b-dash{border:1px dashed var(--ink);color:var(--ink)}
@@ -112,7 +112,7 @@ button,input,textarea,select{font:inherit;color:inherit}
 .field{display:grid;gap:6px}
 .field>label{font-size:13px;font-weight:600;color:var(--ink-2)}
 .field .hint{font-size:12px;color:var(--muted)}
-.input{width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:6px;padding:8px 11px;font-size:13.5px;line-height:1.55;transition:border-color .12s,box-shadow .12s}
+.input{width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:9px;padding:8px 11px;font-size:13.5px;line-height:1.55;transition:border-color .12s,box-shadow .12s}
 textarea.input{resize:vertical;min-height:72px;display:block}
 .input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--soft)}
 select.input{appearance:none;height:34px;padding:0 28px 0 10px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
@@ -121,7 +121,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .switch input{appearance:none;width:30px;height:18px;margin:0;border-radius:99px;background:var(--line-2);position:relative;cursor:pointer;transition:background .15s;flex:none}
 .switch input::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);transition:left .15s}
 .switch input:checked{background:var(--fill)} .switch input:checked::after{left:14px}
-.alert{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:6px;font-size:13px;line-height:1.5;border:1px solid var(--line-2);background:var(--surface-2)}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:9px;font-size:13px;line-height:1.5;border:1px solid var(--line-2);background:var(--surface-2)}
 .alert .i{margin-top:2px}
 .alert b{display:block;font-weight:600}
 .alert .txt{color:var(--ink-2)}
@@ -142,7 +142,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .meter>i{display:block;height:100%;border-radius:99px;background:var(--ink);transition:width .3s}
 
 /* ================= APP SHELL ================= */
-.app{width:100%;max-width:100vw;overflow:hidden;height:100vh;height:100dvh;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:52px minmax(0,1fr) 30px}
+.app{width:100%;max-width:100vw;overflow:hidden;height:100vh;height:100dvh;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:52px minmax(0,1fr)}
 .topbar{z-index:40;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 14px;min-width:0}
 .logo{width:30px;height:30px;border-radius:7px;background:var(--fill);color:var(--fill-ink);display:grid;place-items:center;flex:none}
 .crumbs{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);min-width:0;white-space:nowrap}
@@ -150,7 +150,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .crumbs .story{overflow:hidden;text-overflow:ellipsis}
 .cmdk{display:flex;align-items:center;gap:8px;height:30px;padding:0 8px 0 10px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface-2);color:var(--muted);font-size:12.5px;cursor:pointer;white-space:nowrap}
 .cmdk:hover{border-color:var(--ink);color:var(--ink)}
-.credit{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:1px solid var(--line-2);border-radius:6px;font-size:13px;white-space:nowrap;position:relative}
+.credit{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:1px solid var(--line-2);border-radius:9px;font-size:13px;white-space:nowrap;position:relative}
 .credit b{font-weight:600}
 .credit .delta{position:absolute;right:6px;top:-10px;background:var(--fill);color:var(--fill-ink);font-size:11px;font-weight:600;padding:1px 6px;border-radius:4px;opacity:0;transform:translateY(4px);transition:all .2s;font-family:var(--mono)}
 .credit .delta.show{opacity:1;transform:none}
@@ -172,7 +172,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .ws.ai-off{grid-template-columns:minmax(0,1fr)}
 .ws.ai-off>.ai{display:none}
 .story-t{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.nav{position:fixed;left:0;top:52px;bottom:30px;width:300px;z-index:70;transform:translateX(-102%);transition:transform .2s ease,visibility .2s;visibility:hidden}
+.nav{position:fixed;left:0;top:52px;bottom:0;width:300px;z-index:70;transform:translateX(-102%);transition:transform .2s ease,visibility .2s;visibility:hidden}
 .nav.open{transform:none;visibility:visible;box-shadow:var(--shadow-lg)}
 .navscrim.open{display:block;position:fixed;inset:52px 0 0 0;background:rgba(0,0,0,.18);z-index:65}
 #aiTog[aria-pressed="true"]{background:var(--soft)}
@@ -263,8 +263,8 @@ details.more-d[open]>summary::after{content:"−"}
 .banner .linkbtn{margin-left:auto;background:none;border:0;color:inherit;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap;padding:0}
 
 .stage{flex:1;min-height:0;overflow:auto;padding:28px 24px 132px}
-.page{max-width:760px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow-page);padding:64px clamp(24px,7cqi,88px) 88px;min-height:calc(100% - 4px)}
-.ed{outline:none;font-family:var(--serif);font-size:17.5px;line-height:1.9;color:var(--ink)}
+.page{max-width:var(--pw,760px);margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:10px;transition:max-width .2s;box-shadow:var(--shadow-page);padding:64px clamp(24px,7cqi,88px) 88px;min-height:calc(100% - 4px)}
+.ed{outline:none;font-family:var(--serif);font-size:var(--fs,17.5px);line-height:1.9;color:var(--ink)}
 .ed h1{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.45;margin:0 0 6px}
 .ed h2{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.5;margin:28px 0 6px}
 .ed h3{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);line-height:1.5;margin:26px 0 4px}
@@ -359,6 +359,37 @@ details.more-d[open]>summary::after{content:"−"}
 .foot-est{display:flex;align-items:center;justify-content:space-between;font-size:12.5px}
 .foot-est b{font-size:13.5px}
 
+/* writing bar (4A/5A/7A) */
+.wbar{flex:none;background:var(--surface);border-top:1px solid var(--line);padding:8px 14px 12px;display:grid;gap:8px}
+.ticker{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);min-width:0}
+.ticker #tickerTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ticker .spin{width:11px;height:11px;border-width:1.5px}
+.ticker .cnt{margin-left:auto;color:var(--faint);flex:none}
+.wrow{display:flex;gap:10px;align-items:flex-end}
+.wrow .composer{flex:1;min-width:0}
+.wrow .composer textarea{min-height:38px}
+.wbtns{display:flex;gap:6px;flex:none;align-items:center}
+.wbtns .btn{height:40px}
+@container cv (max-width:640px){ .wrow{flex-direction:column;align-items:stretch} .wbtns .primary{flex:1} #stopHard{display:none} }
+#aiTog{gap:6px}
+#aiTog[aria-pressed="true"]{background:var(--soft)}
+#focusBtn[aria-pressed="true"]{background:var(--soft)}
+body.focus .topbar{display:none}
+body.focus .app{grid-template-rows:minmax(0,1fr)}
+body.focus .ws{grid-template-columns:minmax(0,1fr)}
+body.focus .ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{display:none!important}
+.plan{list-style:none;margin:0;padding:0}
+.plan .arcl{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:12px 0 4px}
+.plan .arcl:first-child{padding-top:0}
+.plan li.ch{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.plan li.ch:hover .t{text-decoration:underline;text-underline-offset:3px}
+.plan .n{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.plan .t{min-width:0}
+.plan .t small{display:block;font-size:12px;color:var(--muted);line-height:1.45}
+.plan .s{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.plan li.now{font-weight:600}
+.plan li.now .n{color:var(--ink)}
+.plan .foot{font-size:12px;color:var(--muted);padding-top:10px;display:flex;gap:6px;align-items:center}
 /* start wizard */
 .wz{flex:none;display:flex;gap:8px;padding:10px 14px 12px;border-bottom:1px solid var(--line)}
 .wz button{flex:1;display:grid;gap:7px;border:0;background:none;padding:0;cursor:pointer;text-align:left;color:var(--faint);font-size:12px;font-weight:500;min-width:0}
@@ -516,12 +547,12 @@ details.grp .more{font-size:12px;font-weight:500;text-decoration:underline;text-
 .draft .go{display:flex}
 
 /* status bar */
-.sbar{display:flex;align-items:center;background:var(--surface);border-top:1px solid var(--line);font-size:12px;color:var(--muted);padding:0 6px;overflow:hidden;white-space:nowrap;min-width:0}
-.sbar .si{display:inline-flex;align-items:center;gap:6px;padding:0 10px;height:100%;border-right:1px solid var(--line)}
-.sbar .si:last-child{border-right:0}
+.sbar{flex:none;height:32px;display:flex;align-items:center;background:var(--surface);border-bottom:1px solid var(--line);font-size:12px;color:var(--muted);padding:0 8px;overflow:hidden;white-space:nowrap;min-width:0}
+.sbar .si{display:inline-flex;align-items:center;gap:6px;padding:0 7px;height:100%}
+.sbar .si:not(:first-child):not(.r)::before{content:"·";color:var(--faint);margin-right:6px}
 .sbar .si b{color:var(--ink);font-weight:600}
-.sbar .si.r{margin-left:auto;border-left:1px solid var(--line)}
-.sbar .si.r~.si.r{margin-left:0;border-left:0}
+.sbar .si.r{margin-left:auto}
+.sbar .si.r~.si.r{margin-left:0}
 .sbar .mono{font-size:11px}
 .chapbar{display:inline-flex;gap:2px}
 .chapbar i{width:9px;height:6px;border-radius:1px;background:var(--surface-3)}
@@ -598,7 +629,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .ws{grid-template-columns:minmax(0,1fr)}
   #aiTog{display:none}
   /* AI panel = bottom sheet with a peek bar */
-  .ai{position:fixed;left:0;right:0;bottom:30px;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+  .ai{position:fixed;left:0;right:0;bottom:0;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .ws.ai-off>.ai{display:flex}
   .ai.open{transform:translateY(var(--drag,0px))}
   .ai.dragging{transition:none}
@@ -609,9 +640,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .ai-peek .pk{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;min-width:0;padding-right:28px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .ai-peek .chev{position:absolute;right:16px;top:20px;transform:rotate(180deg);transition:transform .2s}
   .ai.open .ai-peek .chev{transform:none}
-  .aiscrim.open{display:block;position:fixed;inset:52px 0 30px 0;background:rgba(0,0,0,.3);z-index:85}
-  .stage{padding-bottom:150px}
-  .fbfloat{bottom:68px}
+  .aiscrim.open{display:block;position:fixed;inset:52px 0 0 0;background:rgba(0,0,0,.3);z-index:85}
+  .canvas{padding-bottom:52px}
   .ai{border-left:0}
   .nav{top:auto;left:0;right:0;bottom:0;width:auto;height:min(80dvh,660px);border-right:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;transform:translateY(102%);transition:transform .26s cubic-bezier(.2,.8,.2,1),visibility .26s;padding-bottom:env(safe-area-inset-bottom);z-index:120}
   .nav.open{transform:translateY(var(--drag,0px));box-shadow:0 -12px 40px rgba(0,0,0,.25)}
@@ -700,6 +730,10 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <symbol id="i-cmd" viewBox="0 0 24 24"><path d="M9 6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3z"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></g></symbol>
   <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></symbol>
+  <symbol id="i-focus" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+  <symbol id="i-width" viewBox="0 0 24 24"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></symbol>
   <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 21h14"/></symbol>
 </svg>
 
@@ -725,11 +759,11 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
     <div class="sheet-grip" id="sheetGrip" aria-hidden="true"></div>
     <div class="nav-h" id="navHead"><div style="min-width:0"><h4>Dàn ý</h4><span class="sheet-sub" id="sheetSub">Arc › Chương</span></div><span class="tiny faint spacer mono">Arc › Chương</span><button class="btn ghost icon sheet-x" id="sheetX" aria-label="Đóng dàn ý"><svg class="i"><use href="#i-x"/></svg></button></div>
     <div class="nav-b" id="navList">
-      <div class="arc"><b>Arc 1</b><span class="an">Vọng Nguyệt Lâu</span><span class="tag badge b-mute">của bạn</span></div>
+      <div class="arc"><b>Arc 1</b><span class="an">Vọng Nguyệt Lâu</span><span class="tag badge b-mute">chương gốc</span></div>
       <button class="ni" data-doc="c1"><span class="no">01</span><span class="t"><span>Tuyết đầu mùa</span></span><span class="st"></span></button>
       <button class="ni" data-doc="c2"><span class="no">02</span><span class="t"><span>Vết sẹo</span></span><span class="st"></span></button>
       <button class="ni" data-doc="c3"><span class="no">03</span><span class="t"><span>Ly Sơn không mưa</span></span><span class="st"></span></button>
-      <div class="arc"><b>Arc 2</b><span class="an">Biệt ly</span><span class="tag badge b-mute">của bạn</span></div>
+      <div class="arc"><b>Arc 2</b><span class="an">Biệt ly</span><span class="tag badge b-mute">chương gốc</span></div>
       <button class="ni" data-doc="c4" id="niC4"><span class="no">04</span><span class="t"><span>Gió bấc</span><small class="hidden">Không đọc được đoạn 12</small></span><span class="st"></span></button>
       <button class="ni" data-doc="c5"><span class="no">05</span><span class="t"><span>Lá thư chưa gửi</span></span><span class="st"></span></button>
       <button class="ni" data-doc="c6"><span class="no">06</span><span class="t"><span>Biệt ly</span></span><span class="st"></span></button>
@@ -762,9 +796,12 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <button class="btn ghost icon" id="navBtn" aria-label="Dàn ý" title="Dàn ý"><svg class="i"><use href="#i-menu"/></svg></button>
       <div class="doc-t grow"><b id="docTitle">Chương 6 · Biệt ly</b><span><span id="docSub">Của bạn</span><span id="saved"></span></span></div>
       <div class="ai-ctl" id="aiCtl"></div>
+      <button class="btn ghost icon" id="readBtn" aria-label="Cỡ chữ và độ rộng trang" title="Cỡ chữ & độ rộng" aria-haspopup="menu"><span style="font-family:var(--serif);font-size:15px;font-weight:600">Aa</span></button>
+      <button class="btn ghost icon" id="focusBtn" aria-label="Chế độ tập trung" title="Tập trung" aria-pressed="false"><svg class="i"><use href="#i-focus"/></svg></button>
       <button class="btn ghost icon" id="docMore" aria-label="Thêm thao tác" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
-      <button class="btn ghost icon" id="aiTog" aria-label="Ẩn/hiện Trợ lý AI" title="Trợ lý AI" aria-pressed="true"><svg class="i"><use href="#i-panel"/></svg></button>
+      <button class="btn ghost" id="aiTog" aria-label="Ẩn/hiện Hồ sơ & AI" title="Hồ sơ & AI" aria-pressed="true"><svg class="i"><use href="#i-panel"/></svg><span class="lbl-t">Hồ sơ &amp; AI</span></button>
     </div>
+    <div class="sbar" id="sbar"></div>
     <div class="bubble hidden" id="bubble" role="toolbar" aria-label="Định dạng">
       <button class="tool" data-cmd="bold" aria-label="Đậm"><b>B</b></button>
       <button class="tool" data-cmd="italic" aria-label="Nghiêng"><i>I</i></button>
@@ -782,7 +819,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <article class="page" data-page="c4"><div class="ed" contenteditable="true" spellcheck="false"><h1>Gió bấc</h1><div class="doc-meta" contenteditable="false">Chương 4 · Arc 2 · của bạn</div><p>Gió bấc thổi suốt tháng Chạp. Trong thư phòng, đèn của Bạch Uyên sáng đến gần sáng.</p><p>Vãn Ca bưng trà vào, thấy ông đang viết dở một lá thư, nét chữ run hơn mọi khi.</p><p class="bad hidden" id="badPara" contenteditable="false"><span class="mono">ĐOẠN 12 · ⟨¿¿ ký tự lạ ¿¿⟩</span><br>AI không đọc được đoạn này. Dán lại đoạn văn ngay tại đây rồi bấm «Thử nạp lại» ở bảng bên phải.</p><p>— Con đi ngủ đi, — ông nói, không ngẩng lên.</p></div></article>
       <article class="page" data-page="c5"><div class="ed" contenteditable="true" spellcheck="false"><h1>Lá thư chưa gửi</h1><div class="doc-meta" contenteditable="false">Chương 5 · Arc 2 · của bạn</div><p>Lá thư được gấp làm tư, đặt dưới nghiên mực. Trên phong bì chỉ có ba chữ: «Gửi Trầm nhi».</p><p>Vãn Ca cầm lên, rồi lại đặt xuống. Có những điều, biết rồi thì không thể không biết.</p></div></article>
       <article class="page" data-page="c6"><div class="ed" contenteditable="true" spellcheck="false"><h1>Biệt ly</h1><div class="doc-meta" contenteditable="false">Chương 6 · Arc 2 · của bạn · cập nhật 28/09</div><p>Sư phụ mất vào giờ Tý, khi tuyết vừa ngừng rơi. Không ai khóc thành tiếng; cả Vọng Nguyệt Lâu im lặng như thể sợ đánh thức ông.</p><p>Vãn Ca thu dọn hành lý trong một nén nhang. Nàng để lại thanh kiếm gỗ trên bàn, cạnh lá thư chưa gửi, rồi đi xuống núi theo lối mòn phía tây.</p><p>Tạ Trầm đứng ở cổng núi. Hắn không ngăn nàng. Hắn chỉ nói:</p><p>— Đi đường cẩn thận.</p><p>Nàng không quay lại.</p></div>
-        <div class="nextph" id="ghostNext"><span class="gi"><svg class="i"><use href="#i-sparkle"/></svg></span><div><b>Chương 7 sẽ bắt đầu ở đây</b>AI đọc 6 chương của bạn rồi viết tiếp thành bản nháp. Chương của bạn không bị sửa.</div></div>
+        <div class="nextph" id="ghostNext"><span class="gi"><svg class="i"><use href="#i-sparkle"/></svg></span><div><b>Chương 7 sẽ bắt đầu ở đây</b>AI đọc 6 chương rồi viết tiếp thành bản nháp. Chương gốc được bảo vệ, AI không sửa.</div></div>
       </article>
       <article class="page" data-page="dir"><div class="ed doc" contenteditable="true" spellcheck="false"><h1>Chỉ thị sáng tác</h1><div class="doc-meta" contenteditable="false"><span class="badge b-line">Tài liệu phiên</span>Arc 3 · chương 7–9 · AI soạn trong lúc trò chuyện, bạn sửa trực tiếp</div>
         <h3>Mục tiêu</h3><p>Vãn Ca và Tạ Trầm gặp lại ở bến Vọng Nguyệt, cùng truy tìm nửa thanh Tuyết Lạc; kết chương 9 bằng việc Tạ Trầm biết thân phận thật của nàng.</p>
@@ -805,21 +842,23 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div id="c9Body" class="hidden"><p>Lá thư nằm trong hộp gỗ đàn hương, dưới lớp lụa đã ngả màu. Tạ Trầm mở nó vào lúc gà gáy canh tư, khi Vãn Ca còn ngủ say ở gian bên.</p><p>«Trầm nhi, nếu con đọc được những dòng này, nghĩa là con bé đã trở về…»</p></div>
       </div></article>
     </div>
-    <div class="fbfloat collapsed hidden" id="fbFloat">
-      <button class="fbpill" id="fbPill"><svg class="i sm"><use href="#i-sparkle"/></svg>Góp ý cho AI<span class="kbd">/</span></button>
-      <div class="fbbox">
-        <svg class="i ico"><use href="#i-sparkle"/></svg>
-        <textarea id="fbInput" rows="1" placeholder="Góp ý cho AI · không cần dừng" aria-label="Góp ý cho AI"></textarea>
-        <span class="cnt" id="fbCnt"></span>
-        <button class="btn sm" id="fbSend"><svg class="i sm"><use href="#i-send"/></svg>Gửi</button>
+    <div class="wbar hidden" id="wbar">
+      <div class="ticker"><span class="spin" id="tickerSpin"></span><span id="tickerTxt">Chấp bút đang viết chương 8</span><span class="cnt mono" id="fbCnt"></span></div>
+      <div class="wrow">
+        <div class="composer"><textarea id="fbInput" rows="1" placeholder="Góp ý cho AI — không cần dừng" aria-label="Góp ý cho AI"></textarea><button class="btn icon" id="fbSend" aria-label="Gửi góp ý"><svg class="i"><use href="#i-send"/></svg></button></div>
+        <div class="wbtns">
+          <button class="btn primary" id="pauseEdit"><svg class="i"><use href="#i-pause"/></svg><span id="pauseEditT">Tạm dừng để sửa</span></button>
+          <button class="btn" id="pauseTalk" title="Bàn hướng đi"><svg class="i"><use href="#i-chat"/></svg><span class="lbl-t">Bàn hướng đi</span></button>
+          <button class="btn ghost" id="stopHard">Dừng hẳn</button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ RIGHT: AI assistant panel ============ -->
   <div class="aiscrim" id="aiScrim"></div>
-  <aside class="ai" id="aiPanel" aria-label="Trợ lý AI">
-    <button class="ai-peek" id="aiPeek" aria-expanded="false" aria-controls="aiPanel"><span class="grip" aria-hidden="true"></span><span class="pk"><span class="pulse off" id="peekDot"></span><span id="peekTxt">Trợ lý AI</span></span><svg class="i chev"><use href="#i-down"/></svg></button>
+  <aside class="ai" id="aiPanel" aria-label="Hồ sơ & AI">
+    <button class="ai-peek" id="aiPeek" aria-expanded="false" aria-controls="aiPanel"><span class="grip" aria-hidden="true"></span><span class="pk"><span class="pulse off" id="peekDot"></span><span id="peekTxt">Hồ sơ &amp; AI</span></span><svg class="i chev"><use href="#i-down"/></svg></button>
     <div class="rail hidden" id="rail"></div>
 
     <!-- START -->
@@ -835,7 +874,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <div class="ai-b" data-sp="new">
         <div class="wstep" data-ws="1">
           <h2>Bạn muốn bắt đầu thế nào?</h2>
-          <p class="sub">Truyện đang có 6 chương. Chương của bạn không bao giờ bị sửa.</p>
+          <p class="sub">Truyện đang có 6 chương. Chương gốc được bảo vệ, AI không bao giờ sửa.</p>
           <div class="modes" role="radiogroup" aria-label="Chế độ">
             <button class="mode" role="radio" aria-checked="true" data-mode="cont"><span class="mi"><svg class="i"><use href="#i-book"/></svg></span><b>Viết tiếp chương 7</b><p>AI đọc 6 chương rồi viết tiếp.</p><span class="rb"></span></button>
             <button class="mode" role="radio" aria-checked="false" data-mode="co"><span class="mi"><svg class="i"><use href="#i-chat"/></svg></span><b>Đồng sáng tạo</b><p>Trò chuyện với AI trước khi viết.</p><span class="rb"></span></button>
@@ -903,7 +942,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 
     <!-- WRITING -->
     <section data-ai="writing" class="hidden">
-      <div class="ai-tabs"><div class="seg" role="tablist" id="wTabs"><button role="tab" aria-selected="true" data-t="prog">Tiến trình</button><button role="tab" aria-selected="false" data-t="dash">Điều khiển</button><button role="tab" aria-selected="false" data-t="ledger">Bảng công</button></div></div>
+      <div class="ai-tabs"><div class="seg" role="tablist" id="wTabs"><button role="tab" aria-selected="false" data-t="plan">Dàn ý</button><button role="tab" aria-selected="false" data-t="dash">Điều khiển</button><button role="tab" aria-selected="false" data-t="ledger">Bảng công</button><button role="tab" aria-selected="true" data-t="prog">Hoạt động</button></div></div>
+      <div class="ai-b hidden" data-tp="plan"><ol class="plan" id="planList"></ol></div>
       <div class="ai-b" data-tp="prog">
         <div class="blk">
           <div class="sect-l"><span class="lbl">Tác tử</span><span class="spacer tiny muted">luồng · <b id="flowNow" style="color:var(--ink)">đang viết</b></span></div>
@@ -1075,7 +1115,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   </aside>
 </div>
 
-<footer class="sbar" id="sbar"></footer>
 </div>
 
 <!-- ================= MODALS ================= -->
@@ -1214,13 +1253,14 @@ const DOCS = {
   c7: { t: 'Chương 7 · Ba năm sau', k: 'draft', w: '2.410' }, c8: { t: 'Chương 8 · Đêm trăng ở bến Vọng Nguyệt', k: 'draft', w: '2.538' },
   c9: { t: 'Chương 9 · Tên thật', k: 'draft', w: '2.288' },
 };
-let curDoc = 'c6', state = 'start', errSub = 'credit', needSync = false;
+let curDoc = 'c6', state = 'start', errSub = 'credit', needSync = false, editPaused = false;
 const chapState = { c7: 'todo', c8: 'todo', c9: 'todo' };
 
 function canEdit(id) {
   const k = DOCS[id].k;
   if (k === 'author') return true;
   if (k === 'doc') return ['cocreate', 'start', 'error', 'pause', 'done'].includes(state);
+  if (editPaused && id === 'c8') return true;
   return state === 'done' && chapState[id] === 'done';
 }
 function setSaved(txt) {
@@ -1237,7 +1277,7 @@ function openDoc(id, opts = {}) {
   const editable = canEdit(id);
   $(`[data-page="${id}"] .ed`).contentEditable = editable;
   let sub;
-  if (d.k === 'author') sub = `Của bạn · ${d.w} chữ · AI chỉ đọc, không sửa`;
+  if (d.k === 'author') sub = `Chương gốc được bảo vệ · ${d.w} chữ`;
   else if (id === 'dir') sub = 'Tài liệu phiên · bạn và AI cùng soạn';
   else if (id === 'cmp') sub = 'Kiến trúc sư giữ · bạn sửa được';
   else sub = { live: 'Bản nháp AI · đang viết', done: `Bản nháp AI · ${d.w} chữ`, warn: 'Bản nháp AI · viết dở', todo: 'Bản nháp AI · chưa viết' }[chapState[id]];
@@ -1249,7 +1289,17 @@ function openDoc(id, opts = {}) {
 }
 $('#navList').addEventListener('click', e => { const b = e.target.closest('.ni[data-doc]'); if (b) openDoc(b.dataset.doc, { toCanvas: true }); });
 
+const PLAN = [['Arc 1 · Vọng Nguyệt Lâu', [['01', 'c1', 'Tuyết đầu mùa'], ['02', 'c2', 'Vết sẹo'], ['03', 'c3', 'Ly Sơn không mưa']]], ['Arc 2 · Biệt ly', [['04', 'c4', 'Gió bấc'], ['05', 'c5', 'Lá thư chưa gửi'], ['06', 'c6', 'Biệt ly']]], ['Arc 3 · Trở về · lượt này', [['07', 'c7', 'Ba năm sau', 'Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng.'], ['08', 'c8', 'Đêm trăng ở bến Vọng Nguyệt', 'Gặp lại Tạ Trầm; hắn trao nửa thanh Tuyết Lạc.'], ['09', 'c9', 'Tên thật', 'Tạ Trầm đọc lá thư của Bạch Uyên — biết nàng là ai.']]]];
+function renderPlan() {
+  const lab = { done: 'Đã chốt', live: '● Đang viết', todo: 'Chờ viết', warn: 'Viết dở' };
+  $('#planList').innerHTML = PLAN.map(([arc, rows]) => `<li class="arcl">${arc}</li>` + rows.map(([n, id, t, d]) => {
+    const st = DOCS[id].k === 'author' ? 'Chương gốc' : lab[chapState[id]];
+    return `<li class="ch ${chapState[id] === 'live' ? 'now' : ''}" data-doc="${id}"><span class="n">${n}</span><span class="t">${t}${d ? `<small>${d}</small>` : ''}</span><span class="s">${st}</span></li>`;
+  }).join('')).join('') + `<li class="arcl">Arc 4 · khung, chưa mở rộng</li><li class="foot">${ic('lock', 'sm')}Chương gốc được bảo vệ — AI không chỉnh sửa.</li>`;
+}
+$('#planList').addEventListener('click', e => { const r = e.target.closest('li.ch'); if (r) openDoc(r.dataset.doc, { toCanvas: true }); });
 function setNav() {
+  renderPlan();
   const loadErr = state === 'error' && errSub === 'load';
   const showDrafts = !['start', 'cocreate'].includes(state) && !loadErr;
   $('#navDrafts').classList.toggle('hidden', !showDrafts);
@@ -1288,9 +1338,7 @@ function setRail(cur) {
 /* toolbar AI controls by state */
 function renderCtl() {
   const c = $('#aiCtl'); let h = '';
-  if (state === 'writing' || state === 'ask') {
-    h += `<button class="btn primary" id="pauseBtn" title="Tạm dừng để bàn hướng đi">${ic('pause')}<span class="lbl-t">Tạm dừng để bàn</span></button>`;
-  } else if (state === 'done' && DOCS[curDoc].k === 'draft') {
+  if (state === 'done' && DOCS[curDoc].k === 'draft') {
     if (needSync) h += `<button class="btn" id="syncBtn" title="Đồng bộ chỉnh sửa">${ic('sync')}<span class="lbl-t">Đồng bộ</span></button>`;
     h += `<button class="btn primary" id="submitBtn" title="Gửi duyệt">${ic('send')}<span class="lbl-t">Gửi duyệt</span></button>`;
   }
@@ -1391,6 +1439,7 @@ const states = [
   { id: 'cfg', n: '1b', t: 'Thiết lập nâng cao (modal)' },
   { id: 'cocreate', n: '2', t: 'Đồng sáng tạo' },
   { id: 'writing', n: '3–4', t: 'Đang viết + bảng phụ' },
+  { id: 'editpause', n: '3b', t: 'Tạm dừng để sửa' },
   { id: 'ask', n: '5', t: 'AI hỏi lại tác giả' },
   { id: 'pause', n: '6', t: 'Tạm dừng để bàn' },
   { id: 'done', n: '8', t: 'Hoàn tất' },
@@ -1419,8 +1468,9 @@ function markDemo(name, sub) {
 /* ================= STATE MACHINE ================= */
 function show(name, sub) {
   closeAsk(true); cfClose(); closeCfg(); closePal(); closePop(); clearInterval(retryTimer);
-  if (name !== 'writing') setAiOpen(true);
-  const st = name === 'ask' ? 'writing' : name === 'cfg' ? 'start' : name;
+  setAiOpen(!['writing', 'ask', 'editpause'].includes(name)); editPaused = false;
+  $('#pauseEditT').textContent = 'Tạm dừng để sửa'; $('#pauseEdit use').setAttribute('href', '#i-pause');
+  const st = (name === 'ask' || name === 'editpause') ? 'writing' : name === 'cfg' ? 'start' : name;
   state = name === 'ask' ? 'ask' : st;
   errSub = sub || 'credit'; needSync = false;
   const cs = {
@@ -1430,7 +1480,7 @@ function show(name, sub) {
   [chapState.c7, chapState.c8, chapState.c9] = st === 'error' ? cs.error[errSub] : cs[st];
   $$('.ai>section').forEach(s => s.classList.toggle('hidden', s.dataset.ai !== st));
   setNav();
-  $('#fbFloat').classList.toggle('hidden', st !== 'writing');
+  $('#wbar').classList.toggle('hidden', st !== 'writing'); ticker('Chấp bút đang viết chương 8');
   $('#banner').className = 'banner hidden';
   $$('.pausemark').forEach(m => m.remove());
   const doc = { start: 'c6', cocreate: 'dir', writing: 'c8', pause: 'c8', done: 'c7', error: { credit: 'c8', load: 'c4', engine: 'dir', retry: 'c8' }[errSub] }[st];
@@ -1452,6 +1502,7 @@ function show(name, sub) {
   if (st === 'error') renderError(errSub);
   if (name === 'ask') { sim.wait(); openAsk(); }
   if (name === 'cfg') openCfg();
+  if (name === 'editpause') setTimeout(() => setEditPause(true), 0);
   const pkMap = { start: ['Phiên viết mới', 'off'], cocreate: ['Đồng sáng tạo · trò chuyện với AI', ''], writing: ['Chấp bút · viết chương 8', ''], pause: ['Tạm dừng · bàn hướng đi', 'wait'], done: ['Hoàn tất · 3 chương mới', 'off'] };
   if (name === 'ask') setPeek('AI đang chờ bạn trả lời', 'wait');
   else if (st === 'error') setPeek(errs[errSub].title, errs[errSub].t === 't-err' ? 'bad' : 'wait');
@@ -1693,7 +1744,7 @@ const sim = (() => {
     if (t) t.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
     if (waiting) return;
     const follow = curDoc === 'c8' && nearBottom();
-    if (tool) { if (--toolT <= 0) { tool.remove(); tool = null; } return; }
+    if (tool) { if (--toolT <= 0) { tool.remove(); tool = null; ticker('Chấp bút đang viết chương 8'); } return; }
     if (!p) {
       if (pi >= prose.length) { pi = 0; zone.innerHTML = ''; }
       p = document.createElement('p'); p.className = 'caret ai-para'; zone.appendChild(p); ci = 0;
@@ -1716,7 +1767,7 @@ const sim = (() => {
         const [label, code] = tools[ti++ % tools.length];
         tool = document.createElement('div'); tool.className = 'toolline'; tool.contentEditable = 'false';
         tool.innerHTML = `<span class="spin"></span>${ic('tool', 'sm')}<span>${label}…</span><span class="mono">${code}</span>`;
-        zone.appendChild(tool); toolT = 30; if (follow) stage.scrollTop = stage.scrollHeight;
+        ticker(label + '…'); zone.appendChild(tool); toolT = 30; if (follow) stage.scrollTop = stage.scrollHeight;
       }
     }
   }
@@ -1733,26 +1784,43 @@ let fbCount = 0;
 $('#fbSend').onclick = async () => {
   const v = $('#fbInput').value.trim(); if (!v) { $('#fbInput').focus(); return; }
   fbCount++; $('#fbCnt').textContent = `đã gửi ${fbCount}`;
-  $('#fbInput').value = ''; collapseFb();
+  $('#fbInput').value = ''; ticker('Trọng tài đang đánh giá góp ý của bạn…');
   const tl = $('#timeline');
   tl.insertAdjacentHTML('beforeend', `<li class="ev you"><span class="ic">${ic('edit')}</span><div><div class="tt">Bạn can thiệp</div><div class="ts">«${esc(v)}»</div></div></li>`);
   setFlow('steering'); toast('Trọng tài đang đánh giá góp ý…');
   await sleep(1400);
   tl.insertAdjacentHTML('beforeend', `<li class="ev arb"><span class="ic"></span><div><div class="tt">Trọng tài: áp dụng ngay vào luật viết</div><div class="ts">Ảnh hưởng ch.8 (phần chưa viết), ch.9 · không cần viết lại ch.7 <span class="mono">· decisions #9</span></div></div></li>`);
-  setFlow('writing');
+  setFlow('writing'); ticker(editPaused ? 'Đã tạm dừng · không tốn credit khi chờ' : 'Trọng tài: áp dụng ngay vào luật viết · không cần viết lại ch.7', !editPaused);
   const pb = tl.closest('.ai-b'); pb.scrollTop = pb.scrollHeight;
 };
-const expandFb = () => { $('#fbFloat').classList.remove('collapsed'); setTimeout(() => $('#fbInput').focus(), 0); };
-function collapseFb() { $('#fbFloat').classList.add('collapsed'); }
-$('#fbPill').onclick = expandFb;
-$('#fbInput').addEventListener('blur', () => setTimeout(() => { if (!$('#fbInput').value.trim() && !$('#fbFloat').contains(document.activeElement)) collapseFb(); }, 150));
+function ticker(t, busy = true) { $('#tickerTxt').textContent = t; $('#tickerSpin').style.visibility = busy ? 'visible' : 'hidden'; }
 document.addEventListener('keydown', e => {
-  if (e.key !== '/' || $('#fbFloat').classList.contains('hidden')) return;
+  if (e.key !== '/' || $('#wbar').classList.contains('hidden')) return;
   const t = e.target; if (t.closest && (t.closest('input, textarea, [contenteditable="true"]'))) return;
-  e.preventDefault(); expandFb();
+  e.preventDefault(); $('#fbInput').focus();
 });
+function setEditPause(on) {
+  editPaused = on;
+  if (on) {
+    sim.wait(); ticker('Đã tạm dừng · không tốn credit khi chờ', false);
+    banner('hatch', 'edit', '<b>Đã tạm dừng để bạn sửa.</b> <span class="txt">Sửa thẳng chương 8 trên trang. Khi bấm «Viết tiếp», AI đọc lại phần bạn sửa rồi mới viết.</span>');
+    $('#pauseEditT').textContent = 'Viết tiếp'; $('#pauseEdit use').setAttribute('href', '#i-play');
+    const el = $('#sbFlow'); if (el) el.textContent = 'tạm dừng để sửa';
+    $$('#liveZone .caret').forEach(x => x.classList.remove('caret'));
+    $$('#liveZone .toolline').forEach(x => x.remove());
+    setPeek('Tạm dừng để sửa', 'wait');
+  } else {
+    sim.resume(); $('#banner').className = 'banner hidden'; ticker('Chấp bút đang viết chương 8');
+    $('#pauseEditT').textContent = 'Tạm dừng để sửa'; $('#pauseEdit use').setAttribute('href', '#i-pause');
+    setFlow('writing'); setPeek('Chấp bút · viết chương 8', '');
+  }
+  openDoc('c8', { keepScroll: true });
+}
+$('#pauseEdit').onclick = () => { setEditPause(!editPaused); if (!editPaused) toast('AI đọc lại chỉnh sửa của bạn rồi viết tiếp'); };
+$('#pauseTalk').onclick = () => { show('pause'); toast('Đã tạm dừng · bàn hướng đi với AI'); };
+$('#stopHard').onclick = () => confirmStop();
 $('#fbInput').addEventListener('keydown', e => {
-  if (e.key === 'Escape') { e.stopPropagation(); $('#fbInput').value = ''; collapseFb(); $('#fbInput').blur(); return; } if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#fbSend').click(); } });
+  if (e.key === 'Escape') { e.stopPropagation(); $('#fbInput').blur(); return; } if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#fbSend').click(); } });
 function confirmStop() {
   confirmBox({
     title: 'Dừng hẳn phiên viết?',
@@ -1829,6 +1897,18 @@ $('#docMore').onclick = e => {
 };
 $('#startMore').onclick = e => popMenu(e.currentTarget, [{ ic: 'clock', t: 'Các phiên trước', k: '4', run: () => showHist(true) }, { ic: 'sliders', t: 'Thiết lập phiên', run: openCfg }]);
 $('#coMore').onclick = e => popMenu(e.currentTarget, [{ ic: 'sliders', t: 'Thiết lập phiên', run: openCfg }, '-', { ic: 'trash', t: 'Bỏ phiên', danger: true, run: quitCo }]);
+let fs = 17.5, pw = 760;
+const applyRead = () => { root.style.setProperty('--fs', fs + 'px'); root.style.setProperty('--pw', pw + 'px'); };
+$('#readBtn').onclick = e => popMenu(e.currentTarget, [
+  { ic: 'plus', t: 'Chữ lớn hơn', k: fs + 'px', run: () => { fs = Math.min(23, fs + 1.5); applyRead(); toast('Cỡ chữ ' + fs + 'px'); } },
+  { ic: 'minus', t: 'Chữ nhỏ hơn', run: () => { fs = Math.max(15.5, fs - 1.5); applyRead(); toast('Cỡ chữ ' + fs + 'px'); } },
+  '-',
+  { ic: 'width', t: 'Trang hẹp', k: pw === 640 ? '✓' : '', run: () => { pw = 640; applyRead(); } },
+  { ic: 'width', t: 'Trang vừa', k: pw === 760 ? '✓' : '', run: () => { pw = 760; applyRead(); } },
+  { ic: 'width', t: 'Trang rộng', k: pw === 900 ? '✓' : '', run: () => { pw = 900; applyRead(); } },
+]);
+function setFocus(on) { document.body.classList.toggle('focus', on); $('#focusBtn').setAttribute('aria-pressed', on); $('#focusBtn').title = on ? 'Thoát tập trung (Esc)' : 'Tập trung'; if (on) toast('Chế độ tập trung · Esc để thoát'); }
+$('#focusBtn').onclick = () => setFocus(!document.body.classList.contains('focus'));
 function setAiOpen(on) { $('#ws').classList.toggle('ai-off', !on); $('#aiTog').setAttribute('aria-pressed', on); }
 $('#aiTog').onclick = () => setAiOpen($('#ws').classList.contains('ai-off'));
 $('#palInput').addEventListener('input', () => { palSel = 0; renderPal(); });
@@ -1862,6 +1942,7 @@ document.addEventListener('keydown', e => {
   else if (!$('#cfgScrim').classList.contains('hidden')) closeCfg();
   else if (!askScrim.classList.contains('hidden')) { e.preventDefault(); nudge(); }
   else if ($('#nav').classList.contains('open')) closeNav();
+  else if (document.body.classList.contains('focus')) setFocus(false);
   else if (isSheet() && $('#aiPanel').classList.contains('open')) setView('canvas');
 });
 document.addEventListener('focusin', e => {
