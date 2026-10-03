@@ -8,20 +8,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap&subset=vietnamese" rel="stylesheet">
 <style>
-/* ================= TOKENS — monochrome ================= */
+/* ================= TOKENS ================= */
+/* Warm neutrals (paper / stone, after ainovel-cli's warm TUI palette) + one yellow accent.
+   Roles: ink = actions & structure (primary buttons, selected outlines); yellow = AI / live / current
+   (running dots, spinners, progress, "đang viết" badges, AI-written text, selection marks). Never use yellow for body text. */
 :root{
-  --bg:#f4f4f4; --canvas:#e9e9e9; --surface:#ffffff; --surface-2:#f8f8f8; --surface-3:#eeeeee; --hover:#f1f1f1;
-  --ink:#1e1e1e; --ink-2:#3d3d3d; --muted:#727272; --faint:#a0a0a0;
-  --line:#e7e7e7; --line-2:#d6d6d6;
-  --fill:#222222; --fill-ink:#ffffff;      /* inverted / primary */
-  --soft:#ececec;                          /* tinted neutral */
-  --paper:#ffffff; --ai-tint:#f1f1f1;
-  /* accent: one clean yellow (ainovel-cli's signature colour), same in light and dark; text on it is near-black */
-  --accent:#facc15; --accent-ink:#1a1a1a; --accent-line:var(--accent); --accent-soft:rgba(250,204,21,.28);
-  --hatch:repeating-linear-gradient(-45deg,rgba(0,0,0,.09) 0 2px,transparent 2px 7px);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.05);
-  --shadow-page:0 1px 2px rgba(0,0,0,.06),0 10px 30px rgba(0,0,0,.06);
-  --shadow-lg:0 24px 64px rgba(0,0,0,.20),0 2px 6px rgba(0,0,0,.08);
+  --bg:#f5f3ee; --canvas:#ebe8e1; --surface:#fffefb; --surface-2:#faf8f4; --surface-3:#f0ede6; --hover:#f3f0ea;
+  --ink:#1f1c17; --ink-2:#3e3931; --muted:#6f685c; --faint:#a39b8d;
+  --line:#e7e2d8; --line-2:#d6d0c4;
+  --fill:#1f1c17; --fill-ink:#fffefb;      /* inverted / primary */
+  --soft:#eeeae2;                          /* tinted neutral */
+  --paper:#fffefb; --ai-tint:rgba(234,179,8,.09);
+  --accent:#eab308; --accent-ink:#1a1508; --accent-line:var(--accent); --accent-soft:rgba(234,179,8,.24);
+  --hatch:repeating-linear-gradient(-45deg,rgba(31,28,23,.08) 0 2px,transparent 2px 7px);
+  --shadow-sm:0 1px 2px rgba(40,30,10,.06);
+  --shadow-page:0 1px 2px rgba(40,30,10,.06),0 10px 30px rgba(40,30,10,.07);
+  --shadow-lg:0 24px 64px rgba(40,30,10,.18),0 2px 6px rgba(40,30,10,.08);
   --sans:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
   --serif:"Literata",Georgia,serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -29,28 +31,30 @@
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0a0a0a; --canvas:#050505; --surface:#121212; --surface-2:#171717; --surface-3:#202020; --hover:#1c1c1c;
-    --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
-    --line:#2a2a2a; --line-2:#3a3a3a;
-    --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
-    --paper:#141414; --ai-tint:#1d1d1d; 
-    --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
-    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-    --shadow-page:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
-    --shadow-lg:0 24px 64px rgba(0,0,0,.65);
-    color-scheme:dark;
+  --bg:#141311; --canvas:#0f0e0c; --surface:#1b1a17; --surface-2:#201e1b; --surface-3:#292622; --hover:#24221e;
+  --ink:#ede8de; --ink-2:#cfc8bb; --muted:#9b9385; --faint:#6f685d;
+  --line:#2d2a25; --line-2:#3d3933;
+  --fill:#ede8de; --fill-ink:#171512; --soft:#2a2723;
+  --paper:#1d1b18; --ai-tint:rgba(234,179,8,.07);
+  --accent:#eab308; --accent-ink:#1a1508; --accent-line:var(--accent); --accent-soft:rgba(234,179,8,.22);
+  --hatch:repeating-linear-gradient(-45deg,rgba(237,232,222,.09) 0 2px,transparent 2px 7px);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-page:0 1px 2px rgba(0,0,0,.45),0 10px 30px rgba(0,0,0,.4);
+  --shadow-lg:0 24px 64px rgba(0,0,0,.6);
+  color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0a0a0a; --canvas:#050505; --surface:#121212; --surface-2:#171717; --surface-3:#202020; --hover:#1c1c1c;
-  --ink:#ebebeb; --ink-2:#cacaca; --muted:#959595; --faint:#6a6a6a;
-  --line:#2a2a2a; --line-2:#3a3a3a;
-  --fill:#e6e6e6; --fill-ink:#0a0a0a; --soft:#232323;
-  --paper:#141414; --ai-tint:#1d1d1d; 
-  --hatch:repeating-linear-gradient(-45deg,rgba(255,255,255,.10) 0 2px,transparent 2px 7px);
+  --bg:#141311; --canvas:#0f0e0c; --surface:#1b1a17; --surface-2:#201e1b; --surface-3:#292622; --hover:#24221e;
+  --ink:#ede8de; --ink-2:#cfc8bb; --muted:#9b9385; --faint:#6f685d;
+  --line:#2d2a25; --line-2:#3d3933;
+  --fill:#ede8de; --fill-ink:#171512; --soft:#2a2723;
+  --paper:#1d1b18; --ai-tint:rgba(234,179,8,.07);
+  --accent:#eab308; --accent-ink:#1a1508; --accent-line:var(--accent); --accent-soft:rgba(234,179,8,.22);
+  --hatch:repeating-linear-gradient(-45deg,rgba(237,232,222,.09) 0 2px,transparent 2px 7px);
   --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-  --shadow-page:0 1px 2px rgba(0,0,0,.5),0 10px 30px rgba(0,0,0,.45);
-  --shadow-lg:0 24px 64px rgba(0,0,0,.65);
+  --shadow-page:0 1px 2px rgba(0,0,0,.45),0 10px 30px rgba(0,0,0,.4);
+  --shadow-lg:0 24px 64px rgba(0,0,0,.6);
   color-scheme:dark;
 }
 
@@ -85,9 +89,9 @@ button,input,textarea,select{font:inherit;color:inherit}
 /* ================= CONTROLS ================= */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:9px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:500;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}
 .btn:hover{background:var(--hover);border-color:var(--ink)}
-.btn:focus-visible,.seg button:focus-visible,.chip:focus-visible,.mode:focus-visible,.ni:focus-visible,.tool:focus-visible,.cmd:focus-visible{outline:2px solid var(--accent-line);outline-offset:2px}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
-.btn.primary:hover{filter:brightness(.95)}
+.btn:focus-visible,.seg button:focus-visible,.chip:focus-visible,.mode:focus-visible,.ni:focus-visible,.tool:focus-visible,.cmd:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.btn.primary{background:var(--fill);border-color:var(--fill);color:var(--fill-ink);font-weight:600}
+.btn.primary:hover{opacity:.88}
 .btn[disabled]{opacity:.35;cursor:not-allowed}
 .btn.ghost{background:transparent;border-color:transparent}
 .btn.ghost:hover{background:var(--hover);border-color:transparent}
@@ -159,7 +163,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 /* avatar placeholder (top-right): opens the account menu */
 button.avatar{width:32px;height:32px;padding:0;border:0;background:var(--surface-3);color:var(--ink-2);font:600 13px/1 var(--sans);cursor:pointer}
 button.avatar:hover{background:var(--line)}
-button.avatar:focus-visible{outline:2px solid var(--accent-line);outline-offset:2px}
+button.avatar:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .demo-wrap{position:relative;display:flex;align-items:center;gap:2px;border:1px dashed var(--line-2);border-radius:7px;padding:2px}
 .demo-btn{display:flex;align-items:center;gap:8px;height:26px;border:0;background:transparent;padding:0 8px;border-radius:5px;cursor:pointer;font-size:12.5px;white-space:nowrap}
 .demo-btn:hover,.demo-step:hover{background:var(--hover)}
@@ -355,9 +359,9 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .mode b{font-size:13.5px;font-weight:600;line-height:1.45;padding-right:22px}
 .mode p{font-size:12.5px;color:var(--muted);line-height:1.45}
 .mode .rb{position:absolute;top:12px;right:12px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-2)}
-.mode[aria-checked="true"]{border-color:var(--accent-line);box-shadow:inset 0 0 0 1px var(--accent-line)}
+.mode[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .mode[aria-checked="true"] .mi{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.mode[aria-checked="true"] .rb{border:5px solid var(--accent-line)}
+.mode[aria-checked="true"] .rb{border:4px solid var(--ink);background:var(--accent)}
 .ctx{margin-top:10px;display:grid;gap:10px}
 .pipe{display:grid;gap:0;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--surface-2)}
 .pipe div{display:flex;gap:10px;align-items:center;font-size:12.5px;padding:3px 0;color:var(--ink-2)}
@@ -422,7 +426,7 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .wz button>span{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wz .n{width:17px;height:17px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-size:10px;font-family:var(--mono);flex:none}
 .wz button.done{color:var(--muted)} .wz button.done i{background:var(--ink-2)} .wz button.done .n{border-color:var(--ink-2);color:var(--ink-2)}
-.wz button.cur{color:var(--ink);font-weight:600} .wz button.cur i{background:var(--accent)} .wz button.cur .n{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.wz button.cur{color:var(--ink);font-weight:600} .wz button.cur i{background:var(--ink)} .wz button.cur .n{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .wz button:disabled{cursor:default}
 .wstep h2{font-size:17px;line-height:1.45}
 .wstep .sub{font-size:13px;color:var(--muted);margin:2px 0 16px}
@@ -464,7 +468,7 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 /* co-create: AI asks with a choice card in place of the composer (like Claude Code's planning questions) */
 #coFoot.asking .suggests,#coFoot.asking .composer{display:none}
 #coFoot:not(.done) .suggests{display:none}
-.aq{border:1px solid var(--accent-line);border-radius:10px;padding:12px;display:grid;gap:10px;animation:pop .2s ease}
+.aq{border:1px solid var(--line-2);background:var(--surface);box-shadow:var(--shadow-sm);border-radius:10px;padding:12px;display:grid;gap:10px;animation:pop .2s ease}
 .aq-h{display:flex;align-items:center;gap:8px}
 .aq-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
 .aq-n{margin-left:auto;font-size:11px;color:var(--faint)}
@@ -474,7 +478,7 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .aq-o{display:grid;grid-template-columns:20px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:8px 10px;cursor:pointer;color:var(--ink);width:100%;font:inherit}
 .aq-o:hover,.aq-o:focus-visible,.aq-o:focus-within{border-color:var(--ink);outline:none}
 .aq-o .k{width:20px;height:20px;border-radius:5px;border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
-.aq-o[aria-checked=true]{border-color:var(--accent-line);box-shadow:inset 0 0 0 1px var(--accent-line)}
+.aq-o[aria-checked=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .aq-o[aria-checked=true] .k{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .aq-o b{display:block;font-size:13px;font-weight:600;line-height:1.45}
 .aq-o b em{font-style:normal;font-weight:500;font-size:10.5px;color:var(--muted);margin-left:6px;border:1px solid var(--line-2);border-radius:4px;padding:0 5px;vertical-align:1px}
@@ -657,8 +661,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 .preset b{display:block;font-size:13.5px;font-weight:600}
 .preset small{display:block;font-size:12px;color:var(--muted);margin-top:1px}
 .preset .rb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-2);flex:none}
-.preset[aria-checked=true]{border-color:var(--accent-line);box-shadow:inset 0 0 0 1px var(--accent-line)}
-.preset[aria-checked=true] .rb{border:5px solid var(--accent-line)}
+.preset[aria-checked=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.preset[aria-checked=true] .rb{border:4px solid var(--ink);background:var(--accent)}
 .lblrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .lblrow .seg button{height:28px;padding:0 12px;font-size:12.5px}
 .roles{border:1px solid var(--line);border-radius:8px;overflow:hidden}
