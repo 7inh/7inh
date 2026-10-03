@@ -765,13 +765,15 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .peek-act{position:absolute;top:9px;right:46px;z-index:2;height:32px}
   .ai.has-act .ai-peek .pk{padding-right:128px}
   aside.ai{border-left:0}
-  .nav{top:auto;left:0;right:0;bottom:0;width:auto;height:min(80dvh,660px);border-right:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;transform:translateY(102%);transition:transform .26s cubic-bezier(.2,.8,.2,1),visibility .26s;padding-bottom:env(safe-area-inset-bottom);z-index:120}
-  .nav.open{transform:translateY(var(--drag,0px));box-shadow:0 -12px 40px rgba(0,0,0,.25)}
-  .nav.dragging{transition:none}
-  .navscrim.open{inset:0;z-index:115;background:rgba(0,0,0,.45)}
-  .sheet-grip{display:block;flex:none;padding:8px 0 2px;touch-action:none;cursor:grab}
-  .sheet-grip::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:var(--line-2);margin:0 auto}
-  .nav-h{padding:6px 10px 10px 16px;border-bottom:1px solid var(--line);touch-action:none}
+  /* chapter list: a left drawer 90% wide that PUSHES the page and the AI sheet to the right (not an overlay).
+     PORT(React): animate one shared offset (menu translateX + content translate) so drag and tap stay in sync. */
+  .nav{touch-action:pan-y;top:0;left:0;right:auto;bottom:0;width:90vw;height:auto;border-right:1px solid var(--line);border-top:0;border-radius:0;transform:translateX(-100%);transition:transform .28s cubic-bezier(.2,.8,.2,1),visibility .28s;padding-bottom:env(safe-area-inset-bottom);z-index:120}
+  .canvas,aside.ai{transition:translate .28s cubic-bezier(.2,.8,.2,1),transform .26s cubic-bezier(.2,.8,.2,1)}
+  body.nav-open .canvas,body.nav-open aside.ai{translate:calc(90vw + var(--navdrag,0px)) 0}
+  body.nav-dragging .canvas,body.nav-dragging aside.ai,body.nav-dragging .nav{transition:none}
+  .nav.open{transform:translateX(var(--navdrag,0px));box-shadow:none}
+  .navscrim.open{inset:0 0 0 90vw;z-index:115;background:rgba(20,16,10,.12)}
+  .nav-h{padding:12px 10px 10px 16px;border-bottom:1px solid var(--line);touch-action:pan-y}
   .nav-h h4{font-size:15px}
   .nav-h .mono{display:none}
   .sheet-sub{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
@@ -871,7 +873,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 
   <!-- ============ LEFT: outline (Arc → Chương) ============ -->
   <aside class="nav" id="nav" aria-label="Dàn ý phân tầng">
-    <div class="sheet-grip" id="sheetGrip" aria-hidden="true"></div>
     <div class="nav-h" id="navHead"><div style="min-width:0"><h4>Dàn ý</h4><span class="sheet-sub" id="sheetSub">Arc › Chương</span></div><span class="tiny faint spacer mono">Arc › Chương</span><button class="btn ghost icon sheet-x" id="sheetX" aria-label="Đóng dàn ý"><svg class="i"><use href="#i-x"/></svg></button></div>
     <div class="nav-b" id="navList">
       <div class="arc"><b>Arc 1</b><span class="an">Vọng Nguyệt Lâu</span><span class="tag badge b-mute">chương gốc</span></div>
@@ -1570,20 +1571,20 @@ const isSheet = () => matchMedia('(max-width:899px)').matches;
 const openNav = () => {
   if (isSheet() && typeof setView === 'function') setView('canvas');
   const nav = $('#nav'); nav.style.removeProperty('--drag');
-  nav.classList.add('open'); $('#navScrim').classList.add('open');
+  nav.classList.add('open'); $('#navScrim').classList.add('open'); document.body.classList.add('nav-open');
   $('#sheetSub').textContent = 'Đang mở: ' + DOCS[curDoc].t;
   const cur = $('.ni[aria-current="true"]', nav); if (cur) cur.scrollIntoView({ block: 'center' });
   if (isSheet()) setTimeout(() => $('#sheetX').focus({ preventScroll: true }), 260);
 };
-const closeNav = () => { const nav = $('#nav'); nav.classList.remove('open'); nav.style.removeProperty('--drag'); $('#navScrim').classList.remove('open'); };
+const closeNav = () => { const nav = $('#nav'); nav.classList.remove('open'); document.body.style.removeProperty('--navdrag'); document.body.classList.remove('nav-open'); $('#navScrim').classList.remove('open'); };
 $('#sheetX').onclick = closeNav;
-/* drag the sheet down to dismiss */
+/* mobile: swipe the drawer (or the pushed-aside strip) left to close */
 (() => {
-  const nav = $('#nav'); let y0 = null, dy = 0;
-  const down = e => { if (!isSheet() || e.target.closest('button')) return; y0 = e.clientY; dy = 0; nav.classList.add('dragging'); e.currentTarget.setPointerCapture(e.pointerId); };
-  const move = e => { if (y0 === null) return; dy = Math.max(0, e.clientY - y0); nav.style.setProperty('--drag', dy + 'px'); };
-  const up = () => { if (y0 === null) return; nav.classList.remove('dragging'); y0 = null; if (dy > 90) closeNav(); else nav.style.removeProperty('--drag'); };
-  ['#sheetGrip', '#navHead'].forEach(s => { const el = $(s); el.addEventListener('pointerdown', down); el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); });
+  const nav = $('#nav'), b = document.body; let x0 = null, dx = 0;
+  const down = e => { if (!isSheet() || !b.classList.contains('nav-open') || e.target.closest('button')) return; x0 = e.clientX; dx = 0; b.classList.add('nav-dragging'); e.currentTarget.setPointerCapture(e.pointerId); };
+  const move = e => { if (x0 === null) return; dx = Math.min(0, e.clientX - x0); b.style.setProperty('--navdrag', dx + 'px'); };
+  const up = () => { if (x0 === null) return; b.classList.remove('nav-dragging'); x0 = null; if (dx < -80) closeNav(); else b.style.removeProperty('--navdrag'); };
+  [nav, $('#navScrim')].forEach(el => { el.addEventListener('pointerdown', down); el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); });
 })();
 $('#navBtn').onclick = openNav; $('#navScrim').onclick = closeNav;
 /* mobile: AI panel is a bottom sheet; 'ai' opens it, 'canvas' folds it to the peek bar */
