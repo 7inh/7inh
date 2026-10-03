@@ -187,7 +187,7 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .fbbox{display:flex;align-items:flex-end;gap:8px;width:100%}
 .fbpill{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 10px 0 14px;border:0;background:transparent;border-radius:999px;cursor:pointer;font-size:13px;font-weight:500;color:var(--ink)}
 .fbpill:hover{background:var(--hover)}
-.pop{position:fixed;z-index:125;min-width:230px;max-width:calc(100vw - 16px);background:var(--surface);border:1px solid var(--line-2);border-radius:10px;box-shadow:var(--shadow-lg);padding:5px}
+.pop{position:fixed;z-index:125;max-height:calc(100dvh - 16px);overflow:auto;min-width:230px;max-width:calc(100vw - 16px);background:var(--surface);border:1px solid var(--line-2);border-radius:10px;box-shadow:var(--shadow-lg);padding:5px}
 .pi{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;border:0;background:transparent;text-align:left;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--ink)}
 .pi:hover,.pi:focus-visible{background:var(--hover);outline:none}
 .pi.danger{font-weight:600}
@@ -390,6 +390,32 @@ body.focus .ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{display:
 .plan li.now{font-weight:600}
 .plan li.now .n{color:var(--ink)}
 .plan .foot{font-size:12px;color:var(--muted);padding-top:10px;display:flex;gap:6px;align-items:center}
+/* dailies card */
+.dailies{position:absolute;top:94px;right:16px;width:min(360px,calc(100% - 32px));background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow-lg);padding:14px 16px 12px;z-index:8;display:grid;gap:8px;animation:pop .2s ease}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}}
+.dailies .hd{display:flex;align-items:center;gap:8px}
+.dailies .hd b{font-size:14px}
+.dailies .kv{padding:5px 0;font-size:12.5px}
+.dailies .kv b{font-weight:500;text-align:right;max-width:66%}
+.dailies .q{font-size:12.5px;color:var(--ink-2);border-left:2px solid var(--ink);padding:4px 10px;background:var(--surface-2);font-family:var(--serif)}
+/* reader pager */
+.pager{max-width:var(--pw,760px);margin:14px auto 0;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.pager .btn{max-width:42%;overflow:hidden;text-overflow:ellipsis}
+.pager .pos{margin:0 auto;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+/* attachments */
+.atts{display:flex;gap:6px;flex-wrap:wrap}
+.atts:empty{display:none}
+.att{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 6px 0 9px;border:1px solid var(--line-2);border-radius:6px;font-size:12px;background:var(--surface-2);max-width:100%}
+.att span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.att .mono{color:var(--faint)}
+.att button{border:0;background:none;cursor:pointer;color:var(--muted);padding:0 2px;display:grid}
+.msg .att{margin-top:6px}
+/* diag */
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.find{display:grid;gap:4px;padding:10px 0;border-bottom:1px solid var(--line)}
+.find:last-child{border-bottom:0}
+.find .row{font-size:13px;font-weight:600}
+.find p{font-size:12.5px;color:var(--muted);line-height:1.55}
 /* start wizard */
 .wz{flex:none;display:flex;gap:8px;padding:10px 14px 12px;border-bottom:1px solid var(--line)}
 .wz button{flex:1;display:grid;gap:7px;border:0;background:none;padding:0;cursor:pointer;text-align:left;color:var(--faint);font-size:12px;font-weight:500;min-width:0}
@@ -629,6 +655,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .ws{grid-template-columns:minmax(0,1fr)}
   #aiTog,#focusBtn{display:none}
   .suggests .chip .mono{display:none}
+  .dgrid{grid-template-columns:1fr}
+  .dailies{top:auto;bottom:120px}
   /* AI panel = bottom sheet with a peek bar */
   .ai{position:fixed;left:0;right:0;bottom:0;height:min(84dvh,720px);z-index:90;border-left:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;box-shadow:0 -10px 32px rgba(0,0,0,.14);transform:translateY(calc(100% - 52px));transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .ws.ai-off>.ai{display:flex}
@@ -735,6 +763,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
   <symbol id="i-width" viewBox="0 0 24 24"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M21 12.5l-8.5 8.5a5 5 0 0 1-7-7L14 5.5a3.5 3.5 0 0 1 5 5L10.5 19a2 2 0 0 1-3-3L15 8.5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
   <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 21h14"/></symbol>
 </svg>
 
@@ -743,12 +773,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <span class="logo" title="Cầu Truyện" aria-label="Cầu Truyện"><svg class="i"><use href="#i-logo"/></svg></span>
   <span class="story-t" title="Tuyết Lạc Vọng Nguyệt Lâu · Xưởng viết AI">Tuyết Lạc Vọng Nguyệt Lâu</span>
   <div class="spacer"></div>
-  <div class="demo-wrap">
-    <button class="demo-step" id="demoPrev" aria-label="Trạng thái trước"><svg class="i"><use href="#i-left"/></svg></button>
-    <button class="demo-btn" id="demoBtn" aria-haspopup="true" aria-expanded="false"><span class="tag">DEMO</span><span class="cur" id="demoCur">Bắt đầu phiên</span><svg class="i sm"><use href="#i-down"/></svg></button>
-    <button class="demo-step" id="demoNext" aria-label="Trạng thái sau"><svg class="i"><use href="#i-right"/></svg></button>
-    <div class="demo-menu hidden" id="demoMenu" role="menu"></div>
-  </div>
   <div class="credit" title="Số dư credit"><svg class="i"><use href="#i-coin"/></svg><b class="num" id="hdrCredit">1.240</b><span class="muted unit">credit</span><span class="delta num" id="hdrDelta">−3</span></div>
   <button class="btn ghost icon" id="topMore" aria-label="Thêm" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
 </header>
@@ -814,6 +838,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
     </div>
     <div class="banner hidden" id="banner"></div>
     <div class="stage" id="stage">
+      <nav class="pager hidden" id="pager" aria-label="Chuyển chương" style="order:2"></nav>
       <article class="page" data-page="c1"><div class="ed" contenteditable="true" spellcheck="false"><h1>Tuyết đầu mùa</h1><div class="doc-meta" contenteditable="false">Chương 1 · Arc 1 · của bạn</div><p>Tuyết đầu mùa năm ấy rơi sớm hơn mọi năm. Lục Vãn Ca mười hai tuổi, đứng dưới mái hiên Vọng Nguyệt Lâu, đếm từng bông tuyết đậu trên vai sư phụ.</p><p>Bạch Uyên không nói gì. Ông chỉ đưa cho nàng một thanh kiếm gỗ, rồi quay lưng đi vào màn trắng.</p></div></article>
       <article class="page" data-page="c2"><div class="ed" contenteditable="true" spellcheck="false"><h1>Vết sẹo</h1><div class="doc-meta" contenteditable="false">Chương 2 · Arc 1 · của bạn</div><p>Vết thương ở cổ tay lành rất chậm. Tiểu Đào bảo đó là vì nàng cứ lén tập kiếm ban đêm.</p><p>Tạ Trầm băng bó cho nàng mà không hỏi một câu. Nàng nhớ mãi bàn tay hắn lạnh như nước giếng.</p></div></article>
       <article class="page" data-page="c3"><div class="ed" contenteditable="true" spellcheck="false"><h1>Ly Sơn không mưa</h1><div class="doc-meta" contenteditable="false">Chương 3 · Arc 1 · của bạn</div><p>Ba tháng liền Ly Sơn không có lấy một giọt mưa. Mặt hồ dưới chân núi rút xuống, để lộ những phiến đá phủ rêu chưa ai từng thấy.</p><p>Đêm ấy sư phụ ném nửa thanh Tuyết Lạc xuống đáy hồ.</p></div></article>
@@ -842,6 +867,19 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div id="c9Empty" class="nextph" style="margin-top:8px"><span class="gi"><svg class="i"><use href="#i-clock"/></svg></span><div><b>Chưa viết</b>Chấp bút sẽ viết chương này sau khi chốt chương 8. Dàn ý: Tạ Trầm đọc lá thư của Bạch Uyên và biết nàng là ai.</div></div>
         <div id="c9Body" class="hidden"><p>Lá thư nằm trong hộp gỗ đàn hương, dưới lớp lụa đã ngả màu. Tạ Trầm mở nó vào lúc gà gáy canh tư, khi Vãn Ca còn ngủ say ở gian bên.</p><p>«Trầm nhi, nếu con đọc được những dòng này, nghĩa là con bé đã trở về…»</p></div>
       </div></article>
+    </div>
+    <div class="dailies hidden" id="dailies" role="dialog" aria-labelledby="dlT">
+      <div class="hd"><span class="lbl">Bảng công · vừa chốt</span><button class="btn ghost icon sm spacer" id="dlX" aria-label="Đóng" style="width:28px"><svg class="i sm"><use href="#i-x"/></svg></button></div>
+      <b id="dlT" style="font-size:15px">Chương 7 · Ba năm sau</b>
+      <div>
+        <div class="kv"><span>Hook cuối chương</span><b>«Nghe nói ở bến Vọng Nguyệt có người chèo đò đêm?»</b></div>
+        <div class="kv"><span>Căng thẳng</span><b>8/10 · ▲ +2 so với ch.6</b></div>
+        <div class="kv"><span>Tuyến phục bút mở</span><b>4</b></div>
+        <div class="kv"><span>Thẩm định</span><b>Đạt · 8,6/10</b></div>
+      </div>
+      <div class="q">«Quán trà dưới chân núi giờ do Tiểu Đào trông coi…» — đoạn giới thiệu hơi dài, nhịp chậm ở đầu chương.</div>
+      <div class="kv" style="border:0"><span>Đang chờ</span><b>Trau chuốt nhịp ch.7 sau khi chốt ch.8</b></div>
+      <div class="row"><button class="btn sm" id="dlRead">Đọc chương 7</button><span class="tiny faint spacer">Tự bật sau mỗi chương</span></div>
     </div>
     <div class="wbar hidden" id="wbar">
       <div class="ticker"><span class="spin" id="tickerSpin"></span><span id="tickerTxt">Chấp bút đang viết chương 8</span><span class="cnt mono" id="fbCnt"></span></div>
@@ -933,6 +971,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="suggests"><button class="chip"><span class="mono">1</span>Thêm một phản diện mới</button><button class="chip"><span class="mono">2</span>Giữ nhịp chậm, tập trung cảm xúc</button><button class="chip"><span class="mono">3</span>Chương 9 nên có cú lật</button><button class="chip"><span class="mono">4</span>Viết theo góc nhìn Tạ Trầm</button></div>
         <div class="composer">
           <textarea rows="1" placeholder="Nói với AI…" aria-label="Tin nhắn"></textarea>
+          <button class="btn icon ghost attach" aria-label="Đính kèm tệp tham khảo" title="Đính kèm tệp (/attach)"><svg class="i"><use href="#i-clip"/></svg></button>
           <button class="btn icon send" aria-label="Gửi"><svg class="i"><use href="#i-send"/></svg></button>
           <button class="btn sm stop hidden"><svg class="i sm"><use href="#i-stop"/></svg>Dừng</button>
         </div>
@@ -946,6 +985,9 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <div class="ai-tabs"><div class="seg" role="tablist" id="wTabs"><button role="tab" aria-selected="false" data-t="plan">Dàn ý</button><button role="tab" aria-selected="false" data-t="dash">Điều khiển</button><button role="tab" aria-selected="false" data-t="ledger">Bảng công</button><button role="tab" aria-selected="true" data-t="prog">Hoạt động</button></div></div>
       <div class="ai-b hidden" data-tp="plan"><ol class="plan" id="planList"></ol></div>
       <div class="ai-b" data-tp="prog">
+        <div class="blk hidden" id="steerQ"><div class="sect-l"><span class="lbl">Góp ý đang chờ</span><span class="badge b-solid spacer" id="steerN">0</span></div><div class="fs" id="steerList"></div></div>
+        <div class="blk" id="rewriteQ"><div class="sect-l"><span class="lbl">Hàng đợi viết lại</span><span class="badge b-hatch spacer">1</span></div>
+          <div class="fs"><div class="fs-i"><div><div class="tt">Chương 7 · trau chuốt</div><div class="ds">Nhịp: đoạn mở đầu kéo dài · sau khi chốt ch.8</div></div><span class="badge b-line">Chờ</span></div></div></div>
         <div class="blk">
           <div class="sect-l"><span class="lbl">Tác tử</span><span class="spacer tiny muted">luồng · <b id="flowNow" style="color:var(--ink)">đang viết</b></span></div>
           <div class="agent"><i class="rg dieu"></i><div><div class="n">Điều phối <span class="mono">trọng tài</span></div><div class="d">chờ báo cáo biên tập ch.7</div></div><span class="st">chờ</span></div>
@@ -1011,6 +1053,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         </div>
       </div>
       <div class="ai-b hidden" data-tp="ledger">
+        <button class="btn sm block" id="openDailies" style="margin-bottom:12px">Bảng công chương vừa chốt</button>
         <div class="ledg">
           <div class="hd"><b>Chương 7 · Ba năm sau</b><span class="badge b-line spacer">Đạt</span><span class="score">8,6<small>/10</small></span></div>
           <p class="small muted">Vãn Ca trở lại Ly Sơn dưới tên giả. Tiểu Đào nhận ra nàng qua cách cầm chén trà. Kết bằng tin đồn về người chèo đò ở bến Vọng Nguyệt.</p>
@@ -1052,6 +1095,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="suggests"><button class="chip">Cắt cảnh thuyền ngắn lại</button><button class="chip">Cho Tạ Trầm nghi ngờ sớm hơn</button><button class="chip">Thêm hồi ức về sư phụ</button></div>
         <div class="composer">
           <textarea rows="1" placeholder="Muốn đổi gì ở phần còn lại?" aria-label="Tin nhắn"></textarea>
+          <button class="btn icon ghost attach" aria-label="Đính kèm tệp tham khảo" title="Đính kèm tệp (/attach)"><svg class="i"><use href="#i-clip"/></svg></button>
           <button class="btn icon send" aria-label="Gửi"><svg class="i"><use href="#i-send"/></svg></button>
           <button class="btn sm stop hidden"><svg class="i sm"><use href="#i-stop"/></svg>Dừng</button>
         </div>
@@ -1191,6 +1235,43 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   </div>
 </div>
 
+<div class="scrim hidden" id="diagScrim">
+  <div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="diagT">
+    <div class="dh row"><div class="grow"><h2 id="diagT">Báo cáo chẩn đoán</h2><p class="small muted">Kiểm tra quy trình, chất lượng, quy hoạch và ngữ cảnh của truyện.</p></div><button class="btn ghost icon" data-close-diag aria-label="Đóng"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="db">
+      <div><div class="lbl" style="margin-bottom:4px">Tổng quan</div>
+        <div class="dgrid">
+          <div class="kv"><span>Bắt đầu</span><b>03/10 09:12</b></div><div class="kv"><span>Hoạt động gần nhất</span><b>vừa xong</b></div>
+          <div class="kv"><span>Chương</span><b>9 · 6 gốc + 3 AI</b></div><div class="kv"><span>Tổng chữ</span><b class="num">22.056</b></div>
+          <div class="kv"><span>Giai đoạn</span><b>Sáng tác · đang viết</b></div><div class="kv"><span>Phục bút đang mở</span><b>4</b></div>
+          <div class="kv"><span>Đánh giá · viết lại</span><b>7 · 1</b></div><div class="kv"><span>Điểm trung bình</span><b>8,6</b></div>
+        </div></div>
+      <div><div class="lbl" style="margin-bottom:2px">Phát hiện · 4</div>
+        <div class="find"><div class="row"><span class="badge b-solid">Quy hoạch</span>Phục bút «vết sẹo trên cổ tay» đình trệ<span class="badge b-hatch spacer">Vừa</span></div><p>Bằng chứng: gieo ở ch.2, không được nhắc lại từ ch.3 đến ch.8.</p></div>
+        <div class="find"><div class="row"><span class="badge b-line">Chất lượng</span>Tiêu chí «nhịp» thấp nhất ở ch.7<span class="badge b-dash spacer">Thấp</span></div><p>Bằng chứng: 7,8/10 — đoạn mở đầu ch.7 kéo dài 3 câu giới thiệu.</p></div>
+        <div class="find"><div class="row"><span class="badge b-line">Ngữ cảnh</span>Đang dùng 62% ngữ cảnh<span class="badge b-dash spacer">Thấp</span></div><p>Chưa cần nén. Tóm tắt 2 tầng: 3 chương gần nhất · 2 arc.</p></div>
+        <div class="find"><div class="row"><span class="badge b-line">Quy trình</span>Không có lỗi lặp lại<span class="badge b-mute spacer">Ổn</span></div><p>1 lần chạm giới hạn tốc độ model, đã tự thử lại thành công.</p></div>
+      </div>
+      <p class="tiny muted">Đã tạo bản xuất ẩn danh <span class="mono">diag-export.md</span> — không chứa nội dung truyện, gửi cho hỗ trợ khi cần.</p>
+    </div>
+    <div class="df"><button class="btn" id="diagDl"><svg class="i"><use href="#i-export"/></svg>Tải bản xuất</button><button class="btn primary" data-close-diag>Đóng</button></div>
+  </div>
+</div>
+
+<div class="scrim hidden" id="expScrim">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="expT">
+    <div class="dh row"><div class="grow"><h2 id="expT">Xuất bản thảo</h2><p class="small muted">Chạy nền · kết quả hiện trong diễn biến.</p></div><button class="btn ghost icon" data-close-exp aria-label="Đóng"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="db">
+      <div class="field"><label>Định dạng</label><div class="seg" id="expFmt" style="width:max-content"><button aria-pressed="false">TXT</button><button aria-pressed="true">EPUB</button></div></div>
+      <div class="field"><label>Khoảng chương</label><div class="row"><span class="small muted">Từ</span><select class="input" id="expFrom" style="width:110px"></select><span class="small muted">đến</span><select class="input" id="expTo" style="width:110px"></select></div></div>
+      <div class="togg"><div><b>Gồm bản nháp AI chưa duyệt</b><span>Bản xuất chỉ để bạn đọc riêng, không ảnh hưởng truyện đã đăng.</span></div><label class="switch"><input type="checkbox" id="expDraft" checked></label></div>
+      <div class="togg"><div><b>Ghi đè tệp đã xuất trước đó</b><span>Tắt thì tạo tệp mới kèm thời gian.</span></div><label class="switch"><input type="checkbox" id="expOver"></label></div>
+      <p class="tiny muted">Tệp: <span class="mono" id="expName"></span></p>
+    </div>
+    <div class="df"><button class="btn" data-close-exp>Huỷ</button><button class="btn primary" id="expGo"><svg class="i"><use href="#i-export"/></svg>Xuất</button></div>
+  </div>
+</div>
+
 <div class="scrim hidden" id="cfScrim">
   <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="cfTitle">
     <div class="dh"><h2 id="cfTitle"></h2></div>
@@ -1232,7 +1313,7 @@ function popMenu(btn, items) {
   let top = r.bottom + 6; if (top + h > innerHeight - 8) top = Math.max(8, r.top - h - 6);
   pop.style.left = left + 'px'; pop.style.top = top + 'px';
   popOwner = btn; btn.setAttribute('aria-expanded', 'true');
-  pop.onclick = e => { const b = e.target.closest('.pi'); if (!b) return; const it = items[+b.dataset.i]; closePop(); it.run(); };
+  pop.onclick = e => { const b = e.target.closest('.pi'); if (!b) return; const it = items[+b.dataset.i]; closePop(); setTimeout(it.run, 0); };
   setTimeout(() => { const f = pop.querySelector('.pi'); f && f.focus(); }, 0);
 }
 document.addEventListener('click', e => { if (popOwner && !pop.contains(e.target) && !popOwner.contains(e.target)) closePop(); });
@@ -1245,7 +1326,7 @@ function spend(n) {
   const d = $('#hdrDelta'); d.textContent = '−' + fmt(n); d.classList.add('show');
   clearTimeout(spend.t); spend.t = setTimeout(() => d.classList.remove('show'), 1100);
 }
-function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 2400); }
+function toast(t, ms = 2400) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), ms); }
 
 /* ================= DOCUMENTS / CANVAS ================= */
 const DOCS = {
@@ -1285,7 +1366,7 @@ function openDoc(id, opts = {}) {
   else if (id === 'cmp') sub = 'Kiến trúc sư giữ · bạn sửa được';
   else sub = { live: 'Bản nháp AI · đang viết', done: `Bản nháp AI · ${d.w} chữ`, warn: 'Bản nháp AI · viết dở', todo: 'Bản nháp AI · chưa viết' }[chapState[id]];
   $('#docSub').textContent = sub;
-  setSaved(); renderCtl();
+  setSaved(); renderCtl(); if (typeof renderPager === 'function') renderPager();
   if (!opts.keepScroll) $('#stage').scrollTop = id === 'c8' && chapState.c8 === 'live' ? 1e6 : 0;
   closeNav();
   if (opts.toCanvas) setView('canvas');
@@ -1443,6 +1524,7 @@ const states = [
   { id: 'cocreate', n: '2', t: 'Đồng sáng tạo' },
   { id: 'writing', n: '3–4', t: 'Đang viết + bảng phụ' },
   { id: 'editpause', n: '3b', t: 'Tạm dừng để sửa' },
+  { id: 'dailies', n: '3c', t: 'Bảng công sau mỗi chương' },
   { id: 'ask', n: '5', t: 'AI hỏi lại tác giả' },
   { id: 'pause', n: '6', t: 'Tạm dừng để bàn' },
   { id: 'done', n: '8', t: 'Hoàn tất' },
@@ -1452,28 +1534,20 @@ const states = [
   { id: 'error', sub: 'retry', n: '7d', t: 'Lỗi kết nối · đang thử lại' },
 ];
 let sIdx = 0;
-const menu = $('#demoMenu');
-menu.innerHTML = states.map((s, i) => (s.g ? `<div class="grp lbl">${s.g}</div>` : '') + `<button class="demo-item" role="menuitem" data-i="${i}"><span class="n">${s.n}</span><span>${s.t}</span></button>`).join('');
-const toggleMenu = open => { menu.classList.toggle('hidden', !open); $('#demoBtn').setAttribute('aria-expanded', open); };
-$('#demoBtn').onclick = e => { e.stopPropagation(); toggleMenu(menu.classList.contains('hidden')); };
-menu.onclick = e => { const b = e.target.closest('.demo-item'); if (b) { go(+b.dataset.i); toggleMenu(false); } };
-document.addEventListener('click', e => { if (!e.target.closest('.demo-wrap')) toggleMenu(false); });
-$('#demoPrev').onclick = () => go((sIdx - 1 + states.length) % states.length);
-$('#demoNext').onclick = () => go((sIdx + 1) % states.length);
-function go(i) { sIdx = i; show(states[i].id, states[i].sub); }
-function markDemo(name, sub) {
-  const i = states.findIndex(s => s.id === name && (!s.sub || s.sub === sub));
-  if (i >= 0) sIdx = i;
-  $('#demoCur').textContent = states[sIdx].n + ' · ' + states[sIdx].t;
-  $$('.demo-item', menu).forEach(b => b.setAttribute('aria-current', +b.dataset.i === sIdx));
+function go(i) { sIdx = (i + states.length) % states.length; show(states[sIdx].id, states[sIdx].sub); }
+window.mockGo = go;
+function markDemo(name, sub) { const i = states.findIndex(s => s.id === name && (!s.sub || s.sub === sub)); if (i >= 0) sIdx = i; }
+function openStates(btn) {
+  popMenu(btn, states.flatMap((st, i) => [...(st.g && i > 0 ? ['-'] : []), { ic: i === sIdx ? 'check' : 'file', t: st.t, k: st.n, run: () => go(i) }]));
 }
+document.addEventListener('keydown', e => { if (e.altKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { e.preventDefault(); go(sIdx + (e.key === 'ArrowRight' ? 1 : -1)); } });
 
 /* ================= STATE MACHINE ================= */
 function show(name, sub) {
-  closeAsk(true); cfClose(); closeCfg(); closePal(); closePop(); clearInterval(retryTimer);
-  setAiOpen(!['writing', 'ask', 'editpause'].includes(name)); editPaused = false;
+  closeAsk(true); cfClose(); closeCfg(); closePal(); closePop(); closeDiag(); closeExp(); closeDailies(); clearInterval(retryTimer);
+  setAiOpen(!['writing', 'ask', 'editpause', 'dailies'].includes(name)); editPaused = false;
   $('#pauseEditT').textContent = 'Tạm dừng để sửa'; $('#pauseEdit use').setAttribute('href', '#i-pause');
-  const st = (name === 'ask' || name === 'editpause') ? 'writing' : name === 'cfg' ? 'start' : name;
+  const st = (name === 'ask' || name === 'editpause' || name === 'dailies') ? 'writing' : name === 'cfg' ? 'start' : name;
   state = name === 'ask' ? 'ask' : st;
   errSub = sub || 'credit'; needSync = false;
   const cs = {
@@ -1506,6 +1580,8 @@ function show(name, sub) {
   if (name === 'ask') { sim.wait(); openAsk(); }
   if (name === 'cfg') openCfg();
   if (name === 'editpause') setTimeout(() => setEditPause(true), 0);
+  if (name === 'dailies') setTimeout(openDailies, 0);
+  else if (st === 'writing' && !openDailies.auto) { openDailies.auto = true; setTimeout(() => { if (state === 'writing') openDailies(); }, 2600); }
   const pkMap = { start: ['Phiên viết mới', 'off'], cocreate: ['Đồng sáng tạo · trò chuyện với AI', ''], writing: ['Chấp bút · viết chương 8', ''], pause: ['Tạm dừng · bàn hướng đi', 'wait'], done: ['Hoàn tất · 3 chương mới', 'off'] };
   if (name === 'ask') setPeek('AI đang chờ bạn trả lời', 'wait');
   else if (st === 'error') setPeek(errs[errSub].title, errs[errSub].t === 't-err' ? 'bad' : 'wait');
@@ -1670,7 +1746,13 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
     send.classList.remove('hidden'); stop.classList.add('hidden'); typing = null;
     if (onReply) onReply(c, tok.stopped);
   }
-  function submit() { const v = ta.value.trim(); if (!v || typing) return; add('me', esc(v)); ta.value = ''; reply(); }
+  function submit() {
+    const v = ta.value.trim(), box = el.querySelector('.atts'), files = box ? [...box.querySelectorAll('.att')] : [];
+    if ((!v && !files.length) || typing) return;
+    const att = files.map(a => `<div class="att">${ic('clip', 'sm')}<span>${a.dataset.n}</span></div>`).join('');
+    add('me', (v ? esc(v) : '<span class="muted">Đính kèm tệp tham khảo</span>') + att); ta.value = ''; if (box) box.innerHTML = '';
+    reply();
+  }
   send.onclick = submit;
   ta.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
@@ -1790,10 +1872,10 @@ $('#fbSend').onclick = async () => {
   $('#fbInput').value = ''; ticker('Trọng tài đang đánh giá góp ý của bạn…');
   const tl = $('#timeline');
   tl.insertAdjacentHTML('beforeend', `<li class="ev you"><span class="ic">${ic('edit')}</span><div><div class="tt">Bạn can thiệp</div><div class="ts">«${esc(v)}»</div></div></li>`);
-  setFlow('steering'); toast('Trọng tài đang đánh giá góp ý…');
+  setFlow('steering'); steerQueue(true, v); toast('Trọng tài đang đánh giá góp ý…');
   await sleep(1400);
   tl.insertAdjacentHTML('beforeend', `<li class="ev arb"><span class="ic"></span><div><div class="tt">Trọng tài: áp dụng ngay vào luật viết</div><div class="ts">Ảnh hưởng ch.8 (phần chưa viết), ch.9 · không cần viết lại ch.7 <span class="mono">· decisions #9</span></div></div></li>`);
-  setFlow('writing'); ticker(editPaused ? 'Đã tạm dừng · không tốn credit khi chờ' : 'Trọng tài: áp dụng ngay vào luật viết · không cần viết lại ch.7', !editPaused);
+  steerQueue(false); setFlow('writing'); ticker(editPaused ? 'Đã tạm dừng · không tốn credit khi chờ' : 'Trọng tài: áp dụng ngay vào luật viết · không cần viết lại ch.7', !editPaused);
   const pb = tl.closest('.ai-b'); pb.scrollTop = pb.scrollHeight;
 };
 function ticker(t, busy = true) { $('#tickerTxt').textContent = t; $('#tickerSpin').style.visibility = busy ? 'visible' : 'hidden'; }
@@ -1866,9 +1948,10 @@ const CMDS = [
   { k: 'review', ic: 'flag', t: 'Bật/tắt duyệt từng chương', d: 'AI dừng sau mỗi chương chờ bạn', c: '/review', run: () => { cfg.review = !cfg.review; updateStart(); toast(cfg.review ? 'Duyệt từng chương: bật' : 'Duyệt từng chương: tắt'); } },
   { k: 'next', ic: 'arrow', t: 'Cho viết chương tiếp', d: 'Khi đang bật duyệt từng chương', c: '/next', run: () => toast('Chưa có chương nào đang chờ duyệt') },
   { k: 'sync', ic: 'sync', t: 'Đồng bộ chỉnh sửa tay', d: 'Cập nhật dữ kiện sau khi bạn sửa bản nháp', c: '/sync', run: () => doSync() },
-  { k: 'diag', ic: 'pulse', t: 'Chẩn đoán phiên', d: 'Kiểm tra luồng, chất lượng, kế hoạch, ngữ cảnh', c: '/diag', run: () => toast('Chẩn đoán: luồng ổn · ngữ cảnh 62% · 1 phục bút nợ lâu') },
+  { k: 'diag', ic: 'pulse', t: 'Chẩn đoán phiên', d: 'Kiểm tra luồng, chất lượng, kế hoạch, ngữ cảnh', c: '/diag', run: () => openDiag() },
+  { k: 'dailies', ic: 'flag', t: 'Bảng công chương vừa chốt', d: 'Hook, căng thẳng, thẩm định', c: '/dailies', run: () => openDailies() },
   { k: 'cmp', ic: 'compass', t: 'Mở la bàn truyện', d: 'Hướng dài hạn của kiến trúc sư', c: 'la bàn', run: () => openDoc('cmp', { toCanvas: true }) },
-  { k: 'export', ic: 'export', t: 'Xuất bản thảo', d: 'TXT hoặc EPUB, chọn khoảng chương', c: '/export', run: () => toast('Xuất bản thảo (demo)') },
+  { k: 'export', ic: 'export', t: 'Xuất bản thảo', d: 'TXT hoặc EPUB, chọn khoảng chương', c: '/export', run: () => openExp() },
 ];
 let palSel = 0;
 function renderPal() {
@@ -1882,6 +1965,8 @@ function openPal() { $('#palScrim').classList.remove('hidden'); $('#palInput').v
 function closePal() { $('#palScrim').classList.add('hidden'); }
 function runPal(k) { const c = CMDS.find(x => x.k === k); closePal(); c && c.run(); }
 $('#topMore').onclick = e => popMenu(e.currentTarget, [
+  { ic: 'grid', t: 'Xem màn hình mẫu', k: states.length + ' màn', run: () => openStates($('#topMore')) },
+  '-',
   { ic: 'search', t: 'Bảng lệnh', k: '⌘K', desk: true, run: openPal },
   { ic: isDark() ? 'sun' : 'moon', t: isDark() ? 'Giao diện sáng' : 'Giao diện tối', run: toggleTheme },
   '-', { ic: 'user', t: 'Tài khoản & credit', run: () => toast('Mở trang tài khoản (demo)') },
@@ -1890,10 +1975,11 @@ $('#docMore').onclick = e => {
   const it = [];
   if (state === 'writing' || state === 'ask' || state === 'pause' || (state === 'error' && errSub === 'retry')) it.push({ ic: 'stop', t: 'Dừng hẳn, giữ chương đã viết', danger: true, run: confirmStop }, '-');
   if (state === 'done' && needSync) it.push({ ic: 'sync', t: 'Đồng bộ chỉnh sửa', k: '/sync', run: doSync });
-  if (state === 'error') it.push({ ic: 'pulse', t: 'Chẩn đoán phiên', k: '/diag', run: () => toast('Chẩn đoán đã xuất (đã ẩn nội dung truyện)') });
+
   if (['start', 'cocreate', 'writing', 'ask'].includes(state)) it.push({ ic: 'sliders', t: 'Thiết lập phiên', run: openCfg });
   it.push({ ic: 'search', t: 'Tìm trong chương', run: () => toast('Tìm trong chương (demo)') });
-  it.push({ ic: 'export', t: 'Xuất bản thảo', k: '/export', run: () => toast('Xuất bản thảo (demo)') });
+  it.push({ ic: 'export', t: 'Xuất bản thảo', k: '/export', run: () => openExp() });
+  it.push({ ic: 'pulse', t: 'Chẩn đoán phiên', k: '/diag', run: () => openDiag() });
   if (state === 'done') it.push({ ic: 'plus', t: 'Mở phiên mới', run: () => show('start') });
   it.push('-', { ic: 'cmd', t: 'Bảng lệnh', k: '⌘K', desk: true, run: openPal });
   popMenu(e.currentTarget, it);
@@ -1939,8 +2025,10 @@ $('#cfScrim').addEventListener('click', e => { if (e.target.id === 'cfScrim') cf
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (popOwner) { const o = popOwner; closePop(); o.focus(); }
-  else if (!menu.classList.contains('hidden')) toggleMenu(false);
   else if (!$('#palScrim').classList.contains('hidden')) closePal();
+  else if (!$('#diagScrim').classList.contains('hidden')) closeDiag();
+  else if (!$('#expScrim').classList.contains('hidden')) closeExp();
+  else if (!$('#dailies').classList.contains('hidden')) closeDailies();
   else if (!$('#cfScrim').classList.contains('hidden')) cfClose();
   else if (!$('#cfgScrim').classList.contains('hidden')) closeCfg();
   else if (!askScrim.classList.contains('hidden')) { e.preventDefault(); nudge(); }
@@ -1949,7 +2037,7 @@ document.addEventListener('keydown', e => {
   else if (isSheet() && $('#aiPanel').classList.contains('open')) setView('canvas');
 });
 document.addEventListener('focusin', e => {
-  const open = ['#cfScrim', '#cfgScrim', '#palScrim'].map(s => $(s)).find(s => !s.classList.contains('hidden')) || (!askScrim.classList.contains('hidden') ? askScrim : null);
+  const open = ['#cfScrim', '#cfgScrim', '#palScrim', '#diagScrim', '#expScrim'].map(s => $(s)).find(s => !s.classList.contains('hidden')) || (!askScrim.classList.contains('hidden') ? askScrim : null);
   if (open && !open.contains(e.target) && !e.target.closest('.demo-wrap, #themeBtn')) $('button, input', open).focus();
 });
 
@@ -2015,7 +2103,82 @@ function renderError(k) {
 $$('.draft').forEach(b => b.onclick = () => openDoc(b.dataset.doc, { toCanvas: true }));
 $('#newSess').onclick = () => show('start');
 
+/* ================= TUI PARITY: dailies, diag, export, reader, attach, queues ================= */
+function openDailies() { $('#dailies').classList.remove('hidden'); }
+function closeDailies() { $('#dailies').classList.add('hidden'); }
+$('#dlX').onclick = closeDailies;
+$('#dlRead').onclick = () => { closeDailies(); openDoc('c7', { toCanvas: true }); };
+$('#openDailies').onclick = openDailies;
+
+function openDiag() { $('#diagScrim').classList.remove('hidden'); setTimeout(() => $('#diagScrim [data-close-diag]').focus(), 30); }
+function closeDiag() { $('#diagScrim').classList.add('hidden'); }
+$('#diagDl').onclick = () => toast('Đã tải diag-export.md');
+document.addEventListener('click', e => { if (e.target.closest('[data-close-diag]') || e.target.id === 'diagScrim') closeDiag(); if (e.target.closest('[data-close-exp]') || e.target.id === 'expScrim') closeExp(); });
+
+const CH_TITLES = ['Tuyết đầu mùa', 'Vết sẹo', 'Ly Sơn không mưa', 'Gió bấc', 'Lá thư chưa gửi', 'Biệt ly', 'Ba năm sau', 'Đêm trăng ở bến Vọng Nguyệt', 'Tên thật'];
+(() => {
+  const opts = CH_TITLES.map((t, i) => `<option value="${i + 1}">Chương ${i + 1}</option>`).join('');
+  $('#expFrom').innerHTML = opts; $('#expTo').innerHTML = opts;
+})();
+const expFmt = () => $('#expFmt [aria-pressed=true]').textContent.toLowerCase();
+function expName() { const a = +$('#expFrom').value, b = +$('#expTo').value; $('#expName').textContent = `tuyet-lac-vong-nguyet-lau_ch${Math.min(a, b)}-${Math.max(a, b)}${$('#expOver').checked ? '' : '_0310-1442'}.${expFmt()}`; }
+function openExp() {
+  const last = chapState.c9 === 'done' ? 9 : chapState.c8 === 'done' ? 8 : chapState.c7 === 'done' ? 7 : 6;
+  $('#expFrom').value = 1; $('#expTo').value = last; expName();
+  $('#expScrim').classList.remove('hidden'); setTimeout(() => $('#expGo').focus(), 30);
+}
+function closeExp() { $('#expScrim').classList.add('hidden'); }
+$('#expFmt').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; $$('#expFmt button').forEach(x => x.setAttribute('aria-pressed', x === b)); expName(); });
+$('#expScrim').addEventListener('change', expName);
+$('#expGo').onclick = async () => {
+  const name = $('#expName').textContent; closeExp(); toast('Đang xuất nền…');
+  await sleep(1200); toast('Đã xuất ' + name, 3200);
+  $('#timeline').insertAdjacentHTML('beforeend', `<li class="ev done"><span class="ic">${ic('check')}</span><div><div class="tt">Xuất bản thảo · ${expFmt().toUpperCase()}</div><div class="ts mono">${name}</div></div></li>`);
+};
+
+/* reader: previous / next chapter */
+const pager = $('#pager'); $('#stage').appendChild(pager);
+function chapList() { const drafts = !$('#navDrafts').classList.contains('hidden'); return ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', ...(drafts ? ['c7', 'c8', 'c9'] : [])]; }
+function renderPager() {
+  const list = chapList(), i = list.indexOf(curDoc);
+  if (i < 0) { pager.classList.add('hidden'); return; }
+  const prev = list[i - 1], next = list[i + 1];
+  pager.classList.remove('hidden');
+  pager.innerHTML = (prev ? `<button class="btn ghost sm" data-go="${prev}">${ic('left', 'sm')}${CH_TITLES[+prev.slice(1) - 1]}</button>` : '<span></span>') +
+    `<span class="pos">Chương ${i + 1} / ${list.length}</span>` +
+    (next ? `<button class="btn ghost sm" data-go="${next}">${CH_TITLES[+next.slice(1) - 1]}${ic('right', 'sm')}</button>` : '<span></span>');
+}
+pager.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) openDoc(b.dataset.go); });
+document.addEventListener('keydown', e => {
+  if (e.key !== '[' && e.key !== ']') return;
+  const t = e.target; if (t.closest && t.closest('input, textarea, [contenteditable="true"]')) return;
+  const b = pager.querySelector(e.key === '[' ? '[data-go]:first-child' : '[data-go]:last-child'); if (b) b.click();
+});
+
+/* /attach — reference files for co-creation */
+const fileIn = document.createElement('input'); fileIn.type = 'file'; fileIn.multiple = true; fileIn.accept = '.txt,.md,.docx,.pdf'; fileIn.hidden = true; document.body.appendChild(fileIn);
+let attachTarget = null;
+$$('.composer .attach').forEach(btn => {
+  const comp = btn.closest('.composer'); const box = document.createElement('div'); box.className = 'atts'; comp.parentNode.insertBefore(box, comp);
+  btn.onclick = () => { attachTarget = box; fileIn.value = ''; fileIn.click(); };
+});
+function addAttachment(box, name, size) {
+  const kb = size ? Math.max(1, Math.round(size / 1024)) + ' KB' : '';
+  box.insertAdjacentHTML('beforeend', `<span class="att" data-n="${esc(name)}">${ic('clip', 'sm')}<span>${esc(name)}</span><span class="mono">${kb}</span><button aria-label="Bỏ tệp">${ic('x', 'sm')}</button></span>`);
+}
+fileIn.onchange = () => { if (!attachTarget) return; [...fileIn.files].forEach(f => addAttachment(attachTarget, f.name, f.size)); };
+document.addEventListener('click', e => { const x = e.target.closest('.atts .att button'); if (x) x.closest('.att').remove(); });
+
+/* pending steer queue */
+function steerQueue(add, text) {
+  const list = $('#steerList');
+  if (add) list.insertAdjacentHTML('beforeend', `<div class="fs-i"><div><div class="tt">«${esc(text)}»</div><div class="ds">Trọng tài đang đánh giá…</div></div><span class="spin" style="width:12px;height:12px"></span></div>`);
+  else list.firstElementChild && list.firstElementChild.remove();
+  const n = list.children.length; $('#steerN').textContent = n; $('#steerQ').classList.toggle('hidden', !n);
+}
+
 show('start');
+setTimeout(() => toast('Đây là mockup · mở ⋯ góc phải › «Xem màn hình mẫu» để xem các trạng thái', 5200), 600);
 })();
 </script>
 </body>
