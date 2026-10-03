@@ -712,34 +712,31 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 
 <div class="ws" id="ws" data-view="canvas">
 
-  <!-- ============ LEFT: layered outline (Tập → Cung → Chương) ============ -->
+  <!-- ============ LEFT: outline (Arc → Chương) ============ -->
   <aside class="nav" id="nav" aria-label="Dàn ý phân tầng">
     <div class="sheet-grip" id="sheetGrip" aria-hidden="true"></div>
-    <div class="nav-h" id="navHead"><div style="min-width:0"><h4>Dàn ý</h4><span class="sheet-sub" id="sheetSub">Tập › Cung › Chương</span></div><span class="tiny faint spacer mono">Tập › Cung › Chương</span><button class="btn ghost icon sheet-x" id="sheetX" aria-label="Đóng dàn ý"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="nav-h" id="navHead"><div style="min-width:0"><h4>Dàn ý</h4><span class="sheet-sub" id="sheetSub">Arc › Chương</span></div><span class="tiny faint spacer mono">Arc › Chương</span><button class="btn ghost icon sheet-x" id="sheetX" aria-label="Đóng dàn ý"><svg class="i"><use href="#i-x"/></svg></button></div>
     <div class="nav-b" id="navList">
-      <div class="vol">Tập 1 · Ly Sơn<span class="mono spacer">9 ch.</span></div>
-      <div class="arc"><b>Cung 1</b><span class="an">Vọng Nguyệt Lâu</span><span class="tag badge b-mute">của bạn</span></div>
+      <div class="arc"><b>Arc 1</b><span class="an">Vọng Nguyệt Lâu</span><span class="tag badge b-mute">của bạn</span></div>
       <button class="ni" data-doc="c1"><span class="no">01</span><span class="t"><span>Tuyết đầu mùa</span></span><span class="st"></span></button>
       <button class="ni" data-doc="c2"><span class="no">02</span><span class="t"><span>Vết sẹo</span></span><span class="st"></span></button>
       <button class="ni" data-doc="c3"><span class="no">03</span><span class="t"><span>Ly Sơn không mưa</span></span><span class="st"></span></button>
-      <div class="arc"><b>Cung 2</b><span class="an">Biệt ly</span><span class="tag badge b-mute">của bạn</span></div>
+      <div class="arc"><b>Arc 2</b><span class="an">Biệt ly</span><span class="tag badge b-mute">của bạn</span></div>
       <button class="ni" data-doc="c4" id="niC4"><span class="no">04</span><span class="t"><span>Gió bấc</span><small class="hidden">Không đọc được đoạn 12</small></span><span class="st"></span></button>
       <button class="ni" data-doc="c5"><span class="no">05</span><span class="t"><span>Lá thư chưa gửi</span></span><span class="st"></span></button>
       <button class="ni" data-doc="c6"><span class="no">06</span><span class="t"><span>Biệt ly</span></span><span class="st"></span></button>
       <div id="navDrafts">
-        <div class="arc"><b>Cung 3</b><span class="an">Trở về</span><span class="tag badge b-solid">AI · phiên này</span></div>
+        <div class="arc"><b>Arc 3</b><span class="an">Trở về</span><span class="tag badge b-solid">AI · phiên này</span></div>
         <button class="ni" data-doc="c7"><span class="no">07</span><span class="t"><span>Ba năm sau</span><small></small></span><span class="st"></span></button>
         <button class="ni" data-doc="c8"><span class="no">08</span><span class="t"><span>Đêm trăng ở bến Vọng Nguyệt</span><small></small></span><span class="st"></span></button>
         <button class="ni" data-doc="c9"><span class="no">09</span><span class="t"><span>Tên thật</span><small></small></span><span class="st"></span></button>
       </div>
       <div id="navNext">
-        <div class="arc"><b>Cung 3</b><span class="tag badge b-dash">sắp viết</span></div>
+        <div class="arc"><b>Arc 3</b><span class="tag badge b-dash">sắp viết</span></div>
         <button class="ni todo" data-doc="c6"><span class="no">07</span><span class="t"><span>Chương 7</span><small>AI sẽ viết tiếp từ đây</small></span><span class="st"></span></button>
       </div>
-      <div class="arc"><b>Cung 4</b><span class="tag badge b-dash">khung</span></div>
-      <div class="ni skel" aria-disabled="true"><span class="no">··</span><span class="t"><span>Chưa mở rộng</span><small>Kiến trúc sư mở rộng khi xong cung 3</small></span></div>
-      <div class="vol" style="color:var(--muted)">Tập 2 · Bến cũ người xưa<span class="mono spacer">khung</span></div>
-      <div class="ni skel" aria-disabled="true"><span class="no">··</span><span class="t"><span>Chưa mở rộng</span><small>Theo la bàn truyện</small></span></div>
+      <div class="arc"><b>Arc 4</b><span class="tag badge b-dash">khung</span></div>
+      <div class="ni skel" aria-disabled="true"><span class="no">··</span><span class="t"><span>Chưa mở rộng</span><small>Kiến trúc sư mở rộng khi xong arc 3</small></span></div>
 
       <div id="navDocs">
         <div class="nav-g">Tài liệu phiên</div>
@@ -771,26 +768,26 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
     </div>
     <div class="banner hidden" id="banner"></div>
     <div class="stage" id="stage">
-      <article class="page" data-page="c1"><div class="ed" contenteditable="true" spellcheck="false"><h1>Tuyết đầu mùa</h1><div class="doc-meta" contenteditable="false">Chương 1 · Cung 1 · của bạn</div><p>Tuyết đầu mùa năm ấy rơi sớm hơn mọi năm. Lục Vãn Ca mười hai tuổi, đứng dưới mái hiên Vọng Nguyệt Lâu, đếm từng bông tuyết đậu trên vai sư phụ.</p><p>Bạch Uyên không nói gì. Ông chỉ đưa cho nàng một thanh kiếm gỗ, rồi quay lưng đi vào màn trắng.</p></div></article>
-      <article class="page" data-page="c2"><div class="ed" contenteditable="true" spellcheck="false"><h1>Vết sẹo</h1><div class="doc-meta" contenteditable="false">Chương 2 · Cung 1 · của bạn</div><p>Vết thương ở cổ tay lành rất chậm. Tiểu Đào bảo đó là vì nàng cứ lén tập kiếm ban đêm.</p><p>Tạ Trầm băng bó cho nàng mà không hỏi một câu. Nàng nhớ mãi bàn tay hắn lạnh như nước giếng.</p></div></article>
-      <article class="page" data-page="c3"><div class="ed" contenteditable="true" spellcheck="false"><h1>Ly Sơn không mưa</h1><div class="doc-meta" contenteditable="false">Chương 3 · Cung 1 · của bạn</div><p>Ba tháng liền Ly Sơn không có lấy một giọt mưa. Mặt hồ dưới chân núi rút xuống, để lộ những phiến đá phủ rêu chưa ai từng thấy.</p><p>Đêm ấy sư phụ ném nửa thanh Tuyết Lạc xuống đáy hồ.</p></div></article>
-      <article class="page" data-page="c4"><div class="ed" contenteditable="true" spellcheck="false"><h1>Gió bấc</h1><div class="doc-meta" contenteditable="false">Chương 4 · Cung 2 · của bạn</div><p>Gió bấc thổi suốt tháng Chạp. Trong thư phòng, đèn của Bạch Uyên sáng đến gần sáng.</p><p>Vãn Ca bưng trà vào, thấy ông đang viết dở một lá thư, nét chữ run hơn mọi khi.</p><p class="bad hidden" id="badPara" contenteditable="false"><span class="mono">ĐOẠN 12 · ⟨¿¿ ký tự lạ ¿¿⟩</span><br>AI không đọc được đoạn này. Dán lại đoạn văn ngay tại đây rồi bấm «Thử nạp lại» ở bảng bên phải.</p><p>— Con đi ngủ đi, — ông nói, không ngẩng lên.</p></div></article>
-      <article class="page" data-page="c5"><div class="ed" contenteditable="true" spellcheck="false"><h1>Lá thư chưa gửi</h1><div class="doc-meta" contenteditable="false">Chương 5 · Cung 2 · của bạn</div><p>Lá thư được gấp làm tư, đặt dưới nghiên mực. Trên phong bì chỉ có ba chữ: «Gửi Trầm nhi».</p><p>Vãn Ca cầm lên, rồi lại đặt xuống. Có những điều, biết rồi thì không thể không biết.</p></div></article>
-      <article class="page" data-page="c6"><div class="ed" contenteditable="true" spellcheck="false"><h1>Biệt ly</h1><div class="doc-meta" contenteditable="false">Chương 6 · Cung 2 · của bạn · cập nhật 28/09</div><p>Sư phụ mất vào giờ Tý, khi tuyết vừa ngừng rơi. Không ai khóc thành tiếng; cả Vọng Nguyệt Lâu im lặng như thể sợ đánh thức ông.</p><p>Vãn Ca thu dọn hành lý trong một nén nhang. Nàng để lại thanh kiếm gỗ trên bàn, cạnh lá thư chưa gửi, rồi đi xuống núi theo lối mòn phía tây.</p><p>Tạ Trầm đứng ở cổng núi. Hắn không ngăn nàng. Hắn chỉ nói:</p><p>— Đi đường cẩn thận.</p><p>Nàng không quay lại.</p></div>
+      <article class="page" data-page="c1"><div class="ed" contenteditable="true" spellcheck="false"><h1>Tuyết đầu mùa</h1><div class="doc-meta" contenteditable="false">Chương 1 · Arc 1 · của bạn</div><p>Tuyết đầu mùa năm ấy rơi sớm hơn mọi năm. Lục Vãn Ca mười hai tuổi, đứng dưới mái hiên Vọng Nguyệt Lâu, đếm từng bông tuyết đậu trên vai sư phụ.</p><p>Bạch Uyên không nói gì. Ông chỉ đưa cho nàng một thanh kiếm gỗ, rồi quay lưng đi vào màn trắng.</p></div></article>
+      <article class="page" data-page="c2"><div class="ed" contenteditable="true" spellcheck="false"><h1>Vết sẹo</h1><div class="doc-meta" contenteditable="false">Chương 2 · Arc 1 · của bạn</div><p>Vết thương ở cổ tay lành rất chậm. Tiểu Đào bảo đó là vì nàng cứ lén tập kiếm ban đêm.</p><p>Tạ Trầm băng bó cho nàng mà không hỏi một câu. Nàng nhớ mãi bàn tay hắn lạnh như nước giếng.</p></div></article>
+      <article class="page" data-page="c3"><div class="ed" contenteditable="true" spellcheck="false"><h1>Ly Sơn không mưa</h1><div class="doc-meta" contenteditable="false">Chương 3 · Arc 1 · của bạn</div><p>Ba tháng liền Ly Sơn không có lấy một giọt mưa. Mặt hồ dưới chân núi rút xuống, để lộ những phiến đá phủ rêu chưa ai từng thấy.</p><p>Đêm ấy sư phụ ném nửa thanh Tuyết Lạc xuống đáy hồ.</p></div></article>
+      <article class="page" data-page="c4"><div class="ed" contenteditable="true" spellcheck="false"><h1>Gió bấc</h1><div class="doc-meta" contenteditable="false">Chương 4 · Arc 2 · của bạn</div><p>Gió bấc thổi suốt tháng Chạp. Trong thư phòng, đèn của Bạch Uyên sáng đến gần sáng.</p><p>Vãn Ca bưng trà vào, thấy ông đang viết dở một lá thư, nét chữ run hơn mọi khi.</p><p class="bad hidden" id="badPara" contenteditable="false"><span class="mono">ĐOẠN 12 · ⟨¿¿ ký tự lạ ¿¿⟩</span><br>AI không đọc được đoạn này. Dán lại đoạn văn ngay tại đây rồi bấm «Thử nạp lại» ở bảng bên phải.</p><p>— Con đi ngủ đi, — ông nói, không ngẩng lên.</p></div></article>
+      <article class="page" data-page="c5"><div class="ed" contenteditable="true" spellcheck="false"><h1>Lá thư chưa gửi</h1><div class="doc-meta" contenteditable="false">Chương 5 · Arc 2 · của bạn</div><p>Lá thư được gấp làm tư, đặt dưới nghiên mực. Trên phong bì chỉ có ba chữ: «Gửi Trầm nhi».</p><p>Vãn Ca cầm lên, rồi lại đặt xuống. Có những điều, biết rồi thì không thể không biết.</p></div></article>
+      <article class="page" data-page="c6"><div class="ed" contenteditable="true" spellcheck="false"><h1>Biệt ly</h1><div class="doc-meta" contenteditable="false">Chương 6 · Arc 2 · của bạn · cập nhật 28/09</div><p>Sư phụ mất vào giờ Tý, khi tuyết vừa ngừng rơi. Không ai khóc thành tiếng; cả Vọng Nguyệt Lâu im lặng như thể sợ đánh thức ông.</p><p>Vãn Ca thu dọn hành lý trong một nén nhang. Nàng để lại thanh kiếm gỗ trên bàn, cạnh lá thư chưa gửi, rồi đi xuống núi theo lối mòn phía tây.</p><p>Tạ Trầm đứng ở cổng núi. Hắn không ngăn nàng. Hắn chỉ nói:</p><p>— Đi đường cẩn thận.</p><p>Nàng không quay lại.</p></div>
         <div class="nextph" id="ghostNext"><span class="gi"><svg class="i"><use href="#i-sparkle"/></svg></span><div><b>Chương 7 sẽ bắt đầu ở đây</b>AI đọc 6 chương của bạn rồi viết tiếp thành bản nháp. Chương của bạn không bị sửa.</div></div>
       </article>
-      <article class="page" data-page="dir"><div class="ed doc" contenteditable="true" spellcheck="false"><h1>Chỉ thị sáng tác</h1><div class="doc-meta" contenteditable="false"><span class="badge b-line">Tài liệu phiên</span>Cung 3 · chương 7–9 · AI soạn trong lúc trò chuyện, bạn sửa trực tiếp</div>
+      <article class="page" data-page="dir"><div class="ed doc" contenteditable="true" spellcheck="false"><h1>Chỉ thị sáng tác</h1><div class="doc-meta" contenteditable="false"><span class="badge b-line">Tài liệu phiên</span>Arc 3 · chương 7–9 · AI soạn trong lúc trò chuyện, bạn sửa trực tiếp</div>
         <h3>Mục tiêu</h3><p>Vãn Ca và Tạ Trầm gặp lại ở bến Vọng Nguyệt, cùng truy tìm nửa thanh Tuyết Lạc; kết chương 9 bằng việc Tạ Trầm biết thân phận thật của nàng.</p>
         <h3>Giọng văn</h3><p>Chậm, nhiều không khí; thoại ngắn, ẩn ý. Ít giải thích nội tâm trực tiếp.</p>
         <h3>Bắt buộc có</h3><p>Cảnh đêm trăng trên thuyền (ch.8). Hồi ức về sư phụ Bạch Uyên. Tiểu Đào đóng vai trò hài nhẹ.</p>
         <h3>Tránh</h3><p id="dirAvoid">Không để hai người bày tỏ tình cảm rõ ràng trước chương 9.</p>
         <h3>Phục bút cần trả</h3><p>Vết sẹo trên cổ tay Vãn Ca (ch.2) · Lá thư chưa gửi của Bạch Uyên (ch.5) · Nửa thanh Tuyết Lạc dưới đáy hồ (ch.3).</p>
-        <h3>Dàn ý cung 3</h3><p id="dirOutline">Ch.7 «Ba năm sau» — Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng. Ch.8 «Đêm trăng ở bến Vọng Nguyệt» — gặp lại Tạ Trầm, hắn trao nửa thanh kiếm. Ch.9 «Tên thật» — Tạ Trầm đọc lá thư của Bạch Uyên.</p>
+        <h3>Dàn ý arc 3</h3><p id="dirOutline">Ch.7 «Ba năm sau» — Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng. Ch.8 «Đêm trăng ở bến Vọng Nguyệt» — gặp lại Tạ Trầm, hắn trao nửa thanh kiếm. Ch.9 «Tên thật» — Tạ Trầm đọc lá thư của Bạch Uyên.</p>
       </div></article>
-      <article class="page" data-page="cmp"><div class="ed doc" contenteditable="true" spellcheck="false"><h1>La bàn truyện</h1><div class="doc-meta" contenteditable="false"><span class="badge b-line">Kiến trúc sư</span>Hướng dài hạn · dùng khi mở rộng cung và tập mới</div>
+      <article class="page" data-page="cmp"><div class="ed doc" contenteditable="true" spellcheck="false"><h1>La bàn truyện</h1><div class="doc-meta" contenteditable="false"><span class="badge b-line">Kiến trúc sư</span>Hướng dài hạn · dùng khi mở rộng arc mới</div>
         <h3>Đích đến</h3><p>Vãn Ca chấp nhận thân phận truyền nhân Vọng Nguyệt Lâu và tự tay rèn lại Tuyết Lạc — không phải để báo thù, mà để khép lại chuyện cũ của sư phụ.</p>
         <h3>Chủ đề</h3><p>Những điều chưa nói giữa người với người; sự trở về.</p>
-        <h3>Mạch lớn</h3><p>Tập 1: rời đi và trở về. Tập 2: bí mật của Bạch Uyên ở bến cũ. Tập 3: rèn kiếm.</p>
+        <h3>Mạch lớn</h3><p>Arc 1–3: rời đi và trở về. Các arc sau: bí mật của Bạch Uyên ở bến cũ, rồi rèn lại kiếm.</p>
         <h3>Ranh giới</h3><p>Không phép thuật lớn; võ công đời thường. Kết mở về tình cảm.</p>
       </div></article>
       <article class="page" data-page="c7"><div class="ed" spellcheck="false"><h1>Ba năm sau</h1><div class="doc-meta"><span class="badge b-line">Bản nháp AI</span>Chương 7 · 2.410 chữ · biên tập 8,6/10 · đạt</div><p>Ba năm sau, Ly Sơn vẫn vậy, chỉ có người đã khác. Vãn Ca trở về trong bộ áo vải thô của một khách buôn trà, đội nón lá che nửa mặt.</p><p>Quán trà dưới chân núi giờ do Tiểu Đào trông coi. Cô bé năm nào đã thành thiếu nữ, nói nhiều hơn, cười cũng nhiều hơn.</p><p>— Khách quan dùng trà gì? — Tiểu Đào hỏi, rồi khựng lại khi thấy nàng cầm chén bằng ba ngón tay, ngón út hơi cong lên — đúng cái tật sư phụ từng mắng không biết bao lần.</p><p>— Trà nhạt thôi, — Vãn Ca nói. — Nghe nói ở bến Vọng Nguyệt có người chèo đò đêm?</p></div></article>
@@ -901,7 +898,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="blk">
           <div class="sect-l"><span class="lbl">Tác tử</span><span class="spacer tiny muted">luồng · <b id="flowNow" style="color:var(--ink)">đang viết</b></span></div>
           <div class="agent"><i class="rg dieu"></i><div><div class="n">Điều phối <span class="mono">trọng tài</span></div><div class="d">chờ báo cáo biên tập ch.7</div></div><span class="st">chờ</span></div>
-          <div class="agent"><i class="rg kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">đã mở rộng cung 3 · ch.7–9</div></div><span class="st">xong</span></div>
+          <div class="agent"><i class="rg kien"></i><div><div class="n">Kiến trúc sư</div><div class="d">đã mở rộng arc 3 · ch.7–9</div></div><span class="st">xong</span></div>
           <div class="agent on"><i class="rg chap"></i><div><div class="n">Chấp bút</div><div class="d">→ <b>viết chương 8</b></div>
             <div class="steps" id="wSteps"><span class="d">Kế hoạch</span><span class="c">Viết nháp</span><span>Kiểm tra</span><span>Chốt</span></div></div><span class="spin"></span></div>
           <div class="agent on"><i class="rg bien"></i><div><div class="n">Biên tập</div><div class="d">→ <b>kiểm tra nhất quán</b> ch.7</div></div><span class="spin"></span></div>
@@ -912,12 +909,12 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
             <li><details class="grp">
               <summary class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Nạp 6 chương cũ <span class="more">xem 5 bước</span></div><div class="ts">00:00–01:12 · chỉ đọc, không sửa</div></div></summary>
               <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Ghi nhận bản gốc · 14.820 chữ</span></div>
-              <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Tách chương · nhận ra 6 chương, 2 cung</span></div>
+              <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Tách chương · nhận ra 6 chương, 2 arc</span></div>
               <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Phân tích chương 1/6 … 6/6 · nhân vật, sự kiện, mốc thời gian</span></div>
               <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Tổng hợp · tiền đề, nhân vật, luật thế giới, dàn ý, la bàn</span></div>
               <div class="subev"><svg class="i"><use href="#i-check"/></svg><span>Công bố nền móng · sẵn sàng viết</span></div>
             </details></li>
-            <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Kiến trúc sư mở rộng cung 3 · 3 chương</div><div class="ts">01:58 · theo dõi 6 phục bút <span class="mono">· #12</span></div></div></li>
+            <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Kiến trúc sư mở rộng arc 3 · 3 chương</div><div class="ts">01:58 · theo dõi 6 phục bút <span class="mono">· #12</span></div></div></li>
             <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Chấp bút chốt chương 7 · 2.410 chữ</div><div class="ts">04:31 <span class="mono">· #27</span></div></div></li>
             <li class="ev err"><span class="ic"><svg class="i"><use href="#i-alert"/></svg></span><div class="box"><div class="tt">Biên tập: chạm giới hạn tốc độ model</div><div class="ts">04:40 · thử lại 1/7 thành công sau 6 giây · không trừ credit</div></div></li>
             <li class="ev done"><span class="ic"><svg class="i"><use href="#i-check"/></svg></span><div><div class="tt">Biên tập duyệt chương 7 · 8,6/10 · đạt</div><div class="ts">05:02 · 7 tiêu chí, có dẫn chứng</div></div></li>
@@ -929,14 +926,14 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <div class="ai-b hidden" data-tp="dash">
         <div class="blk">
           <div class="sect-l"><span class="lbl">Ngữ cảnh</span><span class="spacer mono tiny" id="ctxPct">62%</span></div>
-          <div class="ctxm"><div class="bar" id="ctxBar"></div><span class="tiny muted">Tóm tắt 3 tầng: chương gần · cung · tập. Tự nén khi vượt 85%.</span></div>
+          <div class="ctxm"><div class="bar" id="ctxBar"></div><span class="tiny muted">Tóm tắt 2 tầng: chương gần · arc. Tự nén khi vượt 85%.</span></div>
         </div>
         <div class="blk">
           <div class="sect-l"><span class="lbl">Sổ phục bút</span><span class="badge b-hatch spacer">3 còn nợ</span></div>
           <div class="fs">
             <div class="fs-i"><div><div class="tt">Nửa thanh Tuyết Lạc dưới đáy hồ</div><div class="ds">Gieo ch.3 · đang trả ở ch.8</div></div><span class="badge b-solid">Đang trả</span></div>
             <div class="fs-i"><div><div class="tt">Lá thư chưa gửi của Bạch Uyên</div><div class="ds">Gieo ch.5 · dự kiến ch.9</div></div><span class="badge b-line">Nợ</span></div>
-            <div class="fs-i"><div><div class="tt">Tiếng sáo ở miếu hoang</div><div class="ds">Gieo ch.4 · dự kiến cung 4</div></div><span class="badge b-line">Nợ</span></div>
+            <div class="fs-i"><div><div class="tt">Tiếng sáo ở miếu hoang</div><div class="ds">Gieo ch.4 · dự kiến arc 4</div></div><span class="badge b-line">Nợ</span></div>
             <div class="fs-i"><div><div class="tt">Vết sẹo trên cổ tay Vãn Ca</div><div class="ds">Gieo ch.2 · 6 chương chưa nhắc</div></div><span class="badge b-hatch">Nợ lâu</span></div>
           </div>
         </div>
@@ -1034,7 +1031,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <div class="ai-b">
         <div class="blk">
           <h2 style="font-size:17px">Đã viết xong 3 chương mới</h2>
-          <p class="small muted" style="margin:2px 0 12px">Cung 3 nằm trong truyện dưới dạng bản nháp, độc giả chưa thấy cho tới khi bạn gửi duyệt.</p>
+          <p class="small muted" style="margin:2px 0 12px">Arc 3 nằm trong truyện dưới dạng bản nháp, độc giả chưa thấy cho tới khi bạn gửi duyệt.</p>
           <div class="stats">
             <div class="stat"><div class="v">3</div><div class="l">chương mới (7–9)</div></div>
             <div class="stat"><div class="v">7.236</div><div class="l">chữ</div></div>
@@ -1060,10 +1057,10 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
           </details>
         </div>
         <div class="blk">
-          <p class="small muted">Kiến trúc sư đã đánh dấu: hết cung 3 → sẵn sàng mở rộng <b style="color:var(--ink)">cung 4</b> theo la bàn truyện.</p>
+          <p class="small muted">Kiến trúc sư đã đánh dấu: hết arc 3 → sẵn sàng mở rộng <b style="color:var(--ink)">arc 4</b> theo la bàn truyện.</p>
         </div>
       </div>
-      <div class="ai-f"><button class="btn block" id="newSess"><svg class="i"><use href="#i-plus"/></svg>Mở phiên mới · cung 4</button></div>
+      <div class="ai-f"><button class="btn block" id="newSess"><svg class="i"><use href="#i-plus"/></svg>Mở phiên mới · arc 4</button></div>
     </section>
   </aside>
 </div>
@@ -1434,7 +1431,7 @@ function banner(tone, icon, html, linkText) {
   if (linkText) $('#bannerLink').onclick = () => setView('ai');
 }
 function statusIdle() {
-  setStatus(si('<span class="pulse off"></span>Chưa chạy') + si('<b>6</b> chương · 2 cung · 14.820 chữ', 'sx') + si(`Số dư <b class="num">${fmt(credit)}</b>`) + si(`Ước tính <b class="num">~${fmt(estOf(cfg))}</b> credit`, 'sx r'));
+  setStatus(si('<span class="pulse off"></span>Chưa chạy') + si('<b>6</b> chương · 2 arc · 14.820 chữ', 'sx') + si(`Số dư <b class="num">${fmt(credit)}</b>`) + si(`Ước tính <b class="num">~${fmt(estOf(cfg))}</b> credit`, 'sx r'));
 }
 let W = { words: 3412, usd: 1.24, ms: 402000, ctx: 62 };
 const FLOW_VI = { writing: 'đang viết', reviewing: 'duyệt', rewriting: 'viết lại', polishing: 'trau chuốt', steering: 'can thiệp' };
@@ -1461,8 +1458,8 @@ drawCtx();
 /* ================= START ================= */
 const modeInfo = {
   cont: { name: 'Viết tiếp từ chương đã có', btn: 'Viết tiếp chương 7', t: 'Có lưu ý gì cho chương 7?', h: 'Không bắt buộc. AI đã đọc 6 chương nên có thể bỏ qua bước này.', ph: 'Ví dụ: chương 7 bắt đầu sau ba năm', v: '', chips: ['Bắt đầu sau ba năm', 'Giữ nhịp chậm', 'Góc nhìn Tạ Trầm', 'Thêm hồi ức về sư phụ'] },
-  co: { name: 'Đồng sáng tạo', btn: 'Bắt đầu trò chuyện', t: 'Bạn muốn bàn điều gì trước?', h: 'Không bắt buộc. AI sẽ hỏi bạn từng ý, rồi soạn «Chỉ thị sáng tác» trên canvas. Mỗi lượt chat trừ 2–5 credit.', ph: 'Ví dụ: mình muốn cung tiếp theo xoay quanh cuộc gặp lại…', v: '', chips: ['Cuộc gặp lại', 'Một phản diện mới', 'Cú lật cuối cung'] },
-  quick: { name: 'Bắt đầu nhanh', btn: 'Lên dàn ý và viết', t: 'Cung tiếp theo nên thế nào?', h: 'Một câu là đủ. Kiến trúc sư tự lập dàn ý rồi viết luôn.', ph: 'Mô tả yêu cầu…', v: 'Vãn Ca trở lại Ly Sơn sau ba năm, gặp lại Tạ Trầm ở bến Vọng Nguyệt; cuối cung Tạ Trầm biết thân phận thật của nàng.', chips: [] }
+  co: { name: 'Đồng sáng tạo', btn: 'Bắt đầu trò chuyện', t: 'Bạn muốn bàn điều gì trước?', h: 'Không bắt buộc. AI sẽ hỏi bạn từng ý, rồi soạn «Chỉ thị sáng tác» trên canvas. Mỗi lượt chat trừ 2–5 credit.', ph: 'Ví dụ: mình muốn arc tiếp theo xoay quanh cuộc gặp lại…', v: '', chips: ['Cuộc gặp lại', 'Một phản diện mới', 'Cú lật cuối arc'] },
+  quick: { name: 'Bắt đầu nhanh', btn: 'Lên dàn ý và viết', t: 'Arc tiếp theo nên thế nào?', h: 'Một câu là đủ. Kiến trúc sư tự lập dàn ý rồi viết luôn.', ph: 'Mô tả yêu cầu…', v: 'Vãn Ca trở lại Ly Sơn sau ba năm, gặp lại Tạ Trầm ở bến Vọng Nguyệt; cuối arc Tạ Trầm biết thân phận thật của nàng.', chips: [] }
 };
 let mode = 'cont', wStep = 1;
 const notes = { cont: '', co: '', quick: modeInfo.quick.v };
@@ -1519,7 +1516,7 @@ function writeModal(c) {
 function modalChanged() {
   const c = readModal();
   $('#nChapOut').textContent = c.n;
-  $('#nChapHint').textContent = (c.n === 1 ? 'Chương 7' : `Chương 7 → ${6 + c.n}`) + ' · khoảng 3–4 phút mỗi chương' + (c.n > 3 ? ' · kiến trúc sư sẽ mở rộng thêm cung' : '');
+  $('#nChapHint').textContent = (c.n === 1 ? 'Chương 7' : `Chương 7 → ${6 + c.n}`) + ' · khoảng 3–4 phút mỗi chương' + (c.n > 3 ? ' · kiến trúc sư sẽ mở rộng thêm arc' : '');
   $('#cfgEst').textContent = `~${fmt(estOf(c))} credit · ${c.n} chương`;
 }
 $('#styleSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; $$('button', e.currentTarget).forEach(c => c.setAttribute('aria-pressed', c === b)); modalChanged(); });
@@ -1599,14 +1596,14 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
 let coSpent = 9;
 const coChat = makeChat($('#coChat'), {
   history: [
-    ['ai', 'Chào bạn! Mình đã đọc 6 chương — 2 cung. Chương 6 kết ở đêm Vãn Ca rời núi. Cung 3 nên bắt đầu ngay sau đó, hay nhảy thời gian?', 2],
+    ['ai', 'Chào bạn! Mình đã đọc 6 chương — 2 arc. Chương 6 kết ở đêm Vãn Ca rời núi. Arc 3 nên bắt đầu ngay sau đó, hay nhảy thời gian?', 2],
     ['me', 'Nhảy ba năm. Mình muốn cuộc gặp lại với Tạ Trầm thật chậm, không bày tỏ gì cả.'],
     ['ai', 'Hiểu rồi. Mình đặt cuộc gặp ở bến Vọng Nguyệt (chương 8), vì ở chương 3 bạn đã gieo nửa thanh Tuyết Lạc dưới đáy hồ — Tạ Trầm có thể là người vớt nó lên. Đã ghi vào «Chỉ thị sáng tác» trên canvas. Chương 9 có cần một cú lật không?', 4],
     ['me', 'Có, cuối chương 9 Tạ Trầm phải biết nàng là ai.'],
-    ['ai', 'Tốt. Còn một điểm: có điều gì bạn muốn AI tuyệt đối tránh trong cung này không?', 3],
+    ['ai', 'Tốt. Còn một điểm: có điều gì bạn muốn AI tuyệt đối tránh trong arc này không?', 3],
   ],
   replies: [
-    'Đã ghi vào mục «Tránh» trên tài liệu. Mình thấy đã đủ thông tin để kiến trúc sư lập dàn ý cung 3 — bạn có thể sửa chỉ thị trên canvas rồi bấm «Bắt đầu viết».',
+    'Đã ghi vào mục «Tránh» trên tài liệu. Mình thấy đã đủ thông tin để kiến trúc sư lập dàn ý arc 3 — bạn có thể sửa chỉ thị trên canvas rồi bấm «Bắt đầu viết».',
     'Ý hay. Mình đã cập nhật chỉ thị để kiến trúc sư cân nhắc khi lập dàn ý.',
   ],
   onReply: (c, stopped) => {
@@ -1848,10 +1845,10 @@ const errs = {
   load: { t: 't-err', ic: 'book', title: 'Không nạp được chương cũ', bn: ['strong', 'alert', '<b>Không đọc được chương 4, đoạn 12.</b> <span class="txt">Đoạn lỗi được đánh dấu bên dưới — bạn sửa được ngay trên trang.</span>'],
     why: 'Máy chủ truyện trả lỗi định dạng ở chương 4 «Gió bấc», đoạn 12. AI cần đọc đủ 6 chương trước khi viết chương 7 để không lệch nhân vật, nên <b>chưa bắt đầu viết và chưa trừ credit cho bước viết</b>.',
     extra: '<div><div class="lbl" style="margin-bottom:4px">Nạp chương cũ</div><div id="loadSteps"></div></div>', primary: 'Thử nạp lại', secondary: 'Quay lại thiết lập', status: 'Khởi tạo · lỗi phân tích chương 4/6', kept: [], spent: 8, bal: 1232 },
-  engine: { t: 't-info', ic: 'pause', title: 'Engine dừng trước khi viết chương mới', bn: ['', 'pause', '<b>Chưa có chương mới nào được viết.</b> <span class="txt">Dàn ý cung 3 đã lập — chỉnh chỉ thị trên trang rồi viết tiếp.</span>'],
-    why: 'Kiến trúc sư đã lập dàn ý cung 3, nhưng điều phối kết thúc lượt mà chưa giao việc cho chấp bút — thường do yêu cầu còn mơ hồ hoặc dàn ý mâu thuẫn với luật riêng. Đã trừ <b>23 credit</b> cho phân tích và dàn ý.',
+  engine: { t: 't-info', ic: 'pause', title: 'Engine dừng trước khi viết chương mới', bn: ['', 'pause', '<b>Chưa có chương mới nào được viết.</b> <span class="txt">Dàn ý arc 3 đã lập — chỉnh chỉ thị trên trang rồi viết tiếp.</span>'],
+    why: 'Kiến trúc sư đã lập dàn ý arc 3, nhưng điều phối kết thúc lượt mà chưa giao việc cho chấp bút — thường do yêu cầu còn mơ hồ hoặc dàn ý mâu thuẫn với luật riêng. Đã trừ <b>23 credit</b> cho phân tích và dàn ý.',
     extra: '<div class="field"><label for="engReq">Yêu cầu để viết tiếp</label><textarea class="input" id="engReq" rows="3">Viết chương 7 theo dàn ý đã có. Bỏ qua mâu thuẫn về tuổi của Tiểu Đào, lấy theo chương 1.</textarea></div>',
-    primary: 'Viết tiếp', secondary: 'Quay lại thiết lập', status: 'Dàn ý · engine dừng · 0 chương mới', kept: [['Dàn ý cung 3 · ch.7–9', 'Đã lập', 'b-line']], spent: 23, bal: 1217 },
+    primary: 'Viết tiếp', secondary: 'Quay lại thiết lập', status: 'Dàn ý · engine dừng · 0 chương mới', kept: [['Dàn ý arc 3 · ch.7–9', 'Đã lập', 'b-line']], spent: 23, bal: 1217 },
   retry: { t: 't-warn', ic: 'wifi', title: 'Model quá tải · đang thử lại 3/7', bn: ['hatch', 'wifi', '<b>Đang thử lại 3/7.</b> <span class="txt">Mất kết nối với model khi viết chương 8 — phần đã viết vẫn còn nguyên.</span>'],
     why: 'Chấp bút gặp <b>giới hạn tốc độ của model</b> (hoặc mất kết nối tạm thời). Hệ thống tự thử lại với thời gian chờ tăng dần. Các lần gọi lỗi <b>không bị trừ credit</b>.',
     extra: '<div style="display:grid;gap:8px"><div class="retry"><i class="f"></i><i class="f"></i><i class="a"></i><i></i><i></i><i></i><i></i></div><div class="row small wrap"><span>Lần 3/7 · thử lại sau <b class="num" id="retryCd">12</b> giây</span><span class="spacer mono faint">429 rate_limit</span></div><div class="ls ok"><span class="c">' + ic('check') + '</span>Tiếp tục đúng bước: chương 8 · viết nháp<span class="mono">#41</span></div></div>',
@@ -1870,7 +1867,7 @@ function renderError(k) {
   const P = $('#errPrimary'), S = $('#errSecondary');
   if (k === 'credit') { P.onclick = () => toast('Mở trang credit'); S.onclick = () => show('done'); }
   if (k === 'load') {
-    const stages = [['Ghi nhận bản gốc', '14.820 chữ'], ['Tách chương', '6 chương · 2 cung']];
+    const stages = [['Ghi nhận bản gốc', '14.820 chữ'], ['Tách chương', '6 chương · 2 arc']];
     const chs = ['Tuyết đầu mùa', 'Vết sẹo', 'Ly Sơn không mưa', 'Gió bấc', 'Lá thư chưa gửi', 'Biệt ly'];
     const draw = (upto, bad, run) => {
       let h = stages.map(([a, b]) => `<div class="ls ok"><span class="c">${ic('check')}</span>${a}<span class="mono">${b}</span></div>`).join('');
