@@ -699,7 +699,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 }
 
 /* desktop: session status lives at the bottom of the canvas, like an editor status bar */
-@media (min-width:900px){ .canvas>.sbar{order:10;border-bottom:0;border-top:1px solid var(--line);height:28px} }
+@media (min-width:900px){ .canvas>.sbar{order:10;border-bottom:0;border-top:1px solid var(--line);height:28px} .peek-act{display:none!important} }
 /* ================= RESPONSIVE ================= */
 @media (max-width:899px){
   #fbOpen,#dlChip{display:none!important}
@@ -728,7 +728,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .ws.ai-off>.ai{display:flex}
   aside.ai.open{transform:translateY(var(--drag,0px))}
   aside.ai.dragging{transition:none}
-  aside.ai:not(.open)>*:not(.ai-peek){visibility:hidden}
+  aside.ai:not(.open)>*:not(.ai-peek):not(.peek-act){visibility:hidden}
   .ai-peek{display:flex;flex:none;flex-direction:column;align-items:stretch;gap:4px;border:0;background:transparent;padding:6px 16px 10px;cursor:pointer;touch-action:none;text-align:left;border-bottom:1px solid var(--line)}
   .ai:not(.open) .ai-peek{border-bottom-color:transparent}
   .ai-peek .grip{display:block;width:40px;height:4px;border-radius:2px;background:var(--line-2);margin:0 auto 2px}
@@ -737,6 +737,15 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .ai.open .ai-peek .chev{transform:none}
   .aiscrim.open{display:block;position:fixed;inset:52px 0 0 0;background:rgba(0,0,0,.3);z-index:85}
   .canvas{padding-bottom:52px}
+  /* mobile keeps vertical space for the page: one header row (chapters · title · ⋯), no status row,
+     and while the AI runs the bottom is just the peek bar with a pause action; the note row appears only when paused */
+  .app{grid-template-rows:minmax(0,1fr)}
+  .topbar,.canvas>.sbar,#readBtn,.doc-t>span{display:none}
+  .aiscrim.open{inset:0}
+  .wbar:not(.paused){display:none!important}
+  .banner.pz{display:none}
+  .peek-act{position:absolute;top:9px;right:46px;z-index:2;height:32px}
+  .ai.has-act .ai-peek .pk{padding-right:128px}
   aside.ai{border-left:0}
   .nav{top:auto;left:0;right:0;bottom:0;width:auto;height:min(80dvh,660px);border-right:0;border-top:1px solid var(--line-2);border-radius:14px 14px 0 0;transform:translateY(102%);transition:transform .26s cubic-bezier(.2,.8,.2,1),visibility .26s;padding-bottom:env(safe-area-inset-bottom);z-index:120}
   .nav.open{transform:translateY(var(--drag,0px));box-shadow:0 -12px 40px rgba(0,0,0,.25)}
@@ -788,6 +797,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
   <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
@@ -967,6 +977,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <aside class="ai" id="aiPanel" aria-label="Hồ sơ & AI">
     <div class="ai-rz" id="aiRz" role="separator" aria-orientation="vertical" aria-label="Kéo để đổi độ rộng" title="Kéo để đổi độ rộng · nhấp đúp để đặt lại"></div>
     <button class="ai-peek" id="aiPeek" aria-expanded="false" aria-controls="aiPanel"><span class="grip" aria-hidden="true"></span><span class="pk"><span class="pulse off" id="peekDot"></span><span id="peekTxt">Hồ sơ &amp; AI</span></span><svg class="i chev"><use href="#i-down"/></svg></button>
+    <button class="btn primary sm peek-act hidden" id="peekAct"><svg class="i sm"><use href="#i-pause"/></svg>Tạm dừng</button>
 
     <!-- START -->
     <section data-ai="start">
@@ -1673,8 +1684,9 @@ function show(name, sub) {
   if (name === 'ask') setPeek('AI đang chờ bạn trả lời', 'wait');
   else if (st === 'error') setPeek(errs[errSub].title, errs[errSub].t === 't-err' ? 'bad' : 'wait');
   else setPeek(...pkMap[st]);
-  markDemo(name, sub);
+  markDemo(name, sub); syncPeekAct();
 }
+function syncPeekAct() { const on = state === 'writing' && !editPaused; $('#peekAct').classList.toggle('hidden', !on); aiP.classList.toggle('has-act', on); }
 function banner(tone, icon, html, linkText) {
   const b = $('#banner'); b.className = 'banner ' + tone;
   b.innerHTML = `${ic(icon)}<span>${html}</span>` + (linkText ? `<button class="linkbtn" id="bannerLink">${linkText}</button>` : '');
@@ -2172,12 +2184,12 @@ document.addEventListener('keydown', e => {
   e.preventDefault(); $('#fbInput').focus();
 });
 function setEditPause(on) {
-  editPaused = on; $('#wbar').classList.toggle('paused', on);
+  editPaused = on; syncPeekAct(); $('#wbar').classList.toggle('paused', on);
   $('#fbInput').placeholder = on ? 'Dặn AI khi viết tiếp…' : 'Góp ý cho AI — không cần dừng';
   setFb(on); /* pausing opens the feedback box; resuming closes it */
   if (on) {
     sim.wait(); ticker('Đã tạm dừng · không tốn credit khi chờ', false);
-    banner('hatch', 'edit', '<b>Đã tạm dừng.</b> <span class="txt">Sửa thẳng trên trang rồi bấm «Viết tiếp».</span>');
+    banner('hatch pz', 'edit', '<b>Đã tạm dừng.</b> <span class="txt">Sửa thẳng trên trang rồi bấm «Viết tiếp».</span>');
     $('#pauseEditT').textContent = 'Viết tiếp'; $('#pauseEdit use').setAttribute('href', '#i-play');
     const el = $('#sbFlow'); if (el) el.textContent = 'tạm dừng để sửa';
     $$('#liveZone .caret').forEach(x => x.classList.remove('caret'));
@@ -2190,6 +2202,7 @@ function setEditPause(on) {
   }
   openDoc('c8', { keepScroll: true });
 }
+$('#peekAct').onclick = () => $('#pauseEdit').click();
 $('#pauseEdit').onclick = () => { setEditPause(!editPaused); if (!editPaused) toast('AI đọc lại chỉnh sửa của bạn rồi viết tiếp'); };
 function setFb(open) {
   $('#fbRow').classList.toggle('hidden', !open); $('#fbOpen').setAttribute('aria-expanded', open);
@@ -2281,6 +2294,10 @@ $('#docMore').onclick = e => {
   it.push({ ic: 'pulse', t: 'Chẩn đoán phiên', k: '/diag', run: () => openDiag() });
   if (state === 'done') it.push({ ic: 'plus', t: 'Mở phiên mới', run: () => show('start') });
   it.push('-', { ic: 'cmd', t: 'Bảng lệnh', k: '⌘K', desk: true, run: openPal });
+  if (isSheet()) it.unshift({ ic: 'coin', t: `Số dư ${fmt(credit)} credit`, run: () => toast('Mở trang tài khoản (demo)') }, '-'),
+    it.push('-', { ic: 'type', t: 'Cỡ chữ', run: () => $('#readBtn').onclick({ currentTarget: $('#docMore') }) },
+      { ic: isDark() ? 'sun' : 'moon', t: isDark() ? 'Giao diện sáng' : 'Giao diện tối', run: toggleTheme },
+      { ic: 'grid', t: 'Xem màn hình mẫu', k: states.length + ' màn', run: () => openStates($('#docMore')) });
   popMenu(e.currentTarget, it);
 };
 $('#startMore').onclick = e => popMenu(e.currentTarget, [{ ic: 'clock', t: 'Các phiên trước', k: '4', run: () => showHist(true) }, { ic: 'sliders', t: 'Thiết lập phiên', run: openCfg }]);
