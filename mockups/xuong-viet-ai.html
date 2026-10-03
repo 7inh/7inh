@@ -437,15 +437,13 @@ aside.ai{position:relative;container-type:inline-size;container-name:ap;backgrou
 .wz-f{display:flex;gap:8px}
 .wz-f .primary{flex:1}
 /* chat */
-.chat-log{display:flex;flex-direction:column;gap:16px}
-.msg{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px}
-.msg .av{width:24px;height:24px;border-radius:5px;display:grid;place-items:center;font-size:10px;font-weight:700}
-.msg.ai .av{background:var(--fill);color:var(--fill-ink)}
-.msg.me .av{border:1px solid var(--ink);color:var(--ink)}
-.msg .who{font-size:12px;font-weight:600;display:flex;gap:8px;align-items:center;margin-bottom:1px}
-.msg .who .c{font-weight:400;color:var(--faint);font-size:11px;font-family:var(--mono)}
-.msg .txt{font-size:13.5px;line-height:1.65;color:var(--ink-2)}
-.msg.me .txt{background:var(--surface-3);padding:8px 12px;border-radius:8px;display:inline-block;color:var(--ink)}
+.chat-log{display:flex;flex-direction:column;gap:12px}
+.msg{display:grid;gap:2px}
+.msg.me{justify-items:end}
+.msg .who{font-size:11px;color:var(--faint);font-family:var(--mono)}
+.msg .who:empty{display:none}
+.msg .txt{font-size:13.5px;line-height:1.65;color:var(--ink)}
+.msg.me .txt{background:var(--surface-3);padding:7px 12px;border-radius:12px 12px 4px 12px;max-width:85%}
 .msg .hk{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .dots{display:inline-flex;gap:4px;padding:6px 0}
 .dots i{width:6px;height:6px;border-radius:50%;background:var(--faint);animation:bob 1.2s infinite}
@@ -1020,10 +1018,10 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
       <div class="ai-b hidden" data-sp="hist">
         <button class="btn ghost sm" id="histBack" style="margin:-4px 0 8px -8px"><svg class="i sm"><use href="#i-left"/></svg>Phiên mới</button>
         <div class="sect-l"><span class="lbl">Các phiên trước · 4</span></div>
-        <div class="sess"><span class="t">Viết tiếp · chương 5–6</span><span class="badge b-line">Hoàn tất</span><span class="s">28/09 · 2 chương · 5.120 chữ · 386 credit</span></div>
-        <div class="sess"><span class="t">Đồng sáng tác · ngoại truyện</span><span class="badge b-mute">Đã bỏ</span><span class="s">21/09 · bàn 9 lượt, chưa viết · 31 credit</span></div>
-        <div class="sess"><span class="t">Viết tiếp ngay · chương 4</span><span class="badge b-hatch">Đã dừng</span><span class="s">17/09 · 1 chương · 171 credit</span></div>
-        <div class="sess"><span class="t">Viết tiếp · chương 4</span><span class="badge b-solid">Lỗi</span><span class="s">12/09 · không nạp được chương 2 · 8 credit</span></div>
+        <div class="sess"><span class="t">Viết tiếp · chương 5–6</span><span class="badge b-line">Hoàn tất</span><span class="s">28/09 · 2 chương · 5.120 chữ</span></div>
+        <div class="sess"><span class="t">Đồng sáng tác · ngoại truyện</span><span class="badge b-mute">Đã bỏ</span><span class="s">21/09 · bàn 9 lượt, chưa viết</span></div>
+        <div class="sess"><span class="t">Viết tiếp ngay · chương 4</span><span class="badge b-hatch">Đã dừng</span><span class="s">17/09 · 1 chương</span></div>
+        <div class="sess"><span class="t">Viết tiếp · chương 4</span><span class="badge b-solid">Lỗi</span><span class="s">12/09 · không nạp được chương 2</span></div>
       </div>
       <div class="ai-f wz-f" data-sp="new">
         <button class="btn ghost" id="wzBack"><svg class="i"><use href="#i-left"/></svg>Quay lại</button>
@@ -1034,7 +1032,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
     <!-- CO-CREATE -->
     <section data-ai="cocreate" class="hidden" id="coChat">
       <div class="ai-h"><span class="ai-mark"><svg class="i sm"><use href="#i-chat"/></svg></span><h3>Đồng sáng tác</h3>
-        <span class="tiny muted spacer mono"><b id="coSpent">0</b> cr</span>
       </div>
       <div class="ai-b"><div class="chat-log" aria-live="polite"></div></div>
       <div class="ai-f" id="coFoot">
@@ -1053,7 +1050,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 
     <!-- PLANNING (quick start) -->
     <section data-ai="planning" class="hidden">
-      <div class="ai-h"><span class="ai-mark"><svg class="i sm"><use href="#i-compass"/></svg></span><h3>Lập dàn ý</h3><span class="tiny muted spacer mono"><b id="plnCr">0</b> cr</span></div>
+      <div class="ai-h"><span class="ai-mark"><svg class="i sm"><use href="#i-compass"/></svg></span><h3>Lập dàn ý</h3></div>
       <div class="ai-b">
         <div class="blk">
           <div class="sect-l"><span class="lbl">Tác tử</span><span class="spacer tiny muted">giai đoạn · <b style="color:var(--ink)">dàn ý</b></span></div>
@@ -1207,7 +1204,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="blk" style="margin-top:22px">
           <div class="sect-l"><span class="lbl">Đã được giữ</span></div>
           <div id="errKept"></div>
-          <div class="kv"><span>Credit đã trừ phiên này</span><b class="num" id="errSpent">293</b></div>
           <div class="kv"><span>Số dư hiện tại</span><b class="num" id="errBal">947</b></div>
           <p class="tiny muted" style="margin-top:8px">Chương 1–6 của bạn không bị thay đổi.</p>
         </div>
@@ -1225,7 +1221,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
           <div class="stats">
             <div class="stat"><div class="v">3</div><div class="l">chương mới (7–9)</div></div>
             <div class="stat"><div class="v">7.236</div><div class="l">chữ</div></div>
-            <div class="stat"><div class="v">498</div><div class="l">credit</div></div>
             <div class="stat"><div class="v">11:24</div><div class="l">phút chạy nền</div></div>
           </div>
         </div>
@@ -1237,14 +1232,6 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
             <button class="draft" data-doc="c9"><span class="no">09</span><span><div class="tt">Tên thật</div><div class="ds">2.288 chữ · 8,4 <span class="badge b-hatch">đã viết lại 1 lần</span></div></span><span class="go"><svg class="i"><use href="#i-arrow"/></svg></span></button>
           </div>
           <div class="alert" style="margin-top:10px"><svg class="i"><use href="#i-help"/></svg><div><b>Đọc lại rồi gửi duyệt</b><span class="txt">Sửa thẳng trên trang. Nếu bạn sửa, bấm «Đồng bộ» để AI cập nhật lại dữ kiện cho các chương sau.</span></div></div>
-        </div>
-        <div class="blk">
-          <details class="more-d"><summary><span class="lbl">Chi phí theo vai trò</span><span class="spacer tiny muted">498 credit</span></summary>
-          <div class="kv"><span><i class="rg dieu"></i>&nbsp; Điều phối · trọng tài</span><b class="num">41</b></div>
-          <div class="kv"><span><i class="rg kien"></i>&nbsp; Kiến trúc sư</span><b class="num">88</b></div>
-          <div class="kv"><span><i class="rg chap"></i>&nbsp; Chấp bút</span><b class="num">301</b></div>
-          <div class="kv"><span><i class="rg bien"></i>&nbsp; Biên tập</span><b class="num">68</b></div>
-          </details>
         </div>
         <div class="blk">
           <p class="small muted">Kiến trúc sư đã đánh dấu: hết arc 3 → sẵn sàng mở rộng <b style="color:var(--ink)">arc 4</b> theo la bàn truyện.</p>
@@ -1665,7 +1652,7 @@ function show(name, sub) {
   openDoc(doc);
   setView({ start: 'ai', cocreate: 'ai', planning: 'canvas', writing: 'canvas', pause: 'ai', done: 'canvas', error: 'ai' }[st]);
   if (st === 'start') { showHist(false); setMode(mode); setStep(name === 'cfg' ? 3 : 1); statusIdle(); }
-  if (st === 'cocreate') { setStatus(si('<span class="pulse"></span>Tiền đề · đồng sáng tác') + si(`<b class="num" id="sbTurns">0</b> lượt trao đổi`) + si(`<b class="num" id="sbCo">0</b> credit`, 'sx') + si('Chỉ thị: <b class="num" id="sbDir">0</b>/6 mục', 'sx r')); coFlow.start(); }
+  if (st === 'cocreate') { setStatus(si('<span class="pulse"></span>Tiền đề · đồng sáng tác') + si(`<b class="num" id="sbTurns">0</b> lượt trao đổi`) + si('Chỉ thị: <b class="num" id="sbDir">0</b>/6 mục', 'sx r')); coFlow.start(); }
   else coFlow.leave();
   if (st === 'writing') { setFlow('writing'); statusWriting(); }
   if (st === 'planning') { planMade = true; planner.start(); }
@@ -1675,7 +1662,7 @@ function show(name, sub) {
   }
   if (st === 'done') {
     banner('', 'check', '<b>Bản nháp do AI viết.</b> <span class="txt">Đọc lại, sửa thẳng trên trang, đồng bộ nếu có sửa, rồi «Gửi duyệt».</span>');
-    setStatus(si('<span class="pulse off"></span>Hoàn thành') + si('<b>3</b> chương mới') + si('<b>7.236</b> chữ', 'sx') + si('<b>498</b> credit', 'r'));
+    setStatus(si('<span class="pulse off"></span>Hoàn thành') + si('<b>3</b> chương mới') + si('<b>7.236</b> chữ', 'sx'));
   }
   if (st === 'error') renderError(errSub);
   if (name === 'ask') { sim.wait(); openAsk(); }
@@ -1718,7 +1705,7 @@ function statusWriting() {
     si(`<span class="pulse ${waiting ? 'wait' : ''}"></span>Sáng tác · <b id="sbFlow">${waiting ? 'chờ bạn trả lời' : FLOW_VI[flowNow]}</b>`) +
     si(`<span class="chapbar"><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="d"></i><i class="w"></i><i></i></span><b>8/9</b> · mới 2/3`, 'sx') +
     si(`<b class="num" id="wWords">${fmt(W.words)}</b> chữ`, 'sx') +
-    si(`<b class="num" id="wCred">${fmt(W.cr)}</b> credit`, 'r'));
+    '');
 }
 function drawCtx() {
   $('#ctxPct').textContent = `${W.ctx}% · ${W.ctx < 70 ? 'ổn' : W.ctx < 85 ? 'cao' : 'sắp nén'}`;
@@ -1851,7 +1838,8 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
   const down = () => { scroller.scrollTop = scroller.scrollHeight; };
   function add(who, html, c) {
     const m = document.createElement('div'); m.className = 'msg ' + who;
-    m.innerHTML = `<div class="av">${who === 'ai' ? 'AI' : 'L'}</div><div><div class="who">${who === 'ai' ? 'AI điều phối' : 'Bạn'}${c ? `<span class="c">−${c} cr</span>` : ''}</div><div class="txt">${html}</div></div>`;
+    /* compact chat: no avatars or names — your messages are right-aligned bubbles, the AI's are plain text with a faint cost line */
+    m.innerHTML = `<div class="txt">${html}</div>`;
     log.appendChild(m); down(); if (who === 'ai') turns++; return m;
   }
   function init() { if (inited) return; inited = true; history.forEach(([w, t, c]) => add(w, t, c)); }
@@ -1866,7 +1854,6 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
     while (i < text.length && !tok.stopped) { i += 1 + Math.floor(Math.random() * 3); b.textContent = text.slice(0, i); down(); await sleep(22); }
     b.classList.remove('caret');
     const c = tok.stopped ? Math.max(1, Math.round(cost * i / text.length)) : cost;
-    $('.who', m).insertAdjacentHTML('beforeend', `<span class="c">${tok.stopped ? 'đã dừng · ' : ''}−${c} cr</span>`);
     spend(c);
     send.classList.remove('hidden'); stop.classList.add('hidden'); typing = null;
     if (onReply) onReply(c, tok.stopped);
@@ -1896,7 +1883,7 @@ const coChat = makeChat($('#coChat'), {
     'Ghi nhận. Mình đã thêm ý này vào «Chỉ thị sáng tác» để kiến trúc sư cân nhắc khi lập dàn ý.',
     'Được. Nếu muốn đổi một mục cụ thể, bạn sửa thẳng trên trang — mình sẽ đọc lại trước khi viết.',
   ],
-  onReply: c => { coSpent += c; $('#coSpent').textContent = coSpent; const sb = $('#sbCo'); if (sb) sb.textContent = coSpent; const t = $('#sbTurns'); if (t) t.textContent = coChat.turns(); }
+  onReply: c => { coSpent += c; const t = $('#sbTurns'); if (t) t.textContent = coChat.turns(); }
 });
 
 /* scripted co-create: AI asks one question at a time with a choice card (PORT: in the real app these come from the
@@ -1999,7 +1986,7 @@ const coFlow = (() => {
   }
   async function start() {
     const my = ++run; qi = 0; ans = {};
-    coChat.reset(); coSpent = 0; $('#coSpent').textContent = 0;
+    coChat.reset(); coSpent = 0;
     box.classList.add('hidden'); foot.classList.remove('asking', 'done');
     $$('[data-page="dir"] [data-dir]').forEach(e => { e.innerHTML = pend; });
     setReady(0);
@@ -2065,7 +2052,6 @@ const sim = (() => {
     const w = (chunk.match(/ /g) || []).length;
     if (w) { W.words += w; W.cr += w * 0.21; const el = $('#wWords'); if (el) el.textContent = fmt(W.words); }
     if (++tick % 25 === 0) {
-      const c = $('#wCred'); if (c) c.textContent = fmt(W.cr);
       spend(1);
       if (tick % 100 === 0 && W.ctx < 84) { W.ctx++; drawCtx(); const sc = $('#sbCtx'); if (sc) sc.textContent = W.ctx + '%'; }
     }
@@ -2101,9 +2087,9 @@ const planner = (() => {
     const pb = tl.closest('.ai-b'); pb.scrollTop = pb.scrollHeight; return tl.lastElementChild;
   }
   const finishEv = (li, ts) => { li.className = 'ev done'; $('.ic', li).innerHTML = ic('check'); if (ts) $('.tt', li).insertAdjacentHTML('afterend', `<div class="ts">${ts}</div>`); };
-  function pay(n) { cr += n; spend(n); $('#plnCr').textContent = cr; const s = $('#plnCrS'); if (s) s.textContent = cr; }
+  function pay(n) { cr += n; spend(n); }
   function status(txt, wait) {
-    setStatus(si(`<span class="pulse ${wait ? 'wait' : ''}"></span>Dàn ý · <b>${txt}</b>`) + si('Arc 3 · 3 chương', 'sx') + si(`<b class="num" id="plnCrS">${cr}</b> credit`, 'r'));
+    setStatus(si(`<span class="pulse ${wait ? 'wait' : ''}"></span>Dàn ý · <b>${txt}</b>`) + si('Arc 3 · 3 chương', 'sx'));
   }
   function stepsUI(i) { $$('#plnSteps span').forEach((s, k) => { s.className = k < i ? 'd' : k === i ? 'c' : ''; }); }
   function follow(el) { if (curDoc === 'pln') el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
@@ -2114,7 +2100,7 @@ const planner = (() => {
     $('#plnMeta').textContent = 'Kiến trúc sư lập từ yêu cầu của bạn · cập nhật trực tiếp';
     $('#plnReq').textContent = notes.quick.trim() || 'Không có yêu cầu riêng · kiến trúc sư đi theo la bàn truyện';
     $('#plnArch').classList.add('on'); $('#plnSpin').className = 'spin'; $('#plnSpin').textContent = '';
-    tl.innerHTML = ''; cr = 0; $('#plnCr').textContent = 0; stepsUI(0);
+    tl.innerHTML = ''; cr = 0; stepsUI(0);
   }
   function start() {
     reset(); status('kiến trúc sư đang lập');
@@ -2141,7 +2127,7 @@ const planner = (() => {
     stepsUI(STEPS.length); $('#plnArch').classList.remove('on'); $('#plnSpin').className = 'st'; $('#plnSpin').textContent = 'xong';
     $('#plnBadge').className = 'badge b-line'; $('#plnBadge').textContent = 'Đã lập';
     $('#plnMeta').textContent = 'Kiến trúc sư · 3 chương · 2 phục bút được lên lịch trả';
-    ev('done', 'Dàn ý arc 3 · 3 chương', `${cr} credit · <span class="mono">#8</span>`);
+    ev('done', 'Dàn ý arc 3 · 3 chương', '<span class="mono">#8</span>');
     if (curDoc === 'pln') $('#docSub').textContent = 'Kiến trúc sư lập · đã xong';
     $('#plnScrim').classList.remove('hidden');
     if (cfg.review) {
@@ -2391,7 +2377,7 @@ const errs = {
     why: 'Máy chủ truyện trả lỗi định dạng ở chương 4 «Gió bấc», đoạn 12. AI cần đọc đủ 6 chương trước khi viết chương 7 để không lệch nhân vật, nên <b>chưa bắt đầu viết</b>.',
     extra: '<div><div class="lbl" style="margin-bottom:4px">Nạp chương cũ</div><div id="loadSteps"></div></div>', primary: 'Thử nạp lại', secondary: 'Quay lại thiết lập', status: 'Khởi tạo · lỗi phân tích chương 4/6', kept: [], spent: 8, bal: 1232 },
   engine: { t: 't-info', ic: 'pause', title: 'Engine dừng trước khi viết chương mới', bn: ['', 'pause', '<b>Chưa có chương mới nào được viết.</b> <span class="txt">Dàn ý arc 3 đã lập — chỉnh chỉ thị trên trang rồi viết tiếp.</span>'],
-    why: 'Kiến trúc sư đã lập dàn ý arc 3, nhưng điều phối kết thúc lượt mà chưa giao việc cho chấp bút — thường do yêu cầu còn mơ hồ hoặc dàn ý mâu thuẫn với luật riêng. Đã trừ <b>23 credit</b> cho phân tích và dàn ý.',
+    why: 'Kiến trúc sư đã lập dàn ý arc 3, nhưng điều phối kết thúc lượt mà chưa giao việc cho chấp bút — thường do yêu cầu còn mơ hồ hoặc dàn ý mâu thuẫn với luật riêng.',
     extra: '<div class="field"><label for="engReq">Yêu cầu để viết tiếp</label><textarea class="input" id="engReq" rows="3">Viết chương 7 theo dàn ý đã có. Bỏ qua mâu thuẫn về tuổi của Tiểu Đào, lấy theo chương 1.</textarea></div>',
     primary: 'Viết tiếp', secondary: 'Quay lại thiết lập', status: 'Dàn ý · engine dừng · 0 chương mới', kept: [['Dàn ý arc 3 · ch.7–9', 'Đã lập', 'b-line']], spent: 23, bal: 1217 },
   retry: { t: 't-warn', ic: 'wifi', title: 'Model quá tải · đang thử lại 3/7', bn: ['hatch', 'wifi', '<b>Đang thử lại 3/7.</b> <span class="txt">Mất kết nối với model khi viết chương 8 — phần đã viết vẫn còn nguyên.</span>'],
@@ -2407,8 +2393,8 @@ function renderError(k) {
   $('#errCard').innerHTML = `<span class="ic-big">${ic(e.ic, 'lg')}</span><h2>${e.title}</h2><div class="why"><div class="lbl">Lý do</div>${e.why}</div>${e.extra}`;
   $('#errFoot').innerHTML = `<button class="btn primary lg block" id="errPrimary">${e.primary}</button><button class="btn ghost block" id="errSecondary">${e.secondary}</button>`;
   $('#errKept').innerHTML = e.kept.map(([t, s, c]) => `<div class="kv"><span style="color:var(--ink)">${t}</span><span class="badge ${c}">${s}</span></div>`).join('');
-  $('#errSpent').textContent = fmt(e.spent); $('#errBal').textContent = fmt(e.bal);
-  setStatus(si(`<span class="pulse ${e.t === 't-err' ? 'bad' : 'wait'}"></span>${e.status}`) + si(`Đã trừ <b class="num">${fmt(e.spent)}</b> credit`, 'sx') + si(`Số dư <b class="num">${fmt(e.bal)}</b>`, 'r'));
+  $('#errBal').textContent = fmt(e.bal);
+  setStatus(si(`<span class="pulse ${e.t === 't-err' ? 'bad' : 'wait'}"></span>${e.status}`) + si(`Số dư <b class="num">${fmt(e.bal)}</b>`, 'r'));
   const P = $('#errPrimary'), S = $('#errSecondary');
   if (k === 'credit') { P.onclick = () => toast('Mở trang credit'); S.onclick = () => show('done'); }
   if (k === 'load') {
