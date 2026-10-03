@@ -169,7 +169,12 @@ input[type=range]{width:100%;accent-color:var(--ink)}
 .demo-item .n{font-family:var(--mono);font-size:11px;opacity:.6}
 
 .ws{display:grid}
-.ws{grid-template-columns:minmax(0,1fr) 392px;min-height:0;min-width:0;position:relative}
+/* PORT(React): the AI panel width is user-resizable on desktop (drag the panel's left edge, double-click to reset).
+   Persist --ai-w per user (e.g. localStorage / user prefs) and clamp it to [320, 560]px; tablets/mobile ignore it. */
+.ws{grid-template-columns:minmax(0,1fr) var(--ai-w,392px);min-height:0;min-width:0;position:relative}
+.ai-rz{position:absolute;left:-3px;top:0;bottom:0;width:6px;cursor:col-resize;z-index:5;touch-action:none}
+.ai-rz:hover,.ai-rz.on{background:linear-gradient(90deg,transparent 2px,var(--ink) 2px 3px,transparent 3px)}
+body.prestart .ai-rz{display:none}
 .ws.ai-off{grid-template-columns:minmax(0,1fr)}
 .ws.ai-off>.ai{display:none}
 .story-t{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
@@ -321,7 +326,7 @@ details.more-d[open]>summary::after{content:"−"}
 @container cv (max-width:520px){ .page{padding:32px 20px 48px;border-radius:0;border-left:0;border-right:0} .stage{padding:0 0 120px} .ed{font-size:16.5px} .ed h1{font-size:25px} .saved .t{display:none} }
 
 /* ================= AI PANEL ================= */
-aside.ai{container-type:inline-size;container-name:ap;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;min-width:0}
+aside.ai{position:relative;container-type:inline-size;container-name:ap;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;min-width:0}
 .ai>section{display:flex;flex-direction:column;flex:1;min-height:0}
 .ai-h{flex:none;display:flex;align-items:center;gap:8px;padding:0 14px;height:50px;border-bottom:1px solid var(--line)}
 .ai-h h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
@@ -456,6 +461,12 @@ body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{dis
 .sum{border-top:1px solid var(--line)}
 .sum .kv b{font-weight:500;text-align:right;min-width:0}
 .sum .kv>span{flex:none;white-space:nowrap}
+.sum .kv.xp{cursor:pointer;align-items:flex-start}
+.sum .kv.xp>b{position:relative;padding-right:18px}
+.sum .kv.xp>b::after{content:"";position:absolute;right:2px;top:6px;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
+.sum .kv.xp.open>b{display:block;-webkit-line-clamp:unset;overflow:visible;text-align:left}
+.sum .kv.xp.open>b::after{transform:rotate(-135deg);top:9px}
+.sum .kv.xp:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .sum .kv b .rg{margin:0 4px 0 8px;vertical-align:0}
 .wstep .alert{margin-top:10px}
 .wz-f{display:flex;gap:8px}
@@ -483,6 +494,30 @@ body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{dis
 .composer textarea{flex:1;border:0;outline:0;background:transparent;resize:none;min-height:24px;max-height:120px;padding:5px 0;font-size:13.5px;line-height:1.55}
 .composer .btn{height:28px} .composer .btn.icon{width:28px}
 .ready{display:grid;gap:6px}
+/* co-create: AI asks with a choice card in place of the composer (like Claude Code's planning questions) */
+#coFoot.asking .suggests,#coFoot.asking .composer{display:none}
+#coFoot:not(.done) .suggests{display:none}
+.aq{border:1px solid var(--ink);border-radius:10px;padding:12px;display:grid;gap:10px;animation:pop .2s ease}
+.aq-h{display:flex;align-items:center;gap:8px}
+.aq-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--fill);color:var(--fill-ink)}
+.aq-n{margin-left:auto;font-size:11px;color:var(--faint)}
+.aq-t{font-size:14px;font-weight:600;line-height:1.5}
+.aq-t .tiny{font-weight:400}
+.aq-opts{display:grid;gap:4px;max-height:min(46dvh,330px);overflow:auto}
+.aq-o{display:grid;grid-template-columns:20px minmax(0,1fr);gap:9px;align-items:start;text-align:left;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:8px 10px;cursor:pointer;color:var(--ink);width:100%;font:inherit}
+.aq-o:hover,.aq-o:focus-visible,.aq-o:focus-within{border-color:var(--ink);outline:none}
+.aq-o .k{width:20px;height:20px;border-radius:5px;border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.aq-o[aria-checked=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.aq-o[aria-checked=true] .k{background:var(--fill);color:var(--fill-ink);border-color:var(--fill)}
+.aq-o b{display:block;font-size:13px;font-weight:600;line-height:1.45}
+.aq-o b em{font-style:normal;font-weight:500;font-size:10.5px;color:var(--muted);margin-left:6px;border:1px solid var(--line-2);border-radius:4px;padding:0 5px;vertical-align:1px}
+.aq-o small{display:block;font-size:12px;color:var(--muted);line-height:1.45;margin-top:1px}
+.aq-o.other{align-items:center;cursor:text}
+.aq-o.other textarea{border:0;outline:0;background:transparent;font:inherit;font-size:13px;line-height:1.5;color:var(--ink);min-width:0;width:100%;padding:1px 0;resize:none;min-height:0;display:block}
+.aq-f [data-ok]{margin-left:auto}
+@media (max-width:899px){ .aq-f .faint{display:none} }
+.aq-f{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ed .pend{color:var(--faint);font-style:italic}
 .ready .row{font-size:12.5px}
 .ctx-card{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2);font-size:12.5px;display:grid;gap:6px}
 .change{border:1px solid var(--ink);border-radius:8px;padding:10px 12px;display:grid;gap:4px}
@@ -692,6 +727,8 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   body.prestart aside.ai .ai-f{padding:14px 18px}
 }
 
+/* desktop: session status lives at the bottom of the canvas, like an editor status bar */
+@media (min-width:900px){ .canvas>.sbar{order:10;border-bottom:0;border-top:1px solid var(--line);height:28px} }
 /* ================= RESPONSIVE ================= */
 @media (max-width:899px){
   #fbOpen{display:none}
@@ -700,7 +737,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   .wbar{padding:8px 12px}
 }
 @media (max-width:1279px){
-  .ws{grid-template-columns:minmax(0,1fr) 360px}
+  .ws{grid-template-columns:minmax(0,1fr) var(--ai-w,360px)}
   .crumbs .hide-md{display:none}
   .cmdk .t{display:none}
 }
@@ -899,12 +936,13 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
         <div class="nextph" id="ghostNext"><span class="gi"><svg class="i"><use href="#i-sparkle"/></svg></span><div><b>Chương 7 sẽ bắt đầu ở đây</b>AI đọc 6 chương rồi viết tiếp thành bản nháp. Chương gốc được bảo vệ, AI không sửa.</div></div>
       </article>
       <article class="page" data-page="dir"><div class="ed doc" contenteditable="true" spellcheck="false"><h1>Chỉ thị sáng tác</h1><div class="doc-meta" contenteditable="false"><span class="badge b-line">Tài liệu phiên</span>Arc 3 · chương 7–9 · AI soạn trong lúc trò chuyện, bạn sửa trực tiếp</div>
-        <h3>Mục tiêu</h3><p>Vãn Ca và Tạ Trầm gặp lại ở bến Vọng Nguyệt, cùng truy tìm nửa thanh Tuyết Lạc; kết chương 9 bằng việc Tạ Trầm biết thân phận thật của nàng.</p>
-        <h3>Giọng văn</h3><p>Chậm, nhiều không khí; thoại ngắn, ẩn ý. Ít giải thích nội tâm trực tiếp.</p>
-        <h3>Bắt buộc có</h3><p>Cảnh đêm trăng trên thuyền (ch.8). Hồi ức về sư phụ Bạch Uyên. Tiểu Đào đóng vai trò hài nhẹ.</p>
-        <h3>Tránh</h3><p id="dirAvoid">Không để hai người bày tỏ tình cảm rõ ràng trước chương 9.</p>
-        <h3>Phục bút cần trả</h3><p>Vết sẹo trên cổ tay Vãn Ca (ch.2) · Lá thư chưa gửi của Bạch Uyên (ch.5) · Nửa thanh Tuyết Lạc dưới đáy hồ (ch.3).</p>
-        <h3>Dàn ý arc 3</h3><p id="dirOutline">Ch.7 «Ba năm sau» — Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng. Ch.8 «Đêm trăng ở bến Vọng Nguyệt» — gặp lại Tạ Trầm, hắn trao nửa thanh kiếm. Ch.9 «Tên thật» — Tạ Trầm đọc lá thư của Bạch Uyên.</p>
+        <h3>Giọng văn</h3><p>Theo thiết lập phiên: cổ phong, nhịp chậm, thoại ngắn và ẩn ý.</p>
+        <h3>Mốc thời gian</h3><p data-dir="time">Arc 3 mở ba năm sau đêm Vãn Ca rời núi.</p>
+        <h3>Cuộc gặp lại</h3><p data-dir="meet">Vãn Ca gặp lại Tạ Trầm ở bến Vọng Nguyệt — nơi gắn với nửa thanh Tuyết Lạc gieo ở ch.3.</p>
+        <h3>Cú lật cuối arc</h3><p data-dir="twist">Cuối chương 9, Tạ Trầm biết thân phận thật của nàng qua lá thư của Bạch Uyên.</p>
+        <h3>Phục bút cần trả</h3><p data-dir="seeds">Nửa thanh Tuyết Lạc dưới đáy hồ (ch.3) · Lá thư chưa gửi của Bạch Uyên (ch.5).</p>
+        <h3>Tránh</h3><p data-dir="avoid">Không để hai người bày tỏ tình cảm rõ ràng trước chương 9. Không thêm tình địch.</p>
+        <h3>Dàn ý arc 3</h3><p data-dir="outline">Ch.7 «Ba năm sau» — Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng. Ch.8 «Đêm trăng ở bến Vọng Nguyệt» — gặp lại Tạ Trầm, hắn trao nửa thanh kiếm. Ch.9 «Tên thật» — Tạ Trầm đọc lá thư của Bạch Uyên.</p>
       </div></article>
       <article class="page" data-page="cmp"><div class="ed doc" contenteditable="true" spellcheck="false"><h1>La bàn truyện</h1><div class="doc-meta" contenteditable="false"><span class="badge b-line">Kiến trúc sư</span>Hướng dài hạn · dùng khi mở rộng arc mới</div>
         <h3>Đích đến</h3><p>Vãn Ca chấp nhận thân phận truyền nhân Vọng Nguyệt Lâu và tự tay rèn lại Tuyết Lạc — không phải để báo thù, mà để khép lại chuyện cũ của sư phụ.</p>
@@ -966,6 +1004,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
   <!-- ============ RIGHT: AI assistant panel ============ -->
   <div class="aiscrim" id="aiScrim"></div>
   <aside class="ai" id="aiPanel" aria-label="Hồ sơ & AI">
+    <div class="ai-rz" id="aiRz" role="separator" aria-orientation="vertical" aria-label="Kéo để đổi độ rộng" title="Kéo để đổi độ rộng · nhấp đúp để đặt lại"></div>
     <button class="ai-peek" id="aiPeek" aria-expanded="false" aria-controls="aiPanel"><span class="grip" aria-hidden="true"></span><span class="pk"><span class="pulse off" id="peekDot"></span><span id="peekTxt">Hồ sơ &amp; AI</span></span><svg class="i chev"><use href="#i-down"/></svg></button>
     <div class="rail hidden" id="rail"></div>
 
@@ -1026,11 +1065,11 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
     <!-- CO-CREATE -->
     <section data-ai="cocreate" class="hidden" id="coChat">
       <div class="ai-h"><span class="ai-mark"><svg class="i sm"><use href="#i-chat"/></svg></span><h3>Đồng sáng tác</h3>
-        <span class="tiny muted spacer mono"><b id="coSpent">9</b> cr</span>
-        <button class="btn ghost icon" id="coMore" aria-label="Thêm" aria-haspopup="menu"><svg class="i"><use href="#i-more"/></svg></button>
+        <span class="tiny muted spacer mono"><b id="coSpent">0</b> cr</span>
       </div>
       <div class="ai-b"><div class="chat-log" aria-live="polite"></div></div>
-      <div class="ai-f">
+      <div class="ai-f" id="coFoot">
+        <div class="aq hidden" id="coAsk" role="group" aria-label="AI đang hỏi"></div>
         <div class="suggests"><button class="chip"><span class="mono">1</span>Thêm một phản diện mới</button><button class="chip"><span class="mono">2</span>Giữ nhịp chậm, tập trung cảm xúc</button><button class="chip"><span class="mono">3</span>Chương 9 nên có cú lật</button><button class="chip"><span class="mono">4</span>Viết theo góc nhìn Tạ Trầm</button></div>
         <div class="composer">
           <textarea rows="1" placeholder="Nói với AI…" aria-label="Tin nhắn"></textarea>
@@ -1038,7 +1077,7 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
           <button class="btn icon send" aria-label="Gửi"><svg class="i"><use href="#i-send"/></svg></button>
           <button class="btn sm stop hidden"><svg class="i sm"><use href="#i-stop"/></svg>Dừng</button>
         </div>
-        <div class="ready" id="readyBox"><div class="row"><span id="readyTxt">AI cần thêm một chút thông tin</span><b class="num spacer mono" id="readyPct">72%</b></div><div class="meter"><i id="readyBar" style="width:72%"></i></div></div>
+        <div class="ready" id="readyBox"><div class="row"><span id="readyTxt">AI cần thêm một chút thông tin</span><b class="num spacer mono" id="readyPct">0%</b></div><div class="meter"><i id="readyBar" style="width:0%"></i></div></div>
         <button class="btn primary lg block" id="coStart">Bắt đầu viết<svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </section>
@@ -1655,7 +1694,8 @@ function show(name, sub) {
   openDoc(doc);
   setView({ start: 'ai', cocreate: 'ai', planning: 'canvas', writing: 'canvas', pause: 'ai', done: 'canvas', error: 'ai' }[st]);
   if (st === 'start') { showHist(false); setMode(mode); setStep(name === 'cfg' ? 3 : 1); statusIdle(); }
-  if (st === 'cocreate') { coChat.init(); setStatus(si('<span class="pulse"></span>Tiền đề · đồng sáng tác') + si(`<b class="num">${coChat.turns()}</b> lượt trao đổi`) + si(`<b class="num" id="sbCo">${coSpent}</b> credit`, 'sx') + si('Chỉ thị: 6 mục', 'sx r')); }
+  if (st === 'cocreate') { setStatus(si('<span class="pulse"></span>Tiền đề · đồng sáng tác') + si(`<b class="num" id="sbTurns">0</b> lượt trao đổi`) + si(`<b class="num" id="sbCo">0</b> credit`, 'sx') + si('Chỉ thị: <b class="num" id="sbDir">0</b>/6 mục', 'sx r')); coFlow.start(); }
+  else coFlow.leave();
   if (st === 'writing') { setFlow('writing'); statusWriting(); }
   if (st === 'planning') { planMade = true; planner.start(); }
   if (st === 'pause') {
@@ -1733,7 +1773,18 @@ function setStep(n) {
   $('#wzBack').classList.toggle('hidden', n === 1);
   updateStart();
   $('[data-ai="start"] .ai-b[data-sp="new"]').scrollTop = 0;
+  if (n === 3) syncClamp();
 }
+/* long summary values (style & rules, request) collapse to 2 lines; click the row to expand */
+function syncClamp() {
+  $$('.sum .kv').forEach(r => {
+    const b = $('b.clamp', r); if (!b) return;
+    r.classList.remove('open', 'xp'); r.removeAttribute('tabindex'); r.removeAttribute('role');
+    if (b.scrollHeight > b.clientHeight + 2) { r.classList.add('xp'); r.tabIndex = 0; r.setAttribute('role', 'button'); r.setAttribute('aria-expanded', 'false'); }
+  });
+}
+$('.sum').addEventListener('click', e => { const r = e.target.closest('.kv.xp'); if (r) { r.classList.toggle('open'); r.setAttribute('aria-expanded', r.classList.contains('open')); } });
+$('.sum').addEventListener('keydown', e => { const r = e.target.closest('.kv.xp'); if (r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); r.click(); } });
 $('#s2Input').addEventListener('input', e => { notes[mode] = e.target.value; });
 $('#s2Chips').addEventListener('click', e => {
   const c = e.target.closest('.chip'); if (!c) return;
@@ -1795,7 +1846,7 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-close-cfg]') || e.target.id === 'cfgScrim') closeCfg();
 });
 $('#cfgReset').onclick = () => writeModal(DEFAULT_CFG);
-$('#cfgSave').onclick = () => { cfg = readModal(); closeCfg(); updateStart(); toast('Đã lưu thiết lập'); };
+$('#cfgSave').onclick = () => { cfg = readModal(); closeCfg(); updateStart(); syncClamp(); toast('Đã lưu thiết lập'); };
 
 function updateStart() {
   const n = cfg.n, bal = credit;
@@ -1826,8 +1877,8 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
     log.appendChild(m); down(); if (who === 'ai') turns++; return m;
   }
   function init() { if (inited) return; inited = true; history.forEach(([w, t, c]) => add(w, t, c)); }
-  async function reply() {
-    const text = replies[ri % replies.length]; ri++;
+  async function reply() { const text = replies[ri % replies.length]; ri++; return say(text, cost); }
+  async function say(text, cost) {
     send.classList.add('hidden'); stop.classList.remove('hidden');
     const m = add('ai', '<span class="dots"><i></i><i></i><i></i></span>'); const b = $('.txt', m);
     const tok = typing = { stopped: false };
@@ -1841,7 +1892,9 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
     spend(c);
     send.classList.remove('hidden'); stop.classList.add('hidden'); typing = null;
     if (onReply) onReply(c, tok.stopped);
+    return c;
   }
+  function reset() { log.innerHTML = ''; inited = true; turns = 0; ri = 0; if (typing) typing.stopped = true; }
   function submit() {
     const v = ta.value.trim(), box = el.querySelector('.atts'), files = box ? [...box.querySelectorAll('.att')] : [];
     if ((!v && !files.length) || typing) return;
@@ -1856,33 +1909,133 @@ function makeChat(el, { history, replies, onReply, cost = 3 }) {
   });
   stop.onclick = () => { if (typing) typing.stopped = true; };
   $$('.suggests .chip', el).forEach(c => c.onclick = () => { ta.value = c.textContent.replace(/^\d/, ''); ta.focus(); });
-  return { init, turns: () => turns };
+  return { init, turns: () => turns, add, say, reset };
 }
-let coSpent = 9;
+let coSpent = 0;
 const coChat = makeChat($('#coChat'), {
-  history: [
-    ['ai', 'Chào bạn! Mình đã đọc 6 chương — 2 arc. Chương 6 kết ở đêm Vãn Ca rời núi. Arc 3 nên bắt đầu ngay sau đó, hay nhảy thời gian?', 2],
-    ['me', 'Nhảy ba năm. Mình muốn cuộc gặp lại với Tạ Trầm thật chậm, không bày tỏ gì cả.'],
-    ['ai', 'Hiểu rồi. Mình đặt cuộc gặp ở bến Vọng Nguyệt (chương 8), vì ở chương 3 bạn đã gieo nửa thanh Tuyết Lạc dưới đáy hồ — Tạ Trầm có thể là người vớt nó lên. Đã ghi vào «Chỉ thị sáng tác» trên canvas. Chương 9 có cần một cú lật không?', 4],
-    ['me', 'Có, cuối chương 9 Tạ Trầm phải biết nàng là ai.'],
-    ['ai', 'Tốt. Còn một điểm: có điều gì bạn muốn AI tuyệt đối tránh trong arc này không?', 3],
-  ],
+  history: [],
   replies: [
-    'Đã ghi vào mục «Tránh» trên tài liệu. Mình thấy đã đủ thông tin để kiến trúc sư lập dàn ý arc 3 — bạn có thể sửa chỉ thị trên canvas rồi bấm «Bắt đầu viết».',
-    'Ý hay. Mình đã cập nhật chỉ thị để kiến trúc sư cân nhắc khi lập dàn ý.',
+    'Ghi nhận. Mình đã thêm ý này vào «Chỉ thị sáng tác» để kiến trúc sư cân nhắc khi lập dàn ý.',
+    'Được. Nếu muốn đổi một mục cụ thể, bạn sửa thẳng trên trang — mình sẽ đọc lại trước khi viết.',
   ],
-  onReply: (c, stopped) => {
-    coSpent += c; $('#coSpent').textContent = coSpent; const sb = $('#sbCo'); if (sb) sb.textContent = coSpent;
-    if (stopped) return;
-    const f = $('#dirAvoid');
-    f.textContent = 'Không để hai người bày tỏ tình cảm rõ ràng trước chương 9. Không thêm tình địch. Không dùng từ ngữ hiện đại.';
-    if (curDoc !== 'dir') openDoc('dir', { keepScroll: true });
-    f.scrollIntoView({ block: 'center', behavior: 'smooth' }); flash(f);
-    $('#readyBar').style.width = '100%'; $('#readyPct').textContent = '100%';
-    $('#readyTxt').innerHTML = `<span class="row" style="font-weight:600">${ic('check', 'sm')}AI thấy đã đủ thông tin</span>`;
-    if (innerWidth < 900) toast('Chỉ thị đã cập nhật trên trang');
-  }
+  onReply: c => { coSpent += c; $('#coSpent').textContent = coSpent; const sb = $('#sbCo'); if (sb) sb.textContent = coSpent; const t = $('#sbTurns'); if (t) t.textContent = coChat.turns(); }
 });
+
+/* scripted co-create: AI asks one question at a time with a choice card (PORT: in the real app these come from the
+   co-create agent's <ask> blocks; options, recommended flag and multi-select are part of that payload) */
+const CO_Q = [
+  { key: 'time', h: 'Mốc thời gian', t: 'Arc 3 bắt đầu từ lúc nào?', opts: [
+    { l: 'Ba năm sau', d: 'Vãn Ca trở về khi mọi thứ đã đổi khác; hợp nhịp chậm.', rec: 1 },
+    { l: 'Ngay đêm rời núi', d: 'Nối liền chương 6, căng thẳng cao ngay từ đầu.' },
+    { l: 'Mười năm sau', d: 'Bước nhảy lớn, cần kể bù phần đã qua.' }],
+    doc: v => `Arc 3 mở ${v[0].toLowerCase()} — tính từ đêm Vãn Ca rời núi.`,
+    ack: v => `Được — arc 3 mở ${v[0].toLowerCase()}. Mình đã ghi vào mục «Mốc thời gian». Câu tiếp theo về cuộc gặp lại.` },
+  { key: 'meet', h: 'Cuộc gặp lại', t: 'Vãn Ca gặp lại Tạ Trầm ở đâu?', opts: [
+    { l: 'Bến Vọng Nguyệt', d: 'Gắn với nửa thanh Tuyết Lạc bạn gieo ở chương 3.', rec: 1 },
+    { l: 'Cổng núi Ly Sơn', d: 'Nơi hai người chia tay ở chương 6 — một vòng khép.' },
+    { l: 'Quán trà của Tiểu Đào', d: 'Gặp giữa đông người, khó nói thật.' }],
+    doc: v => `Vãn Ca gặp lại Tạ Trầm ở ${lc1(v[0])}.`,
+    ack: v => `Hay. Cuộc gặp ở ${lc1(v[0])} — mình đặt nó vào chương 8 để có hai chương dẫn trước. Giờ đến kết arc.` },
+  { key: 'twist', h: 'Cú lật', t: 'Cuối arc 3 nên có cú lật nào?', opts: [
+    { l: 'Tạ Trầm biết thân phận thật của nàng', d: 'Khép arc bằng lá thư của Bạch Uyên (ch.5).', rec: 1 },
+    { l: 'Bạch Uyên chưa chết', d: 'Mở hướng lớn cho arc 4, nhưng dễ phá nhịp chậm.' },
+    { l: 'Không lật, giữ một khoảng lặng', d: 'Kết arc nhẹ, để dư âm.' }],
+    doc: v => `Cuối chương 9: ${v[0]}.`,
+    ack: v => `Đã chốt cú lật cuối arc. Mình thấy vài phục bút cũ có thể trả trong arc này — bạn chọn giúp.` },
+  { key: 'seeds', h: 'Phục bút', multi: 1, t: 'Arc này trả những phục bút nào?', opts: [
+    { l: 'Nửa thanh Tuyết Lạc (ch.3)', d: 'Hợp với cuộc gặp ở bến.', rec: 1 },
+    { l: 'Lá thư chưa gửi (ch.5)', d: 'Hợp với cú lật thân phận.', rec: 1 },
+    { l: 'Vết sẹo cổ tay (ch.2)', d: '6 chương chưa nhắc tới — nên trả sớm hoặc để arc 4.' }],
+    doc: v => v.join(' · ') + '.',
+    ack: v => `Ghi nhận ${v.length} phục bút. Câu cuối: những điều mình cần tránh.` },
+  { key: 'avoid', h: 'Tránh', multi: 1, t: 'Có điều gì AI tuyệt đối tránh trong arc này?', opts: [
+    { l: 'Bày tỏ tình cảm rõ ràng trước chương 9', rec: 1 },
+    { l: 'Thêm tình địch' },
+    { l: 'Từ ngữ hiện đại' }],
+    doc: v => 'Không: ' + v.map(x => x.charAt(0).toLowerCase() + x.slice(1)).join(' · ') + '.',
+    ack: () => 'Đủ rồi. Mình phác «Dàn ý arc 3» ở cuối tài liệu. Bạn đọc lại, sửa thẳng trên trang nếu cần, rồi bấm «Bắt đầu viết».' },
+];
+const lc1 = t => t.charAt(0).toLowerCase() + t.slice(1);
+const dirF = k => $(`[data-page="dir"] [data-dir="${k}"]`);
+const DIR_DEFAULT = Object.fromEntries($$('[data-page="dir"] [data-dir]').map(e => [e.dataset.dir, e.innerHTML]));
+const coFlow = (() => {
+  const box = $('#coAsk'), foot = $('#coFoot');
+  let qi = 0, run = 0, pick = new Set(), ans = {};
+  const pend = '<span class="pend">Chưa bàn · AI sẽ hỏi bạn</span>';
+  function setReady(p, done) {
+    $('#readyBar').style.width = p + '%'; $('#readyPct').textContent = p + '%';
+    $('#readyTxt').innerHTML = done ? `<span class="row" style="font-weight:600">${ic('check', 'sm')}AI thấy đã đủ thông tin</span>` : p ? 'AI cần thêm một chút thông tin' : 'AI đang tìm hiểu ý bạn';
+    const d = $('#sbDir'); if (d) d.textContent = $$('[data-page="dir"] [data-dir]').filter(e => !e.querySelector('.pend')).length;
+  }
+  function fill(k, text) {
+    const e = dirF(k); e.textContent = text;
+    if (curDoc !== 'dir') openDoc('dir', { keepScroll: true });
+    if (!isSheet()) e.scrollIntoView({ block: 'center', behavior: 'smooth' }); flash(e);
+  }
+  function render() {
+    const q = CO_Q[qi], n = q.opts.length;
+    pick = new Set();
+    box.innerHTML = `<div class="aq-h"><span class="aq-tag">${q.h}</span><span class="aq-n mono">${qi + 1}/${CO_Q.length}</span></div>
+      <div class="aq-t">${q.t}${q.multi ? '<span class="tiny muted"> · chọn nhiều</span>' : ''}</div>
+      <div class="aq-opts" role="${q.multi ? 'group' : 'radiogroup'}">${q.opts.map((o, k) => `<button class="aq-o" data-k="${k}" role="${q.multi ? 'checkbox' : 'radio'}" aria-checked="false"><span class="k">${k + 1}</span><span><b>${o.l}${o.rec ? '<em>Đề xuất</em>' : ''}</b>${o.d ? `<small>${o.d}</small>` : ''}</span></button>`).join('')}
+        <label class="aq-o other"><span class="k">${n + 1}</span><textarea rows="1" placeholder="Khác — tự nhập, Enter để gửi" aria-label="Câu trả lời khác"></textarea></label></div>
+      <div class="aq-f"><button class="btn ghost sm" data-skip>Để AI tự quyết</button><span class="tiny faint spacer">${q.multi ? 'Bấm số để chọn nhiều' : `Bấm 1–${n} để chọn`}</span>${q.multi ? '<button class="btn sm" data-ok disabled>Xác nhận</button>' : ''}</div>`;
+    foot.classList.add('asking'); box.classList.remove('hidden');
+    const ta = $('textarea', box);
+    ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 120) + 'px'; });
+    ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); const v = ta.value.trim(); if (v) answer([v], false, true); } });
+    const sc = $('.ai-b', $('#coChat')); sc.scrollTop = sc.scrollHeight;
+  }
+  function toggle(k) {
+    const q = CO_Q[qi], b = $(`.aq-o[data-k="${k}"]`, box); if (!b) return;
+    if (!q.multi) return answer([q.opts[k].l]);
+    pick.has(k) ? pick.delete(k) : pick.add(k); b.setAttribute('aria-checked', pick.has(k));
+    $('[data-ok]', box).disabled = !pick.size;
+  }
+  box.addEventListener('click', e => {
+    const o = e.target.closest('.aq-o[data-k]'); if (o) return toggle(+o.dataset.k);
+    if (e.target.closest('[data-skip]')) return answer(null, true);
+    if (e.target.closest('[data-ok]')) return answer([...pick].sort().map(k => CO_Q[qi].opts[k].l));
+  });
+  document.addEventListener('keydown', e => {
+    if (box.classList.contains('hidden') || state !== 'cocreate' || e.target.closest('textarea, input, [contenteditable="true"]') || e.metaKey || e.ctrlKey || e.altKey) return;
+    const n = CO_Q[qi].opts.length;
+    if (/^[1-9]$/.test(e.key) && +e.key <= n + 1) { e.preventDefault(); +e.key === n + 1 ? $('textarea', box).focus() : toggle(+e.key - 1); }
+    else if (e.key === 'Enter' && CO_Q[qi].multi && pick.size) { e.preventDefault(); $('[data-ok]', box).click(); }
+  });
+  async function answer(vals, skipped, typed) {
+    const q = CO_Q[qi], my = run;
+    box.classList.add('hidden'); foot.classList.remove('asking');
+    const v = skipped ? q.opts.filter(o => o.rec).map(o => o.l) : vals;
+    coChat.add('me', `<span class="muted">${q.h} · </span>` + (skipped ? 'Để AI tự quyết' : esc(vals.join(' · '))));
+    ans[q.key] = v;
+    await coChat.say((skipped ? `Mình chọn «${v.join(', ')}». ` : typed ? 'Ghi nhận ý của bạn. ' : '') + q.ack(v), 2);
+    if (my !== run) return;
+    fill(q.key, typed ? v[0] : q.doc(v));
+    qi++; setReady(Math.round(qi / CO_Q.length * 90));
+    if (qi < CO_Q.length) render(); else finish();
+  }
+  function finish() {
+    const meet = (ans.meet || ['Bến Vọng Nguyệt'])[0], twist = (ans.twist || [''])[0];
+    fill('outline', `Ch.7 «${(ans.time || ['Ba năm sau'])[0]}» — Vãn Ca về Ly Sơn trong vai khách lạ; Tiểu Đào nhận ra nàng. Ch.8 «Gặp lại» — Vãn Ca và Tạ Trầm gặp nhau ở ${lc1(meet)}. Ch.9 «Khép arc» — ${lc1(twist)}.`);
+    setReady(100, true); foot.classList.add('done'); openDoc('dir', { keepScroll: true });
+  }
+  async function start() {
+    const my = ++run; qi = 0; ans = {};
+    coChat.reset(); coSpent = 0; $('#coSpent').textContent = 0;
+    box.classList.add('hidden'); foot.classList.remove('asking', 'done');
+    $$('[data-page="dir"] [data-dir]').forEach(e => { e.innerHTML = pend; });
+    setReady(0);
+    const note = (notes.co || '').trim();
+    if (note) coChat.add('me', esc(note));
+    await coChat.say((note ? 'Mình đã đọc ý bạn và 6 chương — 2 arc; chương 6 kết ở đêm Vãn Ca rời núi. ' : 'Mình đã đọc 6 chương — 2 arc; chương 6 kết ở đêm Vãn Ca rời núi. ') + `Mình hỏi bạn ${CO_Q.length} câu ngắn để chốt hướng arc 3. Chọn một phương án, tự gõ, hoặc để mình tự quyết.`, 2);
+    if (my !== run || state !== 'cocreate') return;
+    render();
+  }
+  /* leaving co-create mid-way: fields not discussed fall back to the architect's defaults */
+  function leave() { run++; $$('[data-page="dir"] [data-dir]').forEach(e => { if (e.querySelector('.pend')) e.innerHTML = DIR_DEFAULT[e.dataset.dir]; }); box.classList.add('hidden'); foot.classList.remove('asking'); }
+  return { start, leave };
+})();
 $('#coStart').onclick = () => show('writing');
 const quitCo = () => confirmBox({ title: 'Bỏ phiên đồng sáng tác?', body: `Cuộc trò chuyện và tài liệu «Chỉ thị sáng tác» sẽ bị xoá. ${coSpent} credit đã dùng cho các lượt trao đổi không được hoàn lại.`, no: 'Ở lại', yes: 'Bỏ phiên', onYes: () => { show('start'); toast('Đã bỏ phiên'); } });
 
@@ -2164,6 +2317,7 @@ $('#topMore').onclick = e => popMenu(e.currentTarget, [
 $('#docMore').onclick = e => {
   const it = [];
   if (state === 'planning') it.push({ ic: 'stop', t: 'Dừng lập dàn ý', danger: true, run: confirmStop }, '-');
+  if (state === 'cocreate') it.push({ ic: 'trash', t: 'Bỏ phiên đồng sáng tác', danger: true, run: quitCo }, '-');
   if (state === 'writing' || state === 'ask' || state === 'pause' || (state === 'error' && errSub === 'retry')) it.push({ ic: 'stop', t: 'Dừng hẳn, giữ chương đã viết', danger: true, run: confirmStop }, '-');
   if (state === 'done' && needSync) it.push({ ic: 'sync', t: 'Đồng bộ chỉnh sửa', k: '/sync', run: doSync });
 
@@ -2176,7 +2330,6 @@ $('#docMore').onclick = e => {
   popMenu(e.currentTarget, it);
 };
 $('#startMore').onclick = e => popMenu(e.currentTarget, [{ ic: 'clock', t: 'Các phiên trước', k: '4', run: () => showHist(true) }, { ic: 'sliders', t: 'Thiết lập phiên', run: openCfg }]);
-$('#coMore').onclick = e => popMenu(e.currentTarget, [{ ic: 'sliders', t: 'Thiết lập phiên', run: openCfg }, '-', { ic: 'trash', t: 'Bỏ phiên', danger: true, run: quitCo }]);
 let fs = 17.5, pw = 760;
 const applyRead = () => { root.style.setProperty('--fs', fs + 'px'); root.style.setProperty('--pw', pw + 'px'); };
 $('#readBtn').onclick = e => popMenu(e.currentTarget, [
@@ -2189,6 +2342,15 @@ $('#readBtn').onclick = e => popMenu(e.currentTarget, [
 ]);
 function setFocus(on) { document.body.classList.toggle('focus', on); $('#focusBtn').setAttribute('aria-pressed', on); $('#focusBtn').title = on ? 'Thoát tập trung (Esc)' : 'Tập trung'; if (on) toast('Chế độ tập trung · Esc để thoát'); }
 $('#focusBtn').onclick = () => setFocus(!document.body.classList.contains('focus'));
+/* AI panel resize (desktop). PORT(React): same behaviour as a controlled width state + pointer capture. */
+(() => {
+  const rz = $('#aiRz'), ws = $('#ws'); let x0 = null, w0 = 0;
+  rz.addEventListener('pointerdown', e => { if (isSheet()) return; x0 = e.clientX; w0 = $('#aiPanel').getBoundingClientRect().width; rz.classList.add('on'); rz.setPointerCapture(e.pointerId); document.body.style.cursor = 'col-resize'; });
+  rz.addEventListener('pointermove', e => { if (x0 === null) return; ws.style.setProperty('--ai-w', Math.min(560, Math.max(320, w0 + x0 - e.clientX)) + 'px'); });
+  const end = () => { if (x0 === null) return; x0 = null; rz.classList.remove('on'); document.body.style.cursor = ''; };
+  rz.addEventListener('pointerup', end); rz.addEventListener('pointercancel', end);
+  rz.addEventListener('dblclick', () => ws.style.removeProperty('--ai-w'));
+})();
 function setAiOpen(on) { $('#ws').classList.toggle('ai-off', !on); $('#aiTog').setAttribute('aria-pressed', on); }
 $('#aiTog').onclick = () => setAiOpen($('#ws').classList.contains('ai-off'));
 $('#palInput').addEventListener('input', () => { palSel = 0; renderPal(); });
