@@ -452,6 +452,7 @@ body.focus aside.ai,body.focus #aiTog,body.focus #navBtn,body.focus .aiscrim{dis
 .wrapc{flex-wrap:wrap;margin-top:10px}
 .sum{border-top:1px solid var(--line)}
 .sum .kv b{font-weight:500;text-align:right;min-width:0}
+.sum .kv>span{flex:none;white-space:nowrap}
 .sum .kv b .rg{margin:0 4px 0 8px;vertical-align:0}
 .credit-box{margin-top:14px;border:1px solid var(--line);border-radius:8px;padding:12px;display:grid;gap:6px}
 .credit-box b{font-size:15px}
@@ -666,6 +667,18 @@ body.asking #askDlg{max-height:calc(100dvh - 84px)}
 .cmd .mono{color:var(--faint)}
 .toast{position:fixed;left:50%;bottom:44px;transform:translateX(-50%) translateY(16px);background:var(--fill);color:var(--fill-ink);padding:9px 16px;border-radius:6px;font-size:13px;z-index:130;opacity:0;transition:all .2s;pointer-events:none;max-width:calc(100vw - 32px);box-shadow:var(--shadow-lg)}
 .toast.show{opacity:1;transform:translateX(-50%)}
+
+/* before a session starts (desktop/tablet): no canvas, the start wizard is a centred dialog — like the TUI welcome and the mobile sheet */
+@media (min-width:900px){
+  body.prestart .canvas{visibility:hidden}
+  body.prestart .ws{grid-template-columns:minmax(0,1fr);background:var(--canvas)}
+  body.prestart .ws>aside.ai{display:flex;position:absolute;left:50%;top:clamp(20px,9vh,88px);transform:translateX(-50%);width:min(580px,calc(100% - 48px));max-height:calc(100% - clamp(20px,9vh,88px) - 24px);border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--shadow-lg);overflow:hidden;z-index:30;animation:dlgin .25s ease}
+  @keyframes dlgin{from{opacity:0;transform:translate(-50%,10px)}}
+  body.prestart aside.ai .ai-h{height:56px;padding:0 18px}
+  body.prestart aside.ai .wz{padding:12px 18px 14px}
+  body.prestart aside.ai .ai-b{padding:20px 18px}
+  body.prestart aside.ai .ai-f{padding:14px 18px}
+}
 
 /* ================= RESPONSIVE ================= */
 @media (max-width:1279px){
@@ -1608,7 +1621,7 @@ document.addEventListener('keydown', e => { if (e.altKey && (e.key === 'ArrowRig
 /* ================= STATE MACHINE ================= */
 function show(name, sub) {
   closeAsk(true); cfClose(); closeCfg(); closePal(); closePop(); closeDiag(); closeExp(); closeDailies(); clearInterval(retryTimer);
-  setAiOpen(!['writing', 'ask', 'editpause', 'dailies', 'planning'].includes(name)); editPaused = false; planner.stop(); planHeld = false;
+  setAiOpen(!['writing', 'ask', 'editpause', 'dailies', 'planning'].includes(name)); document.body.classList.toggle('prestart', name === 'start' || name === 'cfg'); editPaused = false; planner.stop(); planHeld = false;
   $('#pauseEditT').textContent = 'Tạm dừng để sửa'; $('#pauseEdit use').setAttribute('href', '#i-pause');
   const st = (name === 'ask' || name === 'editpause' || name === 'dailies') ? 'writing' : name === 'cfg' ? 'start' : name;
   state = name === 'ask' ? 'ask' : st;
