@@ -10,4 +10,4 @@ You might also find my work on my alternative GitHub account:
 - **[Alternative GitHub Account](https://github.com/tql247)**
 
 ### Site
-https://7inh.site
+[7inh.site](https://www.7inh.site/)
